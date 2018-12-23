@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">コンボマスター</string>
+    <string name="action_settings">セットアップ</string>
+    <string name="time_limit">操作時間:</string>
+
+
+    <string name="settings">設定</string>
+    <string name="orb_type">ドロップタイプ:</string>
+    <string name="sound_onoff">BGM:</string>
+    <string name="step">手数</string>
+    <string name="skill_1">スキル1</string>
+    <string name="skill_2">スキル2</string>
+    <string name="skill_3">スキル3</string>
+    <string name="skill_4">スキル4</string>
+    <string name="skill_5">スキル5</string>
+    <string name="skill_6">スキル6</string>
+    <string name="drop_type">ドロップタイプ:</string>
+    <string name="skills">スキル</string>
+    <string name="arrow">" > "</string>
+    <string name="str_basic">基本設定</string>
+    <string name="str_training">設定</string>
+    <string name="str_skills">スキルのセットアップ</string>
+    <string name="training_mode">鍛錬モード</string>
+    
+    <string name="chooser_title">画像を選択</string>
+    
+    <string name="str_monster_box">モンスターBox</string>
+    <string name="str_team">チーム</string>
+    
+    <string name="menu_report">【チュートリアル】</string>
+    <string name="menu_training_mode">【鍛錬モード】</string>
+    <string name="menu_single_mode">【ドロップモード】</string>
+    <string name="menu_calculate_mode">【ダメージ計算器】</string>
+    <string name="menu_calculate_7x6_mode">【盤面7×6】</string>
+    <string name="menu_calculate_5x4_mode">【盤面5×4】</string>
+    <string name="menu_simulator_mode">[シミュレータ]</string>
+    <string name="menu_cop_mode">[協力プレイモード]</string>
+    <string name="menu_settings_mode">【ゲーム設定】</string>
+    <string name="menu_monster_box">【チーム設定】</string>
+    <string name="menu_quit_mode">【ゲームを終了】</string>
+    
+    <string name="all_orbs_transform">全ドロップ変化させる:</string>
+    <string name="color_change">変化</string>
+    <string name="error_same_type">同じドロップすることはできません</string>
+    <string name="at_least_one">エラー</string>
+    
+    <string name="second">秒</string>
+    <string name="avg_combo">"平均コンボ "</string>
+    
+    <string name="show_result_dialog_directly">表示結果</string>
+    <string name="show_path_if_available">ショー パス\n(リプレイに必要)</string>
+    
+    <string name="no_">ナンバー</string>
+    <string name="lv">レベル</string>
+    <string name="hp_">HP+</string>
+    <string name="max99">99</string>
+    <string name="atk_">ATK+</string>
+    <string name="rec_">RCV+</string>
+    <string name="awoken">覚醒數</string>
+    <string name="max10">10</string>
+    <string name="str_create">作る</string>
+    <string name="hp">HP</string>
+    <string name="atk">攻擊力</string>
+    <string name="rcv">回復力</string>
+    <string name="confirm">確認する</string>
+    <string name="leader_skill">リーダー\nスキル</string>
+    <string name="awoken_skills">覚醒</string>
+    <string name="potential_awoken_skills">潛在覚醒</string>
+    <string name="super_awoken_skills">超覚醒</string>
+    
+    <string name="add_monster">モンスターを追加</string>
+    <string name="data_loading">データのロード中</string>
+    
+    <string name="no_such_id" formatted="false">No.%d モンスターを見つけることができません(まだ追加しませんでした)</string>
+    
+    <string name="str_color_weakness">色覚サポート</string>
+    
+    <string name="str_cop">協力 ダンジョン</string>
+    
+    <!--  query -->
+    <string name="query_name">名稱</string>
+    <string name="query_effect">效果</string>
+    <string name="query_awoken">覚醒</string>
+    <string name="query_attr">屬性</string>
+    <string name="query_type">類型</string>
+    
+    <string name="str_no_">"ナンバー "</string>
+    <string name="str_lv_">"レベル "</string>
+    
+    <string name="str_monster_no">モンスターナンバー</string>
+    
+    <string name="str_leader">リーダー</string>
+    <string name="str_same_leader">同じリーダー</string>
+    <string name="str_friend_leader">チームメイト</string>
+    
+    <string name="str_power">攻擊力</string>
+    
+    <string name="str_recovery">回復力</string>
+    
+    <string name="str_total_hp">HP</string>
+    
+    <string name="str_leader_skill">リーダー\nスキル</string>
+    <string name="str_active_skill">スキル1</string>
+    <string name="str_active_skill2">スキル2</string>
+    <string name="str_friend_leader_skill">リーダー\nスキル</string>
+
+    <string name="str_edit">編集</string>
+    <string name="str_done">OK</string>
+    
+    <string name="str_damage" formatted="false">合計ダメージ: %s \n回復: %s</string>
+    <string name="str_restraining">敵:</string>
+    
+    <string name="str_title_damage">ダメージ</string>
+    <string name="str_title_combo">コンボ</string>
+    
+    <string name="str_hyper">マックス</string>
+    <string name="str_fix">修正する</string>
+    
+    <string name="str_set_bgm">選択ファイル</string>
+    <string name="str_reset_bgm">リセット</string>
+    
+    <string name="need_network">画像をダウンロードするためにネットワークを必要とする</string>
+    <string name="updating">アップデート…</string>
+    <string name="check_update">アップデートをチェックする…</string>
+    <string name="update">アップデート</string>
+    <string name="downloading">ダウンロード…</string>
+    
+    <string name="power_up_text" formatted="false">"%dターンの間、攻撃力が%s倍になる"</string>
+    <string name="ls_not_support">サポートしていません</string>
+    <string name="ls_hp_condition" formatted="false">HP %s %d％ </string>
+    <string name="ls_hp_condition_full">HP満タン時に、</string>
+    <string name="ls_all_monster">"全ての味方の"</string>
+    <string name="ls_multi_mode">マルチプレイ時</string>
+    <string name="ls_monster_type" formatted="false">"%sタイプ(属性)の"</string>
+    <string name="ls_combo_factor" formatted="false">%dコンボ以上で全モンスターの攻撃力が%1.2f倍になる。</string>
+    <string name="ls_combo_factor_addition" formatted="false">以降1コンボごとに(最大%dコンボで)倍率が%1.1fずつ上昇(最大で%1.1f倍になる)。</string>
+    <string name="ls_become_x" formatted="false">%sが%s倍になる</string>
+    <string name="ls_color_factor" formatted="false">%sドロップの中から、%d種類を消した同時攻撃で、攻撃力が%1.1f倍になる。</string>
+    <string name="ls_color_factor_addition" formatted="false">以降1色ごとに倍率が%1.2fずつ上昇、最大で%1.1f倍になる 。</string>
+    <string name="ls_multi_orb_combo_addition" formatted="false">%d個%sドロップをつなげると味方の攻撃力が上がり(%1.2f倍)。+1個+%1.2f倍、最大%1.2f倍になる(%d個以上)</string>
+    <string name="ls_multi_orb_combo" formatted="false">%d個%sドロップをつなげると味方の攻撃力が上がり(%1.2f倍)</string>
+    <string name="ls_multi_orb_shield" formatted="false">受けるダメージを減らす(%d％)</string>
+    <string name="ls_target_orb_combo" formatted="false">%dコンボ以上(%s含める)、攻撃力が%1.1f倍になる。</string>
+    <string name="lst_reduce_damage" formatted="false">受けるダメージを減らす(%d％)、%s属性モンスターから。</string>
+    <string name="lst_reduce_by_hp_full" formatted="false">HP満タン時に、受けるダメージを激減(%d％減)。</string>
+    <string name="lst_reduce_by_hp_50" formatted="false">HP%d％以下で受けるダメージを%d％激減。</string>
+    <string name="lst_reduce_by_hp_50_up" formatted="false">HP%d％以上で、受けるダメージを%d％激減。</string>
+    <string name="lst_do_konjo" formatted="false">HPが0になる攻撃を受けてもふんばることがある HPが最大HPの%d％以上で発動 (%d％)</string>
+    <string name="lst_heal" formatted="false">ドロップを消したターン、HPが回復する(使用モンスターの回復力×%d％)</string>
+    <string name="lst_used_skill">スキルを使用したターン、</string>
+    <string name="lst_five_orbs" formatted="false">強化ドロップを含めて%d個消した属性の攻撃力が%1.1f倍。</string>
+        <!--  fix this sometimes, should be lst_ not as_ -->
+    <string name="as_unlock">ドロップをロック解除する。</string>
+    <string name="as_cross">回復の5個十字消しでダメージを半減。</string>
+    <string name="as_cross_atk" formatted="false">回復の5個十字消しでダメージを半減、攻撃力が%.2f倍。</string>
+    <string name="lst_cross_atk_def" formatted="false">回復の5個十字消しでダメージを%d%%減、攻撃力が%.2f倍。</string>
+    <string name="lst_hp_recover" formatted="false">ドロップを消した時、回復力×%d倍のHPを回復。</string>
+    <string name="lst_time_extend" formatted="false">ドロップ操作時間を%.1f秒延長。</string>
+    <string name="lst_remove_n" formatted="false">%sの%d個消しで</string>
+    <string name="lst_cross_attack" formatted="false">%sの5個十字消しで攻撃力が%.2f倍。</string>
+    <string name="lst_more_remove" formatted="false">ドロップを%d個以下で消せないが、%s属性の攻撃力が%.1f倍。</string>
+    <string name="lst_attack" formatted="false">ドロップを消した時、攻撃力×%d倍の追い打ち。</string>
+    <string name="lst_no_drop" formatted="false"> 落ちコンしなくなる。</string>
+    <string name="ls_combo_rcv" formatted="false">%dコンボ以上で全モンスターの回復力が%1.2f倍になる。</string>
+    <string name="ls_combo_rcv_addition" formatted="false">Each additional combo up to %d adds %1.1fx RCV for a possible total of %1.1fx.</string>
+    <string name="lst_rcv" formatted="false">回復力は%1.2f倍。</string>
+    <string name="ls_combo_shield" formatted="false">%dコンボ以上で、 ダメージを%d%%減</string>
+    <string name="lst_drop_no_more" formatted="false">パズル後の残りドロップ数が%d個以下で攻撃力が%.2f倍。</string>
+
+    <string name="single_target">敵1体</string>
+    <string name="multiple_targets">敵全体</string>
+    <string name="as_attack_skill" formatted="false">%s属性、自分の攻撃力×%d倍で攻撃する(%s)。</string>
+    <string name="as_power_up" formatted="false">%dターンの間、%s属性の攻撃力が%s倍</string>
+    <string name="as_type_up" formatted="false">%dターンの間、%sタイプの攻撃力が%s倍</string>
+    <string name="as_transform" formatted="false">全ドロップを%sドロップに変化させる</string>
+    <string name="as_color_change" formatted="false">%sドロップを%sドロップに変化させる</string>
+    <string name="as_change_the_world" formatted="false">%d秒間、時を止めてドロップを動かせる</string>
+    <string name="as_gravity" formatted="false">敵のHPを%d%%減らす</string>
+    <string name="as_add_plus" formatted="false">%sドロップの攻撃力を強化する</string>
+    <string name="as_one_line_transform" formatted="false">%s%sドロップに変化</string>
+    <string name="as_reduce_def" formatted="false">%dターンの間、敵の防御力を減らし(%d%%)</string>
+    <string name="as_delay" formatted="false">敵の攻撃頻度をほんの少しさげ(%dターン)</string>
+    <string name="as_random_change" formatted="false">(%d個)ランダムで%sドロップを生成。</string>
+    <string name="as_random_change_restrict" formatted="false">(%d個)%s以外のドロップから%sドロップを生成。</string>
+    <string name="as_time_extend" formatted="false">%dターンの間、ドロップ移動可能時間が延びる(%.1f秒).</string>
+    <string name="as_move_time_x" formatted="false">%dターンの間、ドロップ移動可能時間が延びる(%.1f倍).</string>
+    <string name="as_drop_rate" formatted="false">%dターンの間、%sドロップが少し落ちやすくなる(約%d％増)</string>
+    <string name="as_target_random" formatted="false">%sランダムで%sドロップに変化</string>
+	<string name="as_power_up_by_awoken" formatted="false">%dターンの間、チーム内の[%s]の覚醒数に応じて攻撃力が上昇。(倍率は覚醒数×%d%%)</string>
+	<string name="as_add_combo" formatted="false">%dターンの間、%dコンボ加算される。</string>
+    <string name="as_void_absorb" formatted="false">%dターンの間、ダメージ吸収を無効化する。</string>
+
+    <string name="as_bind_recover" formatted="false">バインド状態を%dターン回復する.</string>
+	<string name="as_bind_recover_type1" formatted="false">"HPを回復力×%d倍回復する"</string>
+	<string name="as_bind_recover_type2" formatted="false">"HPを%d回復する."</string>
+	<string name="as_bind_recover_type3" formatted="false">"HPを最大HPの%d％分回復する."</string>
+	<string name="as_reduce_shield" formatted="false">%dターンの間、受けるダメージを%d％減らす.</string>
+	<string name="as_reduce_shield_color" formatted="false">%dターンの間、%s属性からのダメージを100％減らす</string>
+	<string name="as_skill_boost" formatted="false">自分以外の味方スキルが%dターン溜まる</string>
+    <string name="as_skill_boost_random" formatted="false">自分以外の味方スキルが%d~%dターン溜まる</string>
+	<string name="as_direct_damage_single" formatted="false">敵1体に%dの固定ダメージ。</string>
+	<string name="as_direct_damage_all" formatted="false">敵全体に%dの固定ダメージ。</string>
+	<string name="as_clear_board">ランダムでドロップを入れ替える。</string>
+	<string name="as_counter_attack" formatted="false">%dターンの間、%dx攻撃を受けると%s属性で反撃</string>
+	<string name="as_change_attribute" formatted="false">敵全体が%s属性に変化。(バリアの影響は受けない)</string>
+	<string name="as_add_lock" formatted="false">%sドロップをロック。</string>
+	<string name="as_hp_1">HPが1になる.</string>
+	<string name="as_switch_leader">サブにいる時にリーダーと入れ替わる もう1度使うと、サブに戻る。</string>
+	<string name="as_recover_up" formatted="false">%dターンの間、回復力が%.2f倍になり</string>
+	<string name="as_drain" formatted="false">"、 HPを回復（%d%%ダメージ）。"</string>
+
+	<string name="str_defense">防御力: </string>
+	<string name="str_update">アップデート</string>
+	<string name="reset_combo">リセット</string>
+	<string name="title_confirm">確認する</string>
+	<string name="question_reset_combo">コンボカウントをリセットし、よろしいですか？</string>
+	
+	<string name="str_temp_modify">一時的にタイマーを変更</string>
+	
+    <string name="str_top">Y</string>
+    <string name="str_left">X</string>
+    <string name="str_width">幅</string>
+    <string name="str_height">高度</string>
+    <string name="str_save">セーブ</string>
+    <string name="str_analysis">分析位置</string>
+    <string name="str_setup">セットアップ</string>
+    <string name="str_dont_set">分析上の問題が発生していなかった場合は、分析を設定する必要はありません</string>
+    
+	<string name="challenge_mode">チャレンジモード</string>
+	<string name="str_bind_monster">バインドモンスター</string>
+	<string name="str_swap_member">リーダー交換</string>
+	<string name="str_no_change">交換しません</string>
+	<string name="str_member">メンバー</string>
+	
+    <string name="str_cb_hp_condition">HPコンディションを使う</string>
+    <string name="str_if_uncheck_hp">(チェックを外すと、損傷が最大ATK係数によって計算された場合)</string>
+
+    <string name="str_skill_fired">このターン、\nスキルが使用され</string>
+    
+    <!-- 
+    <string name="str_backup_restore">Backup/Restore\nMonster Box</string>
+    <string name="str_backup">Backup</string>
+     -->
+    <string name="str_web_url">友人からのよりよい解決策を見つける.</string>
+    <string name="str_generate">URL生成...</string>
+     
+    <string name="str_backup_restore">バックアップ/リストア</string>
+    <string name="str_backup">バックアップ</string>
+    <string name="str_restore">リストア</string>
+    <string name="null_awoken_mode">覚醒スキル無効</string>
+    <string name="current_version">裏・極限の闘技場 » 裏双極の女神を追加する(部分的に実装する)\n現在のバージョン: </string>
+    
+    <string name="str_continue_drop">ドロップモード</string>
+    <string name="str_fullscreen">全画面表示</string>
+    <string name="str_restart_app">(アプリケーションを再起動する必要があります)</string>
+    <string name="str_search">検索</string>
+    <string name="str_filter">フィルタ</string>
+    <string name="str_rare">レア: </string>
+    <string name="str_cost">コスト: </string>
+    <string name="str_attr1"> -- 属性 -- </string>
+    <string name="str_type1"> -- タイプ --</string>
+    <string name="select_type"> -- 選択タイプ -- </string>
+    <string name="str_type">タイプ: </string>
+    <string name="str_attr">属性: </string>
+    <string name="str_include_attr2">副属性も含める</string>
+    <string name="str_confirm_delete">本当に売却してもよろしいですか?</string>
+    <string name="str_backup_path" formatted="false">バックアップファイルはここに位置しています: \n %s</string>
+    <string name="str_input_path">ファイル名を入力:</string>
+    <string name="backup_success">バックアップ完了: </string>
+    <string name="backup_fail">失敗したバックアップ: </string>
+    <string name="restore_success">復元完了、アプリケーションを再起動してください。</string>
+    <string name="restore_fail">復元に失敗しました: </string>
+    <string name="str_no_backup_files">ファイルを見つけることができません</string>
+    <string name="str_file_exists">ファイルが存在します、あなたはそれをオーバーライトしますか? (はい: オーバーライトする  いいえ: シリアル番号を追加)</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+  <string name="str_backing_up">バックアップ…</string>
+  <string name="str_restoring">リストア…</string>
+  <string name="str_set_path">セットアップ</string>
+  <string name="str_cannot_write">あなたの入力は書き込み可能ではありません</string>
+  <string name="str_reduce_shield">% シールド</string>
+  <string name="str_half_shield">ハーフ\nシールド</string>
+  <string name="str_damage_absorb">属性吸収</string>
+  <string name="str_enemy_type">タイプ</string>
+  <string name="str_title_advanced_setup">セットアップ</string>
+  <string name="str_need_album_app">お使いのデバイスには、アルバムアプリがありません、プレイストアから一つをインストールしでください</string>
+  <string name="str_need_music_app">お使いのデバイスには、音楽アプリがありません、プレイストアから一つをインストールしでください</string>
+  <string name="special_mode">【特殊】ダンジョン</string>
+  <string name="str_has_new" formatted="false">%s個新しいモンスターデータは、発見されました、あなたは今更新しますか？</string>
+  <string name="str_path">ファイルパス:</string>
+  
+  <string name="sort">ソート</string>
+  <string name="na">未指定</string>
+  <string name="asc">正順</string>
+  <string name="desc">逆順</string>
+  <string name="condition01">攻撃力</string>
+  <string name="condition02">HP</string>
+  <string name="condition03">回復力</string>
+  <string name="condition04">レベル</string>
+  <string name="condition05">コスト</string>
+  <string name="condition06">レア</string>
+  <string name="condition07">属性</string>
+  <string name="condition08">副属性</string>
+  <string name="condition09">タイプ</string>
+  <string name="condition10">副タイプ</string>
+  <string name="condition11">+值</string>
+  <string name="priority1">第一優先</string>
+  <string name="priority2">第二優先</string>
+  <string name="priority3">第三優先</string>
+  <string name="priority4">第四優先</string>
+  <string name="priority5">第五優先</string>
+  
+  <string name="no_data_found">データが見つかりません、あなたはフィルタ条件をリセットして、再試行してください可能性があります。</string>
+  <string name="str_still_working">この機能は、建設中です。</string>
+  
+  <string name="str_keep_ratio">画面比率を保ちます</string>
+  <string name="str_keep_ratio_warning_restart_app">オフにすると、シーンのサイズが変更されますが、縦横比は保持されません, アプリを再起動する必要があります</string>
+  <string name="title_potential_awoken">潛在覚醒</string>
+  
+  <string name="sound">サウンド: </string>
+  <string name="str_sound_file">交換オーブサウンドファイルを選択し、同じパスにコンボ音を入れてください(ファイル名combo1.wav combo2.wav…など)\n
+      プログラムは自動にコンボサウンドをロードします(存在する場合)。
+      </string>
+  <string name="str_orb_shining">輝き効果</string>
+  <string name="str_load_from_url">URLからクイックセットアップ</string>
+  <string name="str_load_by_filter">フィルタによるクイックセットアップ</string>
+  
+    <string name="str_297">297</string>
+    <string name="str_0">+0</string>
+    <string name="str_replace_to">データを保存 </string>
+    <string name="str_loading">読み込んでいます</string>
+    <string name="str_saving">セーブ</string>
+    <string name="str_quick_setup">ウィザード</string>
+    <string name="title_input_url">入力されたURL</string>
+    <string name="str_how_to_use_it">
+        ガイドラインを見るにはここを押してください.\nサポートWebサイト: www.puzzledragonx.com and www.loglesslove.net and pad.skyozora.com\nYou could send me other team simulator web links, I\'ll try to add it to support list if possible.
+    </string>
+    <string name="str_filter_hint">
+        これは簡単です、ちょうどそれを試してみてください:)
+    </string>
+    
+    <string name="game_over">ゲームオーバー</string>
+    <string name="use_magic_stone">再試行する？</string>
+    <string name="congraduation">Congraduation!!!Used: %d stone(s)</string>
+    <string name="need_network_1st">最初にデータをダウンロードするためにネットワークを使用する必要が</string>
+    <string name="select_stage">ステージを選択し</string>
+    
+  <string name="lang">jp</string>
+  
+    <string name="dialog_skill_1" formatted="false">スキル1: %s (CD: %d)</string>
+    <string name="dialog_skill_2" formatted="false">スキル2: %s (CD: %d)</string>
+    <string name="in_turns" formatted="false">あと%dターン</string>
+    <string name="full_charge" formatted="false">Fully charged in %d turn(s).</string>
+    <string name="use_skill">\n\n使用</string>
+    
+  <string name="str_load_by_padherderr">PadHerderからのクイックセットアップ</string>
+    <string name="str_padherder_hint">
+クイックユーザー名を入力することで設定（https://www.padherder.com/）\n モンスターボックス（サイズ：400）よりも大きなデータサイズが場合は、最初に高い優先度と高いレアを追加することを選択します。
+    </string>
+    <string name="add_by_padherder">ユーザー名の入力</string>
+    <string name="successful">インポートが成功したとイメージがまだバックグラウンドでダウンロードされ、すぐに見られないかもしれません。</string>
+    <string name="box_full">データをインポートするための利用可能なモンスターボックスのスペースがありません。</string>
+    
+    <string name="move_to_stage">ステージ＃に移動？</string>
+    <string name="move_error">ステージ数よりも大きい前段または入力＃に移動することはできません。</string>
+    <string name="need_read_storage">このアプリは、スクリーンショットにアクセスしてチームデータをsdcardに保存するためのREAD / WRITEストレージ権限が必要です。</string>
+    <string name="as_turn_recover" formatted="false">%dターンの間、最大HPの%d％分回復。</string>
+    <string name="orb_any"> </string>
+</resources>

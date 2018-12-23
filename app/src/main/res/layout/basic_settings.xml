@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:padding="@dimen/fragment_padding" >
+<LinearLayout
+   	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:gravity="center_horizontal|top"
+    >
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+
+		<TextView
+			android:id="@+id/textView1"
+			android:layout_width="@dimen/text_width_settings"
+			android:layout_height="wrap_content"
+			android:text="@string/time_limit" />
+
+		<Spinner
+			android:id="@+id/drop_time"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:entries="@array/time_list" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+
+		<TextView
+			android:id="@+id/textView2"
+			android:layout_width="@dimen/text_width_settings"
+			android:layout_height="wrap_content"
+			android:text="@string/orb_type" />
+
+		<Spinner
+			android:id="@+id/orb_type"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:entries="@array/orb_list"
+			android:spinnerMode="dialog" />
+	</LinearLayout>
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+
+		<TextView
+			android:id="@+id/textView4"
+			android:layout_width="@dimen/text_width_settings"
+			android:layout_height="wrap_content"
+			android:text="@string/show_result_dialog_directly" />
+
+		<CheckBox
+			android:id="@+id/show_directly"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:enabled="true" />
+	</LinearLayout>
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+
+		<TextView
+			android:layout_width="@dimen/text_width_settings"
+			android:layout_height="wrap_content"
+			android:text="@string/str_analysis" />
+
+		<TextView
+			android:id="@+id/analysis_rect"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+
+		<Button
+			android:id="@+id/setup_analysis"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/str_setup" />
+
+		<Button
+			android:id="@+id/reset_analysis"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/str_reset" />
+	</LinearLayout>
+
+	<TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:text="@string/str_dont_set" />
+
+  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="@dimen/text_width_settings"
+            android:layout_height="wrap_content"
+            android:text="@string/str_backup_restore" />
+
+        <Button android:id="@+id/btn_backup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_backup" />
+        <Button android:id="@+id/btn_restore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_restore" />
+    </LinearLayout>
+    
+  <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+  <TextView android:id="@+id/backup_path" 
+  	android:layout_width="wrap_content"
+  	android:layout_height="wrap_content"
+  	android:text="@string/str_backup_path"
+  	/>
+  <Button android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/btn_set_path"
+      android:text="@string/str_set_path"
+      />
+    </LinearLayout>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="@dimen/text_width_settings"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_onoff" />
+
+        <Button android:id="@+id/btn_bgm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_set_bgm" />
+        
+        <Button android:id="@+id/btn_bgm_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_reset_bgm" />
+
+    </LinearLayout>
+
+  <TextView android:id="@+id/bgm_path" 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/str_path"
+    />
+  
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="@dimen/text_width_settings"
+            android:layout_height="wrap_content"
+            android:text="@string/sound" />
+
+        <Button android:id="@+id/btn_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_set_bgm" />
+        
+        <Button android:id="@+id/btn_sound_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_reset_bgm" />
+
+    </LinearLayout>
+<LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+  <TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/str_sound_file"
+    />
+  <TextView android:id="@+id/sound_path" 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/str_path"
+    />
+  </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="@dimen/text_width_settings"
+            android:layout_height="wrap_content"
+            android:text="@string/str_fullscreen" />
+
+        <CheckBox
+            android:id="@+id/cb_fullscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        	android:text="@string/str_restart_app" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="@dimen/text_width_settings"
+            android:layout_height="wrap_content"
+            android:text="@string/str_keep_ratio" />
+
+        <CheckBox
+            android:id="@+id/cb_keep_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true" />
+
+    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        	android:text="@string/str_keep_ratio_warning_restart_app" />
+	
+  
+  	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+
+		<TextView
+			android:id="@+id/textView5"
+			android:layout_width="@dimen/text_width_settings"
+			android:layout_height="wrap_content"
+			android:text="@string/str_color_weakness" />
+
+		<ToggleButton
+			android:id="@+id/color_weakness"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="false" />
+	</LinearLayout>
+
+</LinearLayout>
+</ScrollView>

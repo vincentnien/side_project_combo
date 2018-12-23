@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/card"
+        android:padding="@dimen/fragment_padding" >
+
+        
+        <include android:id="@+id/description_transform"
+            layout="@layout/transform_list"
+            android:visibility="gone" />
+
+        <include android:id="@+id/description_stance"
+            layout="@layout/stance_detail"
+            android:visibility="gone" />
+</LinearLayout>

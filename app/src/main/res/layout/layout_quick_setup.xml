@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical" >
+    
+    
+    
+    <Button android:id="@+id/load_from_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_load_from_url"
+         />
+    
+    <TextView android:id="@+id/how_to_use_it"
+        android:text="@string/str_how_to_use_it"
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp" />
+
+    <Button android:id="@+id/load_by_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_load_by_filter"
+         />
+    
+    <TextView android:text="@string/str_filter_hint"
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp" />
+    
+    <Button android:id="@+id/load_by_padherder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_load_by_padherderr"
+         />
+    
+    <TextView android:text="@string/str_padherder_hint"
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp" />
+
+</LinearLayout>

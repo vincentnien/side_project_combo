@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="orb_list">
+    	   <item>プリセット</item>
+    	   <item>パズル＆ドラゴンズ</item>
+    	   <item>Tower of Saviors</item>
+    </string-array>
+    
+    <string-array name="tmp_time_list">
+        <item>変更しない</item>
+        <item>無制限</item>
+        <item>2.0</item>
+        <item>2.5</item>
+        <item>3.0</item>
+        <item>3.5</item>
+        <item>4.0</item>
+        <item>4.5</item>
+        <item>5.0</item>
+        <item>5.5</item>
+        <item>6.0</item>
+        <item>6.5</item>
+        <item>7.0</item>
+        <item>7.5</item>
+        <item>8.0</item>
+        <item>8.5</item>
+        <item>9.0</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+    <string-array name="time_list">
+           <item>2 秒</item>
+           <item>2.5 秒</item>
+           <item>3 秒</item>
+           <item>3.5 秒</item>
+           <item>4 秒</item>
+           <item>4.5 秒</item>
+           <item>5 秒</item>
+           <item>5.5 秒</item>
+           <item>6 秒</item>
+           <item>6.5 秒</item>
+           <item>7.0 秒</item>
+           <item>7.5 秒</item>
+           <item>8.0 秒</item>
+           <item>8.5 秒</item>
+           <item>9.0 秒</item>
+           <item>9.5 秒</item>
+           <item>10 秒</item>
+           <item>無制限</item>
+    </string-array>
+    <string-array name="awoken_skills">
+        <item>HP強化</item>
+        <item>攻撃強化</item>
+        <item>回復強化</item>
+        <item>火ダメージ軽減</item>
+        <item>水ダメージ軽減</item>
+        <item>木ダメージ軽減</item>
+        <item>光ダメージ軽減</item>
+        <item>闇ダメージ軽減</item>
+        <item>自動回復</item>
+        <item>バインド耐性</item>
+        <item>暗闇耐性</item>
+        <item>お邪魔耐性</item>
+        <item>毒耐性</item>
+        <item>火ドロップ強化</item>
+        <item>水ドロップ強化</item>
+        <item>木ドロップ強化</item>
+        <item>光ドロップ強化</item>
+        <item>闇ドロップ強化</item>
+        <item>操作時間延長</item>
+        <item>バインド回復</item>
+        <item>スキルブースト</item>
+        <item>火属性強化</item>
+        <item>水属性強化</item>
+        <item>木属性強化</item>
+        <item>光属性強化</item>
+        <item>闇属性強化</item>
+        <item>2体攻撃</item>
+        <item>スキル封印耐性</item>
+        <item>None</item>
+        <item>回復ドロップ強化</item>
+        <item>神キラー</item>
+        <item>マシンキラー</item>
+        <item>マルチブースト</item>
+        <item>悪魔キラー</item>
+        <item>ドラゴンキラー</item>
+        <item>Balance キラー</item>
+        <item>Attacker キラー</item>
+        <item>Physical キラー</item>
+        <item>Healer キラー</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>コンボ強化</item>
+    </string-array>
+    <array name="skills">
+        <item>全ドロップ変化系</item>
+        <item>ドロップ変化系</item>
+        <item>チェンジ・ザ・ワールド</item>
+    </array>
+    <string-array name="orb_type">
+        <item>闇</item>
+        <item>火</item>
+        <item>回復</item>
+        <item>光</item>
+        <item>水</item>
+        <item>木</item>
+        <item>毒</item>
+        <item>お邪魔</item>
+        <item>猛毒</item>
+        <item>Bomb</item>
+    </string-array>
+    
+    <string-array name="power_up">
+        <item>HP</item>
+        <item>攻擊力</item>
+        <item>回復力</item>
+    </string-array>
+    
+    <string-array name="monster_type">
+        <item>ドラゴン</item>
+        <item>悪魔</item>
+        <item>バランス</item>
+        <item>攻撃</item>
+        <item>体力</item>
+        <item>回復</item>
+        <item>神</item>
+        <item>進化用</item>
+        <item>強化合成</item>
+        <item>特別保護</item>
+        <item>None</item>
+        <item>マシン</item>
+    </string-array>
+    <string-array name="line_position">
+        <item>最上段の横1列を</item>
+        <item>真中の横1列を</item>
+        <item>最下段の横1列を</item>
+        <item>左端縦1列を</item>
+        <item>右端縦1列を</item>
+        <item>第2横列を</item>
+        <item>第4横列を</item>
+        <item>第2縦列を</item>
+        <item>第3縦列を</item>
+        <item>第4縦列を</item>
+        <item>第5縦列を</item>
+    </string-array>
+    <string-array name="stage_power_up">
+        <item>強化なし</item>
+        <item>火屬性強化1.5x</item>
+        <item>水屬性強化1.5x</item>
+        <item>木屬性強化1.5x</item>
+        <item>光屬性強化1.5x</item>
+        <item>闇屬性強化1.5x</item>
+        <item>ドラゴン強化 1.5x</item>
+        <item>悪魔強化1.5x</item>
+        <item>バランス強化1.5x</item>
+        <item>攻撃強化1.5x</item>
+        <item>回復強化1.5x</item>
+        <item>神強化1.5x</item>
+        <item>体力強化1.5x</item>
+        <item>マシン強化1.5x</item>
+        <item>6★強化 3x</item>
+    </string-array>
+    <string-array name="game_mode">
+        <item>ノーマル ダンジョン</item>
+        <item>チャレンジモード</item>
+        <item>スペシャル ダンジョン</item>
+        
+    </string-array>
+    
+    <string-array name="stage_list">
+        <item>裏・極限の闘技場 » 裏双極の女神</item>
+        <item>6月のクエスト » チャレンジLv10(覚醒無効)</item>
+        <item>極限の闘技場-双極の女神3</item>
+        <item>ソティス（闘技場1, 2, 3）</item>
+        <item>ゼウス＝ドラゴン降臨</item>
+        <item>ヘラ＝ドラゴン降臨</item>
+        <item>マシンアテナ降臨</item>
+        <item>チャレンジダンジョンレベル10（第34回）</item>
+        <item>超絶決戦(ボスのみ)(Full SB)</item>
+        <item>チャレンジダンジョンレベル9（第32回）</item>
+        <item>降臨-ゼウス（+297）</item>
+        <item>降臨-ヘラ（＋297）</item>
+        <item>超極限ドラゴンラッシュ！（壊滅級）</item>
+        <item>超極限ドラゴンラッシュ！（超絶地獄級）</item>
+        <item>マシンゼウス降臨！【回復なし】</item>
+        <item>マシンヘラ降臨！</item>
+        <item>月曜ダンジョン-鉄腕広場</item>
+    	<item>火曜ダンジョン-黄金兵</item>
+    	<item>木曜ダンジョン-夢見洞</item>
+    	<item>金曜ダンジョン-天獄塔</item>
+    	<item>極限デビルラッシュ-超絶地獄級</item>
+    	<item>極限デビルラッシュ-絶地獄級</item>
+    	<item>極限の闘技場-双極の女神</item>
+    	<item>極限の闘技場-双極の女神2</item>
+    	<item>チャレンジダンジョン！28-Lv10</item>
+    	<item>伝説の雪渓 - 氷山の霜龍</item>
+    	<item>ハヌマーン降臨！白猿臣 超地獄級</item>
+        <item>伝説の大地-天元の黒龍 </item>
+        <item>星空の神域-神々の王 </item>
+    </string-array>
+</resources>

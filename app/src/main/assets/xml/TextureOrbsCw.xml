@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texture version="1" file="TextureOrbsCw.png" type="bitmap" width="859" height="96" pixelformat="RGBA_4444" minfilter="linear" magfilter="linear" wrapt="clamp" wraps="clamp" premultiplyalpha="false">
+    <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker -->
+    <!-- $TexturePacker:SmartUpdate:6b759049f282a9f90eb403df294ad21a:6590ae965c3fb50dbb2a5f62e06092e7:8acdac8851301bfd92008e002bd99dca$ -->
+    <textureregion id="0" src="dark.png" x="2" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="1" src="enhanced_poison.png" x="92" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="2" src="fire.png" x="182" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="3" src="heart.png" x="272" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="4" src="jammar.png" x="362" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="5" src="light.png" x="452" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="6" src="lock.png" x="812" y="2" width="45" height="45" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="45" srcheight="45"/>
+    <textureregion id="7" src="plus.png" x="812" y="49" width="45" height="45" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="45" srcheight="45"/>
+    <textureregion id="8" src="poison.png" x="542" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="9" src="water.png" x="632" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="10" src="wood.png" x="722" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+</texture>

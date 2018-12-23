@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding" >
+    
+
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/skill_1" />
+
+        <Spinner android:id="@+id/skill1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/skills"
+            />
+
+    </LinearLayout>
+    <include android:id="@+id/layout_skill_1"
+        layout="@layout/skill_setting" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/skill_2" />
+
+        <Spinner android:id="@+id/skill2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/skills"
+            />
+
+    </LinearLayout>
+    <include android:id="@+id/layout_skill_2"
+        layout="@layout/skill_setting" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/skill_3" />
+
+        <Spinner android:id="@+id/skill3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/skills"
+            />
+
+    </LinearLayout>
+    <include android:id="@+id/layout_skill_3"
+        layout="@layout/skill_setting" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/skill_4" />
+
+        <Spinner android:id="@+id/skill4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/skills"
+            />
+
+    </LinearLayout>
+    <include android:id="@+id/layout_skill_4"
+        layout="@layout/skill_setting" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/skill_5" />
+
+        <Spinner android:id="@+id/skill5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/skills"
+            />
+
+    </LinearLayout>
+    <include android:id="@+id/layout_skill_5"
+        layout="@layout/skill_setting" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/skill_6" />
+
+        <Spinner android:id="@+id/skill6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/skills"
+            />
+
+    </LinearLayout>
+    <include android:id="@+id/layout_skill_6"
+        layout="@layout/skill_setting" />
+    </LinearLayout>
+</ScrollView>

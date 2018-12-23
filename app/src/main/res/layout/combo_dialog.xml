@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="320dp"
+	android:orientation="vertical" >
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:id="@+id/orb2_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/fire" >
+			</TextView>
+
+			<TextView
+				android:id="@+id/orb5_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/water" >
+			</TextView>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:id="@+id/orb6_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/wood" >
+			</TextView>
+
+			<TextView
+				android:id="@+id/orb3_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/heart" >
+			</TextView>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:id="@+id/orb4_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/light" >
+			</TextView>
+
+			<TextView
+				android:id="@+id/orb1_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/dark" >
+			</TextView>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:id="@+id/orb7_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/poison" >
+			</TextView>
+
+			<TextView
+				android:id="@+id/orb8_text"
+				style="@style/style_score_text"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.5"
+				android:drawableLeft="@drawable/jammar" >
+			</TextView>
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/total_combo"
+			style="@style/style_score_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center" />
+
+	<Button
+		android:id="@+id/btn_ok"
+		style="?android:attr/buttonBarButtonStyle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@android:string/yes" />
+
+</LinearLayout>

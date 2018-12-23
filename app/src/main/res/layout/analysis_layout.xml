@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	 >
+	
+    <ImageView android:id="@+id/image"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scaleType="fitXY"
+		/>
+
+	
+    <ImageView android:id="@+id/crop"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/rect"
+		android:alpha="0.3"
+		/>
+
+    <LinearLayout android:id="@+id/layout_buttons" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <Button android:id="@+id/load_image"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/chooser_title"
+		android:onClick="onLoadImage"
+		android:layout_weight="0.5"
+	/>
+    <Button android:id="@+id/save_loc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/str_save"
+        android:onClick="onSaveLoc"
+        android:layout_weight="0.5"
+    />
+</LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_top"
+        android:layout_below="@id/layout_buttons"
+        android:background="#CC000000"
+    	>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="@android:color/primary_text_dark"
+        android:text="@string/str_left" />
+    <SeekBar
+    	android:id="@+id/crop_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:layout_weight="1"
+        android:paddingRight="20dp"
+    	/>
+    <Button android:id="@+id/x_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        />
+    <Button android:id="@+id/x_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_left"
+        android:layout_below="@id/layout_top"
+        android:background="#CC000000"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="@android:color/primary_text_dark"
+        android:text="@string/str_top" />
+    <SeekBar
+        android:id="@+id/crop_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:layout_weight="1"
+        android:paddingRight="20dp"
+        />
+    <Button android:id="@+id/y_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        />
+    <Button android:id="@+id/y_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        />
+    </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_width"
+        android:layout_below="@id/layout_left"
+        android:background="#CC000000"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_width"
+        android:textColor="@android:color/primary_text_dark"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" />
+    <SeekBar
+        android:id="@+id/crop_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:layout_weight="1"
+        android:paddingRight="20dp"
+        />
+    <Button android:id="@+id/w_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        />
+    <Button android:id="@+id/w_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        />
+    </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_height"
+        android:layout_below="@id/layout_width"
+        android:background="#CC000000"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_height"
+        android:textColor="@android:color/primary_text_dark"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"/>
+    <SeekBar
+        android:id="@+id/crop_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:layout_weight="1"
+        android:paddingRight="20dp"
+        />
+    <Button android:id="@+id/h_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        />
+    <Button android:id="@+id/h_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        />
+    </LinearLayout>
+</RelativeLayout>

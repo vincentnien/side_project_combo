@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+
+
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        applicationId "com.a30corner.combomaster"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 210
+        versionName "3.9.3"
+    }
+    signingConfigs {
+        release {
+            storeFile file('D:\\dropbox\\Dropbox\\keystore\\combomaster.keystore')
+            storePassword 'ghempaxy'
+            keyAlias 'combomaster'
+            keyPassword 'ghempaxy'
+        }
+    }
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+    // This is important, it will run lint checks but won't abort build
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    //testCompile 'junit:junit:4.12'
+    api 'com.android.support:appcompat-v7:26.1.0'
+    api 'io.reactivex:rxandroid:1.2.1'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    api 'io.reactivex:rxjava:1.2.0'
+    // And ProGuard rules for RxJava!
+    api 'com.artemzin.rxjava:proguard-rules:1.2.0.0'
+    api 'org.jsoup:jsoup:1.9.2'
+    api 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    api 'com.google.code.gson:gson:2.8.0'
+    api 'com.viewpagerindicator:library:2.4.1@aar'
+    api 'com.google.android.gms:play-services-analytics:15.0.2'
+    api 'com.google.android.gms:play-services-ads:15.0.1'
+    api 'com.squareup.retrofit:retrofit:1.8.0'
+    api project(':andEngine')
+}

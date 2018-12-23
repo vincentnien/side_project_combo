@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:gravity="center_horizontal" >
+
+        
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal"
+            android:background="@drawable/card"
+            android:gravity="center_horizontal" >
+
+        
+        <ImageButton android:id="@+id/maws_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
+
+        <ImageButton android:id="@+id/maws_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
+        
+        <ImageButton android:id="@+id/maws_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
+        
+        <ImageButton android:id="@+id/maws_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
+        
+        <ImageButton android:id="@+id/maws_05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
+        <ImageButton android:id="@+id/maws_06"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal" 
+            android:gravity="center_horizontal">
+
+        
+        <ImageButton android:id="@+id/skill_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken01"
+            />
+
+        <ImageButton android:id="@+id/skill_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken02"
+            />
+        
+        <ImageButton android:id="@+id/skill_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken03"
+            />
+        
+        <ImageButton android:id="@+id/skill_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken04"
+            />
+        
+        <ImageButton android:id="@+id/skill_05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken05"
+            />
+        
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal" >
+
+        
+        <ImageButton android:id="@+id/skill_06"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken06"
+            />
+
+        <ImageButton android:id="@+id/skill_07"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken07"
+            />
+        
+        <ImageButton android:id="@+id/skill_08"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken08"
+            />
+        
+        <ImageButton android:id="@+id/skill_09"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken09"
+            />
+        
+        <ImageButton android:id="@+id/skill_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken10"
+            />
+
+        <ImageButton android:id="@+id/skill_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken11"
+            />
+    </LinearLayout>
+    
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal" >
+
+
+
+        <ImageButton android:id="@+id/skill_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken12"
+            />
+        
+        <ImageButton android:id="@+id/skill_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken13"
+            />
+
+        <ImageButton android:id="@+id/skill_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken14"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
+
+
+
+        <ImageButton android:id="@+id/skill_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken15"
+            />
+
+        <ImageButton android:id="@+id/skill_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken16"
+            />
+
+
+        <ImageButton android:id="@+id/skill_17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken17"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
+
+
+        <ImageButton android:id="@+id/skill_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken18"
+            />
+
+        <ImageButton android:id="@+id/skill_19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken19"
+            />
+        <ImageButton android:id="@+id/skill_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken20"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+
+        <ImageButton android:id="@+id/skill_21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken21"
+            />
+
+        <ImageButton android:id="@+id/skill_22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken22"
+            />
+        <ImageButton android:id="@+id/skill_23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken23"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
+
+
+        <ImageButton android:id="@+id/skill_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken24"
+            />
+
+        <ImageButton android:id="@+id/skill_25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken25"
+            />
+        <ImageButton android:id="@+id/skill_26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken26"
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
+
+
+        <ImageButton android:id="@+id/skill_27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken27"
+            />
+
+        <ImageButton android:id="@+id/skill_28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken28"
+            />
+        <ImageButton android:id="@+id/skill_29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken29"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
+
+
+        <ImageButton android:id="@+id/skill_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken30"
+            />
+
+        <ImageButton android:id="@+id/skill_31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken31"
+            />
+        <ImageButton android:id="@+id/skill_32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken32"
+            />
+    </LinearLayout>
+    <LinearLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+    <Button
+        android:id="@+id/btn_cancel"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="@android:string/cancel" />
+    <Button
+        android:id="@+id/btn_ok"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="@android:string/ok" />
+	
+</LinearLayout>
+</LinearLayout>

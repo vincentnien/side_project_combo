@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="value_up">#008800</color>
+	<color name="value_down">#ff0000</color>
+</resources>

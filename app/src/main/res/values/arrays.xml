@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="orb_list">
+    	   <item>Default</item>
+    	   <item>Puzzle and Dragons</item>
+    	   <item>Tower of Saviors</item>
+    </string-array>
+    
+    <string-array name="condition_list">
+    	<item>@string/na</item>
+    	<item>@string/condition01</item>
+    	<item>@string/condition02</item>
+    	<item>@string/condition03</item>
+    	<item>@string/condition04</item>
+    	<item>@string/condition05</item>
+    	<item>@string/condition06</item>
+    	<item>@string/condition07</item>
+    	<item>@string/condition08</item>
+    	<item>@string/condition09</item>
+    	<item>@string/condition10</item>
+    	<item>@string/condition11</item>
+    </string-array>
+    
+    <string-array name="tmp_time_list">
+        <item>Don\'t modify</item>
+        <item>No Limits</item>
+        <item>2.0</item>
+        <item>2.5</item>
+        <item>3.0</item>
+        <item>3.5</item>
+        <item>4.0</item>
+        <item>4.5</item>
+        <item>5.0</item>
+        <item>5.5</item>
+        <item>6.0</item>
+        <item>6.5</item>
+        <item>7.0</item>
+        <item>7.5</item>
+        <item>8.0</item>
+        <item>8.5</item>
+        <item>9.0</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+    
+    <string-array name="time_list">
+           <item>2 seconds</item>
+           <item>2.5 seconds</item>
+           <item>3 seconds</item>
+           <item>3.5 seconds</item>
+           <item>4 seconds</item>
+           <item>4.5 seconds</item>
+           <item>5 seconds</item>
+           <item>5.5 seconds</item>
+           <item>6 seconds</item>
+           <item>6.5 seconds</item>
+           <item>7.0 seconds</item>
+           <item>7.5 seconds</item>
+           <item>8.0 seconds</item>
+           <item>8.5 seconds</item>
+           <item>9.0 seconds</item>
+           <item>9.5 seconds</item>
+           <item>10 seconds</item>
+           <item>No Limits</item>
+    </string-array>
+    <string-array name="awoken_skills">
+        <item>Enhanced HP</item>
+        <item>Enhanced Attack</item>
+        <item>Enhanced Heal</item>
+        <item>Reduce Fire Damage</item>
+        <item>Reduce Water Damage</item>
+        <item>Reduce Wood Damage</item>
+        <item>Reduce Light Damage</item>
+        <item>Reduce Dark Damage</item>
+        <item>Auto-Recover</item>
+        <item>Resistance-Bind</item>
+        <item>Resistance-Dark</item>
+        <item>Resistance-Jammers</item>
+        <item>Resistance-Poison</item>
+        <item>Enhanced Fire Orbs</item>
+        <item>Enhanced Water Orbs</item>
+        <item>Enhanced Wood Orbs</item>
+        <item>Enhanced Light Orbs</item>
+        <item>Enhanced Dark Orbs</item>
+        <item>Extend Time</item>
+        <item>Recover Bind</item>
+        <item>Skill Boost</item>
+        <item>Enhanced Fire Att.</item>
+        <item>Enhanced Water Att.</item>
+        <item>Enhanced Wood Att.</item>
+        <item>Enhanced Light Att.</item>
+        <item>Enhanced Dark Att.</item>
+        <item>Two-Pronged Attack</item>
+        <item>Resistance-Skill Lock</item>
+        <item>None</item>
+        <item>Enhanced Heart Orbs</item>
+        <item>God Killer</item>
+        <item>Machine Killer</item>
+        <item>Multiple Mode Boost</item>
+        <item>Devil Killer</item>
+        <item>Dragon Killer</item>
+        <item>Balance Killer</item>
+        <item>Attacker Killer</item>
+        <item>Physical Killer</item>
+        <item>Healer Killer</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>7 Combo</item>
+
+<!--
+BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38),
+		EVO_MATRIAL_KILLER(39), AWOKEN_KILLER(40), ENHANCE_MATRIAL_KILLER(41),
+		COMBO_7(42), GUARD_BREAK(43),HEART_ARROW(44),TEAM_HP_UP(45),TEAM_RCV_UP(46),
+		SQUARE_ATTACK(47), ASSISTANT(48),HEART_SQUARE(49),SKILL_CHARGE(50),
+		RESISTANCE_BIND_PLUS(51), EXTEND_TIME_PLUS(52), RESISTANCE_KUMO(53), RESISTANCE_BIND_MOVE(54), SKILL_BOOST_PLUS(55), ATK_UP_80(56),
+		ATK_UP_50(57),L_SHIELD(58),L_ATTACK(59), SELL_KILLER(60), COMBO_10(61), SKILL_VOICE(59)
+-->
+    </string-array>
+    <array name="skills">
+        <item>Orbs transform</item>
+        <item>Attack/Guard Stance</item>
+        <item>Change the world</item>
+    </array>
+    <string-array name="orb_type">
+        <item>Dark</item>
+        <item>Fire</item>
+        <item>Heart</item>
+        <item>Light</item>
+        <item>Water</item>
+        <item>Wood</item>
+        <item>Poison</item>
+        <item>Obstruct</item>
+        <item>Enhanced Poison</item>
+        <item>Bomb</item>
+    </string-array>
+    
+    <string-array name="power_up">
+        <item>HP</item>
+        <item>ATK</item>
+        <item>RCV</item>
+    </string-array>
+    
+    <string-array name="monster_type">
+        <item>Dragon</item>
+        <item>Devil</item>
+        <item>Balanced</item>
+        <item>Attacker</item>
+        <item>Physical</item>
+        <item>Healer</item>
+        <item>God</item>
+        <item>Evo Matrial</item>
+        <item>Enhance Matrial</item>
+        <item>Special Protected</item>
+        <item>None</item>
+        <item>Machine</item>牛
+    </string-array>
+    
+    <string-array name="line_position">
+        <item>the top row</item>
+        <item>the center row</item>
+        <item>the bottom row</item>
+        <item>the left column</item>
+        <item>the right column</item>
+        <item>the 2nd row</item>
+        <item>the 4th row</item>
+        <item>the 2nd column</item>
+        <item>the 3rd column</item>
+        <item>the 4th column</item>
+        <item>the 5th column</item>
+    </string-array>
+    
+    <string-array name="rare_list">
+        <item>1★</item>
+        <item>2★</item>
+        <item>3★</item>
+        <item>4★</item>
+        <item>5★</item>
+        <item>6★</item>
+        <item>7★</item>
+        <item>8★</item>
+        <item>9★</item>
+        <item>10★</item>
+    </string-array>
+    
+    <string-array name="shield_percentage">
+    	<item>80</item>
+    	<item>75</item>
+    	<item>70</item>
+    	<item>60</item>
+    	<item>50</item>
+    	<item>40</item>
+    	<item>30</item>
+    	<item>25</item>
+    	<item>20</item>
+    </string-array>
+    
+    <string-array name="stage_power_up">
+        <item>No enhanced</item>
+        <item>Fire pets 1.5x</item>
+        <item>Water pets 1.5x</item>
+        <item>Wood pets 1.5x</item>
+        <item>Light pets 1.5x</item>
+        <item>Dark pets 1.5x</item>
+        <item>Dragon 1.5x</item>
+        <item>Devil 1.5x</item>
+        <item>Balance 1.5x</item>
+        <item>Attacker 1.5x</item>
+        <item>Healer 1.5x</item>
+        <item>God 1.5x</item>
+        <item>Physical 1.5x</item>
+        <item>Machine 1.5x</item>
+        <item>6★ 3x</item>
+    </string-array>
+    <!-- 
+    <string-array name="single_power_up">
+        <item>COST +100</item>
+        <item>Move +1S</item>
+        <item>All Attacks</item>
+        <item>RCV 25% UP</item>
+        <item>HP 5% UP</item>
+        <item>ATK 5% UP</item>
+        <item>Skill Boost</item>
+        <item>Leader Resistance-bind</item>
+        <item>Resistance-Skill Bind 50%</item>
+    </string-array>
+     -->
+    <string-array name="game_mode">
+        <item>Normal Dungeon</item>
+        <item>Challenge Dungeon</item>
+        <item>Special Dungeon</item>
+    </string-array>
+    
+    <string-array name="stage_list">
+        <item>？ Ultimate Arena</item>
+        <item>The quest of June » Challenge Lv10</item>
+        <item>Ultimate Arena-Bipolar Goddess 3</item>
+        <item>Sopdet(Arena 1, 2, 3)</item>
+        <item>Zeus Dragon</item>
+        <item>Hera Dragon</item>
+        <item>Mechanical Goddess - Annihilation</item>
+        <item>Challenge 34 Lv.10</item>
+        <item>Decisive Battle(Boss Only)(Full SB)</item>
+        <item>Challenge 32 Lv.9</item>
+        <item>Zeus(+297)</item>
+        <item>Hera(+297)</item>
+        <item>Absolute Dragon Realm - Annihilation</item>
+        <item>Absolute Dragon Realm - Mythical Plus</item>
+        <item>Machine Zeus</item>
+        <item>Machine Hera</item>
+        <item>Monday Dungeon-Iron Strength Plaza</item>
+    	<item>Tuesday Dungeon-Keeper of the Gold</item>
+    	<item>Thursday Dungeon-Cave of Dreaming</item>
+    	<item>Friday Dungeon-Sky Prison-Mythical</item>
+    	<item>Devils\' Domain - Mythical Plus</item>
+    	<item>Devils\' Domain - Legend Plus</item>
+    	<item>Ultimate Arena-Bipolar Goddess</item>
+    	<item>Ultimate Arena-Bipolar Goddess 2</item>
+    	<item>Challenge28-Lv10</item>
+    	<item>Legendary Snowy Valley - Glacial Frost Dragon</item>
+    	<item>Hanuman Descended! - 白猿臣 Mythical</item>
+        <item>Legendary Earth-Celestial Black Dragon</item>
+        <item>Starlight Sanctuary-King of the Gods</item>
+    </string-array>
+    <string-array name="value_list">
+        <item>ura</item>
+        <item>201806_10</item>
+        <item>ultimate3</item>
+        <item>sopdet</item>
+        <item>zeusdragon</item>
+        <item>heradragon</item>
+        <item>machineathena</item>
+        <item>challenge34_10</item>
+        <item>superfight</item>
+        <item>challenge32_9</item>
+        <item>zeus297</item>
+        <item>hera297</item>
+        <item>dragondestroy</item>
+        <item>dragonhell</item>
+        <item>machinezeus</item>
+        <item>machinehera</item>
+        <item>monday</item>
+    	<item>tuesday</item>
+    	<item>thursday</item>
+    	<item>friday</item>
+    	<item>devilsuper</item>
+    	<item>devilnormal</item>
+    	<item>ultimate</item>
+    	<item>ultimate2</item>
+    	<item>28_10</item>
+    	<item>snow_river</item>
+    	<item>hanuman</item>
+        <item>0</item>
+        <item>1</item>
+<!--     	<item>ultimate2</item> -->
+        
+    </string-array>
+    
+    <string-array name="skill">
+        <item>@string/str_active_skill</item>
+        <item>@string/str_active_skill2</item>
+    </string-array>
+    
+</resources>

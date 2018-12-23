@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texture version="1" file="GameUIAssets.png" type="bitmap" width="970" height="202" pixelformat="RGBA_4444" minfilter="linear" magfilter="linear" wrapt="clamp" wraps="clamp" premultiplyalpha="false">
+    <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker -->
+    <!-- $TexturePacker:SmartUpdate:cbc2f0e0a8e2d1c5be9185e8c0880098:92f1dc5707308d35d52bf718be5a4316:3d91c18474b89bdb44e3eb748f72d042$ -->
+    <textureregion id="0" src="board_a.png" x="274" y="38" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="1" src="board_b.png" x="364" y="38" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="2" src="checkbox_off.png" x="660" y="166" width="28" height="28" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="28" srcheight="28"/>
+    <textureregion id="3" src="checkbox_on.png" x="690" y="166" width="28" height="28" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="28" srcheight="28"/>
+    <textureregion id="4" src="choose_photo.png" x="2" y="38" width="152" height="270" rotated="true" trimmed="false" srcx="0" srcy="0" srcwidth="152" srcheight="270"/>
+    <textureregion id="5" src="heart_hp.png" x="2" y="2" width="540" height="34" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="540" srcheight="34"/>
+    <textureregion id="6" src="hp.png" x="2" y="192" width="1" height="10" rotated="true" trimmed="false" srcx="0" srcy="0" srcwidth="1" srcheight="10"/>
+    <textureregion id="7" src="ic_edit.png" x="274" y="128" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="8" src="ic_help.png" x="348" y="128" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="9" src="ic_lv.png" x="904" y="2" width="64" height="64" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="64" srcheight="64"/>
+    <textureregion id="10" src="ic_ok.png" x="422" y="128" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="11" src="ic_play.png" x="496" y="128" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="12" src="ic_previous.png" x="660" y="92" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="13" src="ic_random.png" x="734" y="92" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="14" src="ic_result.png" x="808" y="92" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="15" src="ic_settings.png" x="882" y="92" width="72" height="72" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="72" srcheight="72"/>
+    <textureregion id="16" src="s1.png" x="454" y="38" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="17" src="s2.png" x="544" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="18" src="s3.png" x="634" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="19" src="s4.png" x="724" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="20" src="s5.png" x="814" y="2" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+    <textureregion id="21" src="s6.png" x="570" y="92" width="88" height="88" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="88" srcheight="88"/>
+</texture>

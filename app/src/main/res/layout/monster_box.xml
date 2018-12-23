@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+     >
+
+	<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+		>
+	
+	<Spinner android:layout_alignParentLeft="true"
+		android:id="@+id/spinner_page"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	
+	<Button android:layout_alignParentRight="true"
+		android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:id="@+id/btn_sort"
+   android:text="@string/sort"
+    />
+	
+  </RelativeLayout>
+    <include layout="@layout/box_line"
+        android:id="@+id/line01" />
+
+    <include layout="@layout/box_line"
+        android:id="@+id/line02" />
+    
+    <include layout="@layout/box_line"
+        android:id="@+id/line03" />
+    <include layout="@layout/box_line"
+        android:id="@+id/line04" />
+    <include layout="@layout/box_line"
+        android:id="@+id/line05" />
+    <include layout="@layout/box_line"
+        android:id="@+id/line06" />
+
+    <!-- 
+    <Button android:id="@+id/btn_add_monster" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_monster"
+         />
+          -->
+</LinearLayout>

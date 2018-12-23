@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:stretchColumns="1"
+    >
+   <!--  android:stretchColumns="1" --> 
+
+    
+    <TableRow 
+
+        android:padding="@dimen/table_padding">
+        
+    	     <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_no_"
+            />
+    	     
+    	     <Button android:id="@+id/btn_monster_no"
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="1"
+    	     	/>
+    </TableRow>
+    
+    <TableRow 
+
+        android:padding="@dimen/table_padding">
+        
+             <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_lv_"
+            />
+             
+             <Button android:id="@+id/btn_monster_lv"
+            android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="1"
+                />
+
+    </TableRow>
+    
+      <TableRow
+
+        android:padding="@dimen/table_padding">
+        
+
+		<TextView
+        	android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:text="@string/hp"
+            />
+          
+        <TextView android:id="@+id/monster_hp"
+        	android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </TableRow>
+      
+      <TableRow
+
+        android:padding="@dimen/table_padding">
+        
+        <TextView android:text="@string/atk"
+        	android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            />
+        <TextView android:id="@+id/monster_atk"
+        	android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </TableRow>
+    
+      <TableRow
+
+        android:padding="@dimen/table_padding">
+        <TextView android:text="@string/rcv"
+        	android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView android:id="@+id/monster_rec"
+        	android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </TableRow>
+   
+     
+     <TableRow
+        android:padding="@dimen/table_padding">
+        <TextView android:text="@string/awoken_skills"
+        	android:layout_width="@dimen/text_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_span="2"
+            />
+
+        
+    </TableRow>
+    <TableRow
+
+        android:padding="@dimen/table_padding">
+        <LinearLayout  android:layout_span="2"
+        	   android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/awoken_skill1"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/awoken_skill2"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone"             
+            />
+        <ImageView
+            android:id="@+id/awoken_skill3"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/awoken_skill4"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone" 
+            />
+        <ImageView
+            android:id="@+id/awoken_skill5"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/awoken_skill6"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/awoken_skill7"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone" 
+            />
+        <ImageView
+            android:id="@+id/awoken_skill8"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone" 
+            />
+        <ImageView
+            android:id="@+id/awoken_skill9"
+        	android:layout_width="@dimen/awoken_size"
+        	android:layout_height="@dimen/awoken_size"
+        	android:visibility="gone"
+            />
+        </LinearLayout>
+    </TableRow>
+     <TableRow
+
+        android:padding="@dimen/table_padding"
+        >
+        <Button android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm" />
+        <Button android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm" />
+        </TableRow>
+</TableLayout>

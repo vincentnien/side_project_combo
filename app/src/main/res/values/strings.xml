@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Combo Master</string>
+    <string name="banner_ad_unit_id">ca-app-pub-9312207078900289/8398831223</string>
+    <string name="reward_ad_unit_id">ca-app-pub-9312207078900289/2917816820</string>
+    
+    <string name="action_settings">Settings</string>
+    <string name="time_limit">Time Limit:</string>
+
+    <string name="version">3.9.3</string>
+
+    <string name="modified_time">1473638400</string>
+    <string name="support_version">168</string>
+
+    <string name="settings">Settings</string>
+    <string name="orb_type">Orbs type:</string>
+    <string name="sound_onoff">BGM: </string>
+    <string name="step">Step</string>
+    <string name="skill">Skill</string>
+    <string name="skill_1">Skill 1</string>
+    <string name="skill_2">Skill 2</string>
+    <string name="skill_3">Skill 3</string>
+    <string name="skill_4">Skill 4</string>
+    <string name="skill_5">Skill 5</string>
+    <string name="skill_6">Skill 6</string>
+    <string name="drop_type">Drop type</string>
+    <string name="drop_type_in_calc_mode">Drop type in [PAD Calculator]</string>
+    <string name="training_mode">Training mode</string>
+    <string name="skills">Skills</string>
+    <string name="arrow">" > "</string>
+    <string name="str_basic">Basic</string>
+    <string name="str_training">Settings</string>
+    <string name="str_skills">Skills</string>
+    <string name="str_monster">Box</string>
+
+    <string name="chooser_title">Choose an image</string>
+    
+    <string name="str_monster_box">Box</string>
+    <string name="str_team">Team</string>
+    
+    <string name="no_such_id" formatted="false">Can not find monster id=%d</string>
+    
+    <string name="str_cop">Cooperative Play</string>
+    
+    <string name="menu_report">[Construct Tutorial]</string>
+    <string name="menu_training_mode">[Training Mode]</string>
+    <string name="menu_single_mode">[Single Drop Mode]</string>
+    <string name="menu_calculate_mode">[PAD Calculator]</string>
+    <string name="menu_calculate_7x6_mode">[7x6 Mode]</string>
+    <string name="menu_calculate_5x4_mode">[5x4 Mode]</string>
+    <string name="menu_simulator_mode">[Simulator]</string>
+    <string name="menu_monster_box">[PAD Team Setup]</string>
+    <string name="menu_settings_mode">[Settings]</string>
+    <string name="menu_cop_mode">[Cooperative Play]</string>
+    <string name="menu_quit_mode">[Quit]</string>
+    <string name="menu_simulator">[ALPHA]</string>
+    <string name="all_orbs_transform">"All Orbs become "</string>
+    <string name="color_change">Color Change </string>
+    <string name="error_same_type">cannot change to the same orb type</string>
+    <string name="at_least_one">at least choose one type</string>
+    <string name="result">Result</string>
+    <string name="total_combo">Total %d combo!</string>
+    <string name="second">sec.</string>
+    <string name="avg_combo">"Avg. Combo "</string>
+    <string name="show_result_dialog_directly">show result dialog directly</string>
+    <string name="show_path_if_available">display path\n(Replay required)</string>
+    <string name="no_">No.</string>
+    <string name="lv">Lv</string>
+    <string name="hp_">HP+</string>
+    <string name="max99">99</string>
+    <string name="atk_">Atk+</string>
+    <string name="rec_">Rcv+</string>
+    <string name="awoken">Awoken</string>
+    <string name="max10">10</string>
+    <string name="str_create">create</string>
+    <string name="hp">HP</string>
+    <string name="atk">ATK</string>
+    <string name="rcv">RCV</string>
+    <string name="confirm">Confirm</string>
+    <string name="leader_skill">Leader\n   Skill</string>
+    <string name="awoken_skills">Awoken\n   Skills</string>
+    <string name="potential_awoken_skills">Potential</string>
+    <string name="super_awoken_skills">Super Awoken</string>
+    <string name="add_monster">add monster</string>
+    <string name="data_loading">Data Loading</string>
+    
+    <string name="str_color_weakness">Color Weakness Mode</string>
+    
+    <!--  query -->
+    <string name="query_name">Name</string>
+    <string name="query_effect">Effect</string>
+    <string name="query_awoken">Awoken Skills</string>
+    <string name="query_attr">Attribute</string>
+    <string name="query_type">Type</string>
+    
+    <!--  wiki url (should not use this, temp solution) -->
+    <string name="wiki">http://www.pad.wikia.com/wiki/</string>
+    
+    <!--  parse skill -->
+    <string name="regex_change_all">ll Orbs become (\\S+)</string>
+    <string name="split_change_all">/</string>
+    
+    <string name="regex_change_color">ll (\\S+) Orbs (become) (\\S+) Orbs</string>
+    <string name="regex_ctw">reely move orbs for (\\d+) second</string>
+    <string name="regex_add_plus">ll (\\S+)( and (\\S+))? Orbs currently on the board will gain</string>
+    
+    <string name="regex_two_type_stronger">Attacks from (\\S+) and (\\S+) type monsters are (\\S+)x stronger for (\\d+) turn</string>
+    <string name="regex_orb_stronger">Matched (\\S+) Orbs are (\\S+)x stronger for (\\d+) turn</string>
+    <string name="regex_type_stronger">Attacks from (\\S+) type monsters are (\\S+)x stronger for (\\d+) turn</string>
+    
+    <string name="regex_deal_damage">damage to all enemies equal to (\\d+)%%</string>
+    <string name="regex_reduce_def">For (\\d+) turn, defense of all enemies is reduced to (\\d+)%%</string>
+    <string name="str_no_">"No. "</string>
+    <string name="str_lv_">"Lv. "</string>
+    
+    <string name="str_monster_no">Set Monster No</string>
+    
+    <string name="str_leader">Leader</string>
+    <string name="str_same_leader">Same Leader</string>
+    <string name="str_friend_leader">Friend Leader</string>
+    
+    <string name="str_power">Power</string>
+    
+    <string name="str_recovery">Recovery</string>
+    
+    <string name="str_total_hp">Total HP</string>
+    
+    <string name="str_leader_skill">Leader Skill</string>
+    <string name="str_active_skill">Active Skill1</string>
+    <string name="str_active_skill2">Active Skill2</string>
+    <string name="str_friend_leader_skill">Friend Leader Skill</string>
+    
+    <string name="str_edit">Edit</string>
+    <string name="str_done">Done</string>
+    
+    <string name="str_left_corner">Select upper left corner</string>
+    <string name="str_right_corner">Select bottom right corner</string>
+    
+    <string name="power_up_text" formatted="false">"%d turns, power %sx "</string>
+    
+    <string name="str_select">Select</string>
+    
+    <string name="str_damage" formatted="false">Damage: %s \nRecovery: %s</string>
+    <string name="str_restraining">Enemy type:</string>
+    
+    <string name="str_title_damage">Damage</string>
+    <string name="str_title_combo">Combo</string>
+    
+    <string name="str_max">Max</string>
+    <string name="str_min">Min</string>
+    <string name="str_hyper">Hyper</string>
+    <string name="str_fix">Fix</string>
+
+    <string name="str_set_bgm">Choose file</string>
+    <string name="str_reset">Reset</string>
+    
+    <string name="need_network">Images download from network, if you don\'t have network you won\'t see the image.</string>
+    <string name="check_update">checking for update…</string>
+    <string name="update">Update</string>
+    <string name="updating">Updating…</string>
+    <string name="downloading">Downloading…</string>
+    <string name="copying">Copying…</string>
+    
+    <string name="ls_not_support">No skill or skill doesnot support</string>
+    <string name="ls_hp_condition" formatted="false">When HP %s %d%%, </string>
+    <string name="ls_hp_condition_full">When HP is full, </string>
+    <string name="ls_multi_mode">In cooperative play mode,</string>
+    <string name="ls_all_monster">"all monsters "</string>
+    <string name="ls_monster_type" formatted="false">"all %s type "</string>
+    <string name="ls_combo_factor" formatted="false">When reaching %d combos, ATK becomes %1.2fx.</string>
+    <string name="ls_combo_factor_addition" formatted="false">Each additional combo up to %d adds %1.1fx ATK for a possible total of %1.1fx.</string>
+    <string name="ls_become_x" formatted="false">%s becomes %sx</string>
+    <string name="ls_color_factor" formatted="false">In %s,when matching and attacking with %d colors,all monsters ATK become %1.1fx.</string>
+    <string name="ls_color_factor_addition" formatted="false">Each additional attacking color adds %1.2fx ATK, up to a max of %1.1fx.</string>
+    <string name="ls_multi_orb_combo_addition" formatted="false">When matching a connected group of %d or more %s Orbs ATK becomes %1.2fx . Add %1.2fx for each additional Orb, up to a max of %1.2fx(for %d Orbs)</string>
+    <string name="ls_multi_orb_combo" formatted="false">When matching a connected group of %d or more %s Orbs ATK becomes %1.2fx.</string>
+    <string name="ls_multi_orb_shield" formatted="false">Reduce damage taken by %d%%.</string>
+    <string name="ls_target_orb_combo" formatted="false">When matching %d sets of %s orbs, ATK becomes %1.1fx.</string>
+    <string name="ls_target_orb_shield" formatted="false">When matching %d sets of %s orbs, Reduces all damage received by %d%%.</string>
+    <string name="lst_reduce_by_hp_full" formatted="false">When HP is full, reduces all damage received by %d%%</string>
+    <string name="lst_reduce_by_hp_50" formatted="false">When HP is less than %d%%, reduce damage taken by %d%%</string>
+    <string name="lst_reduce_by_hp_50_up" formatted="false">When HP is more than %d%%, Reduce damage taken by %d%%</string>
+    <string name="lst_reduce_damage" formatted="false">Reduce damage taken by %d%% from %s type enemies.</string>
+    <string name="lst_color_reduce_shield" formatted="false">Reduce damage taken by %d%%.</string>
+    <string name="lst_do_konjo" formatted="false">While your HP is above %d%%, a single hit that normally kills you will instead leave you with 1 HP. NOTE: This skill is evaluated for each of multiple hits; if one hit takes you below %d%% HP, a subsequent hit can kill you.</string>
+    <string name="lst_heal" formatted="false">Heal HP equal to %d%% of leader\'s RCV every turn. Only triggers if a match is made.</string>
+    <string name="lst_used_skill">If a skill is used this turn, </string>
+    <string name="lst_five_orbs" formatted="false">When matching a connected group of %d orbs and include + orb, this attribute atk becomes %1.1fx</string>
+    <string name="lst_change_board" formatted="false">Board becomes %s.</string>
+    <!--  fix this sometimes, should be lst_ not as_ -->
+    <string name="as_cross">Reduce damage taken by 50%% after matching Heal orbs in a cross formation</string>
+    <string name="as_cross_atk" formatted="false">Reduce damage taken by 50%% and attack becomes %.2fx after matching Heal orbs in a cross formation</string>
+    <string name="lst_cross_atk_def" formatted="false">Reduce damage taken by %d%% and attack becomes %.2fx after matching Heal orbs in a cross formation</string>
+    <string name="lst_hp_recover" formatted="false">Heal RCV x%d as HP after every orbs elimination.</string>
+    <string name="lst_time_extend" formatted="false">Orb time extended by %.1f secs.</string>
+    <string name="lst_time_fixed" formatted="false">Change move time to %.1f secs.</string>
+    <string name="lst_remove_n" formatted="false">when matching exactly n connected %s orbs(n=%d),</string>
+    <string name="lst_cross_attack" formatted="false">After matching %s orbs in a cross formation, attack becomes %.2fx.</string>
+    <string name="lst_more_remove" formatted="false">Can no longer clear %d connected orbs,%s attribute cards attack x%.1f.</string>
+    <string name="lst_attack" formatted="false">Deal ATK x%d damage to all enemies after every orbs elimination. Ignores enemy element, but can be reduced by enemy defense down to 0 damage.</string>
+    <string name="lst_no_drop" formatted="false">落ちコンしなくなる。</string>
+    <string name="as_no_drop" formatted="false">For %d turn(s), 落ちコンしなくなる。</string>
+    <string name="ls_combo_rcv" formatted="false">When reaching %d combos, RCV becomes %1.2fx.</string>
+    <string name="ls_combo_shield" formatted="false">When reaching %d combos, %d%% all damage reduction.</string>
+    <string name="ls_combo_rcv_addition" formatted="false">Each additional combo up to %d adds %1.1fx RCV for a possible total of %1.1fx.</string>
+    <string name="ls_combo_shield_addition" formatted="false">Each additional combo up to %d adds %d%% for a possible total of %d%%.</string>
+    <string name="lst_rcv" formatted="false">RCV becomes %.2fx.</string>
+    <string name="lst_rcv_max" formatted="false">RCV becomes %.2fx(MAX)</string>
+    <string name="lst_drop_no_more" formatted="false">After removing, if there are only %d or less orbs, ATK becomes %.2fx.</string>
+    LST_MULTI_ORB_COMBO_MULTI
+    <string name="single_target">single enemy</string>
+    <string name="multiple_targets">all enemies</string>
+    <string name="as_attack_skill" formatted="false">Deal %s type damage equal to %dx user\'s ATK to %s. Affected by enemy element and defense. </string>
+    <string name="as_attack_skill_hp" formatted="false">Deal %s type damage equal to %s user\'s ATK to %s. Affected by enemy element and defense. </string>
+    <string name="as_attack_skill_team_hp" formatted="false">Deal %s type damage equal to %s team\'s HP to %s. Affected by enemy element and defense. </string>
+    <string name="as_attack_skill_fix" formatted="false">Deal %s type damage equal to %dx to %s. Affected by enemy element and defense. </string>
+    <string name="as_power_up" formatted="false">For %d turns, matched %s Orbs are %sx stronger.</string>
+    <string name="as_type_up" formatted="false">For %d turns, attacks from %s type monsters are %sx stronger.</string>
+    <string name="as_transform" formatted="false">All Orbs become %s Orbs.</string>
+    <string name="as_color_change" formatted="false">All %s Orbs become %s Orbs.</string>
+    <string name="as_change_the_world" formatted="false">Freely move orbs for %d seconds without triggering matches.</string>
+    <string name="as_gravity" formatted="false">Do damage to all enemies equal to %d%% of their current HP, ignoring element and defense.</string>
+    <string name="as_gravity_100" formatted="false">Do damage to all enemies equal to %d%% of their MAX HP, ignoring element and defense.</string>
+    <string name="as_add_plus" formatted="false">%s Orbs currently on the board will gain a +.</string>
+    <string name="as_one_line_transform" formatted="false">All orbs in %s become %s</string>
+    <string name="as_reduce_def" formatted="false">For %d turn, defense of all enemies is reduced to %d%%.</string>
+    <string name="as_delay" formatted="false">Delay all enemies by %d turns.</string>
+	<string name="as_random_change" formatted="false">%d random orbs become %s.</string>
+	<string name="as_random_change_restrict" formatted="false">%d random orbs(except %s) become %s.</string>
+	<string name="as_time_extend" formatted="false">For %d turns, orb time extended by %.1f secs.</string>
+	<string name="as_drop_rate" formatted="false">For %d turns, drop rate of %s orbs is increased by %d%%.</string>
+	<string name="as_target_random" formatted="false">%s become %s.</string>
+	<string name="as_power_up_by_awoken" formatted="false">For %d turns, increases attack power base on the number of awakening skills [%s], increases %d%% for each one.</string>
+    <string name="as_def_up_by_awoken" formatted="false">For %d turns, reduce damage base on the number of awakening skills [%s], reduces %d%% for each one.</string>
+	<string name="as_bind_recover" formatted="false">Reduce all binds by %d rounds.</string>
+    <string name="as_awoken_recover" formatted="false">Reduce null awoken by %d rounds.</string>
+	<string name="as_bind_recover_type1" formatted="false">"Recover HP equal to %dx the user's RCV."</string>
+	<string name="as_bind_recover_type2" formatted="false">"Recover %d HP."</string>
+	<string name="as_bind_recover_type3" formatted="false">"Recover HP equal to %d%% the user's HP."</string>
+	<string name="as_reduce_shield" formatted="false">For %d turns, reduce all damage by %d%%.</string>
+	<string name="as_reduce_shield_color" formatted="false">For %d turns, avoid %s damage.</string>
+	<string name="as_skill_boost" formatted="false">Reduces cooldown of other skills by %d turn(s).</string>
+    <string name="as_skill_boost_random" formatted="false">Reduces cooldown of other skills by %d~%d turn(s).</string>
+	<string name="as_move_time_x" formatted="false">For %d turn(s), orb move time extended by %.1fx</string>
+	<string name="as_direct_damage_single" formatted="false">Deal %d damage to 1 enemy.Ignore enemy element and defense.</string>
+	<string name="as_direct_damage_all" formatted="false">Deal %d damage to all enemies.Ignore enemy element and defense.</string>
+	<string name="as_clear_board">Reshuffle all orbs.</string>
+	<string name="as_counter_attack" formatted="false">For %d turn(s), Counter %dx damage taken with %s</string>
+	<string name="as_change_attribute" formatted="false">Change all enemies attributes to %s.(Ignores status shield)</string>
+	<string name="as_add_lock" formatted="false">Change %s orbs into locked orbs.</string>
+    <string name="as_unlock">Unlock orbs.</string>
+    <string name="as_void_absorb" formatted="false">For %d turn(s),ignores enemy damage absorb effects.</string>
+    <string name="as_void_attr_absorb" formatted="false">For %d turn(s),ignores enemy attribute absorb effects.</string>
+
+
+    <string name="as_poison" formatted="false">Inflict Poison damage equal to ATK x%d to all enemies every turn. Ignore enemy element and defense.</string>
+	<string name="as_hp_1">Reduce HP to 1.</string>
+    <string name="as_hp_x">Reduce HP to current %d%% HP.</string>
+	<string name="as_add_combo" formatted="false">For %d turn(s), add %d combo(s).</string>
+	<string name="as_switch_leader">Switch places with leader card. Use again to switch back.</string>
+	<string name="as_recover_up" formatted="false">For %d turn(s),RCV becomes %.2fx</string>
+	<string name="as_drain" formatted="false">" and drain %d%% of the damage you dealt."</string>
+	
+	<string name="str_defense">Defense: </string>
+	<string name="str_update">Update</string>
+	<string name="reset_combo">Reset Combo</string>
+	<string name="title_confirm">Confirm</string>
+	<string name="question_reset_combo">Reset Avg. Combo?</string>
+	
+	<string name="str_temp_modify">Modify timer temporarily</string>
+	
+	<string name="str_top">Top</string>
+	<string name="str_left">Left</string>
+	<string name="str_width">Width</string>
+	<string name="str_height">Height</string>
+	<string name="str_save">Save</string>
+	<string name="str_analysis">Analysis location</string>
+	<string name="str_setup">Set up</string>
+	<string name="str_dont_set">You don\'t have to set up analysis location if you didn\'t encounter analysis problem.</string>
+	
+	<string name="challenge_mode">Challenge mode</string>
+	<string name="str_bind_monster">Bind monster</string>
+	<string name="str_swap_member">Leader exchange</string>
+	<string name="str_no_change">Don\'t exchange</string>
+	<string name="str_member">Member </string>
+	
+	<string name="str_cb_hp_condition">Apply HP Condition</string>
+	<string name="str_if_uncheck_hp">(if unchecked, damage will be calculated by max atk factor)</string>
+	
+	<string name="str_skill_fired">Skill is used this turn</string>
+	
+	<string name="str_backup_restore">Backup/Restore\nMonster Box</string>
+	<string name="str_backup">Backup</string>
+	<string name="str_restore">Restore</string>
+	<string name="null_awoken_mode">Disable awakenings</string>
+
+	<string name="str_web_url">Send the link to ask a better solution.</string>
+	<string name="str_generate">Generating url…</string>
+	
+	<string name="current_version">Your app version: </string>
+	<string name="str_continue_drop">Dropping mode</string>
+	<string name="str_fullscreen">Fullscreen</string>
+	<string name="str_restart_app">(Need to restart application)</string>
+	<string name="str_search">Search</string>
+	<string name="str_filter">Filter</string>
+	<string name="str_rare">Rare: </string>
+	<string name="str_cost">Cost: </string>
+	<string name="str_attr1"> -- Attribute -- </string>
+	<string name="str_type1"> -- Type --</string>
+	<string name="select_type"> -- Select type -- </string>
+	<string name="str_type">TYPE: </string>
+	<string name="str_attr">ATTRIBUTE: </string>
+	<string name="str_include_attr2">Include attribute2 </string>
+	<string name="str_confirm_delete">Are you sure to delete this item?</string>
+	<string name="str_backup_path" formatted="false">Backup file is located in path:\n %s</string>
+	<string name="str_input_path">Input file name:</string>
+	<string name="backup_success">Backup completed: </string>
+	<string name="backup_fail">Backup failed: </string>
+	<string name="restore_success">Restore completed, please restart your application. </string>
+	<string name="restore_fail">Restore failed: </string>
+	<string name="str_no_backup_files">No backup files found.</string>
+	<string name="str_file_exists">File already exists. Do you want to overwrite it?(Yes: overwrite No: add serial number)</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+  <string name="str_backing_up">Backup…</string>
+  <string name="str_restoring">Restoring…</string>
+  <string name="str_set_path">Set path</string>
+  <string name="str_cannot_write">The path you input is not writable.</string>
+  <string name="str_reduce_shield">% Shield</string>
+  <string name="str_half_shield">50% Shield</string>
+  <string name="str_damage_absorb">Absorb</string>
+  <string name="str_enemy_type">Enemy Type</string>
+  <string name="str_title_advanced_setup">Settings</string>
+  <string name="str_need_album_app">No album app found in your device, please install one from google play.</string>
+  <string name="str_need_music_app">No music or file manager app found in your device, please install one from google play.</string>
+  <string name="str_drop_rate">Drop rate↑↑</string>
+  
+  <string name="special_mode">[Special] Dungeon</string>
+  <string name="str_has_new" formatted="false">%s new monster data was found, do you want to update?</string>
+  
+  <string name="str_path">Path:</string>
+  <string name="str_reset_bgm">Reset</string>
+  
+  <string name="sort">Sort</string>
+  <string name="na">None</string>
+  <string name="asc">Standard</string>
+  <string name="desc">Reverse</string>
+  <string name="condition01">ATK</string>
+  <string name="condition02">HP</string>
+  <string name="condition03">RCV</string>
+  <string name="condition04">Lv.</string>
+  <string name="condition05">Cost</string>
+  <string name="condition06">Rare</string>
+  <string name="condition07">ATT</string>
+  <string name="condition08">Sub-A</string>
+  <string name="condition09">Type</string>
+  <string name="condition10">Sub-T</string>
+  <string name="condition11">+</string>
+  <string name="priority1">1st Priority</string>
+  <string name="priority2">2nd Priority</string>
+  <string name="priority3">3rd Priority</string>
+  <string name="priority4">4th Priority</string>
+  <string name="priority5">5th Priority</string>
+  
+  <string name="no_data_found">No data found, you could reset the filter condition and try again.</string>
+  <string name="str_still_working">This function is under construction.</string>
+  
+  <string name="str_keep_ratio">Keep screen ratio</string>
+  <string name="str_keep_ratio_warning_restart_app">If unchecked,your scene will be resized but aspect ratio will not be kept, Need to restart app</string>
+  <string name="title_potential_awoken">Potential Skill</string>
+  
+  <string name="edit_lv_hint">80,70,80,70,99,70</string>
+  
+  <string name="sound">Sound: </string>
+  <string name="str_sound_file">Please choose the swap orb sound file, and put the combo sound in the same path with filename combo1.wav combo2.wav …etc\n
+      Program will load combo sound automatically.
+      </string>
+  <string name="str_orb_shining">Shine effect</string>
+  
+  <string name="str_load_from_url">Quick setup from url</string>
+  <string name="str_load_by_filter">Quick setup by filter</string>
+  
+    <string name="str_297">297</string>
+    <string name="str_0">+0</string>
+    <string name="str_replace_to">Save data to </string>
+    <string name="str_loading">Loading</string>
+    <string name="str_saving">Saving</string>
+    <string name="str_quick_setup">Wizard</string>
+    <string name="title_input_url">Input URL</string>
+    <string name="str_how_to_use_it">
+        Press here to see the guideline.\nCurrently support www.puzzledragonx.com and www.loglesslove.net and pad.skyozora.com\nYou could send me other team simulator web links, I\'ll try to add it to support list if possible.
+    </string>
+    <string name="str_quick_setup_hint">
+       Pets you added by quick setup will not appear in Box page.
+    </string>
+    <string name="str_filter_hint">
+        Quick setup by filter is straightforward, just try it :) 
+    </string>
+
+    
+    <string name="lang">en</string>
+    
+    <string name="game_over">Game Over</string>
+    <string name="use_magic_stone">Do you want to continue?</string>
+    <string name="congraduation" formatted="false">Congratulation!!!\nUsed: %d stone(s)</string>
+    
+    <string name="select_stage">Select stage</string>
+
+    <string name="need_network_1st">Program needs to download data from internet the first time, but the network is unavailable.</string>
+    
+    <string name="cd">CD</string>
+    <string name="str_active_skill_cd">Active Skill1 CD</string>
+    <string name="str_active_skill2_cd">Active Skill2 CD</string>
+    <string name="dialog_skill_1" formatted="false">Skill 1: %s (CD:%d)</string>
+    <string name="dialog_skill_2" formatted="false">Skill 2: %s (CD:%d)</string>
+    <string name="in_turns" formatted="false">In %d turn(s)</string>
+    <string name="full_charge" formatted="false">Fully charged in %d turn(s).</string>
+    <string name="use_skill">\n\nUse </string>
+    
+    <string name="stage">{\"stage\":\"0\",\"enname\":\"Legendary Earth\",\"jpname\":\"天元の黒龍\",\"type\":0,\"enemies\":[{\"id\":253,\"size\":1,\"hp\":450,\"cd\":1,\"atk\":6990,\"def\":100000},{\"id\":256,\"size\":1,\"hp\":450,\"cd\":1,\"atk\":6990,\"def\":100000},{\"id\":259,\"size\":1,\"hp\":450,\"cd\":1,\"atk\":6990,\"def\":100000},{\"id\":254,\"size\":2,\"hp\":750,\"cd\":1,\"atk\":11520,\"def\":100000},{\"id\":257,\"size\":2,\"hp\":750,\"cd\":1,\"atk\":11520,\"def\":100000},{\"id\":260,\"size\":2,\"hp\":750,\"cd\":1,\"atk\":11520,\"def\":100000},{\"id\":178,\"size\":2,\"hp\":750,\"cd\":1,\"atk\":11520,\"def\":100000},{\"id\":181,\"size\":2,\"hp\":750,\"cd\":1,\"atk\":11520,\"def\":100000},{\"id\":682,\"size\":1,\"hp\":4000000,\"cd\":3,\"atk\":100000,\"def\":10000}],\"floor\":5,\"detail\":[{\"must\":[0],\"index\":[253,256,259],\"size\":[4,4]},{\"must\":[0],\"index\":[253,256,259,254,257,260,178,181],\"size\":[3,4]},{\"must\":[0],\"index\":[253,256,259,254,257,260,178,181],\"size\":[3,4]},{\"must\":[0],\"index\":[253,256,259,254,257,260,178,181],\"size\":[3,4]},{\"must\":[682],\"index\":[253,256,259],\"size\":[2,2]}]}</string>
+    <string name="stage1">{\"stage\":\"1\",\"enname\":\"Starlight Sanctuary - King of the Gods\",\"jpname\":\"星空の神域 - 神々の王\",\"type\":0,\"enemies\":[{\"id\":67,\"size\":3,\"hp\":63000,\"cd\":4,\"atk\":13950,\"def\":0},{\"id\":75,\"size\":2,\"hp\":26100,\"cd\":2,\"atk\":5280,\"def\":270},{\"id\":251,\"size\":3,\"hp\":15,\"cd\":5,\"atk\":7777,\"def\":100000,\"rare\":1},{\"id\":181,\"size\":3,\"hp\":25,\"cd\":1,\"atk\":384,\"def\":60000,\"rare\":1},{\"id\":192,\"size\":3,\"hp\":41639,\"cd\":2,\"atk\":4874,\"def\":1980},{\"id\":194,\"size\":3,\"hp\":42978,\"cd\":2,\"atk\":4900,\"def\":1980},{\"id\":197,\"size\":1,\"hp\":17539,\"cd\":1,\"atk\":3213,\"def\":1260},{\"id\":199,\"size\":1,\"hp\":17673,\"cd\":1,\"atk\":3294,\"def\":1260},{\"id\":121,\"size\":5,\"hp\":560895,\"cd\":2,\"atk\":14254,\"def\":2380},{\"id\":215,\"size\":5,\"hp\":1018700,\"cd\":2,\"atk\":24319,\"def\":7000},{\"id\":187,\"size\":5,\"hp\":5305418,\"cd\":1,\"atk\":25487,\"def\":7360}],\"floor\":10,\"detail\":[{\"must\":[0],\"index\":[67,75,251,181,192,194,197,199],\"size\":[3,7]},{\"must\":[0],\"index\":[67,75,251,181,192,194,197,199],\"size\":[3,7]},{\"must\":[0],\"index\":[67,75,251,181,192,194,197,199],\"size\":[3,7]},{\"must\":[0],\"index\":[67,75,251,181,192,194,197,199],\"size\":[3,7]},{\"must\":[0],\"index\":[67,75,251,181,192,194,197,199],\"size\":[3,7]},{\"must\":[0],\"index\":[67,75,251,181,192,194,197,199],\"size\":[3,7]},{\"must\":[0],\"index\":[67,75,251,181,192,194,197,199],\"size\":[3,7]},{\"must\":[121],\"index\":[],\"size\":[0,0]},{\"must\":[215],\"index\":[],\"size\":[0,0]},{\"must\":[187],\"index\":[],\"size\":[0,0]}]}</string>
+    
+  <string name="str_load_by_padherderr">Quick setup from PadHerder</string>
+    <string name="str_padherder_hint">
+        Quick setup by inputing your username.(https://www.padherder.com/)\n
+        If data size bigger than monster box(size: 400),will first choose to add high priority and a high rarity one.
+    </string>
+    <string name="add_by_padherder">Input username</string>
+    <string name="successful">Import successfully and images are still downloaded in background, may not seen immediately.</string>
+    <string name="box_full">No available monster box space for importing data.</string>
+    <string name="retrofit_error">Error: Not found</string>
+    <string name="move_to_stage">Move to stage#?</string>
+    <string name="move_error">Cannot move to previous stage or input # bigger than stage count.</string>
+    <string name="need_read_storage">ComboMaster need READ/WRITE storage permission to access screenshot and save team data to sdcard.</string>
+    <string name="as_turn_recover" formatted="false">For %d turn(s), recover HP equal to %d%% the user\'s HP</string>
+    <string name="as_enhance_orb" formatted="false">For %d turn(s), add enhanced orb drop rate %d%%.</string>
+
+    <string name="orb_any">Any</string>
+</resources>

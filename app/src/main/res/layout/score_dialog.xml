@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="320dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btnCombo"
+            style="@android:style/Widget.Holo.Tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_title_combo" />
+
+        <Button
+            android:id="@+id/btnDamage"
+            style="@android:style/Widget.Holo.Tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_title_damage" />
+        
+        <Button
+            android:id="@+id/btnAdvanced"
+            style="@android:style/Widget.Holo.Tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_title_advanced_setup" />
+    </LinearLayout>
+
+  <LinearLayout
+        android:id="@+id/advanced_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <Spinner android:id="@+id/prop_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/shield_percentage"
+                android:minWidth="50dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dip"
+                android:text="@string/str_reduce_shield" />
+
+            <ImageButton
+                android:id="@+id/btn_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/shield" />
+            
+            </LinearLayout>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dip"
+                android:text="@string/str_half_shield" />
+            	
+            <ImageButton
+                android:id="@+id/btn_fire_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fire_shield" />
+
+            <ImageButton
+                android:id="@+id/btn_water_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/water_shield" />
+
+            <ImageButton
+                android:id="@+id/btn_wood_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wood_shield" />
+
+            <ImageButton
+                android:id="@+id/btn_light_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/light_shield" />
+
+            <ImageButton
+                android:id="@+id/btn_dark_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dark_shield" />
+            </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dip"
+                android:text="@string/str_damage_absorb" />
+
+            <ImageButton
+                android:id="@+id/btn_fire_absorb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fire_absorb" />
+
+            <ImageButton
+                android:id="@+id/btn_water_absorb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/water_absorb" />
+
+            <ImageButton
+                android:id="@+id/btn_wood_absorb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wood_absorb" />
+
+            <ImageButton
+                android:id="@+id/btn_light_absorb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/light_absorb" />
+
+            <ImageButton
+                android:id="@+id/btn_dark_absorb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dark_absorb" />
+        </LinearLayout>
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dip"
+                android:text="@string/str_enemy_type" />
+
+            <ImageButton
+                android:id="@+id/btn_type_dragon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_0" />
+
+            <ImageButton
+                android:id="@+id/btn_type_devil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_1" />
+
+            <ImageButton
+                android:id="@+id/btn_type_god"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_6" />
+
+            <ImageButton
+                android:id="@+id/btn_type_machine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_11" />
+            
+            <ImageButton
+                android:id="@+id/btn_type_enhance_matrial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_8" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/btn_type_balanced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_2" />
+
+            <ImageButton
+                android:id="@+id/btn_type_attacker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_3" />
+
+            <ImageButton
+                android:id="@+id/btn_type_physical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_4" />
+
+            <ImageButton
+                android:id="@+id/btn_type_healer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_5" />
+            
+            <ImageButton
+                android:id="@+id/btn_type_evo_matrial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/monster_type_7" />
+
+        </LinearLayout>
+
+        
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dip"
+                android:text="@string/str_defense" />
+
+            <EditText
+                android:id="@+id/et_defence"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:inputType="numberSigned"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_update" />
+        </LinearLayout>
+   </LinearLayout>
+    
+   <LinearLayout
+        android:id="@+id/damage_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/card"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/leader1"
+                    layout="@layout/monster_damage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/card"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/leader2"
+                    layout="@layout/monster_damage" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/card"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/member1"
+                    layout="@layout/monster_damage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/card"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/member2"
+                    layout="@layout/monster_damage" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/card"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/member3"
+                    layout="@layout/monster_damage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/card"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/member4"
+                    layout="@layout/monster_damage" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card"
+            >
+        <TextView
+            android:id="@+id/total_damage"
+            style="@style/style_score_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dip"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:gravity="left" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dip"
+                android:text="@string/str_restraining" />
+
+            <ImageButton
+                android:id="@+id/btn_fire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fire" />
+
+            <ImageButton
+                android:id="@+id/btn_water"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/water" />
+
+            <ImageButton
+                android:id="@+id/btn_wood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wood" />
+
+            <ImageButton
+                android:id="@+id/btn_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/light" />
+
+            <ImageButton
+                android:id="@+id/btn_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dark" />
+        </LinearLayout>
+
+
+
+        
+        
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/combo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/orb2_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/fire" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/orb5_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/water" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/orb6_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/wood" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/orb3_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/heart" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/orb4_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/light" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/orb1_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/dark" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/orb7_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/poison" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/orb8_text"
+                style="@style/style_score_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:drawableLeft="@drawable/jammar" >
+            </TextView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/total_combo"
+            style="@style/style_score_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/btn_ok"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@android:string/yes" />
+
+</LinearLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:gravity="center_vertical"
+	    android:padding="3dp"
+	     >
+        <ImageView android:id="@+id/monster"
+		    android:layout_width="@dimen/image_size_s"
+		    android:layout_height="@dimen/image_size_s"
+		    android:src="@drawable/i000"
+	    />
+    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	     >
+    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:gravity="center" >
+
+        <TextView android:id="@+id/name"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_member"
+		    android:layout_marginRight="8dp"
+		    android:textStyle="bold"
+		    />
+        
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_lv_"
+		    />
+        <Spinner android:id="@+id/monster_lv"
+        	android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+            />
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/awoken"
+		    />
+        <Spinner android:id="@+id/monster_awoken"
+        	android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+            />
+        
+        <Button android:id="@+id/monster_297"
+        	android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_0"
+		    />
+	</LinearLayout>
+        
+    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:gravity="center" >
+        
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/hp_"
+		    />
+        <EditText android:id="@+id/monster_hp"
+         	android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:inputType="numberSigned"
+		    android:text="99"
+            />
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/atk_"
+		    />
+        <EditText android:id="@+id/monster_atk"
+         	android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:inputType="numberSigned"
+		    android:text="99"
+            />
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/rec_"
+		    />
+        <EditText android:id="@+id/monster_rcv"
+         	android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:inputType="numberSigned"
+		    android:text="99"
+            />
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+

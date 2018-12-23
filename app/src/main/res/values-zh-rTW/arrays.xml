@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="orb_list">
+    	   <item>預設</item>
+    	   <item>龍族拼圖</item>
+    	   <item>神魔之塔</item>
+    </string-array>
+    
+    <string-array name="tmp_time_list">
+        <item>不修改</item>
+        <item>無限</item>
+        <item>2.0</item>
+        <item>2.5</item>
+        <item>3.0</item>
+        <item>3.5</item>
+        <item>4.0</item>
+        <item>4.5</item>
+        <item>5.0</item>
+        <item>5.5</item>
+        <item>6.0</item>
+        <item>6.5</item>
+        <item>7.0</item>
+        <item>7.5</item>
+        <item>8.0</item>
+        <item>8.5</item>
+        <item>9.0</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+    <string-array name="time_list">
+           <item>2 秒</item>
+           <item>2.5 秒</item>
+           <item>3 秒</item>
+           <item>3.5 秒</item>
+           <item>4 秒</item>
+           <item>4.5 秒</item>
+           <item>5 秒</item>
+           <item>5.5 秒</item>
+           <item>6 秒</item>
+           <item>6.5 秒</item>
+           <item>7.0 秒</item>
+           <item>7.5 秒</item>
+           <item>8.0 秒</item>
+           <item>8.5 秒</item>
+           <item>9.0 秒</item>
+           <item>9.5 秒</item>
+           <item>10 秒</item>
+           <item>無限</item>
+    </string-array>
+    <string-array name="awoken_skills">
+        <item>HP強化</item>
+        <item>攻撃強化</item>
+        <item>回復強化</item>
+        <item>火傷害減輕</item>
+        <item>水傷害減輕</item>
+        <item>木傷害減輕</item>
+        <item>光傷害減輕</item>
+        <item>暗傷害減輕</item>
+        <item>自動回復</item>
+        <item>封鎖耐性</item>
+        <item>黑暗耐性</item>
+        <item>妨礙珠耐性</item>
+        <item>毒耐性</item>
+        <item>火＋珠強化</item>
+        <item>水＋珠強化</item>
+        <item>木＋珠強化</item>
+        <item>光＋珠強化</item>
+        <item>暗＋珠強化</item>
+        <item>轉珠時間延長</item>
+        <item>封鎖回復</item>
+        <item>技能冷卻提升</item>
+        <item>火屬性強化</item>
+        <item>水屬性強化</item>
+        <item>木屬性強化</item>
+        <item>光屬性強化</item>
+        <item>暗屬性強化</item>
+        <item>二體攻撃</item>
+        <item>封印耐性</item>
+        <item>None</item>
+        <item>回復＋珠強化</item>
+        <item>神殺手</item>
+        <item>機械殺手</item>
+        <item>雙人模式提升</item>
+        <item>惡魔殺手</item>
+        <item>龍殺手</item>
+        <item>平衡殺手</item>
+        <item>攻擊殺手</item>
+        <item>體力殺手</item>
+        <item>回復殺手</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Combo強化</item>
+    </string-array>
+    <array name="skills">
+        <item>全盤轉珠</item>
+        <item>攻擊/防禦態勢</item>
+        <item>改變世界</item>
+    </array>
+    <string-array name="orb_type">
+        <item>暗</item>
+        <item>火</item>
+        <item>回復</item>
+        <item>光</item>
+        <item>水</item>
+        <item>木</item>
+        <item>毒</item>
+        <item>妨礙</item>
+        <item>猛毒</item>
+        <item>炸彈</item>
+    </string-array>
+    
+    <string-array name="power_up">
+        <item>HP</item>
+        <item>攻擊力</item>
+        <item>回復力</item>
+    </string-array>
+    
+    <string-array name="monster_type">
+        <item>龍</item>
+        <item>惡魔</item>
+        <item>平衡</item>
+        <item>攻擊</item>
+        <item>體力</item>
+        <item>回復</item>
+        <item>神</item>
+        <item>進化合成用</item>
+        <item>強化合成用</item>
+        <item>特別保護</item>
+        <item>None</item>
+		<item>機械</item>
+    </string-array>
+    <string-array name="line_position">
+        <item>最上方一橫行</item>
+        <item>中間一橫行</item>
+        <item>最下方一橫行</item>
+        <item>左方第一直行</item>
+        <item>右方第一直行</item>
+        <item>第二橫行</item>
+        <item>第四橫行</item>
+        <item>第二直行</item>
+        <item>第三直行</item>
+        <item>第四直行</item>
+        <item>第五直行</item>
+    </string-array>
+    <string-array name="stage_power_up">
+        <item>無強化</item>
+        <item>火屬強化1.5x</item>
+        <item>水屬強化1.5x</item>
+        <item>木屬強化1.5x</item>
+        <item>光屬強化1.5x</item>
+        <item>暗屬強化1.5x</item>
+        <item>龍強化 1.5x</item>
+        <item>惡魔強化1.5x</item>
+        <item>平衡強化1.5x</item>
+        <item>攻擊強化1.5x</item>
+        <item>回復強化1.5x</item>
+        <item>神強化1.5x</item>
+        <item>體力強化1.5x</item>
+        <item>機械 1.5x</item>
+        <item>6★強化 3x</item>
+    </string-array>
+    <string-array name="game_mode">
+        <item>普通地城</item>
+        <item>挑戰模式</item>
+        <item>特殊地城</item>
+    </string-array>
+    
+    <string-array name="stage_list">
+        <item>裏・極限の闘技場 » 裏双極の女神</item>
+        <item>6月任務 » 挑戰Lv10（覺醒無效)</item>
+        <item>極限の闘技場-双極の女神3</item>
+        <item>ソティス（闘技場1, 2, 3）</item>
+        <item>宙斯龍降臨</item>
+        <item>赫拉龍降臨</item>
+        <item>機械雅典娜降臨</item>
+        <item>挑戰地城34 Lv.10</item>
+        <item>超絶決戦(頭目戰)(Full SB)</item>
+        <item>挑戰地城32 Lv.9</item>
+		<item>降臨-全能神宙斯(+297)</item>
+		<item>降臨-神王妃赫拉(+297)</item>
+        <item>超極限ドラゴンラッシュ！- 絶龍界 壊滅級 </item>
+        <item>超極限ドラゴンラッシュ！- 絶龍界 超絶地獄級</item>
+		<item>機械宙斯降臨！</item>
+		<item>機械赫拉降臨！</item>
+		<item>週一地城 - 鐵腕廣場</item>
+    	<item>週二地城 - 黃金兵</item>
+    	<item>週四地城 - 夢見洞</item>
+        <item>週五地城 - 天獄塔</item>
+    	<item>極限惡魔Rush - 天魔界 超絕地獄</item>
+    	<item>極限惡魔Rush - 天魔界 絕地獄</item>
+        <item>極限の闘技場-双極の女神</item>
+        <item>極限の闘技場-双極の女神2</item>
+    	<item>挑戰地城28-Lv10</item>
+    	<item>伝説の雪渓 - 氷山の霜龍</item>
+    	<item>ハヌマーン降臨！- 白猿臣 超地獄級</item>
+        <item>傳說的大地 - 天元黑龍</item>
+        <item>星空の神域 - 神々の王 </item>    	
+    	<!-- <item>極限の闘技場-双極の女神2</item>-->
+    </string-array>
+</resources>

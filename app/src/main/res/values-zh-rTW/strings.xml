@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">轉珠大師</string>
+    <string name="action_settings">設定</string>
+    <string name="time_limit">轉珠時間:</string>
+
+
+    <string name="settings">設定</string>
+    <string name="orb_type">轉珠類型:</string>
+    <string name="sound_onoff">背景音樂:</string>
+    <string name="step">步</string>
+    <string name="skill_1">技能1</string>
+    <string name="skill_2">技能2</string>
+    <string name="skill_3">技能3</string>
+    <string name="skill_4">技能4</string>
+    <string name="skill_5">技能5</string>
+    <string name="skill_6">技能6</string>
+    <string name="drop_type">掉落珠種類:</string>
+    <string name="drop_type_in_calc_mode">掉落珠種類(傷害計算機)</string>
+    <string name="skills">技能</string>
+    <string name="arrow">" > "</string>
+    <string name="str_basic">基本設定</string>
+    <string name="str_training">設定</string>
+    <string name="str_skills">技能設定</string>
+    <string name="training_mode">訓練模式</string>
+    
+    <string name="chooser_title">選擇圖片</string>
+    <string name="str_reset">重設</string>
+    
+    <string name="str_monster_box">寵物Box</string>
+    <string name="str_team">隊伍</string>
+    
+    <string name="str_cop">協力地城</string>
+    
+    <string name="menu_report">[隊伍設定教學]</string>
+    <string name="menu_training_mode">[訓練模式]</string>
+    <string name="menu_single_mode">[單次模式]</string>
+    <string name="menu_calculate_mode">[傷害計算機]</string>
+    <string name="menu_calculate_7x6_mode">[7x6模式]</string>
+    <string name="menu_calculate_5x4_mode">[5x4模式]</string>
+    <string name="menu_simulator_mode">[模擬器]</string>
+    <string name="menu_cop_mode">[協力模式]</string>
+    <string name="menu_settings_mode">[任務設定]</string>
+    <string name="menu_monster_box">[隊伍設置]</string>
+    <string name="menu_quit_mode">[任務結束]</string>
+    
+    <string name="all_orbs_transform">所有寶珠變化成</string>
+    <string name="color_change">寶珠轉色 </string>
+    <string name="error_same_type">第一組必須設定成不同寶珠轉換</string>
+    <string name="at_least_one">至少選擇一個種類</string>
+    
+    <string name="second">秒</string>
+    <string name="avg_combo">"平均Combo數 "</string>
+    
+    <string name="show_result_dialog_directly">消珠後顯示結果視窗</string>
+    <string name="show_path_if_available">顯示路徑\n(要重播過)</string>
+    
+    <string name="no_">編號</string>
+    <string name="lv">等級</string>
+    <string name="hp_">HP+蛋</string>
+    <string name="max99">99</string>
+    <string name="atk_">攻+蛋</string>
+    <string name="rec_">回+蛋</string>
+    <string name="awoken">覺醒數</string>
+    <string name="max10">10</string>
+    <string name="str_create">建立</string>
+    <string name="hp">HP</string>
+    <string name="atk">攻擊力</string>
+    <string name="rcv">回復力</string>
+    <string name="confirm">確認</string>
+    <string name="leader_skill">隊長技能</string>
+    <string name="awoken_skills">覺醒技能</string>
+    <string name="potential_awoken_skills">潛在覺醒</string>
+    <string name="super_awoken_skills">超覺醒</string>
+    <string name="add_monster">新增寵物</string>
+    <string name="data_loading">資料讀取中</string>
+    
+    <string name="no_such_id" formatted="false">查無寵物編號=%d(或尚未加入)</string>
+    
+    <string name="str_color_weakness">色弱模式</string>
+    
+    <!--  query -->
+    <string name="query_name">名稱</string>
+    <string name="query_effect">效果</string>
+    <string name="query_awoken">覺醒技能</string>
+    <string name="query_attr">屬性</string>
+    <string name="query_type">類型</string>
+    
+    <string name="str_no_">"編號 "</string>
+    <string name="str_lv_">"等級 "</string>
+    
+    <string name="str_monster_no">寵物編號</string>
+    
+    <string name="str_leader">隊長</string>
+    <string name="str_same_leader">同隊長</string>
+    <string name="str_friend_leader">隊友</string>
+    
+    <string name="str_power">攻擊力</string>
+    
+    <string name="str_recovery">回復力</string>
+    
+    <string name="str_total_hp">血量</string>
+    
+    <string name="str_leader_skill">隊長技能</string>
+    <string name="str_active_skill">主動技1</string>
+    <string name="str_active_skill2">主動技2</string>
+    <string name="str_friend_leader_skill">隊友技能</string>
+
+    <string name="str_edit">編輯</string>
+    <string name="str_done">完成</string>
+    
+    <string name="str_damage" formatted="false">總傷害: %s \n回復: %s</string>
+    <string name="str_restraining">敵人屬性:</string>
+    
+    <string name="str_title_damage">傷害</string>
+    <string name="str_title_combo">消珠</string>
+    
+    <string name="str_hyper">最大值</string>
+    <string name="str_fix">修正</string>
+    
+    <string name="str_set_bgm">選擇檔案</string>
+    <string name="str_reset_bgm">重設</string>
+    
+    <string name="need_network">需要有網路才能下載角色圖片</string>
+    <string name="updating">資料更新中…</string>
+    <string name="check_update">檢查更新中…</string>
+    <string name="update">更新</string>
+    <string name="downloading">資料下載中…</string>
+    
+    <string name="power_up_text" formatted="false">"%d回合內,攻擊力 %s倍 "</string>
+    <string name="ls_not_support">無技能或目前尚未支援</string>
+    <string name="ls_hp_condition" formatted="false">當HP %s %d%%時, </string>
+    <string name="ls_multi_mode">在協力模式下,</string>
+    <string name="ls_hp_condition_full">當HP全滿時, </string>
+    <string name="ls_all_monster">"所有寵物 "</string>
+    <string name="ls_monster_type" formatted="false">"所有 %s屬性 "</string>
+    <string name="ls_combo_factor" formatted="false">當連擊數達%d時, 攻擊力變為%1.2f倍。 </string>
+    <string name="ls_combo_factor_addition" formatted="false">之後每加一連擊(最大至%d連擊)再加 %1.1f倍(最大 %1.1f倍).</string>
+    <string name="ls_become_x" formatted="false">%s變為%s倍</string>
+    <string name="ls_color_factor" formatted="false">%s中,其中%d種同時攻擊時,所有寵物的攻擊力變為%1.1f倍。</string>
+    <string name="ls_color_factor_addition" formatted="false">之後每+1種再加%1.2f倍, 最大%1.1f倍。</string>
+    <string name="ls_multi_orb_combo_addition" formatted="false">當消除%d粒%s寶珠或以上時(需連著），所有寵物的攻擊力變為%1.2f倍。之後每+1粒再加%1.2f倍，最大%1.2f倍(%d粒時)</string>
+    <string name="ls_multi_orb_combo" formatted="false">當消除%d粒%s寶珠或以上時(需連著），所有寵物的攻擊力變為%1.2f倍</string>
+    <string name="ls_multi_orb_shield" formatted="false">減少%d%%傷害</string>
+    <string name="ls_target_orb_combo" formatted="false">%dcombo以上消除的寶珠包含是%s寶珠時，所有寵物的攻擊力變為%1.1f倍。</string>
+    <string name="lst_reduce_damage" formatted="false">減少%d%%傷害從%s屬性敵人。</string>
+    <string name="lst_do_konjo" formatted="false">當受到一次攻擊使你致死時，如果受到攻擊前HP為總HP的%d%%或以上的話，你將會以1點HP生還。注意：單一敵人連擊或是多個敵人同時攻擊時，如果其中一擊將你的HP打到%d%%以下卻未死, 接下來的攻擊不會觸發技能效果。</string>
+    <string name="lst_heal" formatted="false">每回合回復相當於隊長寵物自身回復力%d%%的HP，沒有產生消除的話不會觸發該效果</string>
+    <string name="lst_used_skill">使用技能的回合，</string>
+    <string name="lst_five_orbs" formatted="false">當消除包含強化珠的%d顆珠子時,該屬性攻擊力變為%1.1f倍</string>
+    <string name="lst_time_extend" formatted="false">寶株移動時間延長%.1f秒</string>
+    <string name="lst_remove_n" formatted="false">當消除%s珠%d顆時,</string>
+    <string name="lst_hp_recover" formatted="false">消除寶珠的回合，自動回復相當寵物自身回復力×%d倍的HP。</string>
+    <string name="lst_cross_attack" formatted="false">以十字型式消除5個%s寶珠時,每個十字提升攻擊力%.2f倍</string>
+    <string name="lst_cross_atk_def" formatted="false">以十字形式消除5個回復寶珠時，受到的傷害減少%d%%,攻擊力%.2f倍</string>
+    <string name="lst_more_remove" formatted="false">每組寶珠%d顆以下無法消除,%s屬性攻擊力%.1f倍</string>
+    <string name="lst_attack" formatted="false">消除寶珠的回合，以自身攻擊力×%d倍的傷害追打敵人，此傷害會受敵人防禦力減免</string>
+    <string name="lst_no_drop" formatted="false">天降寶珠不會產生COMBO。</string>
+    <string name="ls_combo_rcv" formatted="false">當連擊數達%d時, 回復力變為%1.2f倍。</string>
+    <string name="ls_combo_rcv_addition" formatted="false">之後每加一連擊(最大至%d連擊)再加 %1.1f倍(最大 %1.1f倍).</string>
+    <string name="lst_rcv" formatted="false">回復力變為%1.2f倍。</string>
+    <string name="ls_combo_shield" formatted="false">%dCOMBO或以上時，受到的傷害減少%d%%</string>
+    <string name="lst_drop_no_more" formatted="false">消除寶珠後畫面剩下%d個或以下的寶珠時，所有寵物的攻擊力%.2f倍。</string>
+
+    <string name="single_target">敵方單體</string>
+    <string name="multiple_targets">敵方全體</string>
+    <string name="as_attack_skill" formatted="false">造成%s屬性傷害等同於自身攻擊力%d倍，目標為%s。會受到敵人的屬性和防禦的影響</string>
+    <string name="as_power_up" formatted="false">在%d回合內, %s屬性產生的攻擊力變為%s倍。</string>
+    <string name="as_type_up" formatted="false">在%d回合內, %s類寵物的攻擊力變為%s倍。</string>
+    <string name="as_transform" formatted="false">所有寶珠變化成%s寶珠</string>
+    <string name="as_color_change" formatted="false">所有%s寶珠變為%s寶珠。</string>
+    <string name="as_change_the_world" formatted="false">%d秒內，可以任意挪動寶珠而不會觸發消除效果</string>
+    <string name="as_gravity" formatted="false">對敵方全體造成%d%%當前HP的傷害，該傷害無視屬性和防禦</string>
+    <string name="as_gravity_100" formatted="false">對敵方造成%d%%HP上限的傷害</string>
+    <string name="as_add_plus" formatted="false">當前面板上，所有%s寶珠獲得加號效果</string>
+    <string name="as_one_line_transform" formatted="false">%s的寶珠變化為%s</string>
+    <string name="as_reduce_def" formatted="false">%d回合內, 所有敵人的防禦力減少%d%%.</string>
+    <string name="as_delay" formatted="false">延長所有敵人攻擊冷卻%d回合</string>
+    <string name="as_random_change" formatted="false">隨機%d顆珠子變為%s.</string>
+    <string name="as_random_change_restrict" formatted="false">隨機%d顆珠子(除了%s珠)變為%s.</string>
+    <string name="as_time_extend" formatted="false">%d回合內,寶珠移動時間延長%.1f秒.</string>
+    <string name="as_move_time_x" formatted="false">%d回合內,寶珠移動時間延長%.1f倍.</string>
+    <string name="as_drop_rate" formatted="false">%d回合內，%s寶珠掉落率提高%d%%</string>
+   <string name="as_target_random" formatted="false">%s隨機變成%s</string>
+   <string name="as_power_up_by_awoken" formatted="false">%d回合內,所有寵物攻擊力根據隊伍內的覺醒技能[%s]而有所提升,每一個提升%d%%。</string>
+	<string name="as_bind_recover" formatted="false">綁定狀態解除%d回合.</string>
+	<string name="as_bind_recover_type1" formatted="false">"回復寵物自身回復力×%d倍的HP"</string>
+	<string name="as_bind_recover_type2" formatted="false">"HP回復%d點."</string>
+	<string name="as_bind_recover_type3" formatted="false">"回復HP上限%d%%的HP."</string>
+	<string name="as_reduce_shield" formatted="false">%d回合內，受到的傷害減少%d%%.</string>
+	<string name="as_reduce_shield_color" formatted="false">%d回合內，受到的%s傷害無效化.</string>
+    <string name="as_skill_boost" formatted="false">自身以外寵物的技能冷卻時間縮短%d回合</string>
+    <string name="as_skill_boost_random" formatted="false">自身以外寵物的技能冷卻時間縮短%d~%d回合</string>
+	<string name="as_direct_damage_single" formatted="false">對單一敵方造成 %d傷害.無視敵方屬性及防御力.</string>
+	<string name="as_direct_damage_all" formatted="false">對敵方全體造成 %d傷害.無視敵方屬性及防御力.</string>
+	<string name="as_clear_board">重洗盤面.</string>
+	<string name="as_counter_attack" formatted="false">%d回合內，受到傷害時進行受到傷害%d倍的%s屬性反擊</string>
+	<string name="as_change_attribute" formatted="false">將敵方全體的屬性變成%s（不受防護盾的影響）</string>
+	<string name="as_poison" formatted="false">使敵方全體中毒，每回合損失寵物自身攻擊力%d倍的HP</string>
+    <string name="as_hp_1">HP變成1.</string>
+    <string name="as_hp_x">HP變為目前HP的%d%%.</string>
+    <string name="as_cross">以十字形式消除5個回復寶珠時，受到的傷害減少50%%</string>
+	<string name="as_cross_atk" formatted="false">以十字形式消除5個回復寶珠時，受到的傷害減少50%%,攻擊力%.2f倍</string>
+	<string name="as_add_combo" formatted="false">%d回合內,總COMBO數增加%d.</string>
+	<string name="as_switch_leader">將自己換成隊長，再次使用此技能則換回原來隊長</string>
+	<string name="as_recover_up" formatted="false">%d回合內，回復力變為%.2f倍</string>
+	<string name="as_drain" formatted="false">"，並回復傷害%d%%的HP"</string>
+    <string name="as_unlock">解除寶珠鎖定狀態.</string>
+    <string name="as_void_absorb" formatted="false">%d回合內,傷害值以上吸收技能無效化。</string>
+    <string name="as_void_attr_absorb" formatted="false">%d回合內,屬性吸收技能無效化。</string>
+
+	<string name="str_defense">敵防禦: </string>
+	<string name="str_update">更新</string>
+	<string name="reset_combo">重設</string>
+	<string name="title_confirm">確認</string>
+	<string name="question_reset_combo">確定要重設平均combo數?</string>
+	
+	<string name="str_temp_modify">暫時修改移動時間</string>
+	
+    <string name="str_top">Y</string>
+    <string name="str_left">X</string>
+    <string name="str_width">寬度</string>
+    <string name="str_height">高度</string>
+    <string name="str_save">儲存</string>
+    <string name="str_analysis">分析位置</string>
+    <string name="str_setup">設定</string>
+    <string name="str_dont_set">如果自動分析盤面沒有問題的話 您就不需要設置此項設定</string>
+    
+	<string name="challenge_mode">挑戰模式</string>
+	<string name="str_bind_monster">寵物封鎖</string>
+	<string name="str_swap_member">隊長交換</string>
+	<string name="str_no_change">不交換</string>
+	<string name="str_member">隊員</string>
+	
+    <string name="str_cb_hp_condition">套用HP條件倍率</string>
+    <string name="str_if_uncheck_hp">(如果沒勾選,HP條件倍率會使用最高的攻擊倍率計算)</string>
+    
+    <string name="str_skill_fired">此回合使用過技能</string>
+    
+    <!-- 
+    <string name="str_backup_restore">Backup/Restore\nMonster Box</string>
+    <string name="str_backup">Backup</string>
+     -->
+     
+    <string name="str_web_url">傳送網址給朋友來討論最佳的解法</string>
+    <string name="str_generate">短網址產生中...</string>
+     
+    <string name="str_backup_restore">備份/還原</string>
+    <string name="str_backup">備份</string>
+    <string name="str_restore">還原</string>
+    <string name="null_awoken_mode">覺醒無效</string>
+    <string name="current_version">新增裏・極限の闘技場 » 裏双極の女神(部分未實裝)\n您目前版本為: </string>
+    
+    <string name="str_continue_drop">天降模式</string>
+    <string name="str_fullscreen">全螢幕</string>
+    <string name="str_restart_app">(需要重新啟動程式)</string>
+    <string name="str_search">搜尋</string>
+    <string name="str_filter">過濾條件</string>
+    <string name="str_rare">稀有: </string>
+    <string name="str_cost">Cost: </string>
+    <string name="str_attr1"> -- 屬性 -- </string>
+    <string name="str_type1"> -- 類型 --</string>
+    <string name="select_type"> -- 選擇類型 -- </string>
+    <string name="str_type">類型: </string>
+    <string name="str_attr">屬性: </string>
+    <string name="str_include_attr2">包含副屬性 </string>
+    <string name="str_confirm_delete">確定要刪除此寵物?</string>
+    <string name="str_backup_path" formatted="false">備份路徑為: \n %s</string>
+    <string name="str_input_path">請輸入檔名:</string>
+    <string name="backup_success">備份完成: </string>
+    <string name="backup_fail">備份失敗: </string>
+    <string name="restore_success">還原完成, 請重新開啟程式 </string>
+    <string name="restore_fail">還原失敗: </string>
+    <string name="str_no_backup_files">找不到備份檔案.</string>
+    <string name="str_file_exists">檔案已存在,確定要覆蓋檔案? (是: 覆寫   否: 檔名加入流水號)</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+  <string name="str_backing_up">備份中…</string>
+  <string name="str_restoring">還原中…</string>
+  <string name="str_set_path">路徑設定</string>
+  <string name="str_cannot_write">輸入的路徑無法寫入</string>
+  <string name="str_reduce_shield">%減傷盾</string>
+  <string name="str_half_shield">50%減傷盾</string>
+  <string name="str_damage_absorb">屬性吸收</string>
+  <string name="str_enemy_type">敵種類</string>
+  <string name="str_title_advanced_setup">進階設定</string>
+  <string name="str_need_album_app">您的裝置沒有相簿軟體, 請先從play store安裝一個相簿軟體(例如: google相簿)</string>
+  <string name="str_need_music_app">您的裝置沒有音樂選取或檔案管理軟體, 請先從play store安裝一個</string>
+  <string name="special_mode">[特殊]地下城</string>
+  <string name="str_has_new">發現%s筆新的寵物資料更新檔,要現在更新嗎?</string>
+  <string name="str_path">檔案路徑:</string>
+  
+  <string name="sort">排序</string>
+  <string name="na">未指定</string>
+  <string name="asc">正順</string>
+  <string name="desc">逆順</string>
+  <string name="condition01">攻擊力</string>
+  <string name="condition02">HP</string>
+  <string name="condition03">回復力</string>
+  <string name="condition04">等級</string>
+  <string name="condition05">Cost</string>
+  <string name="condition06">稀有</string>
+  <string name="condition07">屬性</string>
+  <string name="condition08">副屬性</string>
+  <string name="condition09">類型</string>
+  <string name="condition10">副類型</string>
+  <string name="condition11">+值</string>
+  <string name="priority1">第一優先</string>
+  <string name="priority2">第二優先</string>
+  <string name="priority3">第三優先</string>
+  <string name="priority4">第四優先</string>
+  <string name="priority5">第五優先</string>
+
+  <string name="no_data_found">找不到資料,你可以試著重設過濾條件並再試一次。</string>
+  
+  <string name="str_keep_ratio">保持螢幕比例</string>
+  <string name="str_keep_ratio_warning_restart_app">如果不勾選,畫面會無黑邊但可能會長寬不等比例,需要重啟程式</string>
+  <string name="title_potential_awoken">潛在覺醒</string>
+  <string name="sound">音效: </string>
+  <string name="str_sound_file">
+      請選擇交換珠子的音效檔,並將消珠音效放在同樣目錄之下,並且命名為combo1.wav,combo2.wav…etc\n
+      程式將會自動讀取消珠音效
+      </string>
+  <string name="str_orb_shining">+珠閃亮特效</string>
+  <string name="str_load_from_url">透過URL快速設置</string>
+  <string name="str_load_by_filter">透過過濾條件快速設置</string>
+  
+    <string name="str_297">297</string>
+    <string name="str_0">+0</string>
+    <string name="str_replace_to">儲存到 </string>
+    <string name="str_loading">讀取中</string>
+    <string name="str_saving">儲存中</string>
+    <string name="str_quick_setup">快速設置</string>
+    <string name="title_input_url">輸入短網址</string>
+    <string name="str_how_to_use_it">點擊這裡來觀看使用教學\n目前支援的網址有: www.puzzledragonx.com and www.loglesslove.net and pad.skyozora.com\n
+        歡迎傳送其他隊伍模擬網站給我, 我會試著加入支援網站中, 如果有辦法的話。
+    </string>
+    <string name="str_filter_hint">
+        \'透過過濾條件快速設置\'功能很簡單, 點下去試看看就知道了 :) 
+    </string>
+    
+    <string name="game_over">Game Over</string>
+    <string name="use_magic_stone">再接關?</string>
+    <string name="congraduation" formatted="false">恭喜過關!!!\n使用了%d石</string>
+    
+    <string name="select_stage">關卡選擇</string>
+    <string name="need_network_1st">第一次使用需要網路下載資料</string>
+  <string name="lang">zh</string>
+  
+    <string name="cd">CD</string>
+    <string name="str_active_skill_cd">主動技1CD</string>
+    <string name="str_active_skill2_cd">主動技2CD</string>
+    <string name="dialog_skill_1" formatted="false">技能1: %s (CD: %d)</string>
+    <string name="dialog_skill_2" formatted="false">技能2: %s (CD: %d)</string>
+    <string name="in_turns" formatted="false">還需%d回合</string>
+    <string name="full_charge" formatted="false">Fully charged in %d turn(s).</string>
+    <string name="use_skill">\n\n使用</string>
+    
+  <string name="str_load_by_padherderr">透過PadHerder網站快速設置</string>
+    <string name="str_padherder_hint">
+        輸入padherder.com的使用者名稱來快速新增資料.(https://www.padherder.com/)\n
+        如果資料數量大於程式Box大小(400),會以優先權及稀有度高的優先新增
+    </string>
+    <string name="add_by_padherder">輸入使用者名稱</string>
+    <string name="successful">新增成功,圖片正在背景下載可能無法馬上看見</string>
+    <string name="box_full">寵物Box空間不足 無法新增.</string>
+    
+    <string name="move_to_stage">移動到第幾層？</string>
+    <string name="move_error">無法移動到之前的層次或是層次大於最大層次</string>
+    <string name="need_read_storage">轉珠大師需要存取儲存權限才可以讀取圖片及儲存隊伍資料。</string>
+    <string name="orb_any">任意</string>
+</resources>
