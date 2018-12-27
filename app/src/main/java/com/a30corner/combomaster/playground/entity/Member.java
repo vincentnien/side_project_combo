@@ -266,7 +266,7 @@ public class Member extends Entity {
     
     public boolean bind(int turn) {
     	IEnvironment env = envRef.get();
-        if(!env.isNullAwokenStage()) {
+        if(!env.isNullAwokenStage() && !env.isAwokenLocked()) {
             int count = info.getTargetAwokenCount(AwokenSkill.RESISTANCE_BIND, env.isMultiMode());
             if(RandomUtil.getLuck(50*count)) {
             	Jump.apply(sprite, 0.3f);

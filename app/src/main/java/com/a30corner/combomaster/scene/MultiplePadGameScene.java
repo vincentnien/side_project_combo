@@ -2609,7 +2609,17 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 				final boolean isTarget = (data.size()%2) == 1;
 				int turns = data.get(0);
 				int size = data.size() - 1;
-				if (isTarget) {
+				if (data.get(1) == -1 && data.size() > 2) {
+					int random = RandomUtil.range(data.get(2), data.get(3));
+					boolean is7x6 = mEnvironment.is7x6();
+					for (int i = 0; i < random; ++i) {
+						int y = RandomUtil.getInt((is7x6)? 7:6);
+						int x = RandomUtil.getInt((is7x6)? 6:5);
+						Sprite s = sprites[x][y];
+						setSuperDarkOrb(res, s, turns);
+					}
+				}
+				else if (isTarget) {
 					for (int i = 1; i < size; i += 2) {
 						int y = data.get(i) - 1, x = data.get(i + 1) - 1;
 						Sprite s = sprites[x][y];
@@ -2965,7 +2975,7 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 
 			@Override
 			public void run() {
-				boolean[] badOrb = { false, false, false };
+				boolean[] badOrb = { false, false, false, false };
 				Set<Integer> changeSet = new HashSet<Integer>();
 				int size = changeList.size();
 				for (int i = 0; i < size; i += 2) {

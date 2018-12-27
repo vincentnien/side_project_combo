@@ -2771,7 +2771,7 @@ public class PadEnvironment implements IEnvironment {
                         @Override
                         public void run() {
                         	boolean resistBind = false;
-                        	if(bindTo.first == 0 && singleUp == SinglePowerUp.RESIST_BIND) {
+                        	if(!isAwokenLocked() && bindTo.first == 0 && singleUp == SinglePowerUp.RESIST_BIND) {
                         		resistBind = true;
                         	}
                         	if(!resistBind) {

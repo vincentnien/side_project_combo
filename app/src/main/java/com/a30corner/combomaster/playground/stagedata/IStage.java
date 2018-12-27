@@ -95,6 +95,16 @@ public class IStage {
         return new StageGenerator.SkillText();
     }
 
+    protected Pair<Integer, Integer> getMonsterAttrs(IEnvironment env,
+                                                             int id) {
+        MonsterVO vo = LocalDBHelper.getMonsterData(env.getScene()
+                .getActivity(), id);
+        if (vo != null) {
+            Pair<Integer, Integer> mp = vo.getMonsterProps();
+            return new Pair<Integer, Integer>(mp.first, (mp.second.equals(mp.first)) ? -1 : mp.second);
+        }
+        return new Pair<Integer, Integer>(1, 0); // FIXME: throw exception?
+    }
     protected List<MonsterSkill.MonsterType> getMonsterTypes(IEnvironment env,
                                                           int id) {
         MonsterVO vo = LocalDBHelper.getMonsterData(env.getScene()

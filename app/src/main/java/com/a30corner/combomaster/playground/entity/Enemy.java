@@ -290,7 +290,7 @@ public class Enemy extends Entity {
     }
 
     public void gotoMode(int mode) {
-        Log.e("Vincent", "mode from " + currentMode + " to " + mode);
+        //Log.e("Vincent", "mode from " + currentMode + " to " + mode);
         if (mode == -1) {
             ++currentMode;
         } else {

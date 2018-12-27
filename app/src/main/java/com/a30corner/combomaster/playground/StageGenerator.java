@@ -86,6 +86,7 @@ import com.a30corner.combomaster.playground.stagedata.SuperFight;
 import com.a30corner.combomaster.playground.stagedata.UltimateArena1;
 import com.a30corner.combomaster.playground.stagedata.UltimateArena2;
 import com.a30corner.combomaster.playground.stagedata.UltimateArena3;
+import com.a30corner.combomaster.playground.stagedata.UltimateArena5;
 import com.a30corner.combomaster.playground.stagedata.UraArena;
 import com.a30corner.combomaster.playground.stagedata.Zeus297Stage;
 import com.a30corner.combomaster.playground.stagedata.ZeusDragonStage;
@@ -116,6 +117,8 @@ public class StageGenerator {
 			new UltimateArena2().create(env, mStageEnemies, mStage);
 		} else if ("ultimate3".equals(mStage)) {
 			new UltimateArena3().create(env, mStageEnemies, mStage);
+		} else if ("ultimate5".equals(mStage)) {
+			new UltimateArena5().create(env, mStageEnemies, mStage);
 		} else if ("28_10".equals(mStage)) {
 			new Challenge28_Lv10().create(env, mStageEnemies, mStage);
 		} else if ("snow_river".equals(mStage)) {

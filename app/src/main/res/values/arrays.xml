@@ -237,6 +237,7 @@ BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38)
     </string-array>
     
     <string-array name="stage_list">
+        <item>Ultimate Arena 5</item>
         <item>？ Ultimate Arena</item>
         <item>The quest of June » Challenge Lv10</item>
         <item>Ultimate Arena-Bipolar Goddess 3</item>
@@ -268,6 +269,7 @@ BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38)
         <item>Starlight Sanctuary-King of the Gods</item>
     </string-array>
     <string-array name="value_list">
+        <item>ultimate5</item>
         <item>ura</item>
         <item>201806_10</item>
         <item>ultimate3</item>
