@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="awoken_skills">
+        <item>HP 강화</item>
+        <item>공격 강화</item>
+        <item>회복 강화</item>
+        <item>불 대미지 경감</item>
+        <item>물 대미지 경감</item>
+        <item>나무 대미지 경감</item>
+        <item>빛 대미지 경감</item>
+        <item>어둠 대미지 경감</item>
+        <item>자동 회복</item>
+        <item>바인드 내성</item>
+        <item>암흑 내성</item>
+        <item>방해 내성</item>
+        <item>독 내성</item>
+        <item>불 드롭 강화</item>
+        <item>물 드롭 강화</item>
+        <item>나무 드롭 강화</item>
+        <item>빛 드롭 강화</item>
+        <item>어둠 드롭 강화</item>
+        <item>조작 시간 연장</item>
+        <item>바인드 회복</item>
+        <item>스킬 부스트</item>
+        <item>불 속성 강화</item>
+        <item>물 속성 강화</item>
+        <item>나무 속성 강화</item>
+        <item>빛 속성 강화</item>
+        <item>어둠 속성 강화</item>
+        <item>2마리 공격</item>
+        <item>스킬 봉인 내성</item>
+        <item>없음</item>
+        <item>회복 드롭 강화</item>
+        <item>신 킬러</item>
+        <item>머신 킬러</item>
+        <item>멀티 부스터</item>
+        <item>악마 킬러</item>
+        <item>드래곤 킬러</item>
+        <item>밸런스 킬러</item>
+        <item>공격 킬러</item>
+        <item>체력 킬러</item>
+        <item>회복 킬러</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>콤보 강화</item>
+        <item>가드 브레이크</item>
+        <item>추가 공격</item>
+        <item>팀 Hp 강화</item>
+        <item>팀 회복력 강화</item>
+        <item>대미지 무효 관통</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>Heart Square</item>
+        <item>스킬 충전</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>HP가 80% 이상일 때 공격력이 1.5배</item>
+        <item>HP가 50% 이하일 때 공격력이 2배</item>
+        <item>한패 제작자에게 문의 바람</item>
+        <item>L자 지우기 공격</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Atk 1.5x if HP >= 80%</item>
+        <item></item>
+        <item></item>
+        <item>L Attack</item>
+    </string-array>
+    <string-array name="condition_list">
+        <item>@string/na</item>
+        <item>@string/condition01</item>
+        <item>@string/condition02</item>
+        <item>@string/condition03</item>
+        <item>@string/condition04</item>
+        <item>@string/condition05</item>
+        <item>@string/condition06</item>
+        <item>@string/condition07</item>
+        <item>@string/condition08</item>
+        <item>@string/condition09</item>
+        <item>@string/condition10</item>
+        <item>@string/condition11</item>
+    </string-array>
+    <string-array name="game_mode">
+        <item>노멀 던전</item>
+        <item>챌린지 던전</item>
+        <item>스페셜 던전</item>
+    </string-array>
+    <string-array name="line_position">
+        <item>맨 위쪽 가로줄을</item>
+        <item>가운데 가로줄을</item>
+        <item>맨 아래쪽 가로줄을</item>
+        <item>맨 왼쪽 세로줄을</item>
+        <item>맨 오른쪽 세로줄을</item>
+        <item>2번째 가로줄을</item>
+        <item>4번째 가로줄을</item>
+        <item>2번째 세로줄을</item>
+        <item>3번째 세로줄을</item>
+        <item>4번째 세로줄을</item>
+        <item>5번째 세로줄을</item>
+    </string-array>
+    <string-array name="monster_type">
+        <item>드래곤</item>
+        <item>악마</item>
+        <item>밸런스</item>
+        <item>공격</item>
+        <item>체력</item>
+        <item>회복</item>
+        <item>신</item>
+        <item>진화</item>
+        <item>강화합성</item>
+        <item>특별 보호</item>
+        <item>없음</item>
+        <item>머신</item>
+    </string-array>
+    <string-array name="orb_list">
+        <item>Default</item>
+        <item>Puzzle and Dragons</item>
+        <item>요괴워치</item>
+    </string-array>
+    <string-array name="orb_type">
+        <item>어둠</item>
+        <item>불</item>
+        <item>회복</item>
+        <item>빛</item>
+        <item>물</item>
+        <item>나무</item>
+        <item>독</item>
+        <item>방해</item>
+        <item>맹독</item>
+        <item>폭탄</item>
+    </string-array>
+    <string-array name="power_up">
+        <item>HP</item>
+        <item>공격력</item>
+        <item>회복력</item>
+    </string-array>
+    <string-array name="rare_list">
+        <item>1★</item>
+        <item>2★</item>
+        <item>3★</item>
+        <item>4★</item>
+        <item>5★</item>
+        <item>6★</item>
+        <item>7★</item>
+        <item>8★</item>
+        <item>9★</item>
+        <item>10★</item>
+    </string-array>
+    <string-array name="shield_percentage">
+        <item>80</item>
+        <item>75</item>
+        <item>70</item>
+        <item>60</item>
+        <item>50</item>
+        <item>40</item>
+        <item>30</item>
+        <item>25</item>
+        <item>20</item>
+    </string-array>
+    <string-array name="skill">
+        <item>@string/str_active_skill</item>
+        <item>@string/str_active_skill2</item>
+    </string-array>
+    <string-array name="skills">
+        <item>드롭 변환</item>
+        <item>공격/방어 태세</item>
+        <item>체인지 더 월드</item>
+    </string-array>
+    <string-array name="stage_list">
+        <item>초월 극한의 투기장 초월 극한의 투기장</item>
+        <item>極練의 투기장</item>
+        <item>극한의 투기장 5</item>
+        <item>초월 극한의 투기장</item>
+        <item>연마의 투기장</item>
+        <item>3월의 퀘스트 던전 [2019] » 챌린지 Lv10(낙차 없음)</item>
+        <item>극한의 투기장 - 쌍극의 여신 3</item>
+        <item>각성 소티스(투기장 1, 2, 3)</item>
+        <item>제우스 드래곤 강림</item>
+        <item>헤라 드래곤 강림</item>
+        <item>머신 아테나 강림 - 파멸급</item>
+        <item>챌린지 던전 34 Lv.10</item>
+        <item>초절정 결전(Boss Only)(Full SB)</item>
+        <item>챌린지 던전 32 Lv.9</item>
+        <item>제우스(+297) 강림</item>
+        <item>헤라(+297) 강림</item>
+        <item>초 극한 드래곤 러시 - 파멸급</item>
+        <item>초 극한 드래곤 러시 - 초절지옥급</item>
+        <item>머신 제우스 강림</item>
+        <item>머신 헤라 강림</item>
+        <item>월요일 던전 - 철완광장</item>
+        <item>화요일 던전 - 황금의 파수꾼</item>
+        <item>목요일 던전 - 꿈꾸는 열매</item>
+        <item>금요일 던전 - 천옥탑</item>
+        <item>극한 데빌 러시 - 초절지옥급</item>
+        <item>극한 데빌 러시 - 절대지옥급</item>
+        <item>극한의 투기장 - 쌍극의 여신 1</item>
+        <item>극한의 투기장 - 쌍극의 여신 2</item>
+        <item>챌린지 던전 28 Lv.10</item>
+        <item>전설의 눈 덮힌 협곡 - 빙산의 상룡</item>
+        <item>하누만 강림 - 백원신 초지옥급</item>
+        <item>전설의 대지 - 만물의 근원인 흑룡</item>
+        <item>별이 빛나는 밤의 신역 - 신들의 왕</item>
+    </string-array>
+    <string-array name="stage_power_up">
+        <item>인핸스 없음</item>
+        <item>불 속성 1.5x</item>
+        <item>물 속성 1.5x</item>
+        <item>나무 속성 1.5x</item>
+        <item>빛 속성 1.5x</item>
+        <item>어둠 속성 1.5x</item>
+        <item>드래곤 타입 1.5x</item>
+        <item>악마 타입 1.5x</item>
+        <item>밸런스 타입 1.5x</item>
+        <item>공격 타입 1.5x</item>
+        <item>회복 타입 1.5x</item>
+        <item>신 타입 1.5x</item>
+        <item>체력 타입 1.5x</item>
+        <item>머신 타입 1.5x</item>
+        <item>6★ 3x</item>
+    </string-array>
+    <string-array name="time_list">
+        <item>2초</item>
+        <item>2.5초</item>
+        <item>3초</item>
+        <item>3.5초</item>
+        <item>4초</item>
+        <item>4.5초</item>
+        <item>5초</item>
+        <item>5.5초</item>
+        <item>6초</item>
+        <item>6.5초</item>
+        <item>7.0초</item>
+        <item>7.5초</item>
+        <item>8.0초</item>
+        <item>8.5초</item>
+        <item>9.0초</item>
+        <item>9.5초</item>
+        <item>10초</item>
+        <item>무제한</item>
+    </string-array>
+    <string-array name="tmp_time_list">
+        <item>사용 안 함</item>
+        <item>무제한</item>
+        <item>2.0</item>
+        <item>2.5</item>
+        <item>3.0</item>
+        <item>3.5</item>
+        <item>4.0</item>
+        <item>4.5</item>
+        <item>5.0</item>
+        <item>5.5</item>
+        <item>6.0</item>
+        <item>6.5</item>
+        <item>7.0</item>
+        <item>7.5</item>
+        <item>8.0</item>
+        <item>8.5</item>
+        <item>9.0</item>
+        <item>9.5</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+</resources>

@@ -142,11 +142,11 @@ public class MonsterBoxFragment extends CMBaseFragment {
 					R.id.maws_count_03, R.id.maws_count_04, R.id.maws_count_05};
             ViewHolder holder = new ViewHolder();
             for(int i=0; i<5; ++i) {
-            	holder.images[i] = (ImageView) view.findViewById(images[i]);
-            	holder.lvs[i] = (TextView) view.findViewById(texts[i]);
-            	holder.p297s[i] = (TextView) view.findViewById(p297[i]);
-            	holder.awokens[i] = (ImageView) view.findViewById(aws[i]);
-            	holder.mawokens[i] = (ImageView) view.findViewById(maws[i]);
+            	holder.images[i] = view.findViewById(images[i]);
+            	holder.lvs[i] = view.findViewById(texts[i]);
+            	holder.p297s[i] = view.findViewById(p297[i]);
+            	holder.awokens[i] = view.findViewById(aws[i]);
+            	holder.mawokens[i] = view.findViewById(maws[i]);
             }
             view.setTag(holder);
 			return view;
@@ -483,15 +483,17 @@ public class MonsterBoxFragment extends CMBaseFragment {
 			Bundle savedInstanceState) {
 		final Activity activity = getActivity();
 		View view = inflater.inflate(R.layout.layout_monster_box, null);
-		mListView = (ListView) view.findViewById(android.R.id.list);
+		mListView = view.findViewById(android.R.id.list);
 		mAdapter = new MonsterAdapter(activity);
 		mListView.setAdapter(mAdapter);
 		
-		Spinner spinner = (Spinner) view.findViewById(R.id.page);
+		Spinner spinner = view.findViewById(R.id.page);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 				R.layout.cm_spinner);
 		final String[] teams = { "Page 1", "Page 2", "Page 3", "Page 4",
-				"Page 5", "Page 6", "Page 7", "Page 8", "Page 9", "Page 10" };
+				"Page 5", "Page 6", "Page 7", "Page 8", "Page 9", "Page 10",
+				"Page 11", "Page 12", "Page 13", "Page 14", "Page 15",
+				"Page 16", "Page 17", "Page 18", "Page 19", "Page 20"};
 		adapter.addAll(teams);
 		spinner.setAdapter(adapter);
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {

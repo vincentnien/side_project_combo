@@ -933,6 +933,7 @@ public class MonsterDetailActivity extends Activity {
 				int enhanceHpCount = 0;
 				int enhanceAtkCount = 0;
 				int enhanceHealCount = 0;
+				int hpDownCount = 0, atkDownCount = 0, healDownCount = 0;
 				int awssize = awokens.size();// Math.min(awoken,
 				// awokens.size());
 
@@ -1016,6 +1017,12 @@ public class MonsterDetailActivity extends Activity {
 								++enhanceAtkCount;
 							} else if (s == AwokenSkill.ENHANCE_HEAL) {
 								++enhanceHealCount;
+							} else if (s == AwokenSkill.HP_DOWN) {
+								++hpDownCount;
+							} else if (s == AwokenSkill.ATK_DOWN) {
+								++atkDownCount;
+							} else if (s == AwokenSkill.RCV_DOWN) {
+								++healDownCount;
 							}
 						}
 					}
@@ -1031,6 +1038,12 @@ public class MonsterDetailActivity extends Activity {
 							++enhanceAtkCount;
 						} else if (s == AwokenSkill.ENHANCE_HEAL) {
 							++enhanceHealCount;
+						} else if (s == AwokenSkill.HP_DOWN) {
+							++hpDownCount;
+						} else if (s == AwokenSkill.ATK_DOWN) {
+							++atkDownCount;
+						} else if (s == AwokenSkill.RCV_DOWN) {
+							++healDownCount;
 						}
 					}
 				} else {
@@ -1095,9 +1108,9 @@ public class MonsterDetailActivity extends Activity {
 				int php = (int)(thp * (enhanceAll * 0.03f + (enhancePotentialHpCount) * 0.015f + epHpCount * 0.045f));
 
 
-				atk = (tatk + (5 * atkp) + (enhanceAtkCount * 100)) + patk;
-				rcv = (trcv + (3 * rcvp) + (enhanceHealCount * 200)) + prcv;
-				hp = (thp + (10 * hpp) + (enhanceHpCount * 500)) + php;
+				atk = (tatk + (5 * atkp) + (enhanceAtkCount * 100)) + patk - atkDownCount * 1000;
+				rcv = (trcv + (3 * rcvp) + (enhanceHealCount * 200)) + prcv - healDownCount * 2000;
+				hp = (thp + (10 * hpp) + (enhanceHpCount * 500)) + php - hpDownCount * 5000;
 
 				mBtnNo.setText(String.valueOf(no));
 				mMonsterLv.setText("" + lv);
@@ -1108,11 +1121,24 @@ public class MonsterDetailActivity extends Activity {
 					atk += addAtk;
 					hp += addHp;
 					rcv += addRcv;
+					if(atk <= 0) {
+						atk = 1;
+					}
+					if(hp <= 0) {
+						hp = 1;
+					}
 
 					showAtk = atk + " (+" + atkp + ") (+" +addAtk + ")";
 					showHp = hp + " (+" + hpp + ") (+" +addHp + ")";
 					showRcv = rcv + " (+" + rcvp + ") (+" +addRcv + ")";
 				} else {
+					if(atk <= 0) {
+						atk = 1;
+					}
+					if(hp <= 0) {
+						hp = 1;
+					}
+
 					showAtk = atk + " (+" + atkp + ")";
 					showHp = hp + " (+" + hpp + ")";
 					showRcv = rcv + " (+" + rcvp + ")";

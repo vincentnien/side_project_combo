@@ -1,24 +1,11 @@
 package com.a30corner.combomaster.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import rx.Observable;
-import rx.schedulers.Schedulers;
-import rx.functions.Action1;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -46,6 +33,20 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 public class StageSelectActivity extends Activity {
 
 	InterstitialAd intersistialAd;
@@ -60,7 +61,7 @@ public class StageSelectActivity extends Activity {
 		setContentView(R.layout.stage_layout);
 		setTitle(R.string.select_stage);
 		
-		stageListView = (ListView) findViewById(android.R.id.list);
+		stageListView = findViewById(android.R.id.list);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.layout_stage, android.R.id.text1);
 		adapter.addAll(getResources().getStringArray(R.array.stage_list));
 		
@@ -183,32 +184,47 @@ public class StageSelectActivity extends Activity {
 	
 	private void startTeamSelection(final String stage) {
 		if(!isCop) {
-			DialogUtil.getTeamSelectDialog(StageSelectActivity.this,
-					new ITeamSelectCallback() {
-	
-						@Override
-						public void onSelect(int index, Map<String, Object> data) {
-							ComboMasterApplication instance = ComboMasterApplication.getsInstance();
-							instance.setTargetTeam(index);
-							instance.setStage(stage);
-							instance.setCopMode(false);
-							int type = 0; // full
-							if(RandomUtil.getLuck(40)) {
-								type = 1;
+			try {
+				DialogUtil.getTeamSelectDialog(StageSelectActivity.this,
+						new ITeamSelectCallback() {
+
+							@Override
+							public void onSelect(int index, Map<String, Object> data) {
+								ComboMasterApplication instance = ComboMasterApplication.getsInstance();
+								instance.setTargetTeam(index);
+								instance.setStage(stage);
+								instance.setCopMode(false);
+								int type = 0; // full
+								if (RandomUtil.getLuck(50)) {
+									type = 1;
+								}
+								instance.setAdSceneType(type);
+
+								start();
 							}
-							instance.setAdSceneType(type);
-							
-							start();
-						}
-	
-						@Override
-						public void onCancel() {
-						}
-					}, true).show();
+
+							@Override
+							public void onCancel() {
+							}
+						}, true).show();
+			} catch (Throwable e) {
+				ComboMasterApplication instance = ComboMasterApplication.getsInstance();
+				//instance.setTargetTeam(index);
+				instance.setStage(stage);
+				instance.setCopMode(false);
+				int type = 0; // full
+				if (RandomUtil.getLuck(50)) {
+					type = 1;
+				}
+				instance.setAdSceneType(type);
+
+				start();
+			}
 		} else {
-			DialogUtil.getTeam2SelectDialog(StageSelectActivity.this,
+			try {
+				DialogUtil.getTeam2SelectDialog(StageSelectActivity.this,
 						new ITeam2SelectCallback() {
-							
+
 							@Override
 							public void onSelect(int index, int index2, Map<String, Object> data) {
 								ComboMasterApplication instance = ComboMasterApplication.getsInstance();
@@ -218,18 +234,31 @@ public class StageSelectActivity extends Activity {
 								instance.setGameMode(Constants.MODE_MULTIPLE);
 								instance.setCopMode(true);
 								int type = 0; // full
-								if(RandomUtil.getLuck(20)) {
+								if (RandomUtil.getLuck(50)) {
 									type = 1;
 								}
 								instance.setAdSceneType(type);
-								
+
 								start();
 							}
-							
+
 							@Override
 							public void onCancel() {
 							}
 						}).show();
+			} catch (Throwable e) {
+				ComboMasterApplication instance = ComboMasterApplication.getsInstance();
+				instance.setStage(stage);
+				instance.setGameMode(Constants.MODE_MULTIPLE);
+				instance.setCopMode(true);
+				int type = 0; // full
+				if (RandomUtil.getLuck(50)) {
+					type = 1;
+				}
+				instance.setAdSceneType(type);
+
+				start();
+			}
 		}
 	}
 	
@@ -278,7 +307,11 @@ public class StageSelectActivity extends Activity {
 			} else if ("201806_10".equals(stage)) {
 				data = Arrays.asList(3541, 761, 1105, 2008, 1190, 2742, 2391);
 			} else if("sopdet".equals(stage)) {
-				data = Arrays.asList(1463,1462);
+				data = Arrays.asList(1463, 1462);
+			} else if ("extremepractice".equals(stage)) {
+				data = Arrays.asList(46, 48, 50, 52, 54, 414, 417, 428, 4244, 3318, 3319, 3320, 3321, 3322, 3323, 3324, 3325, 3700, 3701, 3702, 3703, 694, 973, 983, 1271, 1517, 4011, 922, 475, 476, 477, 478, 479, 3877, 4995, 3638, 3640, 3642, 3311);
+			} else if ("uralien".equals(stage)) {
+				data = Arrays.asList(161, 162, 163, 164, 165,3318,3319, 3320, 3321, 3322, 3323, 3324, 3325,2551,3259,3208,3838,363,365,1108,2989,3017,3251,2896,3457,3327,2206,2524,1920,1921,2393,2395,3074,4417,1338,4358,908,1514,2560,3200,3903,4013,3638,3640,3642,4585,4742,2098,1885,5175,5177,5179,5181,5183,5297,3891,1547,1548,1549,1550,1551);
 			} else if("ultimate".equals(stage)){
 				data = new ArrayList<Integer>();
 				data.add(812);
@@ -477,8 +510,18 @@ public class StageSelectActivity extends Activity {
 						2939, 2940, 2941, 1955, 1726, 1956, 1954, 3829, 3832, 3881, 2092, 2277, 2754, 3013, 3245,
 						985, 1536, 1737, 2807, 2946, 1217, 1644, 1547, 1548, 1549, 1550, 1551, 3891, 1747, 2078, 1458, 1602, 2130
 				);
+			} else if ("lvultimate".equals(stage)) {
+				data = Arrays.asList(152,153,154,3483,3507,155,156,157,158,159,246,247,248,249,250,4638,4640,4642,4644,4646,4273,4264,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,3241,3243,797,3827,3487,3488,3489,3490,3491,4411,4413,4415,4648,4650,3700,3701,3702,3703);
 			} else if ("ultimate5".equals(stage)) {
-				data = Arrays.asList(2393,2395,1920, 1921,2206,2524, 3457,3327, 3251, 2896, 2989, 3017,161,162,163,164,165,2551,3259,3208,3838,363,365,1108,3318,3319,3320,332,2395,3074,4417,1338,4358,908,1514,3318,3319,3320,3321,3322,3323,3324,3325,2560,3200,3903,4013,3638,3640,3642,4585,4742,1547,1548,1549,1550,1551);
+                data = Arrays.asList(2393, 2395, 1920, 1921, 2206, 2524, 3457, 3327, 3251, 2896, 2989, 3017, 161, 162, 163, 164, 165, 2551, 3259, 3208, 3838, 363, 365, 1108, 3318, 3319, 3320, 332, 2395, 3074, 4417, 1338, 4358, 908, 1514, 3318, 3319, 3320, 3321, 3322, 3323, 3324, 3325, 2560, 3200, 3903, 4013, 3638, 3640, 3642, 4585, 4742, 1547, 1548, 1549, 1550, 1551);
+            } else if ("7th_lv30".equals(stage)) {
+				data = Arrays.asList(4834, 1726, 2749, 1668, 2081, 2983);
+			} else if ("quest_201901_lv10".equals(stage)) {
+				data = Arrays.asList(761, 189, 2294, 3251, 4744);
+			} else if ("quest_201903_lv10".equals(stage)) {
+				data = Arrays.asList(2239, 1726, 2130, 2191, 2641, 2989, 2809);
+			} else if ("quest_201901_lv9".equals(stage)) {
+				data = Collections.singletonList(2718);
 			} else if("ultimate3".equals(stage)){
 				data = new ArrayList<Integer>();
 				for(int i=0; i<5; ++i) {

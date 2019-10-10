@@ -35,8 +35,9 @@
     <string name="menu_calculate_mode">【ダメージ計算器】</string>
     <string name="menu_calculate_7x6_mode">【盤面7×6】</string>
     <string name="menu_calculate_5x4_mode">【盤面5×4】</string>
-    <string name="menu_simulator_mode">[シミュレータ]</string>
-    <string name="menu_cop_mode">[協力プレイモード]</string>
+    <string name="menu_egg_machine">【ガチャシミュレータ】</string>
+    <string name="menu_simulator_mode">【シミュレータ】</string>
+    <string name="menu_cop_mode">【協力プレイモード】</string>
     <string name="menu_settings_mode">【ゲーム設定】</string>
     <string name="menu_monster_box">【チーム設定】</string>
     <string name="menu_quit_mode">【ゲームを終了】</string>
@@ -193,6 +194,7 @@
     <string name="as_void_absorb" formatted="false">%dターンの間、ダメージ吸収を無効化する。</string>
 
     <string name="as_bind_recover" formatted="false">バインド状態を%dターン回復する.</string>
+    <string name="as_awoken_recover" formatted="false">覚醒無効状態を%dターン回復する.</string>
 	<string name="as_bind_recover_type1" formatted="false">"HPを回復力×%d倍回復する"</string>
 	<string name="as_bind_recover_type2" formatted="false">"HPを%d回復する."</string>
 	<string name="as_bind_recover_type3" formatted="false">"HPを最大HPの%d％分回復する."</string>
@@ -250,7 +252,7 @@
     <string name="str_backup">バックアップ</string>
     <string name="str_restore">リストア</string>
     <string name="null_awoken_mode">覚醒スキル無効</string>
-    <string name="current_version">裏・極限の闘技場 » 裏双極の女神を追加する(部分的に実装する)\n現在のバージョン: </string>
+    <string name="current_version">New! 裏異形の存在追加する(一部の機能と究毒の魔学者・ガスロ実装されていない)\n\n現在のバージョン: </string>
     
     <string name="str_continue_drop">ドロップモード</string>
     <string name="str_fullscreen">全画面表示</string>
@@ -368,4 +370,26 @@
     <string name="need_read_storage">このアプリは、スクリーンショットにアクセスしてチームデータをsdcardに保存するためのREAD / WRITEストレージ権限が必要です。</string>
     <string name="as_turn_recover" formatted="false">%dターンの間、最大HPの%d％分回復。</string>
     <string name="orb_any"> </string>
+    <string name="as_format_l" formatted="false">L字型に%sドロップを生成。</string>
+    <string name="as_format_cross" formatted="false">十字型に%sドロップに1つ生成。</string>
+    <string name="as_format_square" formatted="false">3×3の正方形に%sドロップを1つ生成。（7×6マスの場合は3×4の長方形）</string>
+    <string name="as_drop_only" formatted="false">%dターンの間、%sドロップのみ落ちてくる。</string>
+    <string name="as_void_void_shield" formatted="false">%dターンの間、ダメージ無効を貫通する.</string>
+
+    <string name="lst_l_format" formatted="false">%sの5個L字消しで、</string>
+    <string name="lst_attr_0" formatted="false">受けるダメージを%d%%軽減、</string>
+    <string name="lst_attr_1" formatted="false">攻撃力が%.2f倍 </string>
+    <string name="lst_attr_2" formatted="false">回復力が%.2f倍 </string>
+    <string name="lst_attr_3" formatted="false">%dコンボ加算 </string>
+    <string name="lst_counter_strike" formatted="false">攻撃を受けると、%d%%に%s属性で%d倍反撃。</string>
+
+    <string name="lst_orb_combo_attack" formatted="false">%d個以上%sを同時につなげて消すと、%s</string>
+    <string name="pull_again">続ける</string>
+    <string name="download_data">データをダウンロードしますか？</string>
+
+    <string name="lst_no_poison">毒ダメージを無効化。</string>
+    <string name="lst_heart" formatted="false">回復ドロップで%d以上回復すると、</string>
+    <string name="ls_color_direct_attack" formatted="false">%sドロップの中から、%d種類を消した同時攻撃で、固定%dダメージ。</string>
+    <string name="ls_multi_direct_attack" formatted="false">%d個%sドロップをつなげて消すと固定%dダメージ。</string>
+    <string name="as_reduce_eliminate_status" formatted="false">消せないドロップ状態を%dターン回復。</string>
 </resources>

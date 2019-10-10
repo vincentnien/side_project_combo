@@ -43,7 +43,7 @@ public class IStage {
                                 "skill-" + loc + ".json")), listType);
             }
         } catch (IOException e) {
-            Log.e("Vincent", e.toString());
+            Log.e("ComboMaster", e.toString());
         }
         LogUtil.e("Load skill text failed");
         return new ArrayList<StageGenerator.SkillText>();
@@ -67,25 +67,35 @@ public class IStage {
                     loc = "en";
                 }
                 for(int id :ids) {
-                    List<StageGenerator.SkillText> list = gson.fromJson(new FileReader(new File(activity.getCacheDir(),
-                            loc + "_" + id +".json")), listType);
-                    arr.append(id, list);
+                    File file = new File(activity.getCacheDir(), loc + "_" + id +".json");
+                    if (file.exists()) {
+                        List<StageGenerator.SkillText> list = gson.fromJson(new FileReader(file), listType);
+                        arr.append(id, list);
+                    }
                 }
             }
         } catch (IOException e) {
-            Log.e("Vincent", e.toString());
+            Log.e("ComboMaster", e.toString());
         }
         return arr;
     }
 
     protected  StageGenerator.SkillText[] loadSubText(SparseArray<List<StageGenerator.SkillText>> list, int id) {
         List<StageGenerator.SkillText> sublist = list.get(id);
-        int size = sublist.size();
-        StageGenerator.SkillText[] text = new StageGenerator.SkillText[size];
-        for(int i=0; i<size; ++i) {
-            text[i] = getSkillText(sublist, i);
+        if(sublist != null) {
+            int size = sublist.size();
+            StageGenerator.SkillText[] text = new StageGenerator.SkillText[size];
+            for (int i = 0; i < size; ++i) {
+                text[i] = getSkillText(sublist, i);
+            }
+            return text;
+        } else {
+            StageGenerator.SkillText[] text = new StageGenerator.SkillText[50];
+            for (int i = 0; i < 50; ++i) {
+                text[i] = new StageGenerator.SkillText();
+            }
+            return text;
         }
-        return text;
     }
 
     protected StageGenerator.SkillText getSkillText(List<StageGenerator.SkillText> data, int index) {

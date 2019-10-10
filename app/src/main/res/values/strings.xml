@@ -2,22 +2,21 @@
 <resources>
 
     <string name="app_name">Combo Master</string>
-    <string name="banner_ad_unit_id">ca-app-pub-9312207078900289/8398831223</string>
-    <string name="reward_ad_unit_id">ca-app-pub-9312207078900289/2917816820</string>
-    
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-9312207078900289/8398831223</string>
+    <string name="reward_ad_unit_id" translatable="false">ca-app-pub-9312207078900289/2917816820</string>
+
     <string name="action_settings">Settings</string>
     <string name="time_limit">Time Limit:</string>
 
-    <string name="version">3.9.3</string>
-
-    <string name="modified_time">1473638400</string>
-    <string name="support_version">168</string>
+    <string name="version" translatable="false">4.7.7</string>
+    <string name="modified_time" translatable="false">1473638400</string>
+    <string name="support_version" translatable="false">223</string>
 
     <string name="settings">Settings</string>
     <string name="orb_type">Orbs type:</string>
     <string name="sound_onoff">BGM: </string>
     <string name="step">Step</string>
-    <string name="skill">Skill</string>
+    <string name="skill" translatable="false">Skill</string>
     <string name="skill_1">Skill 1</string>
     <string name="skill_2">Skill 2</string>
     <string name="skill_3">Skill 3</string>
@@ -25,14 +24,14 @@
     <string name="skill_5">Skill 5</string>
     <string name="skill_6">Skill 6</string>
     <string name="drop_type">Drop type</string>
-    <string name="drop_type_in_calc_mode">Drop type in [PAD Calculator]</string>
+    <string name="drop_type_in_calc_mode" translatable="false">Drop type in [PAD Calculator]</string>
     <string name="training_mode">Training mode</string>
     <string name="skills">Skills</string>
     <string name="arrow">" > "</string>
     <string name="str_basic">Basic</string>
     <string name="str_training">Settings</string>
     <string name="str_skills">Skills</string>
-    <string name="str_monster">Box</string>
+    <string name="str_monster" translatable="false">Box</string>
 
     <string name="chooser_title">Choose an image</string>
     
@@ -49,18 +48,18 @@
     <string name="menu_calculate_mode">[PAD Calculator]</string>
     <string name="menu_calculate_7x6_mode">[7x6 Mode]</string>
     <string name="menu_calculate_5x4_mode">[5x4 Mode]</string>
+    <string name="menu_egg_machine">[Egg Machine]</string>
     <string name="menu_simulator_mode">[Simulator]</string>
     <string name="menu_monster_box">[PAD Team Setup]</string>
     <string name="menu_settings_mode">[Settings]</string>
     <string name="menu_cop_mode">[Cooperative Play]</string>
     <string name="menu_quit_mode">[Quit]</string>
-    <string name="menu_simulator">[ALPHA]</string>
     <string name="all_orbs_transform">"All Orbs become "</string>
     <string name="color_change">Color Change </string>
     <string name="error_same_type">cannot change to the same orb type</string>
     <string name="at_least_one">at least choose one type</string>
-    <string name="result">Result</string>
-    <string name="total_combo">Total %d combo!</string>
+    <string name="result" translatable="false">Result</string>
+    <string name="total_combo" translatable="false">Total %d combo!</string>
     <string name="second">sec.</string>
     <string name="avg_combo">"Avg. Combo "</string>
     <string name="show_result_dialog_directly">show result dialog directly</string>
@@ -208,7 +207,7 @@
     <string name="lst_rcv" formatted="false">RCV becomes %.2fx.</string>
     <string name="lst_rcv_max" formatted="false">RCV becomes %.2fx(MAX)</string>
     <string name="lst_drop_no_more" formatted="false">After removing, if there are only %d or less orbs, ATK becomes %.2fx.</string>
-    LST_MULTI_ORB_COMBO_MULTI
+
     <string name="single_target">single enemy</string>
     <string name="multiple_targets">all enemies</string>
     <string name="as_attack_skill" formatted="false">Deal %s type damage equal to %dx user\'s ATK to %s. Affected by enemy element and defense. </string>
@@ -234,7 +233,7 @@
 	<string name="as_power_up_by_awoken" formatted="false">For %d turns, increases attack power base on the number of awakening skills [%s], increases %d%% for each one.</string>
     <string name="as_def_up_by_awoken" formatted="false">For %d turns, reduce damage base on the number of awakening skills [%s], reduces %d%% for each one.</string>
 	<string name="as_bind_recover" formatted="false">Reduce all binds by %d rounds.</string>
-    <string name="as_awoken_recover" formatted="false">Reduce null awoken by %d rounds.</string>
+    <string name="as_awoken_recover" formatted="false">Reduce awoken binds by %d rounds.</string>
 	<string name="as_bind_recover_type1" formatted="false">"Recover HP equal to %dx the user's RCV."</string>
 	<string name="as_bind_recover_type2" formatted="false">"Recover %d HP."</string>
 	<string name="as_bind_recover_type3" formatted="false">"Recover HP equal to %d%% the user's HP."</string>
@@ -252,7 +251,7 @@
     <string name="as_unlock">Unlock orbs.</string>
     <string name="as_void_absorb" formatted="false">For %d turn(s),ignores enemy damage absorb effects.</string>
     <string name="as_void_attr_absorb" formatted="false">For %d turn(s),ignores enemy attribute absorb effects.</string>
-
+    <string name="as_void_void_shield" formatted="false">%dターンの間、ダメージ無効を貫通する.</string>
 
     <string name="as_poison" formatted="false">Inflict Poison damage equal to ATK x%d to all enemies every turn. Ignore enemy element and defense.</string>
 	<string name="as_hp_1">Reduce HP to 1.</string>
@@ -406,6 +405,7 @@
     <string name="congraduation" formatted="false">Congratulation!!!\nUsed: %d stone(s)</string>
     
     <string name="select_stage">Select stage</string>
+    <string name="select_egg_machine">Egg Machines</string>
 
     <string name="need_network_1st">Program needs to download data from internet the first time, but the network is unavailable.</string>
     
@@ -435,6 +435,29 @@
     <string name="need_read_storage">ComboMaster need READ/WRITE storage permission to access screenshot and save team data to sdcard.</string>
     <string name="as_turn_recover" formatted="false">For %d turn(s), recover HP equal to %d%% the user\'s HP</string>
     <string name="as_enhance_orb" formatted="false">For %d turn(s), add enhanced orb drop rate %d%%.</string>
-
+    <string name="as_format_l" formatted="false">Generate %s orbs in L formation</string>
+    <string name="as_format_cross" formatted="false">Generate %s orbs in cross formation </string>
+    <string name="as_format_square" formatted="false">Generate %s orbs in 3x3 formation </string>
+    <string name="as_drop_only" formatted="false">%dターンの間、%sドロップのみ落ちてくる。</string>
     <string name="orb_any">Any</string>
+
+
+    <string name="lst_l_format" formatted="false">When matching %s orbs in L formation, </string>
+    <string name="lst_attr_0" formatted="false">reduce damage taken by %d%%,</string>
+    <string name="lst_attr_1" formatted="false">ATK becomes %.2fx,</string>
+    <string name="lst_attr_2" formatted="false">RCV becomes %.2fx,</string>
+    <string name="lst_attr_3" formatted="false">add %d more combo(s)</string>
+
+    <string name="lst_orb_combo_attack" formatted="false">When matching a sets of %d connected %s orbs, %s</string>
+    <string name="lst_counter_strike" formatted="false">%d%% chance of countering with a %s type attack of %dx damage taken.</string>
+    <string name="pull_again">Pull again</string>
+    <string name="download_data">Download data?</string>
+
+    <string name="lst_no_poison">Eliminates poisonous damage when removing poison orbs.</string>
+    <string name="lst_heart" formatted="false">另外以回復寶珠回復%dHP或以上時，</string>
+    <string name="ls_color_direct_attack" formatted="false">In %s,when matching and attacking with %d colors, deal %d damage to all enemies.</string>
+    <string name="ls_multi_direct_attack" formatted="false">When matching a connected group of %d or more %s Orbs, deal %d damage to all enemies.</string>
+    <string name="ls_reduce_x" formatted="false">%s</string>
+
+    <string name="as_reduce_eliminate_status" formatted="false">Reduce unable to eliminate orbs status by %d rounds.</string>
 </resources>

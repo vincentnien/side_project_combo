@@ -112,14 +112,42 @@
         <item></item>
         <item></item>
         <item>7 Combo</item>
-
+        <item>Guard Break</item>
+        <item>Heart Arrow</item>
+        <item>Team Hp Up</item>
+        <item>Team Rcv Up</item>
+        <item>Square attack</item>
+        <item></item>
+        <item>Heart Square</item>
+        <item>Skill Charge</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Atk 1.5x if HP >= 80%</item>
+        <item></item>
+        <item></item>
+        <item>L Attack</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Atk 1.5x if HP >= 80%</item>
+        <item></item>
+        <item></item>
+        <item>L Attack</item>
 <!--
 BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38),
 		EVO_MATRIAL_KILLER(39), AWOKEN_KILLER(40), ENHANCE_MATRIAL_KILLER(41),
 		COMBO_7(42), GUARD_BREAK(43),HEART_ARROW(44),TEAM_HP_UP(45),TEAM_RCV_UP(46),
 		SQUARE_ATTACK(47), ASSISTANT(48),HEART_SQUARE(49),SKILL_CHARGE(50),
-		RESISTANCE_BIND_PLUS(51), EXTEND_TIME_PLUS(52), RESISTANCE_KUMO(53), RESISTANCE_BIND_MOVE(54), SKILL_BOOST_PLUS(55), ATK_UP_80(56),
-		ATK_UP_50(57),L_SHIELD(58),L_ATTACK(59), SELL_KILLER(60), COMBO_10(61), SKILL_VOICE(59)
+		RESISTANCE_BIND_PLUS(51), EXTEND_TIME_PLUS(52), RESISTANCE_KUMO(53),
+		RESISTANCE_BIND_MOVE(54), SKILL_BOOST_PLUS(55), ATK_UP_80(56),
+		ATK_UP_50(57),L_SHIELD(58),L_ATTACK(59), SELL_KILLER(60), COMBO_10(61),
+		SKILL_VOICE(62), COMBO_DROP(63),
+		DUNGEON_BONUS(64)
 -->
     </string-array>
     <array name="skills">
@@ -145,6 +173,11 @@ BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38)
         <item>ATK</item>
         <item>RCV</item>
     </string-array>
+
+    <string-array name="leader_power">
+        <item>Reduce damage received by %d%%</item>
+        <item>Awoken Bind recovery for %d turns</item>
+    </string-array>
     
     <string-array name="monster_type">
         <item>Dragon</item>
@@ -158,7 +191,7 @@ BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38)
         <item>Enhance Matrial</item>
         <item>Special Protected</item>
         <item>None</item>
-        <item>Machine</item>牛
+        <item>Machine</item>
     </string-array>
     
     <string-array name="line_position">
@@ -237,9 +270,16 @@ BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38)
     </string-array>
     
     <string-array name="stage_list">
+        <item>Alt. Ultimate Arena 3</item>
+        <item>Extreme Practice Arena</item>
         <item>Ultimate Arena 5</item>
-        <item>？ Ultimate Arena</item>
-        <item>The quest of June » Challenge Lv10</item>
+        <item>Alt. Ultimate Arena</item>
+        <item>Training Arena</item>
+        <item>The quest of Mar 2019 » Challenge Lv10</item>
+        <!--<item>7th Anniversary - Lv30</item>-->
+        <!--<item>The quest of Jan 2019 » Challenge Lv10</item>-->
+        <!--<item>The quest of Jan 2019 » Challenge Lv9</item>-->
+        <!--<item>The quest of June » Challenge Lv10</item>-->
         <item>Ultimate Arena-Bipolar Goddess 3</item>
         <item>Sopdet(Arena 1, 2, 3)</item>
         <item>Zeus Dragon</item>
@@ -269,9 +309,16 @@ BALANCED_KILLER(35), ATTACKER_KILLER(36), PHYSICAL_KILLER(37), HEALER_KILLER(38)
         <item>Starlight Sanctuary-King of the Gods</item>
     </string-array>
     <string-array name="value_list">
+        <item>uralien</item>
+        <item>extremepractice</item>
         <item>ultimate5</item>
         <item>ura</item>
-        <item>201806_10</item>
+        <item>lvultimate</item>
+        <item>quest_201903_lv10</item>
+        <!--<item>7th_lv30</item>-->
+        <!--<item>quest_201901_lv10</item>-->
+        <!--<item>quest_201901_lv9</item>-->
+        <!--<item>201806_10</item>-->
         <item>ultimate3</item>
         <item>sopdet</item>
         <item>zeusdragon</item>

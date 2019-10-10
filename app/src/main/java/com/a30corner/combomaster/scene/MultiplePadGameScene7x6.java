@@ -112,6 +112,7 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 	// move mode
 	private Sprite orbInHand = null;
 
+	private Text mLeaderSkillCombo = null;
 	private List<Text> mComboText = new ArrayList<Text>();
 	private List<Text> mFactorText = new ArrayList<Text>();
 	private Text mHeals;
@@ -122,7 +123,7 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 	private MultiplePadEnvironment mEnvironment;
 
 	private ActiveSkill mFiredSkill = null;
-
+	private int poisonDropCount = 0, jammerDropCount = 0;
 	// detach list
 	private Set<Integer> mShineSet = new HashSet<Integer>();
 	private List<IEntity> mRemoveList = new ArrayList<IEntity>();
@@ -149,6 +150,7 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 	private TeamInfo[] mTeam;
 	private int removeN = 3;
+    private boolean forceNoDrop = false;
 	private boolean normalDrop = true;
 	private boolean mNullAwoken = false;
 	public boolean playerAttacked = false;
@@ -158,6 +160,7 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 	private ActiveSkill mAddComboSkill = null;
 	private ActiveSkill mDropLock = null;
+	private ActiveSkill mDropOnlySkill = null;
 	private ActiveSkill mDropRateSkill = null;
 	private ActiveSkill mDropEnhanceSkill = null;
 	private ActiveSkill mNoDropSkill = null;
@@ -251,6 +254,15 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 	}
 
 	@Override
+	public void setDefaultTime(int defaultTime) {
+		mTimeFixed = defaultTime;
+		if(mTimeFixed > 0) {
+			mDropTime[0] = mTimeFixed;
+			mDropTime[1] = mTimeFixed;
+		}
+	}
+
+	@Override
 	public boolean is7x6() {
 		return true;
 	}
@@ -294,12 +306,14 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 	}
 
 	private List<Double> getRecovery(List<Match7x6> matches) {
+		Map<String, Object> settings = new HashMap<String, Object>();
+		settings.put("nullAwoken", isNullAwoken());
 		int size = matches.size();
 		List<Double> list = new ArrayList<Double>();
 		for (int i = 0; i < size; ++i) {
 			list.add(DamageCalculator7x6.calculateRecovery(
 					mEnvironment.mTeamData.team(), matches.subList(0, i + 1),
-					null, null, ComboMasterApplication.getsInstance().isCopMode()));
+					null, settings, ComboMasterApplication.getsInstance().isCopMode()));
 		}
 		return list;
 	}
@@ -322,7 +336,7 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 		settings.put("isHpChecked", true);
 		settings.put("hp", 100 * mEnvironment.mTeamData.getCurrentHp()
 				/ (float) mEnvironment.mTeamData.getHp());
-		settings.put("cross", 100 * mEnvironment.getCrossReduceShield());
+		settings.put("cross", mEnvironment.getCrossReduceShield());
 
 
 		for (int i = 0; i < size; ++i) {
@@ -488,6 +502,15 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
                 }
             });
         }
+		if(mLeaderSkillCombo != null) {
+			mLeaderSkillCombo.registerEntityModifier(new AlphaModifier(0.3f, 1.0f, 0.0f) {
+				@Override
+				protected void onModifierFinished(IEntity pItem) {
+					detach(pItem);
+				}
+			});
+			mLeaderSkillCombo = null;
+		}
     }
 
 	
@@ -524,21 +547,42 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 					// adjust drop rate by active skill
 					List<Pair<Integer, Integer>> dropData = new ArrayList<Pair<Integer, Integer>>();
-					if (mDropRateSkill != null) {
-						List<Integer> data = mDropRateSkill.getData();
-						int size = data.size();
-						for (int index = 1; index < size; index += 2) {
-							dropData.add(new Pair<Integer, Integer>(data
-									.get(index), data.get(index + 1)));
+					if(mDropOnlySkill == null) {
+						if (mDropRateSkill != null) {
+							List<Integer> data = mDropRateSkill.getData();
+							int size = data.size();
+							for (int index = 1; index < size; index += 2) {
+								dropData.add(new Pair<Integer, Integer>(data
+										.get(index), data.get(index + 1)));
+							}
 						}
-					}
-					if (mNegativeDrop != null) {
-						List<Integer> data = mNegativeDrop.getData();
-						int size = data.size();
-						for (int index = 1; index < size; index += 2) {
-							dropData.add(new Pair<Integer, Integer>(data
-									.get(index), data.get(index + 1)));
+						int poisonRate = 0, jammerRate = 0;
+						if (mNegativeDrop != null) {
+							List<Integer> data = mNegativeDrop.getData();
+							int size = data.size();
+							for (int index = 1; index < size; index += 2) {
+								int val = data.get(index);
+								if(val != 6 && val != 7) {
+									dropData.add(new Pair<Integer, Integer>(val, data.get(index + 1)));
+								} else if (val == 6){
+									poisonRate = data.get(index + 1);
+								} else {
+									jammerRate = data.get(index + 1);
+								}
+							}
 						}
+                        if(poisonDropCount>0) {
+                            poisonRate += Constants.POISON_DROP_RATE;
+                        }
+                        if (poisonRate > 0) {
+                            dropData.add(new Pair<Integer, Integer>(6, poisonRate));
+                        }
+                        if(jammerDropCount>0) {
+                            jammerRate += Constants.POISON_DROP_RATE;
+                        }
+                        if (jammerRate > 0) {
+                            dropData.add(new Pair<Integer, Integer>(7, jammerRate));
+                        }
 					}
 
 					int lockPercent = 0;
@@ -549,17 +593,22 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 					}
 
 					int addition = 0;
-					if(mDropEnhanceSkill != null) {
+					if (mDropEnhanceSkill != null) {
 						addition = mDropEnhanceSkill.getData().get(1);
 					}
 
 					int emptyLen = target.col + 1;
 					for (int k = target.col; k >= 0; --k) {
-						int neworb = PadBoardAI7x6.getNewOrbRestrictChances(
-								mDropType, dropData);
+						int neworb;
+						if(mDropOnlySkill == null) {
+                            neworb = PadBoardAI7x6.getNewOrbRestrictChances(
+                                    mDropType, dropData);
+                        } else {
+						    neworb = PadBoardAI.getNewOrb(mDropOnlySkill.getData());
+                        }
 						if (neworb <= 5
 								&& RandomUtil
-										.getLuck(mPlusOrbCount[currentTeam][neworb] * 20+addition)) {
+								.getLuck(mPlusOrbCount[currentTeam][neworb] * 20 + addition)) {
 							neworb += 10;
 						}
 						if (lockPercent > 0) {
@@ -622,13 +671,93 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 			}, (long) (1000 * (SimulatorConstants.SECOND_DROP + 0.05f)));
 
 		} else {
-			
-        	if(normalDrop && mNoDropSkill == null) {
-        		triggerAttack();
-        	} else {
-        		startDropping();
-        	}
 
+			addAdditionCombos(new Runnable(){
+
+				@Override
+				public void run() {
+					finishCombo();
+				}
+			});
+
+		}
+	}
+
+	private void addAdditionCombos(final Runnable runnable) {
+		int additionCombos = 0;
+
+		MonsterInfo m0 = mTeam[currentTeam].getMember(0);
+		MonsterInfo f0 = mTeam[currentTeam].getMember(5);
+		additionCombos += getAdditionCombos(m0) + getAdditionCombos(f0);
+
+		if(additionCombos > 0) {
+			Text text = mComboText.get(mCombo.get()-1);
+			mLeaderSkillCombo = new Text(text.getX(), text.getY() - 20, ResourceManager.getInstance().getFontStroke(), String.format("Combo %d", mCombo.get() + additionCombos), vbom);
+			mLeaderSkillCombo.setColor(Color.YELLOW);
+			mLeaderSkillCombo.setZIndex(6);
+			mLeaderSkillCombo.setScale(1.3f);
+
+			List<Match> match = addCombos(additionCombos);
+			mScoreBoard.addAll(match);
+
+			mLeaderSkillCombo.registerEntityModifier(new ScaleModifier(0.4f, 2f, 1.0f){
+				@Override
+				protected void onModifierFinished(IEntity pItem) {
+					runnable.run();
+				}
+			});
+			attachChild(mLeaderSkillCombo);
+		} else {
+			runnable.run();
+		}
+	}
+
+	private int getAdditionCombos(MonsterInfo m) {
+		if(m == null) {
+			return 0;
+		}
+		int combos = 0;
+		List<LeaderSkill> ls = m.getLeaderSkill();
+		LeaderSkill colorSkill = null;
+		for(LeaderSkill s : ls) {
+			if(s.getType() == LeaderSkillType.LST_COLOR_FACTOR) {
+				colorSkill = s;
+			}
+			if(s.getType() == LeaderSkillType.LST_COMBO_ATTACK) {
+				//double f = DamageCalculator.getLeaderFactor(mTeam[currentTeam],s,m,mScoreBoard,null,true);
+				if(DamageCalculator.isLSMatched(mTeam[currentTeam],s,m,mScoreBoard,null,true)) {
+					return DamageCalculator.getLSCombo(s);
+				}
+			} else if (s.getType() == LeaderSkillType.LST_COLOR_COMBO) {
+				if(colorSkill != null) {
+					double f = DamageCalculator.getLeaderFactor(mTeam[currentTeam],colorSkill,m,mScoreBoard,null,true, false);
+					if(f>1.0) {
+						return DamageCalculator.getLSCombo(s);
+					}
+				}
+			}
+		}
+		return combos;
+	}
+	private List<Match> addCombos(int addition) {
+		ArrayList<RowCol> list = new ArrayList<RowCol>();
+		list.add(RowCol.make(0, 0));
+		list.add(RowCol.make(0, 1));
+		list.add(RowCol.make(0, 2));
+
+		List<Match> match = new ArrayList<Match>();
+		for(int i=0; i<addition; ++i) {
+			match.add(Match.make(9, 3, 0, list));
+		}
+		return match;
+	}
+
+	private void finishCombo() {
+
+		if(normalDrop && mNoDropSkill == null) {
+			triggerAttack();
+		} else {
+			startDropping();
 		}
 	}
 
@@ -672,13 +801,32 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
                                     .get(index), data.get(index + 1)));
                         }
                     }
-                    if(mNegativeDrop != null) {
-                        List<Integer> data = mNegativeDrop.getData();
-                        int size = data.size();
-                        for (int index = 1; index < size; index += 2) {
-                            dropData.add(new Pair<Integer, Integer>(data
-                                    .get(index), data.get(index + 1)));
-                        }
+					int poisonRate = 0, jammerRate = 0;
+					if (mNegativeDrop != null) {
+						List<Integer> data = mNegativeDrop.getData();
+						int size = data.size();
+						for (int index = 1; index < size; index += 2) {
+							int val = data.get(index);
+							if(val != 6 && val != 7) {
+								dropData.add(new Pair<Integer, Integer>(val, data.get(index + 1)));
+							} else if (val == 6){
+								poisonRate = data.get(index + 1);
+							} else {
+								jammerRate = data.get(index + 1);
+							}
+						}
+					}
+                    if(poisonDropCount>0) {
+                        poisonRate += Constants.POISON_DROP_RATE;
+                    }
+                    if (poisonRate > 0) {
+                        dropData.add(new Pair<Integer, Integer>(6, poisonRate));
+                    }
+                    if(jammerDropCount>0) {
+                        jammerRate += Constants.POISON_DROP_RATE;
+                    }
+                    if (jammerRate > 0) {
+                        dropData.add(new Pair<Integer, Integer>(7, jammerRate));
                     }
                     int lockPercent = 0;
                     int targetOrb = -1;
@@ -825,6 +973,9 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 		LogUtil.d("fire skill=", type);
 
 		switch (type) {
+			case ST_RECOVER_LOCK_REMOVE: {
+				return false;
+			}
 			case ST_LOCK_REMOVE: {
 				List<Integer> data = skill.getData();
 				cantRemove = data.subList(1, data.size());
@@ -985,6 +1136,81 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 					data, callback, byEnemy);
 			return true;
 		}
+			case ST_RANDOM_CHANGE_RESTRICT_MORE: {
+				List<Integer> data = skill.getData();
+				int size = data.size();
+
+				int[][] board = new int[PadBoardAI7x6.ROWS][PadBoardAI7x6.COLS];
+				PadBoardAI7x6.copy_board(gameBoard, board);
+				// mStack.push(gameBoard);
+
+				List<Integer> colorList = new ArrayList<Integer>();
+				List<Integer> countList = new ArrayList<Integer>();
+				List<Integer> exceptList = new ArrayList<Integer>();
+				int a;
+				for (a = 0; a < size; a += 4) {
+					colorList.add(data.get(a));
+					countList.add(data.get(a + 1));
+					exceptList.add(data.get(a + 2));
+					if(!exceptList.contains(data.get(a+3))) {
+						exceptList.add(data.get(a + 3));
+					}
+
+				}
+
+				HashSet<RowCol> rcList = new HashSet<RowCol>();
+				for (int i = 0; i < PadBoardAI7x6.ROWS; ++i) {
+					for (int j = 0; j < PadBoardAI7x6.COLS; ++j) {
+						boolean find = false;
+						for (int k = 0; k < colorList.size(); ++k) {
+							int color = colorList.get(k);
+							for(int h=0; h<exceptList.size(); ++h) {
+								int except = exceptList.get(h);
+								if (((board[i][j] % 10) == color
+										|| (board[i][j] % 10) == except)){
+									find = true;
+									break;
+								}
+							}
+						}
+						if (!find) {
+							rcList.add(RowCol.make(i, j));
+						}
+					}
+				}
+
+				int listSize = rcList.size();
+				if (listSize > 0) {
+					List<RowCol> list = new ArrayList<RowCol>(rcList);
+					Collections.shuffle(list);
+
+					int csize = colorList.size();
+					int counter = 0;
+					for (int i = 0; i < csize; ++i) {
+						int color = colorList.get(i);
+						int ccsize = countList.get(i);
+						for (int j = 0; j < ccsize; ++j) {
+							if (counter >= listSize) {
+								break;
+							}
+							RowCol rc = list.get(counter);
+							int addition = (gameBoard[rc.row][rc.col] >= 10 && gameBoard[rc.row][rc.col] != PadBoardAI.X_ORBS) ? 10
+									: 0;
+							int cv = color;
+							if (cv <= 5) {
+								cv += addition;
+							}
+							board[rc.row][rc.col] = cv;
+							++counter;
+						}
+					}
+
+					setChangeColorBoard(board, callback, byEnemy);
+				} else {
+					callback.onCastFinish(false);
+				}
+				return true;
+			}
 		case ST_RANDOM_CHANGE_RESTRICT: {
 			List<Integer> data = skill.getData();
 			int size = data.size();
@@ -1158,8 +1384,15 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 					board[x][y] = orb;
 				}
-				setChangeColorBoard(board, callback, byEnemy);
+
+			} else {
+				for(int i=2; i<size; i+=2) {
+					int x = data.get(i);
+					int y = data.get(i+1);
+					board[x][y] = orb;
+				}
 			}
+			setChangeColorBoard(board, callback, byEnemy);
 			return true;
 		}
 		case ST_TRANSFORM:
@@ -1186,6 +1419,182 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 		case ST_DARK_SCREEN:
 			setDarkScreen(callback);
 			return true;
+			case ST_L_FORMAT: {
+				int[][] nb = PadBoardAI7x6.copy_board(gameBoard);
+//				List<Pair<Integer, Integer>> valid = new ArrayList<Pair<Integer, Integer>>();
+//				for(int i=0; i<PadBoardAI7x6.ROWS; ++i) {
+//					for(int j=0; j<PadBoardAI7x6.COLS; ++j) {
+//						if ((nb[i][j]%10) != color) {
+//							valid.add(new Pair<Integer, Integer>(i, j));
+//						}
+//					}
+//				}
+//				if (valid.size() <= 0) {
+//					break;
+//				}
+//				int rnd = RandomUtil.getInt(valid.size());
+//				Pair<Integer, Integer> one = valid.get(rnd);
+
+				int size = skill.getData().size();
+
+				List<Integer> data = skill.getData();
+				for(int i=0; i<size; i+=2) {
+					int color = data.get(i);
+					int pos = data.get(i+1);
+
+					int r, c;
+					if(pos == 0) {
+						r = 0;
+						c = 0;
+					} else if (pos == 1) {
+						r = PadBoardAI7x6.ROWS-1;
+						c = 0;
+					} else if (pos == 2) {
+						r = 0;
+						c = PadBoardAI7x6.COLS-1;
+					} else {
+						r = PadBoardAI7x6.ROWS-1;
+						c = PadBoardAI7x6.COLS-1;
+					}
+
+					nb[r][c] = (nb[r][c] - (nb[r][c] % 10)) + color;
+					if (r + 2 < PadBoardAI7x6.ROWS && c - 2 >= 0) {
+						// |
+						// |____
+						nb[r + 1][c] = (nb[r + 1][c] - (nb[r + 1][c] % 10)) + color;
+						nb[r + 2][c] = (nb[r + 2][c] - (nb[r + 2][c] % 10)) + color;
+						nb[r][c - 1] = (nb[r][c - 1] - (nb[r][c - 1] % 10)) + color;
+						nb[r][c - 2] = (nb[r][c - 2] - (nb[r][c - 2] % 10)) + color;
+					} else if (r + 2 < PadBoardAI7x6.ROWS && c + 2 < PadBoardAI7x6.COLS) {
+						// ____
+						// |
+						// |
+						nb[r + 1][c] = (nb[r + 1][c] - (nb[r + 1][c] % 10)) + color;
+						nb[r + 2][c] = (nb[r + 2][c] - (nb[r + 2][c] % 10)) + color;
+						nb[r][c + 1] = (nb[r][c + 1] - (nb[r][c + 1] % 10)) + color;
+						nb[r][c + 2] = (nb[r][c + 2] - (nb[r][c + 2] % 10)) + color;
+					} else if (r - 2 >= 0 && c - 2 >= 0) {
+						//     |
+						// ____|
+
+						nb[r - 1][c] = (nb[r - 1][c] - (nb[r - 1][c] % 10)) + color;
+						nb[r - 2][c] = (nb[r - 2][c] - (nb[r - 2][c] % 10)) + color;
+						nb[r][c - 1] = (nb[r][c - 1] - (nb[r][c - 1] % 10)) + color;
+						nb[r][c - 2] = (nb[r][c - 2] - (nb[r][c - 2] % 10)) + color;
+					} else {
+						// ____
+						//     |
+						//     |
+
+						nb[r - 1][c] = (nb[r - 1][c] - (nb[r - 1][c] % 10)) + color;
+						nb[r - 2][c] = (nb[r - 2][c] - (nb[r - 2][c] % 10)) + color;
+						nb[r][c + 1] = (nb[r][c + 1] - (nb[r][c + 1] % 10)) + color;
+						nb[r][c + 2] = (nb[r][c + 2] - (nb[r][c + 2] % 10)) + color;
+					}
+				}
+				setGameBoard(nb, callback, byEnemy);
+				return true;
+			}
+			case ST_SQUARE_FORMAT: {
+//				int color = skill.getData().get(0);
+				int[][] nb = PadBoardAI7x6.copy_board(gameBoard);
+//				List<Pair<Integer, Integer>> valid = new ArrayList<Pair<Integer, Integer>>();
+//				for(int i=1; i<PadBoardAI7x6.ROWS-1; ++i) {
+//					for(int j=1; j<PadBoardAI7x6.COLS-2; ++j) {
+//						if ((nb[i][j]%10) != color) {
+//							valid.add(new Pair<Integer, Integer>(i, j));
+//						}
+//					}
+//				}
+//				if (valid.size() <= 0) {
+//					break;
+//				}
+//				int rnd = RandomUtil.getInt(valid.size());
+//				Pair<Integer, Integer> one = valid.get(rnd);
+
+				List<Integer> data = skill.getData();
+				int size = data.size();
+
+				for(int i=0; i<size; i+=2) {
+					int color = data.get(i);
+					int pos = data.get(i + 1);
+
+					int r, c;
+					if (pos == 0) {
+						r = 1;
+						c = 1;
+					} else if (pos == 1) {
+						r = PadBoardAI7x6.ROWS - 2;
+						c = 1;
+					} else if (pos == 2) {
+						r = 1;
+						c = PadBoardAI7x6.COLS - 3;
+					} else if (pos == 3){
+						r = PadBoardAI7x6.ROWS - 2;
+						c = PadBoardAI7x6.COLS - 3;
+					} else {
+						r = 1;
+						c = 2;
+					}
+
+					nb[r][c] = nb[r][c] - (nb[r][c] % 10) + color;
+					nb[r + 1][c] = nb[r + 1][c] - (nb[r + 1][c] % 10) + color;
+					nb[r + 1][c - 1] = nb[r + 1][c - 1] - (nb[r + 1][c - 1] % 10) + color;
+					nb[r - 1][c] = nb[r - 1][c] - (nb[r - 1][c] % 10) + color;
+					nb[r - 1][c + 1] = nb[r - 1][c + 1] - (nb[r - 1][c + 1] % 10) + color;
+					nb[r][c + 1] = nb[r][c + 1] - (nb[r][c + 1] % 10) + color;
+					nb[r + 1][c + 1] = nb[r + 1][c + 1] - (nb[r + 1][c + 1] % 10) + color;
+					nb[r][c - 1] = nb[r][c - 1] - (nb[r][c - 1] % 10) + color;
+					nb[r - 1][c - 1] = nb[r - 1][c - 1] - (nb[r - 1][c - 1] % 10) + color;
+					nb[r][c + 2] = nb[r][c + 2] - (nb[r][c + 2] % 10) + color;
+					nb[r + 1][c + 2] = nb[r + 1][c + 2] - (nb[r + 1][c + 2] % 10) + color;
+					nb[r - 1][c + 2] = nb[r - 1][c + 2] - (nb[r - 1][c + 2] % 10) + color;
+				}
+
+				setGameBoard(nb, callback, byEnemy);
+				return true;
+			}
+			case ST_CROSS_FORMAT: {
+				int[][] nb = PadBoardAI7x6.copy_board(gameBoard);
+
+				List<Integer> data = skill.getData();
+				int size = data.size();
+
+				for(int i=0; i<size; i+=2) {
+					int color = data.get(i);
+					int pos = data.get(i + 1);
+
+					int r, c;
+					if (pos == 0) {
+						r = 1;
+						c = 1;
+						nb[r][c+2] = nb[r][c+2] - (nb[r][c+2] % 10) + color;
+					} else if (pos == 1) {
+						r = PadBoardAI7x6.ROWS - 2;
+						c = 1;
+						nb[r-2][c] = nb[r-2][c] - (nb[r-2][c] % 10) + color;
+						nb[r][c+2] = nb[r][c+2] - (nb[r][c+2] % 10) + color;
+					} else if (pos == 2) {
+						r = 1;
+						c = PadBoardAI7x6.COLS - 2;
+						nb[r][c-2] = nb[r][c-2] - (nb[r][c-2] % 10) + color;
+					} else {
+						r = PadBoardAI7x6.ROWS - 2;
+						c = PadBoardAI7x6.COLS - 2;
+						nb[r][c-2] = nb[r][c-2] - (nb[r][c-2] % 10) + color;
+						nb[r-2][c] = nb[r-2][c] - (nb[r-2][c] % 10) + color;
+					}
+
+					nb[r][c] = nb[r][c] - (nb[r][c] % 10) + color;
+					nb[r + 1][c] = nb[r + 1][c] - (nb[r + 1][c] % 10) + color;
+					nb[r - 1][c] = nb[r - 1][c] - (nb[r - 1][c] % 10) + color;
+					nb[r][c + 1] = nb[r][c + 1] - (nb[r][c + 1] % 10) + color;
+					nb[r][c - 1] = nb[r][c - 1] - (nb[r][c - 1] % 10) + color;
+				}
+
+				setGameBoard(nb, callback, byEnemy);
+				return true;
+			}
 		case ST_NO_DROP: {
 			mNoDropSkill = skill;
 			return false;
@@ -1203,6 +1612,10 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 			}
 			return false;
 		}
+			case ST_DROP_ONLY: {
+				mDropOnlySkill = skill;
+				return false;
+			}
         case ST_ADD_COMBO: {
         	mAddComboSkill = skill;
         	return false;
@@ -1406,6 +1819,7 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 	}
 
 	private void initMonsterData(boolean nullAwoken) {
+		poisonDropCount = jammerDropCount = 0;
 		for (int j = 0; j < 2; ++j) {
 			if (mDropTime[j] != 0) {
 				mDropTime[j] = Constants.DEFAULT_SECOND;
@@ -1421,6 +1835,8 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 							int potentialCount = info
 									.getTargetPotentialAwokenCount(MoneyAwokenSkill.EXTEND_TIME);
 							mDropTime[j] += potentialCount * 50;
+							poisonDropCount += info.getTargetAwokenCount(AwokenSkill.BLESSING_OF_POISON_DROP, true);
+							jammerDropCount += info.getTargetAwokenCount(AwokenSkill.BLESSING_OF_JAMMER_DROP, true);
 						}
 					}
 				}
@@ -1716,7 +2132,7 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
         	}
         }
         
-        return true;
+        return !forceNoDrop;
     }
 
     private int getMoreRemove(TeamInfo[] team) {
@@ -2180,15 +2596,21 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 					factors = getFactor(matches);
 					heals = getRecovery(matches);
 					poisoned = getPoisonDamage(matches);
-					if (hasLockOrb() && unlockAction(matchBoard.matches)) {
-						ActiveSkill skill = new ActiveSkill(SkillType.ST_UNLOCK);
-						skillFired(skill, new ICastCallback() {
-							@Override
-							public void onCastFinish(boolean casted) {
-								Message.obtain(handler, NonUiHandler.MSG_REMOVAL, 0, 0,
-										matchBoard).sendToTarget();
-							}
-						}, false);
+					if (unlockAction(matchBoard.matches)) {
+						mEnvironment.removeSkill(Constants.SK_DROP_LOCK);
+						if(hasLockOrb()) {
+							ActiveSkill skill = new ActiveSkill(SkillType.ST_UNLOCK);
+							skillFired(skill, new ICastCallback() {
+								@Override
+								public void onCastFinish(boolean casted) {
+									Message.obtain(handler, NonUiHandler.MSG_REMOVAL, 0, 0,
+											matchBoard).sendToTarget();
+								}
+							}, false);
+						} else {
+							Message.obtain(handler, NonUiHandler.MSG_REMOVAL, 0, 0,
+									matchBoard).sendToTarget();
+						}
 					} else {
 						Message.obtain(handler, NonUiHandler.MSG_REMOVAL, 0, 0,
 								matchBoard).sendToTarget();
@@ -2531,34 +2953,93 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 	private void setCloud(final List<Integer> data) {
 		final ResourceManager res = ResourceManager.getInstance();
-		int x = data.get(1);
-		int y = data.get(2);
+		if(data.get(1) == -1) {
+			int line = data.get(2);
+			int offset = data.get(3);
 
-		int offset_x = RandomUtil.getInt(PadBoardAI7x6.ROWS - x + 1);
-		int offset_y = RandomUtil.getInt(PadBoardAI7x6.COLS - y + 1);
+			float scale = getScaleRatio();
+			if (line >= 10) {
+//				for (int i = 0; i < x; ++i) {
+				int x = (line == 10)? 0:PadBoardAI7x6.ROWS-1;
+					for (int j = 0; j < PadBoardAI7x6.COLS; ++j) {
+						int posx = SimulatorConstants.ORB_SIZE_7x6 * (x + offset) + SimulatorConstants.OFFSET_X - 6;
+						int posy = SimulatorConstants.ORB_SIZE_7x6 * (j) + SimulatorConstants.OFFSET_Y - 6;
+						Sprite s = new Sprite(0, 0, res.getTextureRegion("cloud.png"), vbom);
+						s.setScale(scale, scale);
+						s.setPosition(posx, posy);
+						s.setZIndex(4);
+						attachChild(s);
+						s.registerEntityModifier(new AlphaModifier(SimulatorConstants.SECOND_REFRESH, 0.3f, 1.0f));
+						s.registerEntityModifier(new ScaleModifier(SimulatorConstants.SECOND_REFRESH, 0.8f, 1.1f) {
+							@Override
+							protected void onModifierFinished(IEntity pItem) {
+								super.onModifierFinished(pItem);
+								if (mEnvironment.resistBadEffect(AwokenSkill.RESISTANCE_KUMO)) {
+									removeCloud();
+								}
+							}
+						});
 
-		float scale = getScaleRatio();
-		for(int i=0; i<x; ++i) {
-			for (int j=0; j<y; ++j) {
-				int posx = SimulatorConstants.ORB_SIZE_7x6 * (i+offset_x) + SimulatorConstants.OFFSET_X - 6;
-				int posy = SimulatorConstants.ORB_SIZE_7x6 * (j+offset_y) + SimulatorConstants.OFFSET_Y - 6;
-				Sprite s = new Sprite(0, 0, res.getTextureRegion("cloud.png"), vbom);
-				s.setScale(scale, scale);
-				s.setPosition(posx, posy);
-				s.setZIndex(4);
-				attachChild(s);
-				s.registerEntityModifier(new AlphaModifier(SimulatorConstants.SECOND_REFRESH, 0.3f, 1.0f));
-				s.registerEntityModifier(new ScaleModifier(SimulatorConstants.SECOND_REFRESH, 0.8f, 1.1f){
-					@Override
-					protected void onModifierFinished(IEntity pItem) {
-						super.onModifierFinished(pItem);
-						if(mEnvironment.resistBadEffect(AwokenSkill.RESISTANCE_KUMO)) {
-							removeCloud();
-						}
+						cloudSprite.add(s);
 					}
-				});
+//				}
+			} else {
+				int y = (line == 0)? 0:PadBoardAI7x6.COLS-1;
+				for (int i = 0; i < PadBoardAI7x6.ROWS; ++i) {
+//					for (int j = 0; j < y; ++j) {
+						int posx = SimulatorConstants.ORB_SIZE_7x6 * (i) + SimulatorConstants.OFFSET_X - 6;
+						int posy = SimulatorConstants.ORB_SIZE_7x6 * (y+offset) + SimulatorConstants.OFFSET_Y - 6;
+						Sprite s = new Sprite(0, 0, res.getTextureRegion("cloud.png"), vbom);
+						s.setScale(scale, scale);
+						s.setPosition(posx, posy);
+						s.setZIndex(4);
+						attachChild(s);
+						s.registerEntityModifier(new AlphaModifier(SimulatorConstants.SECOND_REFRESH, 0.3f, 1.0f));
+						s.registerEntityModifier(new ScaleModifier(SimulatorConstants.SECOND_REFRESH, 0.8f, 1.1f) {
+							@Override
+							protected void onModifierFinished(IEntity pItem) {
+								super.onModifierFinished(pItem);
+								if (mEnvironment.resistBadEffect(AwokenSkill.RESISTANCE_KUMO)) {
+									removeCloud();
+								}
+							}
+						});
 
-				cloudSprite.add(s);
+						cloudSprite.add(s);
+//					}
+				}
+			}
+		} else {
+
+			int x = data.get(1);
+			int y = data.get(2);
+
+			int offset_x = RandomUtil.getInt(PadBoardAI7x6.ROWS - x + 1);
+			int offset_y = RandomUtil.getInt(PadBoardAI7x6.COLS - y + 1);
+
+			float scale = getScaleRatio();
+			for (int i = 0; i < x; ++i) {
+				for (int j = 0; j < y; ++j) {
+					int posx = SimulatorConstants.ORB_SIZE_7x6 * (i + offset_x) + SimulatorConstants.OFFSET_X - 6;
+					int posy = SimulatorConstants.ORB_SIZE_7x6 * (j + offset_y) + SimulatorConstants.OFFSET_Y - 6;
+					Sprite s = new Sprite(0, 0, res.getTextureRegion("cloud.png"), vbom);
+					s.setScale(scale, scale);
+					s.setPosition(posx, posy);
+					s.setZIndex(4);
+					attachChild(s);
+					s.registerEntityModifier(new AlphaModifier(SimulatorConstants.SECOND_REFRESH, 0.3f, 1.0f));
+					s.registerEntityModifier(new ScaleModifier(SimulatorConstants.SECOND_REFRESH, 0.8f, 1.1f) {
+						@Override
+						protected void onModifierFinished(IEntity pItem) {
+							super.onModifierFinished(pItem);
+							if (mEnvironment.resistBadEffect(AwokenSkill.RESISTANCE_KUMO)) {
+								removeCloud();
+							}
+						}
+					});
+
+					cloudSprite.add(s);
+				}
 			}
 		}
 
@@ -2626,12 +3107,13 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 				final boolean isTarget = (data.size()%2) == 1;
 				int turns = data.get(0);
 				int size = data.size() - 1;
+
 				if (data.get(1) == -1 && data.size() > 2) {
 					int random = RandomUtil.range(data.get(2), data.get(3));
 					boolean is7x6 = mEnvironment.is7x6();
 					for (int i = 0; i < random; ++i) {
-						int y = RandomUtil.getInt((is7x6)? 7:6);
-						int x = RandomUtil.getInt((is7x6)? 6:5);
+						int x = RandomUtil.getInt((is7x6)? 7:6);
+						int y = RandomUtil.getInt((is7x6)? 6:5);
 						Sprite s = sprites[x][y];
 						setSuperDarkOrb(res, s, turns);
 					}
@@ -3386,6 +3868,10 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 				for (int i = 0; i < PadBoardAI7x6.ROWS; ++i) {
 					for (int j = 0; j < PadBoardAI7x6.COLS; ++j) {
+                        if(gameBoard[i][j] == board[i][j]) {
+                            continue;
+                        }
+
 						int x = SimulatorConstants.ORB_SIZE_7x6* i;
 						int y = SimulatorConstants.ORB_SIZE_7x6* j;
 
@@ -3565,7 +4051,9 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 			@Override
 			public void run() {
-				attachChild(entity);
+			    if(!entity.hasParent()) {
+                    attachChild(entity);
+                }
 				sortChildren();
 			}
 		});
@@ -3663,7 +4151,9 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 
 	@Override
 	public void removeSkill(String key) {
-		if(Constants.SK_ENHANCE_ORB.equals(key)) {
+		if(Constants.SK_DROP_ONLY.equals(key)) {
+			mDropOnlySkill = null;
+		} else if(Constants.SK_ENHANCE_ORB.equals(key)) {
 			mDropEnhanceSkill = null;
 		} else if (Constants.SK_NO_DROP.equals(key)) {
 			mNoDropSkill = null;
@@ -3682,5 +4172,11 @@ public class MultiplePadGameScene7x6 extends PlaygroundGameScene implements
 				}
 			});
 		}
+	}
+
+	@Override
+	public void setNormalDrop(boolean normal) {
+        forceNoDrop = !normal;
+        normalDrop = !forceNoDrop;
 	}
 }

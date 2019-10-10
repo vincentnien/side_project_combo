@@ -58,7 +58,6 @@ import com.a30corner.combomaster.playground.skill.SkillDispatcher;
 import com.a30corner.combomaster.playground.stage.EnemyData;
 import com.a30corner.combomaster.playground.stage.Floor;
 import com.a30corner.combomaster.playground.stage.StageData;
-import com.a30corner.combomaster.playground.stagedata.IStage;
 import com.a30corner.combomaster.provider.LocalDBHelper;
 import com.a30corner.combomaster.scene.PadGameScene;
 import com.a30corner.combomaster.scene.PadGameScene.GameState;
@@ -139,7 +138,7 @@ public class PadEnvironment implements IEnvironment {
     
     protected SpritePool mBulletPool;
     
-    protected Toast customToast;
+//    protected Toast customToast;
     protected int mStoneUsed;
     
     protected List<Pair<Text, Text>> mDamageList = new ArrayList<Pair<Text, Text>>(6);
@@ -197,7 +196,10 @@ public class PadEnvironment implements IEnvironment {
     static boolean isAdditionAttack(MonsterInfo info) {
     	if(info != null) {
     		for(LeaderSkill s :info.getLeaderSkill()) {
-    			if(s.getType() == LeaderSkillType.LST_ATTACK) {
+    		    LeaderSkillType type = s.getType();
+    			if(type == LeaderSkillType.LST_ATTACK ||
+                    type == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK ||
+                        type == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ) {
     				return true;
     			}
     		}
@@ -459,47 +461,79 @@ public class PadEnvironment implements IEnvironment {
             	break;
             }
             case MSG_ADDITION_ATTACK: {
-                int total = 0;
-                for (int i = 0; i < 6; i += 5) {
-                    for (LeaderSkill s : mMemberList[i].info.getLeaderSkill()) {
-                        if (s.getType() == LeaderSkillType.LST_ATTACK) {
-                            total += s.getData().get(0) * mMemberList[i].info.getAtk(false);
+                int arg = msg.arg1;
+                if(arg == 0) {
+                    int total = 0;
+                    for (int i = 0; i < 6; i += 5) {
+                        for (LeaderSkill s : mMemberList[i].info.getLeaderSkill()) {
+                            if (s.getType() == LeaderSkillType.LST_ATTACK) {
+                                total += s.getData().get(0) * mMemberList[i].info.getAtk(false);
+                            }
                         }
                     }
-                }
-                int heartArrow = 0;
-                List<Match> matches = getScene().getMatches();
-                boolean hasArrow = hasHeartArrow(matches), hasSquare = hasHeartSquare(matches);
+                    if (total > 0) {
+                        final int damage = total;
+                        postDelayed(new Runnable() {
 
-                for (Member m : mMemberList) {
-                    int c = getTargetAwokenCount(m.info,AwokenSkill.HEART_ARROW);
-                    if (hasArrow && c > 0) {
-                        ++heartArrow;
+                            @Override
+                            public void run() {
+                                fireAdditionAttack(AttackValue.create(damage, 2, AttackValue.ATTACK_MULTIPLE), mStageEnemies.get(currentStage));
+                                sendMessageDelayed(Message.obtain(ExecutorHandler.this, MSG_ADDITION_ATTACK, 1, 0), 300);
+                            }
+                        }, 500L);
+
+                    } else {
+                        sendMessage(Message.obtain(ExecutorHandler.this, MSG_ADDITION_ATTACK, 1, 0));
                     }
-                    int s = getTargetAwokenCount(m.info,AwokenSkill.HEART_SQUARE);
-                    if (hasSquare && s > 0) {
-                        heartArrow += 2;
-                    }
-                }
-
-                if (total > 0) {
-                    final int damage = total + heartArrow;
-                    postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            fireAdditionAttack(AttackValue.create(damage, 2, AttackValue.ATTACK_MULTIPLE), mStageEnemies.get(currentStage));
-                            sendMessageDelayed(Message.obtain(ExecutorHandler.this, MSG_END_OF_ATTACK), 300);
-                        }
-                    }, 500L);
                 } else {
+                    int heartArrow = 0;
+                    List<Match> matches = getScene().getMatches();
+                    boolean hasArrow = hasHeartArrow(matches), hasSquare = hasHeartSquare(matches);
+
+                    for (Member m : mMemberList) {
+                        int c = getTargetAwokenCount(m.info,AwokenSkill.HEART_ARROW);
+                        if (hasArrow && c > 0) {
+                            heartArrow += c;
+                        }
+                        int s = getTargetAwokenCount(m.info,AwokenSkill.HEART_SQUARE);
+                        if (hasSquare && s > 0) {
+                            heartArrow += 99;
+                        }
+                    }
+                    // check direct attack or not
+                    Team team = getTeam();
+                    MonsterInfo leader = team.getMember(0);
+                    MonsterInfo friend = team.getMember(5);
+                    if(leader != null && !getMember(0).isBinded()) {
+                        for(LeaderSkill s : leader.getLeaderSkill()) {
+                            if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
+                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, leader, getScene().getMatches(), null, false, true);
+                                if(factor > 1.0) {
+                                    heartArrow += factor;
+                                }
+                            }
+                        }
+                    }
+                    if(friend != null && !getMember(5).isBinded()) {
+                        for(LeaderSkill s : friend.getLeaderSkill()) {
+                            if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
+                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, friend, getScene().getMatches(), null, false, true);
+                                if(factor > 1.0) {
+                                    heartArrow += factor;
+                                }
+                            }
+                        }
+                    }
                     if (heartArrow > 0) {
-                        boolean alldead = true;
                         List<Enemy> enemies = getEnemies();
                         final AtomicInteger counter = new AtomicInteger(enemies.size());
                         for (Enemy enemy : enemies) {
-                            if (!enemy.dead()) {
-                                alldead = false;
+                            if (enemy.dead()) {
+                                if (counter.decrementAndGet() == 0) {
+                                    sendEmptyMessage(MSG_END_OF_ATTACK);
+                                }
                             }
                             enemy.dealtDamageDirect(AttackValue.create(heartArrow, -1, AttackValue.ATTACK_SINGLE), 0.6f,
                                     new AnimationCallback() {
@@ -511,9 +545,6 @@ public class PadEnvironment implements IEnvironment {
                                             }
                                         }
                                     });
-                        }
-                        if (alldead) {
-                            sendEmptyMessage(MSG_END_OF_ATTACK);
                         }
                     } else {
                         sendEmptyMessage(MSG_END_OF_ATTACK);
@@ -560,6 +591,7 @@ public class PadEnvironment implements IEnvironment {
                     for (String key : mSkillList.keySet()) {
                         if (Constants.SK_TIME_CHANGE.equals(key) ||
                                 Constants.SK_TIME_CHANGE_X.equals(key) ||
+                                Constants.SK_DROP_ONLY.equals(key) ||
                                 Constants.SK_DROP_RATE.equals(key) ||
                                 Constants.SK_DROP_RATE_NEG.equals(key) ||
                                 Constants.SK_DROP_LOCK.equals(key) ||
@@ -572,6 +604,7 @@ public class PadEnvironment implements IEnvironment {
                                 Constants.SK_RCV_UP.equals(key) ||
                                 Constants.SK_NO_DROP.equals(key) ||
                                 Constants.SK_CLOUD.equals(key) ||
+                                Constants.SK_HP_CHANGE.equals(key) ||
                                 Constants.SK_LOCK_REMOVE.equals(key)) {
                             if (mSkillList.get(key).countDown()) {
                                 removeList.add(key);
@@ -610,6 +643,10 @@ public class PadEnvironment implements IEnvironment {
                             getScene().removeSkill(key);
                         } else if (Constants.SK_LOCK_REMOVE.equals(key)) {
                             getScene().removeSkill(key);
+                        } else if (Constants.SK_DROP_ONLY.equals(key)) {
+                            getScene().removeSkill(key);
+                        } else if (Constants.SK_HP_CHANGE.equals(key)) {
+                            mTeamData.setMaxHp(-1);
                         }
                     }
 
@@ -1247,17 +1284,14 @@ public class PadEnvironment implements IEnvironment {
     
     public PadEnvironment(PlaygroundGameScene scene) {
         mSceneRef = new WeakReference<PlaygroundGameScene>(scene);
-        final Activity activity = scene.getActivity();
-        activity.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-		        View toastView = activity.getLayoutInflater().inflate(R.layout.layout_toast, null);
-		        customToast = new Toast(activity);
-		        customToast.setDuration(Toast.LENGTH_SHORT);
-		        customToast.setView(toastView);
-			}
-		});
+//        final Activity activity = scene.getActivity();
+//        activity.runOnUiThread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//
+//			}
+//		});
 
     }
     
@@ -1276,9 +1310,17 @@ public class PadEnvironment implements IEnvironment {
         mTeamData = new Team();
         
         mStoneUsed = 0;
-        if (stage.equals("201806_10")) {
+        if (stage.equals("201806_10") || stage.equals("quest_201901_lv10")) {
             nullAwoken = true;
             ComboMasterApplication.getsInstance().setNullAwokenSkill(true);
+        }
+
+        if (stage.equals("quest_201901_lv9")) {
+            getScene().setDefaultTime(4000);
+        }
+
+        if (stage.equals("quest_201903_lv10")) {
+            getScene().setNormalDrop(false);
         }
         
         int visible = View.VISIBLE;
@@ -1692,7 +1734,7 @@ public class PadEnvironment implements IEnvironment {
 				mStageEnemies.put((floor+1), enemies);
 			}
 		} catch (Exception e) {
-			LogUtil.e("Vincent", e.toString());
+			LogUtil.e("ComboMaster", e.toString());
 			e.printStackTrace();
 		}
     }
@@ -1898,21 +1940,34 @@ public class PadEnvironment implements IEnvironment {
         		bindStatus.add(false);
         	}
         }
+        boolean awokenLocked = isAwokenLocked();
+
         settings.put("bindStatus", bindStatus);
         settings.put("isHpChecked", true);
         settings.put("hp", 100 * mTeamData.getCurrentHp() / (float)getTeamHpTotal());
         settings.put("skillFired", firedThisTurn);
-        settings.put("nullAwoken", isAwokenLocked() || nullAwoken);
+        settings.put("nullAwoken", awokenLocked || nullAwoken);
         settings.put("copMode", mTeamData.team().isCopMode());
         settings.put("singleUp", singleUp.value());
+        if (mSkillList.containsKey(Constants.SK_RCV_UP)) {
+            settings.put("rcvUp", mSkillList.get(Constants.SK_RCV_UP));
+        }
 
         List<Match> matches = scene.getMatches();
+        // check recover awoken first
+        if (awokenLocked && executeRecoverAwokenByLeaderSkill(getTeam(), matches, settings)) {
+            settings.put("bindStatus", bindStatus);
+            settings.put("hp", 100 * mTeamData.getCurrentHp() / (float)mTeamData.getHp());
+            settings.put("nullAwoken", isAwokenLocked() || nullAwoken);
+        }
+
         if(mCrossShield != null) {
 			settings.put("cross", mCrossShield.first);
 			settings.put("crossAtk", mCrossShield.second);
         } else {
             // check cross heart
             {
+                float reduced_total = 1f;
                 boolean[] fired = {false, false};
             	int[] reduced = {0, 0};
             	float[] crossSkill = {0, 0};
@@ -1925,10 +1980,10 @@ public class PadEnvironment implements IEnvironment {
 
             	MonsterInfo leader = getTeam().getMember(0);
             	MonsterInfo friend = getTeam().getMember(5);
-            	if(!mMemberList[0].isBinded() && leader != null) {
+            	if(leader != null && !mMemberList[0].isBinded()) {
             		for(LeaderSkill skill : leader.getLeaderSkill()) {
             			LeaderSkillType type = skill.getType();
-            			if(fired[0] &&(type == LeaderSkillType.LST_CROSS||
+            			if(fired[0] && (type == LeaderSkillType.LST_CROSS||
             					type == LeaderSkillType.LST_CROSS_P)) {
             				float atk = skill.getData().size()>=2 ? skill.getData().get(1)/100f:1;
             				crossSkill[0] = atk;
@@ -1952,10 +2007,26 @@ public class PadEnvironment implements IEnvironment {
                         } else if(type == LeaderSkillType.LST_MULTI_ORB_SHIELD_MULTI) {
                             crossSkill[0] = 1;
                             reduced[0] = DamageCalculator.getMultiShieldMulti(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_L_ATTACK) {
+                            crossSkill[0] = 1;
+                            reduced[0] = DamageCalculator.getLFormatShield(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_HEART_FACTOR) {
+                            ActiveSkill sk = null;
+                            if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                                sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                            }
+                            int heartReduced = DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk,3 );
+                            if(heartReduced > 0) {
+                                crossSkill[0] = 1;
+                                reduced[0] = heartReduced;
+                            }
+                        }
+                        if(reduced[0] > 0) {
+                            reduced_total = reduced_total * (100-reduced[0])/100;
                         }
             		}
             	}
-            	if(!mMemberList[5].isBinded() && friend != null) {
+            	if(friend != null && !mMemberList[5].isBinded()) {
             		for(LeaderSkill skill : friend.getLeaderSkill()) {
             			LeaderSkillType type = skill.getType();
             			if(fired[1] && (type == LeaderSkillType.LST_CROSS||
@@ -1977,8 +2048,24 @@ public class PadEnvironment implements IEnvironment {
                             crossSkill[1] = 1;
                             reduced[1] = DamageCalculator.getMultiShield(mTeamData.team(), skill, matches, settings);
                         } else if(type == LeaderSkillType.LST_MULTI_ORB_SHIELD_MULTI) {
-                            crossSkill[0] = 1;
-                            reduced[0] = DamageCalculator.getMultiShieldMulti(mTeamData.team(), skill, matches, settings);
+                            crossSkill[1] = 1;
+                            reduced[1] = DamageCalculator.getMultiShieldMulti(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_L_ATTACK) {
+                            crossSkill[1] = 1;
+                            reduced[1] = DamageCalculator.getLFormatShield(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_HEART_FACTOR) {
+                            ActiveSkill sk = null;
+                            if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                                sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                            }
+                            int heartReduced = DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk, 3);
+                            if(heartReduced > 0) {
+                                crossSkill[1] = 1;
+                                reduced[1] = heartReduced;
+                            }
+                        }
+                        if(reduced[1] > 0) {
+                            reduced_total = reduced_total * (100-reduced[1])/100;
                         }
             		}
             	}
@@ -1986,13 +2073,8 @@ public class PadEnvironment implements IEnvironment {
 	            float percent = 0;
 	    		float atk = 1f;
 	        	if(crossSkill[0]>0 || crossSkill[1]>0) {
-                    if(reduced[0]>0 && reduced[1]>0) {
-                        percent = 100-((100-reduced[0])*(100-reduced[1])/100f);
-                    } else if(reduced[0]>0) {
-                        percent = reduced[0];
-                    } else if(reduced[1]>0) {
-                        percent = reduced[1];
-                    }
+	        	    percent = reduced_total;
+
                     if(crossSkill[0]>0) {
                         atk *= crossSkill[0];
                     }
@@ -2022,6 +2104,40 @@ public class PadEnvironment implements IEnvironment {
             }
             //Message.obtain(handler, ExecutorHandler.MSG_START_ATTACK, damage).sendToTarget();
         }
+    }
+
+
+    private boolean executeRecoverAwokenByLeaderSkill(Team team, List<Match> matches, Map<String, Object> settings) {
+        MonsterInfo leader = team.getMember(0);
+        MonsterInfo friend = team.getMember(5);
+        int totalReduced = 0;
+        if(leader != null && !mMemberList[0].isBinded()) {
+            for (LeaderSkill skill : leader.getLeaderSkill()) {
+                if(skill.getType() == LeaderSkillType.LST_HEART_FACTOR) {
+                    ActiveSkill sk = null;
+                    if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                        sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                    }
+                    totalReduced += DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk, 4);
+                }
+            }
+        }
+        if(friend != null && !mMemberList[5].isBinded()) {
+            for (LeaderSkill skill : friend.getLeaderSkill()) {
+                if(skill.getType() == LeaderSkillType.LST_HEART_FACTOR) {
+                    ActiveSkill sk = null;
+                    if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                        sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                    }
+                    totalReduced += DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk, 4);
+                }
+            }
+        }
+        if(totalReduced>0) {
+            awokenRecover(totalReduced);
+            return true;
+        }
+        return false;
     }
 
     private boolean skillCharger(TeamInfo info, List<Match> combos, Map<String, Object> settings, final List<Pair<AttackValue, AttackValue>> damage) {
@@ -2107,6 +2223,7 @@ public class PadEnvironment implements IEnvironment {
                 for(String key : mSkillList.keySet()) {
                 	if(Constants.SK_TIME_CHANGE.equals(key) ||
                 			Constants.SK_TIME_CHANGE_X.equals(key) ||
+                            Constants.SK_DROP_ONLY.equals(key) ||
                 			Constants.SK_DROP_RATE.equals(key) ||
                 			Constants.SK_DROP_RATE_NEG.equals(key) ||
                 			Constants.SK_DROP_LOCK.equals(key) ||
@@ -2118,6 +2235,7 @@ public class PadEnvironment implements IEnvironment {
                             Constants.SK_ENHANCE_ORB.equals(key) ||
                             Constants.SK_RCV_UP.equals(key) ||
                             Constants.SK_CLOUD.equals(key) ||
+                            Constants.SK_HP_CHANGE.equals(key) ||
                             Constants.SK_LOCK_REMOVE.equals(key)) {
                 		continue;
                 	}
@@ -2240,7 +2358,12 @@ public class PadEnvironment implements IEnvironment {
     			SkillEntity skill = mSkillList.get(key);
     			skill.detach();
     			removeList.add(key);
-    		}
+    		} else if (key.equals(Constants.SK_HP_CHANGE)) {
+                SkillEntity skill = mSkillList.get(key);
+                skill.detach();
+                removeList.add(key);
+                mTeamData.setMaxHp(-1);
+            }
     	}
     	for(String key : removeList) {
     		mSkillList.remove(key);
@@ -2466,6 +2589,8 @@ public class PadEnvironment implements IEnvironment {
     	    getScene().skillFired((ActiveSkill)skill, null, true);
         } else if(Constants.SK_LOCK_REMOVE.equals(key)) {
             getScene().skillFired((ActiveSkill)skill, null, true);
+        } else if(Constants.SK_HP_CHANGE.equals(key)) {
+            fireSkill(null, (ActiveSkill)skill, null);
         }
     	
     	int offsetX = 0;
@@ -2615,6 +2740,23 @@ public class PadEnvironment implements IEnvironment {
                 mDarkSkill = skill;
                 mDarkSkill.setTurn(0, true);
                 return ;
+            } else if (skill.getType() == ActiveSkill.SkillType.ST_RECOVER_LOCK_REMOVE) {
+                if (mSkillList.containsKey(Constants.SK_LOCK_REMOVE)) {
+                    SkillEntity entity = mSkillList.get(Constants.SK_LOCK_REMOVE);
+                    int turns = entity.decreaseAndGet(skill.getData().get(0));
+                    if(turns <= 0) {
+                        removeSkill(Constants.SK_LOCK_REMOVE);
+                    }
+                }
+            } else if (skill.getType() == ActiveSkill.SkillType.ST_HP_CHANGE) {
+                List<Integer> data = skill.getData();
+                int type = data.get(1);
+                if (type == 1) { // FIX HP
+                    mTeamData.setMaxHp(data.get(2));
+                } else if (type == 3) { // % HP
+                    int hp = mTeamData.getRealHp() * data.get(2) / 100;
+                    mTeamData.setMaxHp(hp);
+                }
             }
             SkillDispatcher.fire(this, caster, skill, new ICastCallback() {
 
@@ -2692,11 +2834,23 @@ public class PadEnvironment implements IEnvironment {
 		}
 
 		int x = 20;
-		if(awoken == AwokenSkill.RESISTANCE_KUMO) {
+        if (awoken == AwokenSkill.RESISTANCE_KUMO ||
+                awoken == AwokenSkill.RESISTANCE_DARK_PLUS ||
+                awoken == AwokenSkill.RESISTANCE_JAMMER_PLUS ||
+                awoken == AwokenSkill.RESISTANCE_POISON_PLUS) {
 		    x = 100;
         }
-
-		return RandomUtil.getLuck(resistant*x + plus);
+        boolean resist = RandomUtil.getLuck(resistant*x + plus);
+        if (!resist) {
+            if (awoken == AwokenSkill.RESISTANCE_DARK) {
+                return resistBadEffect(AwokenSkill.RESISTANCE_DARK_PLUS);
+            } else if (awoken == AwokenSkill.RESISTANCE_JAMMER) {
+                return resistBadEffect(AwokenSkill.RESISTANCE_JAMMER_PLUS);
+            } else if (awoken == AwokenSkill.RESISTANCE_POISON) {
+                return resistBadEffect(AwokenSkill.RESISTANCE_POISON_PLUS);
+            }
+        }
+        return resist;
     }
     @Override
     public boolean isMultiMode() {
@@ -2826,7 +2980,11 @@ public class PadEnvironment implements IEnvironment {
 			
 			@Override
 			public void run() {
-				TextView view = (TextView) customToast.getView().findViewById(android.R.id.text1);
+                View toastView = activity.getLayoutInflater().inflate(R.layout.layout_toast, null);
+                Toast customToast = new Toast(activity);
+                customToast.setDuration(Toast.LENGTH_SHORT);
+                customToast.setView(toastView);
+				TextView view = toastView.findViewById(android.R.id.text1);
 				view.setText(text);
 				customToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 
 						0, (int)offsetY);
@@ -2912,6 +3070,8 @@ public class PadEnvironment implements IEnvironment {
 					    			
 					    		});
 					    	}
+                            counterStrike(mMemberList[0], enemy, damageReduced);
+                            counterStrike(mMemberList[5], enemy, damageReduced);
 					    	
 					    	//mHp.getDamage(damage, mTeamData.getCurrentHp(), mTeamData.getHp());
 					    	if(callback != null && last) {
@@ -2943,7 +3103,30 @@ public class PadEnvironment implements IEnvironment {
         });
 
     }
-    
+
+    private void counterStrike(Member member, Enemy enemy, int damageReduced) {
+        if(member != null) {
+            for(LeaderSkill ls : member.info.getLeaderSkill()) {
+                if(ls.getType() == LeaderSkillType.LST_COUNTER_STRIKE) {
+                    List<Integer> data = ls.getData();
+                    if(RandomUtil.getLuck(data.get(0))) {
+                        int x = data.get(1);
+                        int prop = data.get(2);
+
+                        enemy.dealtDamage(AttackValue.create(damageReduced*x, prop, 0), 0.1f, new AnimationCallback() {
+
+                            @Override
+                            public void animationDone() {
+                            }
+
+                        });
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     private int reducedByShield(Enemy enemy, int damage) {
     	int recalcDamage = damage;
 		if(mSkillList.containsKey(Constants.SK_SHIELD)) {
@@ -2962,7 +3145,7 @@ public class PadEnvironment implements IEnvironment {
 			}
 		}
 		if(mCrossShield != null) {
-			recalcDamage = (int)(recalcDamage * (100 - getCrossReduceShield()) / 100f);
+			recalcDamage = (int)(recalcDamage * getCrossReduceShield());
 		}
 		return recalcDamage;
     }
@@ -3018,7 +3201,9 @@ public class PadEnvironment implements IEnvironment {
 				    			
 				    		});
 				    	}
-				    	
+                        counterStrike(mMemberList[0], enemy, damageReduced);
+                        counterStrike(mMemberList[5], enemy, damageReduced);
+
 				    	//mHp.getDamage(damage, mTeamData.getCurrentHp(), mTeamData.getHp());
 				    	if(callback != null) {
 				    		callback.onCastFinish(true);
@@ -3153,8 +3338,21 @@ public class PadEnvironment implements IEnvironment {
     public boolean hasSkill(String skill) {
         return mSkillList.containsKey(skill);
     }
-	
-	public Member getMember(int index) {
+
+    @Override
+    public void removeSkill(String key) {
+        if (mSkillList.containsKey(key)) {
+            mSkillList.get(key).detach();
+            mSkillList.remove(key);
+            if(key.equals(Constants.SK_DROP_LOCK)) {
+                getScene().removeDropLock();
+            } else if (key.equals(Constants.SK_LOCK_REMOVE)) {
+                getScene().removeSkill(Constants.SK_LOCK_REMOVE);
+            }
+        }
+    }
+
+    public Member getMember(int index) {
 		return mMemberList[index];
 	}
 
@@ -3361,15 +3559,26 @@ public class PadEnvironment implements IEnvironment {
 		}
 		if(mSkillList.containsKey(Constants.SK_TIME_CHANGE_X)) {
 			SkillEntity entity = mSkillList.get(Constants.SK_TIME_CHANGE_X);
-			if(entity.skill.getData().get(1)>0) {
+			if(entity.skill.getData().get(1)>1000) {
 				return true;
 			}
 		}
+        boolean has_positive = false;
+        if(mSkillList.containsKey(Constants.SK_DROP_RATE)) {
+		    SkillEntity entity = mSkillList.get(Constants.SK_DROP_RATE);
+		    List<Integer> data = entity.skill.getData();
+            has_positive = true;
+		    for(int i=1; i<data.size(); i += 2) {
+		        if(data.get(i) >= 6) {
+                    has_positive = false;
+		            break;
+                }
+            }
+        }
 		
 		return mSkillList.containsKey(Constants.SK_COUNTER_ATTACK) ||
-				mSkillList.containsKey(Constants.SK_DROP_RATE) ||
 				mSkillList.containsKey(Constants.SK_POWER_UP) ||
-				mSkillList.containsKey(Constants.SK_SHIELD);
+				mSkillList.containsKey(Constants.SK_SHIELD) || has_positive;
 	}
 
     @Override

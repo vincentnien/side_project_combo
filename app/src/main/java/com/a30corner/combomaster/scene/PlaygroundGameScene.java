@@ -58,5 +58,7 @@ public abstract class PlaygroundGameScene extends BaseMenuScene {
 
     public abstract boolean isNullAwoken();
 
+    public abstract void setDefaultTime(int defaultTime);
+    public abstract void setNormalDrop(boolean normal);
 
 }

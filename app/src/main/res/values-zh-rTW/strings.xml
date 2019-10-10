@@ -39,6 +39,7 @@
     <string name="menu_calculate_mode">[傷害計算機]</string>
     <string name="menu_calculate_7x6_mode">[7x6模式]</string>
     <string name="menu_calculate_5x4_mode">[5x4模式]</string>
+    <string name="menu_egg_machine">[抽蛋模擬器]</string>
     <string name="menu_simulator_mode">[模擬器]</string>
     <string name="menu_cop_mode">[協力模式]</string>
     <string name="menu_settings_mode">[任務設定]</string>
@@ -149,7 +150,7 @@
     <string name="lst_heal" formatted="false">每回合回復相當於隊長寵物自身回復力%d%%的HP，沒有產生消除的話不會觸發該效果</string>
     <string name="lst_used_skill">使用技能的回合，</string>
     <string name="lst_five_orbs" formatted="false">當消除包含強化珠的%d顆珠子時,該屬性攻擊力變為%1.1f倍</string>
-    <string name="lst_time_extend" formatted="false">寶株移動時間延長%.1f秒</string>
+    <string name="lst_time_extend" formatted="false">寶珠移動時間延長%.1f秒</string>
     <string name="lst_remove_n" formatted="false">當消除%s珠%d顆時,</string>
     <string name="lst_hp_recover" formatted="false">消除寶珠的回合，自動回復相當寵物自身回復力×%d倍的HP。</string>
     <string name="lst_cross_attack" formatted="false">以十字型式消除5個%s寶珠時,每個十字提升攻擊力%.2f倍</string>
@@ -184,7 +185,8 @@
     <string name="as_drop_rate" formatted="false">%d回合內，%s寶珠掉落率提高%d%%</string>
    <string name="as_target_random" formatted="false">%s隨機變成%s</string>
    <string name="as_power_up_by_awoken" formatted="false">%d回合內,所有寵物攻擊力根據隊伍內的覺醒技能[%s]而有所提升,每一個提升%d%%。</string>
-	<string name="as_bind_recover" formatted="false">綁定狀態解除%d回合.</string>
+	<string name="as_bind_recover" formatted="false">解除綁定狀態%d回合.</string>
+    <string name="as_awoken_recover" formatted="false">解除覺醒無效狀態%d回合.</string>
 	<string name="as_bind_recover_type1" formatted="false">"回復寵物自身回復力×%d倍的HP"</string>
 	<string name="as_bind_recover_type2" formatted="false">"HP回復%d點."</string>
 	<string name="as_bind_recover_type3" formatted="false">"回復HP上限%d%%的HP."</string>
@@ -250,7 +252,7 @@
     <string name="str_backup">備份</string>
     <string name="str_restore">還原</string>
     <string name="null_awoken_mode">覺醒無效</string>
-    <string name="current_version">新增裏・極限の闘技場 » 裏双極の女神(部分未實裝)\n您目前版本為: </string>
+    <string name="current_version">New! 新增裏異形の存在(部分功能及究毒の魔学者・ガスロ尚未實裝)\n\n您目前版本為: </string>
     
     <string name="str_continue_drop">天降模式</string>
     <string name="str_fullscreen">全螢幕</string>
@@ -370,4 +372,25 @@
     <string name="move_error">無法移動到之前的層次或是層次大於最大層次</string>
     <string name="need_read_storage">轉珠大師需要存取儲存權限才可以讀取圖片及儲存隊伍資料。</string>
     <string name="orb_any">任意</string>
+    <string name="as_format_l" formatted="false">生成一組L型%s寶珠。</string>
+    <string name="as_format_cross" formatted="false">生成一組十字型%s寶珠。</string>
+    <string name="as_format_square" formatted="false">生成一組3x3 %s寶珠(7x6時為3x4)</string>
+    <string name="as_drop_only" formatted="false">%d回合間, 只會掉落%s寶珠。</string>
+    <string name="as_void_void_shield" formatted="false">%d回合間, 可貫穿傷害無效盾。</string>
+
+    <string name="lst_l_format" formatted="false">以L字形消除5個%s寶珠時, </string>
+    <string name="lst_attr_0" formatted="false">受到的傷害減少 %d%%, </string>
+    <string name="lst_attr_1" formatted="false">攻擊力變為%.2f倍, </string>
+    <string name="lst_attr_2" formatted="false">回復力變為%.2f倍, </string>
+    <string name="lst_attr_3" formatted="false">結算時增加%d COMBO </string>
+    <string name="lst_counter_strike" formatted="false">受到攻擊時有%d%%機率以%s屬性%d倍傷害反擊。</string>
+    <string name="lst_orb_combo_attack" formatted="false">同時消除%d個%s寶珠時, %s</string>
+    <string name="pull_again">繼續抽</string>
+    <string name="download_data">是否要下載資料?</string>
+
+    <string name="lst_no_poison">消除毒/猛毒寶珠時不會受到毒傷害.</string>
+    <string name="lst_heart" formatted="false">另外以回復寶珠回復%dHP或以上時，</string>
+    <string name="ls_color_direct_attack" formatted="false">%s中,其中%d種同時攻擊時, 追加%d點固定傷害。</string>
+    <string name="ls_multi_direct_attack" formatted="false">當消除%d粒%s寶珠或以上時(需連著）, 追加%d點固定傷害。</string>
+    <string name="as_reduce_eliminate_status" formatted="false">無法消除寶珠狀態減少%d回合。</string>
 </resources>

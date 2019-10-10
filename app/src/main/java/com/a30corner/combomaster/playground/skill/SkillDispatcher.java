@@ -16,6 +16,7 @@ import com.a30corner.combomaster.playground.skill.impl.DamageHp;
 import com.a30corner.combomaster.playground.skill.impl.Delay;
 import com.a30corner.combomaster.playground.skill.impl.DirectAttack;
 import com.a30corner.combomaster.playground.skill.impl.DropLock;
+import com.a30corner.combomaster.playground.skill.impl.DropOnly;
 import com.a30corner.combomaster.playground.skill.impl.DropRate;
 import com.a30corner.combomaster.playground.skill.impl.EnhanceOrbs;
 import com.a30corner.combomaster.playground.skill.impl.Gravity;
@@ -38,6 +39,7 @@ import com.a30corner.combomaster.playground.skill.impl.TimeExtendX;
 import com.a30corner.combomaster.playground.skill.impl.TypeUp;
 import com.a30corner.combomaster.playground.skill.impl.VoidAttrShield;
 import com.a30corner.combomaster.playground.skill.impl.VoidDamageShield;
+import com.a30corner.combomaster.playground.skill.impl.VoidVoidShield;
 
 public class SkillDispatcher {
 
@@ -65,6 +67,10 @@ public class SkillDispatcher {
 		}
 		case ST_VOID: {
 			VoidDamageShield.onFire(env, owner, skill, callback);
+			return ;
+		}
+		case ST_VOID_0: {
+			VoidVoidShield.onFire(env, owner, skill, callback);
 			return ;
 		}
         case ST_LEADER_SWITCH:
@@ -136,6 +142,9 @@ public class SkillDispatcher {
         case ST_DROP_RATE:
         	DropRate.onFire(env, owner, skill, callback);
         	return ;
+		case ST_DROP_ONLY:
+			DropOnly.onFire(env, owner, skill, callback);
+			return ;
         case ST_POWER_UP:
         	PowerUp.onFire(env, owner, skill, callback);
         	return ;

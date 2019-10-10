@@ -116,7 +116,7 @@ public class LocalDBHelper {
 		return data;
 	}
 	
-	public static final int MAX_BOX = 400;
+	public static final int MAX_BOX = 600;
 	
 	public static void removeMonsterFromBox(Context context, int index) {
 		Uri monsterUri = ComboMasterProvider.getMonsterUri();

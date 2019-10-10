@@ -245,11 +245,16 @@ public class Enemy extends Entity {
     }
     
     public void initOwnAbility() {
-    	for(BuffOnEnemy buff : mFixedList) {
-    		buff.create();
-    		attachChild(buff.sprite);
-    	}
-    	displayBuff();
+        envRef.get().getScene().engine.runOnUpdateThread(new Runnable() {
+            @Override
+            public void run() {
+                for(BuffOnEnemy buff : mFixedList) {
+                    buff.create();
+                    attachChild(buff.sprite);
+                }
+                displayBuff();
+            }
+        });
     }
     
     public List<EnemyAction> firstStrike() {
@@ -337,48 +342,54 @@ public class Enemy extends Entity {
     	}
     }
     
-    public void addBuff(Type buff, List<Integer> data) {
-    	IEnvironment env = envRef.get();
-        BuffOnEnemy buffOnEnemy = null;
-        
-        for(BuffOnEnemy exist : mBuffList) {
-            if (!exist.isSkill(Type.ABSORB_SHIELD) && exist.isSkill(buff)) {
-                return ;
+    public void addBuff(final Type buff, final List<Integer> data) {
+    	final IEnvironment env = envRef.get();
+    	env.getScene().engine.runOnUpdateThread(new Runnable() {
+            @Override
+            public void run() {
+                BuffOnEnemy buffOnEnemy = null;
+
+                for(BuffOnEnemy exist : mBuffList) {
+                    if (!exist.isSkill(Type.ABSORB_SHIELD) && exist.isSkill(buff)) {
+                        return ;
+                    }
+                }
+
+                switch(buff) {
+                    case RESISTANCE_SHIELD:
+                        buffOnEnemy = ResistanceShield.init(env, data.get(0));
+                        break;
+                    case ABSORB_SHIELD:
+                        buffOnEnemy = AbsorbShield.init(env, data.get(0), data.get(1));
+                        break;
+                    case ANGRY:
+                        buffOnEnemy = Angry.init(env, data.get(0), data.get(1));
+                        break;
+                    case DAMAGE_ABSORB_SHIELD:
+                        buffOnEnemy = DamageAbsorbShield.init(env, data.get(0), data.get(1));
+                        break;
+                    case DAMAGE_VOID_SHIELD:
+                        buffOnEnemy = DamageVoidShield.init(env, data.get(0), data.get(1));
+                        break;
+                    case KONJO:
+                        buffOnEnemy = Konjo.init(env, data.get(0));
+                        break;
+                    case SHIELD:
+                        buffOnEnemy = Shield.init(env, data.get(0), data.get(1), data.get(2));
+                        break;
+                    case COMBO_SHIELD:
+                        buffOnEnemy = ComboShield.init(env, data.get(0), data.get(1));
+                        break;
+                    default:
+                        return ;
+                }
+                buffOnEnemy.create();
+                attachChild(buffOnEnemy.sprite);
+                mBuffList.add(buffOnEnemy);
+                displayBuff();
             }
-        }
-        
-        switch(buff) {
-        case RESISTANCE_SHIELD:
-            buffOnEnemy = ResistanceShield.init(env, data.get(0));
-            break;
-        case ABSORB_SHIELD:
-            buffOnEnemy = AbsorbShield.init(env, data.get(0), data.get(1));
-            break;
-        case ANGRY:
-            buffOnEnemy = Angry.init(env, data.get(0), data.get(1));
-            break;
-        case DAMAGE_ABSORB_SHIELD:
-            buffOnEnemy = DamageAbsorbShield.init(env, data.get(0), data.get(1));
-            break;
-        case DAMAGE_VOID_SHIELD:
-            buffOnEnemy = DamageVoidShield.init(env, data.get(0), data.get(1));
-            break;
-        case KONJO:
-            buffOnEnemy = Konjo.init(env, data.get(0));
-            break;
-        case SHIELD:
-            buffOnEnemy = Shield.init(env, data.get(0), data.get(1), data.get(2));
-            break;
-        case COMBO_SHIELD:
-        	buffOnEnemy = ComboShield.init(env, data.get(0), data.get(1));
-            break;
-        default:
-            return ;
-        }
-        buffOnEnemy.create();
-        attachChild(buffOnEnemy.sprite);
-        mBuffList.add(buffOnEnemy);
-        displayBuff();
+        });
+
     }
     
     public boolean addDebuff(Member owner, Type debuff, List<Integer> data) {
@@ -479,39 +490,52 @@ public class Enemy extends Entity {
     }
     
     private void countDownBuff() {
-        List<BuffOnEnemy> removeList = new ArrayList<BuffOnEnemy>();
-        int size = mBuffList.size();
-        for(int i=0; i<size; ++i) {
-            BuffOnEnemy buff = mBuffList.get(i);
-            buff.countDown();
-            if (buff.endBuff()) {
-                sprite.detachChild(buff.sprite);
-                removeList.add(buff);
+        envRef.get().getScene().engine.runOnUpdateThread(new Runnable() {
+
+            @Override
+            public void run() {
+                List<BuffOnEnemy> removeList = new ArrayList<BuffOnEnemy>();
+                int size = mBuffList.size();
+                for(int i=0; i<size; ++i) {
+                    BuffOnEnemy buff = mBuffList.get(i);
+                    buff.countDown();
+                    if (buff.endBuff()) {
+                        sprite.detachChild(buff.sprite);
+                        removeList.add(buff);
+                    }
+                }
+                if (removeList.size()>0) {
+                    mBuffList.removeAll(removeList);
+                }
+                displayBuff();
             }
-        }
-        if (removeList.size()>0) {
-            mBuffList.removeAll(removeList);
-        }
-        displayBuff();
+        });
     }
     
     private void countDownDebuff() {
-    	List<BuffOnEnemy> removeList = new ArrayList<BuffOnEnemy>();
-    	int size = mDebuffList.size();
-    	for(int i=0; i<size; ++i) {
-    		BuffOnEnemy buff = mDebuffList.get(i);
-    		if(buff.isSkill(Type.REDUCE_DEF)) {
-    			continue;
-    		}
-    		buff.countDown();
-    		if (buff.endBuff()) {
-    			sprite.detachChild(buff.sprite);
-    			removeList.add(buff);
-    		}
-    	}
-    	
-    	mDebuffList.removeAll(removeList);
-    	displayBuff();
+
+    	envRef.get().getScene().engine.runOnUpdateThread(new Runnable() {
+            @Override
+            public void run() {
+                List<BuffOnEnemy> removeList = new ArrayList<BuffOnEnemy>();
+                int size = mDebuffList.size();
+                for(int i=0; i<size; ++i) {
+                    BuffOnEnemy buff = mDebuffList.get(i);
+                    if(buff.isSkill(Type.REDUCE_DEF)) {
+                        continue;
+                    }
+                    buff.countDown();
+                    if (buff.endBuff()) {
+                        sprite.detachChild(buff.sprite);
+                        removeList.add(buff);
+                    }
+                }
+
+                mDebuffList.removeAll(removeList);
+                displayBuff();
+            }
+        });
+
     }
     
     private float getAdjustX(float x) {
@@ -619,12 +643,17 @@ public class Enemy extends Entity {
     	
     	updateEnemyState();
     }
-    
+
+
     public void dealtDamageDirect(AttackValue attack, float animationTime, AnimationCallback callback) {
+        dealtDamageDirect(attack, animationTime, callback, new HashMap<String, Boolean>());
+    }
+
+    public void dealtDamageDirect(AttackValue attack, float animationTime, AnimationCallback callback, Map<String, Boolean> settings) {
         if(dead()) {
             return ;
         }
-        int damage = calculateBuffWOComboDirect(attack.prop, attack.damage);
+        int damage = calculateBuffWOComboDirect(attack.prop, attack.damage, settings);
         mhp.addDamage(damage);
         mhp.playDamagedAnimation(animationTime, callback);
         
@@ -843,6 +872,7 @@ public class Enemy extends Entity {
         Map<String, Boolean> voidSetting = new HashMap<String, Boolean>();
         voidSetting.put(Constants.SK_VOID, envRef.get().hasSkill(Constants.SK_VOID));
         voidSetting.put(Constants.SK_VOID_ATTR, envRef.get().hasSkill(Constants.SK_VOID_ATTR));
+        voidSetting.put(Constants.SK_VOID_0, envRef.get().hasSkill(Constants.SK_VOID_0));
 
         int buffedDamage = calculateBuff(attack, damage, voidSetting);
         mhp.addDamage(buffedDamage);
@@ -851,20 +881,33 @@ public class Enemy extends Entity {
         return damage;
     }
 
-    private int calculateBuffWOComboDirect(int prop, double damage) {
+    private int calculateBuffWOComboDirect(int prop, double damage, Map<String, Boolean> settings) {
         for(BuffOnEnemy buff : mBuffList) {
             List<Integer> data = buff.getData();
-            if (buff.isSkill(Type.ABSORB_SHIELD)) {
+            boolean skipAbsorb = false;
+            if(settings.containsKey(Constants.SK_VOID_ATTR)) {
+                skipAbsorb = settings.get(Constants.SK_VOID_ATTR);
+            }
+            if (!skipAbsorb && buff.isSkill(Type.ABSORB_SHIELD)) {
                 if(data.get(1) == prop) {
                     return -(int)damage;
                 }
             }
-            if (buff.isSkill(Type.DAMAGE_ABSORB_SHIELD)) {
+            skipAbsorb = false;
+            if(settings.containsKey(Constants.SK_VOID)) {
+                skipAbsorb = settings.get(Constants.SK_VOID);
+            }
+            if (!skipAbsorb && buff.isSkill(Type.DAMAGE_ABSORB_SHIELD)) {
                 if (damage >= data.get(1)) {
                     return -(int)(damage);
                 }
             }
-            if (buff.isSkill(Type.DAMAGE_VOID_SHIELD)) {
+
+            boolean skipVoid = false;
+            if(settings.containsKey(Constants.SK_VOID_0)) {
+                skipVoid = settings.get(Constants.SK_VOID_0);
+            }
+            if (!skipVoid && buff.isSkill(Type.DAMAGE_VOID_SHIELD)) {
                 if (damage >= data.get(1)) {
                     return 0;
                 }
@@ -935,8 +978,11 @@ public class Enemy extends Entity {
                     return -(int)(damage);
                 }
             }
-
-            if (buff.isSkill(Type.DAMAGE_VOID_SHIELD)) {
+            boolean skipVoid = false;
+            if(settings.containsKey(Constants.SK_VOID_0)) {
+                skipVoid = settings.get(Constants.SK_VOID_0);
+            }
+            if (!skipVoid && buff.isSkill(Type.DAMAGE_VOID_SHIELD)) {
                 if (attack.squareAttack == 0 && damage >= data.get(1)) {
                     return 0;
                 }

@@ -350,6 +350,12 @@ public class PadBoardAI {
 		return orbs;
 	}
 
+	// data from Drop_ONLY skill, so index = 0 means turns, random a start index from 1
+	public static int getNewOrb(List<Integer> drops) {
+		int rnd = RandomUtil.getInt(drops.size()-1);
+		return drops.get(rnd+1);
+	}
+
 	public static int getNewOrbRestrictChances(long type, List<Pair<Integer, Integer>> percent) {
 	    if ( percent == null || percent.size() == 0 ) {
 	        return getNewOrbRestrict(type);

@@ -6,13 +6,12 @@
 
 package com.a30corner.combomaster.pad.mode7x6;
 
+import com.a30corner.combomaster.pad.Match;
+import com.a30corner.combomaster.pad.RowCol;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.a30corner.combomaster.pad.Match;
-import com.a30corner.combomaster.pad.PadBoardAI;
-import com.a30corner.combomaster.pad.RowCol;
 
 /**
  *
@@ -70,7 +69,7 @@ public class Match7x6 extends Match {
 				}
 			}
 			int ci = 0, ri = 0;
-			for(int i=0; i<5; ++i) {
+			for(int i=0; i<6; ++i) {
 				if (cols[i] == 3) {
 					isCol3 = true;
 					ci = i;
@@ -81,8 +80,8 @@ public class Match7x6 extends Match {
 				}
 			}
 			if(!isRow3) {
-				isRow3 = rows[5] == 3;
-				ri = 5;
+				isRow3 = rows[6] == 3;
+				ri = 6;
 			}
 			if( isRow3 && isCol3 ) {
 				return (ri == maxr || ri == minr) && (ci == maxc || ci == minc);

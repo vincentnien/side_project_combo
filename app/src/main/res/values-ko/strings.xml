@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">설정</string>
+    <string name="add_by_padherder">사용자 이름 입력</string>
+    <string name="add_monster">몬스터 추가</string>
+    <string name="all_orbs_transform">"모든 드롭 "</string>
+    <string name="app_name">콤보 마스터</string>
+    <string name="arrow">" > "</string>
+    <string name="as_add_combo" formatted="false">%d턴 동안 %d콤보 추가.</string>
+    <string name="as_add_lock" formatted="false">%s 드롭을 잠근다.</string>
+    <string name="as_add_plus" formatted="false">%s 드롭을 강화.</string>
+    <string name="as_attack_skill" formatted="false">"%s 속성 아군의 공격력 %d배의 대미지를 %s에게 준다."</string>
+    <string name="as_attack_skill_fix" formatted="false">자신의 %s 속성 공격력 %d배의 대미지를 %s에게 준다.</string>
+    <string name="as_attack_skill_hp" formatted="false">"%s 속성 아군의 공격력 %s(남은 체력 반비례) 대미지를 %s에게 준다."</string>
+    <string name="as_attack_skill_team_hp" formatted="false">"Deal %s type damage equal to %s team's HP to %s. Affected by enemy element and defense."</string>
+    <string name="as_awoken_recover" formatted="false">각성 스킬 무효를 %d턴 회복.</string>
+    <string name="as_bind_recover" formatted="false">바인드를 %d턴 회복.</string>
+    <string name="as_bind_recover_type1" formatted="false">"Recover HP equal to %dx the user's RCV."</string>
+    <string name="as_bind_recover_type2" formatted="false">%d HP를 회복.</string>
+    <string name="as_bind_recover_type3" formatted="false">"최대 HP의 %d%% 회복."</string>
+    <string name="as_change_attribute" formatted="false">모든 적을 %s 속성으로 바꾼다.</string>
+    <string name="as_change_the_world" formatted="false">%d초 동안 시간 정지.</string>
+    <string name="as_clear_board">모든 드롭을 복원한다.</string>
+    <string name="as_color_change" formatted="false">모든 %s 드롭을 %s 드롭으로 변환.</string>
+    <string name="as_counter_attack" formatted="false">%d턴 동안 입은 대미지의 %d배를 %s 속성으로 반격.</string>
+    <string name="as_cross">회복 드롭을 십자 모양으로 지울 시 입는 대미지를 50%% 경감.</string>
+    <string name="as_cross_atk" formatted="false">회복 드롭을 십자 모양으로 지울 시 입는 대미지가 50%% 감소하고 공격력이 %.2f배.</string>
+    <string name="as_def_up_by_awoken" formatted="false">For %d turns, reduce damage base on the number of awakening skills [%s], reduces %d%% for each one.</string>
+    <string name="as_delay" formatted="false">적의 행동을 %d턴 늦춘다.</string>
+    <string name="as_direct_damage_all" formatted="false">모든 적에게 %d의 고정 대미지.</string>
+    <string name="as_direct_damage_single">적 하나에게 %d의 고정 대미지.</string>
+    <string name="as_drain" formatted="false">"적에게 준 대미지의 %d%%를 회복."</string>
+    <string name="as_drop_only" formatted="false">%d턴 동안 %s 드롭만 떨어진다.</string>
+    <string name="as_drop_rate" formatted="false">%d턴 동안 %s 드롭의 출현 확률이 %d%% 증가.</string>
+    <string name="as_enhance_orb" formatted="false">%d턴 동안 강화 드롭의 출현 확률이 %d%% 증가.</string>
+    <string name="as_format_cross" formatted="false">십자 모양의 %s 드롭을 형성한다.</string>
+    <string name="as_format_l" formatted="false">L자 모양의 %s 드롭을 형성한다.</string>
+    <string name="as_format_square" formatted="false">%s 드롭을 3x3 정사각형 모양으로 형성.</string>
+    <string name="as_gravity" formatted="false">적의 HP를 %d%% 감소시킨다.</string>
+    <string name="as_gravity_100" formatted="false">적의 최대 HP를 %d%% 감소시킨다.</string>
+    <string name="as_hp_1">HP가 1이 된다.</string>
+    <string name="as_hp_x" formatted="false">HP가 %d%%만큼 감소.</string>
+    <string name="as_move_time_x" formatted="false">%d턴 동안 드롭 조작 시간이 %.1f배.</string>
+    <string name="as_no_drop" formatted="false">%d턴 동안 낙차 콤보 없음.</string>
+    <string name="as_one_line_transform" formatted="false">%s %s 드롭으로 변환.</string>
+    <string name="as_poison" formatted="false">모든 적에게 자신의 공격력 %d배의 맹독 부여. </string>
+    <string name="as_power_up" formatted="false">%d턴 동안 %s 속성의 공격력이 %s배.</string>
+    <string name="as_power_up_by_awoken" formatted="false">%d턴 동안 아군의 [%s] 각성 스킬 개당 공격력이 %d%% 증가.</string>
+    <string name="as_random_change" formatted="false">%d개의 %s 드롭을 랜덤한 위치에 형성.</string>
+    <string name="as_random_change_restrict" formatted="false">%d개의(%s 드롭 제외) 랜덤한 위치에 %s 드롭을 형성.</string>
+    <string name="as_recover_up" formatted="false">%d턴 동안 회복력이 %.2f배.</string>
+    <string name="as_reduce_def" formatted="false">%d턴 동안 적의 방어력이 %d%% 감소.</string>
+    <string name="as_reduce_shield" formatted="false">%d턴 동안 모든 대미지를 %d%% 경감.</string>
+    <string name="as_reduce_shield_color" formatted="false">%d턴 동안 %s 속성 대미지를 무효화.</string>
+    <string name="as_skill_boost" formatted="false">자신을 제외한 아군의 스킬 턴을 %d턴 감소.</string>
+    <string name="as_skill_boost_random" formatted="false">자신을 제외한 아군의 스킬 턴을 %d~%d턴 감소.</string>
+    <string name="as_switch_leader">리더와 자신의 위치를 교체한다. 한 번 더 사용하면 서브로 돌아간다.</string>
+    <string name="as_target_random" formatted="false">%s이 %s.</string>
+    <string name="as_time_extend" formatted="false">%d턴 동안 드롭 조작 시간이 %.1f초 연장.</string>
+    <string name="as_transform" formatted="false">모든 드롭을 %s 드롭으로 변환.</string>
+    <string name="as_turn_recover" formatted="false">"%d턴 동안 HP를 %d%% 회복한다."</string>
+    <string name="as_type_up" formatted="false">%d턴 동안 %s 타입 몬스터의 공격력을 %s배 증가.</string>
+    <string name="as_unlock">드롭을 잠금.</string>
+    <string name="as_void_absorb" formatted="false">%d턴 동안 대미지 흡수를 무효화.</string>
+    <string name="as_void_attr_absorb" formatted="false">%d턴 동안 속성 흡수를 무효화.</string>
+    <string name="as_void_void_shield" formatted="false">%d턴 동안 대미지 무효를 무효화한다.</string>
+    <string name="asc">Standard</string>
+    <string name="at_least_one">at least choose one type</string>
+    <string name="atk">공격력</string>
+    <string name="atk_">공격력+</string>
+    <string name="avg_combo">"평균 콤보 "</string>
+    <string name="awoken">각성</string>
+    <string name="awoken_skills">"각성"</string>
+    <string name="backup_fail">백업 실패:</string>
+    <string name="backup_success">백업 성공:</string>
+    <string name="box_full">몬스터 박스가 가득 차서 데이터를 불러올 수 없습니다.</string>
+    <string name="cd">CD</string>
+    <string name="challenge_mode">챌린지 모드</string>
+    <string name="check_update">업데이트 검사 중…</string>
+    <string name="chooser_title">이미지를 고르세요</string>
+    <string name="color_change">드롭 변환</string>
+    <string name="condition01">공격력</string>
+    <string name="condition02">HP</string>
+    <string name="condition03">회복력</string>
+    <string name="condition04">Lv.</string>
+    <string name="condition05">Cost</string>
+    <string name="condition06">레어도</string>
+    <string name="condition07">ATT</string>
+    <string name="condition08">Sub-A</string>
+    <string name="condition09">타입</string>
+    <string name="condition10">Sub-T</string>
+    <string name="condition11">+</string>
+    <string name="confirm">확인</string>
+    <string name="congraduation" formatted="false">"축하합니다!!!Used: %d stone(s)"</string>
+    <string name="copying">Copying…</string>
+    <string name="current_version">앱 버전:</string>
+    <string name="data_loading">Data Loading</string>
+    <string name="desc">Reverse</string>
+    <string name="dialog_skill_1" formatted="false">Skill 1: %s (CD:%d)</string>
+    <string name="dialog_skill_2" formatted="false">Skill 2: %s (CD:%d)</string>
+    <string name="download_data">Download data?</string>
+    <string name="downloading">Downloading…</string>
+    <string name="drop_type">드롭 속성</string>
+    <string name="drop_type_in_calc_mode">드롭 속성 [PAD 계산기]</string>
+    <string name="edit_lv_hint">80,70,80,70,99,70</string>
+    <string name="error_same_type">같은 속성의 드롭으로는 변경할 수 없습니다.</string>
+    <string name="full_charge" formatted="false">Fully charged in %d turn(s).</string>
+    <string name="game_over">Game Over</string>
+    <string name="hp">HP</string>
+    <string name="hp_">HP+</string>
+    <string name="in_turns" formatted="false">%d턴 남음</string>
+    <string name="lang">en</string>
+    <string name="leader_skill">"Leader Skill"</string>
+    <string name="ls_all_monster">"모든 몬스터의 "</string>
+    <string name="ls_become_x" formatted="false">%s이 %s배</string>
+    <string name="ls_color_factor" formatted="false">%s 중 %d속성 이상 동시 공격 시 공격력이 %1.1f배.</string>
+    <string name="ls_color_factor_addition" formatted="false">모든 요구 속성으로 동시 공격 시 %1.2f배 증가, 최대 %1.1f배.</string>
+    <string name="ls_combo_factor" formatted="false">%d콤보 이상일 때 공격력이 %1.2f배.</string>
+    <string name="ls_combo_factor_addition" formatted="false">최대 %d콤보 시(콤보 당 %1.1f배) 공격력이 %1.1f배.</string>
+    <string name="ls_combo_rcv" formatted="false">%d콤보 이상일 때 회복력이 %1.2f배.</string>
+    <string name="ls_combo_rcv_addition" formatted="false">최대 %d콤보 시 회복력 %1.1f배 증가, 최대 %1.1f배.</string>
+    <string name="ls_combo_shield" formatted="false">%d콤보 이상일 때 모든 대미지를 %d%% 경감.</string>
+    <string name="ls_combo_shield_addition" formatted="false">Each additional combo up to %d adds %d%% for a possible total of %d%%.</string>
+    <string name="ls_hp_condition" formatted="false">HP가 %s %d%%일 때 </string>
+    <string name="ls_hp_condition_full">HP가 100%%일 때 </string>
+    <string name="ls_monster_type" formatted="false">"모든 %s 타입의 "</string>
+    <string name="ls_multi_mode">협력 플레이 모드일 시 </string>
+    <string name="ls_multi_orb_combo" formatted="false">%d개 이상 연결해서 %s 드롭을 지울 시 공격력이 %1.2f배.</string>
+    <string name="ls_multi_orb_combo_addition" formatted="false">When matching a connected group of %d or more %s Orbs ATK becomes %1.2fx . Add %1.2fx for each additional Orb, up to a max of %1.2fx(for %d Orbs)</string>
+    <string name="ls_multi_orb_shield" formatted="false">모든 대미지를 %d%% 경감.</string>
+    <string name="ls_not_support">스킬이 없거나 지원되지 않음.</string>
+    <string name="ls_target_orb_combo" formatted="false">%d세트 이상 연결해서 %s 드롭을 지울 시 공격력이 %1.1f배.</string>
+    <string name="ls_target_orb_shield" formatted="false">%d세트 이상 연결해서 %s 드롭을 지울 시 모든 대미지를 %d%% 경감.</string>
+    <string name="lst_attack" formatted="false">드롭을 지우면 자신의 공격력 %d배의 대미지 추가 공격.</string>
+    <string name="lst_attr_0" formatted="false">모든 대미지를 %d%% 경감,</string>
+    <string name="lst_attr_1" formatted="false">공격력이 %.2fx배,</string>
+    <string name="lst_attr_2" formatted="false">회복력이 %.2fx배,</string>
+    <string name="lst_attr_3" formatted="false">%d콤보 추가.</string>
+    <string name="lst_change_board" formatted="false">[드롭판을 %s으로 변경]</string>
+    <string name="lst_color_reduce_shield" formatted="false">받는 대미지를 %d%% 경감.</string>
+    <string name="lst_counter_strike" formatted="false">%d%% chance of countering with a %s type attack of %dx damage taken.</string>
+    <string name="lst_cross_atk_def" formatted="false">회복 드롭을 십자 모양으로 지울 시 모든 대미지를 %d%% 경감하고 공격력이 %.2f배.</string>
+    <string name="lst_cross_attack" formatted="false">%s 드롭을 십자 모양으로 지울 시 공격력이 %.2f배.</string>
+    <string name="lst_do_konjo" formatted="false">HP가 %d%% 이상일 때 큰 대미지를 받더라도 HP 1로 살아남는다. (HP가 %d%% 이하거나, 연속 공격 시에는 발동되지 않는다.)</string>
+    <string name="lst_drop_no_more" formatted="false">드롭을 지운 후 드롭판에 남은 드롭이 %d개 이하일 때 공격력이 %.2f배.</string>
+    <string name="lst_five_orbs" formatted="false">강화 드롭을 포함한 드롭을 정확히 %d개 지울 시 지운 속성의 공격력이 %1.1f배.</string>
+    <string name="lst_heal" formatted="false">"Heal HP equal to %d%% of leader's RCV every turn. Only triggers if a match is made."</string>
+    <string name="lst_hp_recover" formatted="false">드롭을 지우면 자신의 회복력 %d배의 HP를 회복.</string>
+    <string name="lst_l_format" formatted="false">%s 드롭을 L자 모양으로 지울 시 </string>
+    <string name="lst_more_remove" formatted="false">드롭을 %d개 이하로 지울 수 없음. %s 공격력이 %.1f배.</string>
+    <string name="lst_no_drop">[낙차 없음]</string>
+    <string name="lst_orb_combo_attack" formatted="false">When matching a sets of %d connected %s orbs, %s</string>
+    <string name="lst_rcv" formatted="false">회복력이 %.2f배.</string>
+    <string name="lst_rcv_max" formatted="false">RCV becomes %.2fx(MAX)</string>
+    <string name="lst_reduce_by_hp_50" formatted="false">HP가 %d%% 이하일 때 받는 대미지를 %d%% 경감.</string>
+    <string name="lst_reduce_by_hp_50_up" formatted="false">HP가 %d%% 이상일 때 받는 대미지를 %d%% 경감.</string>
+    <string name="lst_reduce_by_hp_full" formatted="false">HP가 최대일 때 받는 대미지를 %d%% 경감.</string>
+    <string name="lst_reduce_damage" formatted="false">%d%%만큼 %s 속성 적의 대미지 경감.</string>
+    <string name="lst_remove_n" formatted="false">when matching exactly n connected %s orbs(n=%d),</string>
+    <string name="lst_time_extend" formatted="false">드롭 조작 시간을 %.1f초 연장.</string>
+    <string name="lst_time_fixed" formatted="false">[드롭 조작 시간 %.1f초 고정]</string>
+    <string name="lst_used_skill">스킬 사용 시 </string>
+    <string name="lv">Lv</string>
+    <string name="max10">10</string>
+    <string name="max99">99</string>
+    <string name="menu_calculate_5x4_mode">[5x4 모드]</string>
+    <string name="menu_calculate_7x6_mode">[7x6 모드]</string>
+    <string name="menu_calculate_mode">[PAD 계산기]</string>
+    <string name="menu_cop_mode">[협력 플레이]</string>
+    <string name="menu_egg_machine">[가챠 머신]</string>
+    <string name="menu_monster_box">[PAD 팀 구성]</string>
+    <string name="menu_quit_mode">[종료]</string>
+    <string name="menu_report">[튜토리얼]</string>
+    <string name="menu_settings_mode">[설정]</string>
+    <string name="menu_simulator">[ALPHA]</string>
+    <string name="menu_simulator_mode">[시뮬레이터]</string>
+    <string name="menu_single_mode">[낙차 없는 연습 모드]</string>
+    <string name="menu_training_mode">[연습 모드]</string>
+    <string name="move_error">이전 스테이지 또는 존재하지 않는 #스테이지로 이동할 수 없습니다.</string>
+    <string name="move_to_stage">스테이지 #로 이동하겠습니까?</string>
+    <string name="multiple_targets">모든 적</string>
+    <string name="na">None</string>
+    <string name="need_network">"Images download from network, if you don't have network you won't see the image."</string>
+    <string name="need_network_1st">Program needs to download data from internet the first time, but the network is unavailable.</string>
+    <string name="need_read_storage">ComboMaster need READ/WRITE storage permission to access screenshot and save team data to sdcard.</string>
+    <string name="no">No</string>
+    <string name="no_">No.</string>
+    <string name="no_data_found">No data found, you could reset the filter condition and try again.</string>
+    <string name="no_such_id" formatted="false">Can not find monster id=%d</string>
+    <string name="null_awoken_mode">각성 비활성화</string>
+    <string name="orb_any">Any</string>
+    <string name="orb_type">드롭 스킨:</string>
+    <string name="potential_awoken_skills">잠재 각성</string>
+    <string name="power_up_text" formatted="false">"%d turns, power %sx "</string>
+    <string name="priority1">1st 우선순위</string>
+    <string name="priority2">2nd 우선순위</string>
+    <string name="priority3">3rd 우선순위</string>
+    <string name="priority4">4th 우선순위</string>
+    <string name="priority5">5th 우선순위</string>
+    <string name="pull_again">다시 뽑기</string>
+    <string name="query_attr">속성</string>
+    <string name="query_awoken">각성</string>
+    <string name="query_effect">효과</string>
+    <string name="query_name">이름</string>
+    <string name="query_type">타입</string>
+    <string name="question_reset_combo">평균 콤보를 리셋하시겠습니까?</string>
+    <string name="rcv">회복력</string>
+    <string name="rec_">회복력+</string>
+    <string name="reset_combo">Reset</string>
+    <string name="restore_fail">Restore failed:</string>
+    <string name="restore_success">Restore completed, please restart your application.</string>
+    <string name="result">결과</string>
+    <string name="retrofit_error">Error: Not found</string>
+    <string name="second">초</string>
+    <string name="select_egg_machine">가챠 머신</string>
+    <string name="select_stage">스테이지 선택</string>
+    <string name="select_type">-- 타입 선택 --</string>
+    <string name="settings">설정</string>
+    <string name="show_path_if_available">"경로 표시(리플레이에 필요)"</string>
+    <string name="show_result_dialog_directly">결과 창 자동 표시</string>
+    <string name="single_target">적 하나</string>
+    <string name="skill">Skill</string>
+    <string name="skill_1">Skill 1</string>
+    <string name="skill_2">Skill 2</string>
+    <string name="skill_3">Skill 3</string>
+    <string name="skill_4">Skill 4</string>
+    <string name="skill_5">Skill 5</string>
+    <string name="skill_6">Skill 6</string>
+    <string name="skills">Skills</string>
+    <string name="sort">분류</string>
+    <string name="sound">효과음:</string>
+    <string name="sound_onoff">BGM:</string>
+    <string name="special_mode">[스페셜] 던전</string>
+    <string name="split_change_all">/</string>
+    <string name="step">회 이동</string>
+    <string name="str_0">+0</string>
+    <string name="str_297">297</string>
+    <string name="str_active_skill">Active Skill1</string>
+    <string name="str_active_skill2">Active Skill2</string>
+    <string name="str_active_skill2_cd">Active Skill2 CD</string>
+    <string name="str_active_skill_cd">Active Skill1 CD</string>
+    <string name="str_analysis">분석 위치</string>
+    <string name="str_attr">속성:</string>
+    <string name="str_attr1">-- 속성 --</string>
+    <string name="str_backing_up">Backup…</string>
+    <string name="str_backup">Backup</string>
+    <string name="str_backup_path">"백업 파일 경로:
+ %s"</string>
+    <string name="str_backup_restore">"몬스터 박스 백업/복원"</string>
+    <string name="str_basic">Basic</string>
+    <string name="str_bind_monster">바인드 몬스터</string>
+    <string name="str_cannot_write">The path you input is not writable.</string>
+    <string name="str_cb_hp_condition">HP 조건 적용</string>
+    <string name="str_color_weakness">색약 모드</string>
+    <string name="str_confirm_delete">이 항목을 삭제하시겠습니까?</string>
+    <string name="str_continue_drop">낙차 모드</string>
+    <string name="str_cop">협력 플레이</string>
+    <string name="str_cost">Cost:</string>
+    <string name="str_create">create</string>
+    <string name="str_damage" formatted="false">"대미지: %s 회복량: %s"</string>
+    <string name="str_damage_absorb">흡수</string>
+    <string name="str_defense">경감:</string>
+    <string name="str_done">완료</string>
+    <string name="str_dont_set">"분석에 대한 문제가 발생하지 않았다면 분석 위치를 설정할 필요가 없습니다."</string>
+    <string name="str_drop_rate">드롭 출현 확률 ↑↑</string>
+    <string name="str_edit">편집</string>
+    <string name="str_enemy_type">적 타입</string>
+    <string name="str_file_exists">File already exists. Do you want to overwrite it?(Yes: overwrite No: add serial number)</string>
+    <string name="str_filter">필터</string>
+    <string name="str_filter_hint">필터 기능을 이용하면 빠르고 간단하게 자신이 원하는 몬스터를 추가할 수 있습니다.</string>
+    <string name="str_fix">Fix</string>
+    <string name="str_friend_leader">Friend Leader</string>
+    <string name="str_friend_leader_skill">Friend
+	Leader Skill</string>
+    <string name="str_fullscreen">풀스크린</string>
+    <string name="str_generate">Generating url…</string>
+    <string name="str_half_shield">50%% 경감</string>
+    <string name="str_has_new" formatted="false">%s new monster data was found, do you want to update?</string>
+    <string name="str_height">높이</string>
+    <string name="str_how_to_use_it">"가이드라인을 보려면 여기를 누르세요.
+현재 www.puzzledragonx.com과 www.loglesslove.net
+pad.skyozora.com을 지원하고 있습니다. 다른 시뮬레이터 웹사이트 링크를 보내주시면 다음 업데이트 때 지원 목록에 추가될 수 있습니다. "</string>
+    <string name="str_hyper">Hyper</string>
+    <string name="str_if_uncheck_hp">설정하지 않으면 HP 조건을 무시하고
+최대 공격력 계수로 결과가 산출됩니다.</string>
+    <string name="str_include_attr2">부속성 포함</string>
+    <string name="str_input_path">Input file name:</string>
+    <string name="str_keep_ratio">화면 비율 유지</string>
+    <string name="str_keep_ratio_warning_restart_app">선택하지 않을 시 화면의 크기는 조정되지만
+가로 세로 비율은 유지되지 않으므로 앱을 재시작해야 합니다.</string>
+    <string name="str_leader">Leader</string>
+    <string name="str_leader_skill">Leader Skill</string>
+    <string name="str_left">Left</string>
+    <string name="str_left_corner">Select upper left corner</string>
+    <string name="str_load_by_filter">필터를 이용한 빠른 구성</string>
+    <string name="str_load_by_padherderr">PadHerder를 이용한 빠른 구성</string>
+    <string name="str_load_from_url">url을 이용한 빠른 구성</string>
+    <string name="str_loading">Loading</string>
+    <string name="str_lv_">"Lv. "</string>
+    <string name="str_max">Max</string>
+    <string name="str_member">Member</string>
+    <string name="str_min">Min</string>
+    <string name="str_monster">Box</string>
+    <string name="str_monster_box">Box</string>
+    <string name="str_monster_no">Set Monster No</string>
+    <string name="str_need_album_app">No album app found in your device, please install one from google play.</string>
+    <string name="str_need_music_app">No music or file manager app found in your device, please install one from google play.</string>
+    <string name="str_no_">"No. "</string>
+    <string name="str_no_backup_files">No backup files found.</string>
+    <string name="str_no_change">"사용 안 함"</string>
+    <string name="str_orb_shining">반짝 효과</string>
+    <string name="str_padherder_hint">"사용자 이름을 입력하면 저장된 몬스터를 빠르게 불러올 수 있습니다. (https://www.padherder.com/) 만약 데이터 크기가 몬스터 박스(size: 400)를 초과하면, 우선순위와 높은 레어도를 가진 몬스터를 우선적으로 추가합니다."</string>
+    <string name="str_path">패치:</string>
+    <string name="str_power">공격력</string>
+    <string name="str_quick_setup">Wizard</string>
+    <string name="str_quick_setup_hint">Pets you added by quick setup will not appear in Box page.</string>
+    <string name="str_rare">Rare:</string>
+    <string name="str_recovery">회복력</string>
+    <string name="str_reduce_shield">%% 경감</string>
+    <string name="str_replace_to">Save data to</string>
+    <string name="str_reset">Reset</string>
+    <string name="str_reset_bgm">Reset</string>
+    <string name="str_restart_app">(재시작 필요)</string>
+    <string name="str_restore">Restore</string>
+    <string name="str_restoring">Restoring…</string>
+    <string name="str_restraining">적 속성:</string>
+    <string name="str_right_corner">Select bottom right corner</string>
+    <string name="str_same_leader">Same Leader</string>
+    <string name="str_save">Save</string>
+    <string name="str_saving">Saving</string>
+    <string name="str_search">Search</string>
+    <string name="str_select">선택</string>
+    <string name="str_set_bgm">CHOOSE FILE</string>
+    <string name="str_set_path">Set path</string>
+    <string name="str_setup">Set up</string>
+    <string name="str_skill_fired">이번 턴에 스킬 사용</string>
+    <string name="str_skills">Skills</string>
+    <string name="str_sound_file">"드롭을 굴릴 때 혹은 1콤보 이상일 때 재생할 사운드 파일을 선택하고 같은 경로에 파일을 넣으십시오. 예 : combo1.wav combo2.wav... 사운드 파일은 자동으로 로드됩니다."</string>
+    <string name="str_still_working">This function is under construction.</string>
+    <string name="str_swap_member">리더 체인지</string>
+    <string name="str_team">Team</string>
+    <string name="str_temp_modify">임시 타이머</string>
+    <string name="str_title_advanced_setup">Settings</string>
+    <string name="str_title_combo">Combo</string>
+    <string name="str_title_damage">Damage</string>
+    <string name="str_top">Top</string>
+    <string name="str_total_hp">총 HP</string>
+    <string name="str_training">Settings</string>
+    <string name="str_type">타입:</string>
+    <string name="str_type1">-- 타입 --</string>
+    <string name="str_update">Update</string>
+    <string name="str_web_url">Send the link to ask a better solution.</string>
+    <string name="str_width">Width</string>
+    <string name="successful">Import successfully and images are still downloaded in background, may not seen immediately.</string>
+    <string name="super_awoken_skills">초 각성</string>
+    <string name="time_limit">시간 제한:</string>
+    <string name="title_confirm">Confirm</string>
+    <string name="title_input_url">Input URL</string>
+    <string name="title_potential_awoken">잠재 스킬</string>
+    <string name="total_combo" formatted="false">총 %d 콤보!</string>
+    <string name="training_mode">연습 모드</string>
+    <string name="update">Update</string>
+    <string name="updating">Updating…</string>
+    <string name="use_magic_stone">컨티뉴하시겠습니까?</string>
+    <string name="use_skill">"Use"</string>
+    <string name="wiki">http://www.pad.wikia.com/wiki/</string>
+    <string name="yes">Yes</string>
+</resources>

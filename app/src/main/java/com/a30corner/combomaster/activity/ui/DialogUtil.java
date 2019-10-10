@@ -1,19 +1,5 @@
 package com.a30corner.combomaster.activity.ui;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -55,10 +41,15 @@ import com.a30corner.combomaster.pad.monster.MonsterSkill;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.AwokenSkill;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.MoneyAwokenSkill;
 import com.a30corner.combomaster.pad.monster.TeamInfo;
-import com.a30corner.combomaster.utils.Constants;
-import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil;
-import com.a30corner.combomaster.utils.TinyUrlUtil;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class DialogUtil {
 
@@ -275,71 +266,71 @@ public class DialogUtil {
 			final int[][] board, final TeamInfo info, final ActiveSkill skill,
 			final Map<String, Object> data) {
 		final Dialog dialog = new Dialog(activity);
-		dialog.setTitle(R.string.app_name);
-		dialog.setContentView(R.layout.dialog_tinyurl);
-
-		final View layoutLoading = dialog.findViewById(R.id.layout_loading);
-		final View layoutUrl = dialog.findViewById(R.id.layout_url);
-		final EditText etUrl = (EditText) dialog.findViewById(R.id.et_url);
-		final Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				String url = "http://combomaster.twgogo.org/cm/calc.php?";
-				try {
-					TinyUrlUtil.getTinyUrl(
-							url + getQuery(board, info, skill, data),
-							new Callback<Response>() {
-								@Override
-								public void success(Response result,
-										Response response) {
-
-									// Try to get response body
-									BufferedReader reader = null;
-									StringBuilder sb = new StringBuilder();
-									try {
-										reader = new BufferedReader(
-												new InputStreamReader(result
-														.getBody().in()));
-										String line;
-										try {
-											while ((line = reader.readLine()) != null) {
-												sb.append(line);
-											}
-										} catch (IOException e) {
-											e.printStackTrace();
-										}
-									} catch (IOException e) {
-										e.printStackTrace();
-									}
-
-									displayTinyUrl(activity, layoutLoading,
-											layoutUrl, btnCancel, etUrl,
-											sb.toString());
-								}
-
-								@Override
-								public void failure(RetrofitError error) {
-									displayTinyUrl(activity, layoutLoading,
-											layoutUrl, btnCancel, etUrl,
-											error.toString());
-								}
-							});
-				} catch (Exception e) {
-					displayTinyUrl(activity, layoutLoading, layoutUrl,
-							btnCancel, etUrl, e.toString());
-				}
-			}
-		}).start();
-		btnCancel.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
+//		dialog.setTitle(R.string.app_name);
+//		dialog.setContentView(R.layout.dialog_tinyurl);
+//
+//		final View layoutLoading = dialog.findViewById(R.id.layout_loading);
+//		final View layoutUrl = dialog.findViewById(R.id.layout_url);
+//		final EditText etUrl = (EditText) dialog.findViewById(R.id.et_url);
+//		final Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+//
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				String url = "http://combomaster.twgogo.org/cm/calc.php?";
+//				try {
+//					TinyUrlUtil.getTinyUrl(
+//							url + getQuery(board, info, skill, data),
+//							new Callback<Response>() {
+//								@Override
+//								public void success(Response result,
+//										Response response) {
+//
+//									// Try to get response body
+//									BufferedReader reader = null;
+//									StringBuilder sb = new StringBuilder();
+//									try {
+//										reader = new BufferedReader(
+//												new InputStreamReader(result
+//														.getBody().in()));
+//										String line;
+//										try {
+//											while ((line = reader.readLine()) != null) {
+//												sb.append(line);
+//											}
+//										} catch (IOException e) {
+//											e.printStackTrace();
+//										}
+//									} catch (IOException e) {
+//										e.printStackTrace();
+//									}
+//
+//									displayTinyUrl(activity, layoutLoading,
+//											layoutUrl, btnCancel, etUrl,
+//											sb.toString());
+//								}
+//
+//								@Override
+//								public void failure(RetrofitError error) {
+//									displayTinyUrl(activity, layoutLoading,
+//											layoutUrl, btnCancel, etUrl,
+//											error.toString());
+//								}
+//							});
+//				} catch (Exception e) {
+//					displayTinyUrl(activity, layoutLoading, layoutUrl,
+//							btnCancel, etUrl, e.toString());
+//				}
+//			}
+//		}).start();
+//		btnCancel.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				dialog.dismiss();
+//			}
+//		});
 		return dialog;
 	}
 

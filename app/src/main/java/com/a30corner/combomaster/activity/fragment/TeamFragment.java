@@ -71,7 +71,7 @@ public class TeamFragment extends CMBaseFragment {
 	private SparseArray<Bitmap> mCache = new SparseArray<Bitmap>();
 	private ArrayAdapter<String> mAdapter;
 
-	public static int TEAM_SIZE = 20;
+	public static int TEAM_SIZE = 50;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,7 +87,7 @@ public class TeamFragment extends CMBaseFragment {
 		final int[] POTENTIAL_LINE = {R.id.potential_line_01, R.id.potential_line_02};
 
 		View view = inflater.inflate(R.layout.team_setup, null);
-		mTeamSpinner = (Spinner) view.findViewById(R.id.spinner_team);
+		mTeamSpinner = view.findViewById(R.id.spinner_team);
 		mAdapter = new ArrayAdapter<String>(getActivity(), R.layout.cm_spinner);
 		
 		mTeamSpinner.setAdapter(mAdapter);
@@ -109,7 +109,7 @@ public class TeamFragment extends CMBaseFragment {
 			}
 		});
 		
-		mPowerUpSpinner = (MultiSpinner) view.findViewById(R.id.sp_power_up);
+		mPowerUpSpinner = view.findViewById(R.id.sp_power_up);
 		String[] strList = getResources().getStringArray(R.array.stage_power_up);
 		mPowerUpSpinner.setItems(Arrays.asList(strList).subList(1, strList.length), strList[0], new MultiSpinnerListener() {
 			
@@ -120,7 +120,7 @@ public class TeamFragment extends CMBaseFragment {
 			}
 		});
 		
-		singleUp = (Spinner) view.findViewById(R.id.single_up);
+		singleUp = view.findViewById(R.id.single_up);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.single_power_up, 
 				android.R.id.text1, new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8","9","10","11","12","13"}) {
 			@Override
@@ -141,7 +141,7 @@ public class TeamFragment extends CMBaseFragment {
 			
 			private void bindView(int position, View convertView) {
 				int drawable = R.drawable.single_00 + position;
-				ImageView image = (ImageView) convertView.findViewById(R.id.power_up);
+				ImageView image = convertView.findViewById(R.id.power_up);
 				image.setImageResource(drawable);
 			}
 		};
@@ -163,7 +163,7 @@ public class TeamFragment extends CMBaseFragment {
 		});
 
 		
-		mEdit = (Button) view.findViewById(R.id.btn_edit_team);
+		mEdit = view.findViewById(R.id.btn_edit_team);
 		mEdit.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -175,7 +175,7 @@ public class TeamFragment extends CMBaseFragment {
 			}
 		});
 		for (int i = 0; i < IMAGE_ID.length; ++i) {
-			ImageView imageView = (ImageView) view.findViewById(IMAGE_ID[i]);
+			ImageView imageView = view.findViewById(IMAGE_ID[i]);
 			imageView.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -189,20 +189,20 @@ public class TeamFragment extends CMBaseFragment {
 			mMember.add(imageView);
 		}
 		for(int i=0; i<TEXT_ID.length; ++i) {
-			TextView tv = (TextView) view.findViewById(TEXT_ID[i]);
+			TextView tv = view.findViewById(TEXT_ID[i]);
 			m297.add(tv);
 		}
 		
 		for (int i = 0; i < TV_POWERID.length; ++i) {
-			TextView tv = (TextView) view.findViewById(TV_POWERID[i]);
+			TextView tv = view.findViewById(TV_POWERID[i]);
 			mPower.add(tv);
 		}
-		mTvHP = (TextView) view.findViewById(R.id.tv_hp);
+		mTvHP = view.findViewById(R.id.tv_hp);
 
-		mLeaderSkill = (TextView) view.findViewById(R.id.leader_skill);
-		mFriendLSkill = (TextView) view.findViewById(R.id.friend_leader_skill);
+		mLeaderSkill = view.findViewById(R.id.leader_skill);
+		mFriendLSkill = view.findViewById(R.id.friend_leader_skill);
 
-		Button prev = (Button) view.findViewById(R.id.prev);
+		Button prev = view.findViewById(R.id.prev);
 		prev.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -214,7 +214,7 @@ public class TeamFragment extends CMBaseFragment {
 				mTeamSpinner.setSelection(no);
 			}
 		});
-		Button next = (Button) view.findViewById(R.id.next);
+		Button next = view.findViewById(R.id.next);
 		next.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -271,7 +271,7 @@ public class TeamFragment extends CMBaseFragment {
 		// but ... just do it.. :-P
 		SharedPreferences sp = getActivity().getSharedPreferences("team",
 				Context.MODE_PRIVATE);
-		String[] teams = new String[TeamFragment.TEAM_SIZE];
+		String[] teams = new String[TEAM_SIZE];
 		for (int i = 0; i < TEAM_SIZE; ++i) {
 			String name = sp.getString("Team" + i + "_name", "Team " + (i + 1));
 			teams[i] = name;
@@ -307,7 +307,7 @@ public class TeamFragment extends CMBaseFragment {
 		ComboMasterApplication instance = ComboMasterApplication.getsInstance();
 		Map<AwokenSkill, Integer> awokenMaps = new HashMap<MonsterSkill.AwokenSkill, Integer>();
 //		Map<MoneyAwokenSkill, Integer> potentialMaps = new HashMap<MonsterSkill.MoneyAwokenSkill, Integer>();
-		int[] potentialCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		int[] potentialCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		for (int i = 0; i < 6; ++i) {
 			MonsterInfo info = mTeam.getMember(i);
 			final int index = mTeam.getMemberIndex(i);
@@ -351,7 +351,7 @@ public class TeamFragment extends CMBaseFragment {
 				}
 				
 				if (info.getAwoken() > 0) {
-					List<AwokenSkill> list = info.getAwokenSkills(true);
+					List<AwokenSkill> list = info.getAwokenSkills(false);
 					for (AwokenSkill skill : list) {
 						if (awokenMaps.containsKey(skill)) {
 							int value = awokenMaps.get(skill);

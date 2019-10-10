@@ -1,26 +1,11 @@
 package com.a30corner.combomaster.activity;
 
-import org.andengine.engine.Engine;
-import org.andengine.engine.LimitedFPSEngine;
-import org.andengine.engine.camera.Camera;
-import org.andengine.engine.options.EngineOptions;
-import org.andengine.engine.options.ScreenOrientation;
-import org.andengine.engine.options.WakeLockOptions;
-import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
-import org.andengine.engine.options.resolutionpolicy.IResolutionPolicy;
-import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
-import org.andengine.entity.scene.Scene;
-import org.andengine.ui.activity.LayoutGameActivity;
-
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -39,6 +24,18 @@ import com.a30corner.combomaster.utils.SharedPreferenceUtil;
 import com.a30corner.combomaster.utils.UpdaterUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
+import org.andengine.engine.Engine;
+import org.andengine.engine.LimitedFPSEngine;
+import org.andengine.engine.camera.Camera;
+import org.andengine.engine.options.EngineOptions;
+import org.andengine.engine.options.ScreenOrientation;
+import org.andengine.engine.options.WakeLockOptions;
+import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
+import org.andengine.engine.options.resolutionpolicy.IResolutionPolicy;
+import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
+import org.andengine.entity.scene.Scene;
+import org.andengine.ui.activity.LayoutGameActivity;
 
 public class GameActivity extends LayoutGameActivity {
 	public static final int SCREEN_WIDTH = 540;
@@ -60,7 +57,7 @@ public class GameActivity extends LayoutGameActivity {
 		super.onSetContentView();
 		LogUtil.d("onSetContentView");
 
-		adView = (AdView) findViewById(R.id.adView);
+		adView = findViewById(R.id.adView);
 		adView.refreshDrawableState();
 		adView.setVisibility(View.VISIBLE);
 
@@ -227,7 +224,7 @@ public class GameActivity extends LayoutGameActivity {
 			if(!lastVersion.equals(version)) {
 				return true;
 			}
-			
+
 			String lastUpdate = pref.getString("lastUpdate", getString(R.string.modified_time));
 			long count = UpdaterUtil.getPetsCount(version, lastUpdate);
 			if (count>0L) {
@@ -266,8 +263,12 @@ public class GameActivity extends LayoutGameActivity {
 	
 	@Override
 	public synchronized void onGameDestroyed() {
-		SceneManager.getInstance().destroy();
-		super.onGameDestroyed();
+		try {
+			SceneManager.getInstance().destroy();
+			super.onGameDestroyed();
+		} catch(Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -1,12 +1,5 @@
 package com.a30corner.combomaster.playground;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.util.Log;
 import android.util.Pair;
@@ -14,60 +7,38 @@ import android.util.SparseArray;
 
 import com.a30corner.combomaster.pad.monster.MonsterSkill;
 import com.a30corner.combomaster.pad.monster.MonsterVO;
-import com.a30corner.combomaster.playground.BuffOnEnemySkill.Type;
 import com.a30corner.combomaster.playground.action.impl.AbsorbShieldAction;
 import com.a30corner.combomaster.playground.action.impl.Angry;
 import com.a30corner.combomaster.playground.action.impl.Attack;
 import com.a30corner.combomaster.playground.action.impl.BindPets;
-import com.a30corner.combomaster.playground.action.impl.ChangeAttribute;
 import com.a30corner.combomaster.playground.action.impl.ColorChange;
-import com.a30corner.combomaster.playground.action.impl.ColorChangeNew;
-import com.a30corner.combomaster.playground.action.impl.ComboShield;
 import com.a30corner.combomaster.playground.action.impl.DamageAbsorbShield;
-import com.a30corner.combomaster.playground.action.impl.DamageVoidShield;
-import com.a30corner.combomaster.playground.action.impl.DarkScreen;
 import com.a30corner.combomaster.playground.action.impl.Daze;
-import com.a30corner.combomaster.playground.action.impl.DropLockAttack;
 import com.a30corner.combomaster.playground.action.impl.DropRateAttack;
 import com.a30corner.combomaster.playground.action.impl.Gravity;
-import com.a30corner.combomaster.playground.action.impl.IntoVoid;
-import com.a30corner.combomaster.playground.action.impl.LineChange;
-import com.a30corner.combomaster.playground.action.impl.LockAwoken;
 import com.a30corner.combomaster.playground.action.impl.LockOrb;
 import com.a30corner.combomaster.playground.action.impl.LockSkill;
 import com.a30corner.combomaster.playground.action.impl.MultipleAttack;
 import com.a30corner.combomaster.playground.action.impl.RandomChange;
-import com.a30corner.combomaster.playground.action.impl.RandomLineChange;
-import com.a30corner.combomaster.playground.action.impl.RecoverDead;
 import com.a30corner.combomaster.playground.action.impl.RecoverPlayer;
-import com.a30corner.combomaster.playground.action.impl.RecoverSelf;
 import com.a30corner.combomaster.playground.action.impl.ReduceTime;
 import com.a30corner.combomaster.playground.action.impl.ResistanceShieldAction;
-import com.a30corner.combomaster.playground.action.impl.ShieldAction;
-import com.a30corner.combomaster.playground.action.impl.SkillDown;
-import com.a30corner.combomaster.playground.action.impl.SwitchLeader;
-import com.a30corner.combomaster.playground.action.impl.Transform;
 import com.a30corner.combomaster.playground.enemy.EnemyAttack;
 import com.a30corner.combomaster.playground.enemy.EnemyAttackMode;
-import com.a30corner.combomaster.playground.enemy.EnemyCondition;
 import com.a30corner.combomaster.playground.enemy.attack.AttackAction;
 import com.a30corner.combomaster.playground.enemy.attack.RandomAttack;
 import com.a30corner.combomaster.playground.enemy.attack.SequenceAttack;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionAliveOnly;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionAlways;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionFindAttr;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionFindOrb;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionFirstStrike;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionHasBuff;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionHp;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionIf;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionNTurns;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionPercentage;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionSomeoneDied;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionTurns;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionUsed;
-import com.a30corner.combomaster.playground.enemy.conditions.ConditionUsedIf;
 import com.a30corner.combomaster.playground.entity.Enemy;
+import com.a30corner.combomaster.playground.stagedata.Challenge201903Lv10;
+import com.a30corner.combomaster.playground.stagedata.Challenge2019_01_lv10;
+import com.a30corner.combomaster.playground.stagedata.Challenge2019_01_lv9;
+import com.a30corner.combomaster.playground.stagedata.Challenge2019_7years_Lv30;
 import com.a30corner.combomaster.playground.stagedata.Challenge28_Lv10;
 import com.a30corner.combomaster.playground.stagedata.Challenge32Lv9;
 import com.a30corner.combomaster.playground.stagedata.Challenge34Lv10;
@@ -75,9 +46,11 @@ import com.a30corner.combomaster.playground.stagedata.DevilNormalStage;
 import com.a30corner.combomaster.playground.stagedata.DevilSuperStage;
 import com.a30corner.combomaster.playground.stagedata.DragonDestroyStage;
 import com.a30corner.combomaster.playground.stagedata.DragonHellStage;
+import com.a30corner.combomaster.playground.stagedata.ExtremePracticeArena;
 import com.a30corner.combomaster.playground.stagedata.HanumanStage;
 import com.a30corner.combomaster.playground.stagedata.Hera297Stage;
 import com.a30corner.combomaster.playground.stagedata.HeraDragonStage;
+import com.a30corner.combomaster.playground.stagedata.LvArena;
 import com.a30corner.combomaster.playground.stagedata.MachineAthenaStage;
 import com.a30corner.combomaster.playground.stagedata.MachineHeraStage;
 import com.a30corner.combomaster.playground.stagedata.MachineZeusStage;
@@ -88,6 +61,7 @@ import com.a30corner.combomaster.playground.stagedata.UltimateArena2;
 import com.a30corner.combomaster.playground.stagedata.UltimateArena3;
 import com.a30corner.combomaster.playground.stagedata.UltimateArena5;
 import com.a30corner.combomaster.playground.stagedata.UraArena;
+import com.a30corner.combomaster.playground.stagedata.UraUltimateArena5;
 import com.a30corner.combomaster.playground.stagedata.Zeus297Stage;
 import com.a30corner.combomaster.playground.stagedata.ZeusDragonStage;
 import com.a30corner.combomaster.provider.LocalDBHelper;
@@ -96,6 +70,13 @@ import com.a30corner.combomaster.utils.RandomUtil;
 import com.a30corner.combomaster.utils.ZipUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class StageGenerator {
 
@@ -119,6 +100,16 @@ public class StageGenerator {
 			new UltimateArena3().create(env, mStageEnemies, mStage);
 		} else if ("ultimate5".equals(mStage)) {
 			new UltimateArena5().create(env, mStageEnemies, mStage);
+		} else if ("7th_lv30".equals(mStage)) {
+			new Challenge2019_7years_Lv30().create(env, mStageEnemies, mStage);
+		} else if ("quest_201901_lv10".equals(mStage)) {
+			new Challenge2019_01_lv10().create(env, mStageEnemies, mStage);
+		} else if ("quest_201901_lv9".equals(mStage)) {
+			new Challenge2019_01_lv9().create(env, mStageEnemies, mStage);
+		} else if ("lvultimate".equals(mStage)) {
+			new LvArena().create(env, mStageEnemies, mStage);
+		} else if ("quest_201903_lv10".equals(mStage)) {
+			new Challenge201903Lv10().create(env, mStageEnemies, mStage);
 		} else if ("28_10".equals(mStage)) {
 			new Challenge28_Lv10().create(env, mStageEnemies, mStage);
 		} else if ("snow_river".equals(mStage)) {
@@ -131,7 +122,7 @@ public class StageGenerator {
 			try {
 				new MachineZeusStage().create(env, mStageEnemies, mStage);
 			} catch (Exception e) {
-				Log.e("Vincent", e.toString(), e);
+				Log.e("ComboMaster", e.toString(), e);
 			}
 		} else if ("devilsuper".equals(mStage)) {
 			new DevilSuperStage().create(env, mStageEnemies, mStage);
@@ -161,6 +152,10 @@ public class StageGenerator {
 			//StageGenerator2.init201806_Lv10(env, mStageEnemies, mStage);
 		} else if ("ura".equals(mStage)) {
 			new UraArena().create(env, mStageEnemies, mStage);
+		} else if ("extremepractice".equals(mStage)) {
+			new ExtremePracticeArena().create(env, mStageEnemies, mStage);
+		} else if ("uralien".equals(mStage)) {
+			new UraUltimateArena5().create(env, mStageEnemies, mStage);
 		}
 	}
 
@@ -1110,7 +1105,7 @@ public class StageGenerator {
 								"skill-" + loc + ".json")), listType);
 			}
 		} catch (IOException e) {
-			Log.e("Vincent", e.toString());
+			Log.e("ComboMaster", e.toString());
 		}
 		LogUtil.e("Load skill text failed");
 		return new ArrayList<SkillText>();

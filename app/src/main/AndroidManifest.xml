@@ -13,12 +13,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
 
     <application
         android:name=".ComboMasterApplication"
         android:allowBackup="false"
+        android:usesCleartextTraffic="true"
         android:debuggable="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -86,6 +87,17 @@
         <activity
             android:name=".activity.GuideLineActivity"
             android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MachineListActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.EggMachineActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.EggResultActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait" />
 
         <provider

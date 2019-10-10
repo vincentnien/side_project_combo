@@ -23,6 +23,7 @@ public class MultipleTeam extends Team {
 	private int mCurrentHp = 1000;
 	private boolean[][] mBindStatus = new boolean[2][6];
 	private int currentTeam = 0;
+	private int mChangedHp = -1;
 	
 	int totalHp = 0;
 //	int recovery = 0;
@@ -106,15 +107,36 @@ public class MultipleTeam extends Team {
 		
 	}
 	
-	public int getHp(boolean update) {
+	private int getHp(boolean update) {
 		if(update) {
 			initHp();
 		}
 		return totalHp;
 	}
-	
-	public int getHp() {
+
+	public int getRealHp() {
 		return totalHp;
+	}
+
+	public void setMaxHp(int hp) {
+		mChangedHp = hp;
+		if (hp != -1 && (totalHp == mCurrentHp || mCurrentHp > hp)) {
+			mCurrentHp = hp;
+		}
+		if (hp == -1) {
+			int value = getHp(true);
+			if (mCurrentHp > value) {
+				mCurrentHp = value;
+			}
+		}
+	}
+
+	public int getHp() {
+		if (mChangedHp == -1) {
+			return totalHp;
+		} else {
+			return mChangedHp;
+		}
 	}
 
 	@Override
@@ -152,6 +174,10 @@ public class MultipleTeam extends Team {
 		for (int i = 0; i < 6; ++i) {
 			reduceList.add(false);
 		}
+//		if (true) {
+//			callback.onResult(1.0, reduceList);
+//			return 1.0;
+//		}
 		reduced = reduceFromLeader(enemy, damage, 1, reduceList);
 		// first - reduce from awoken
 		reduced = reduceFromAwoken(enemy, reduced, reduceList);
@@ -338,7 +364,7 @@ public class MultipleTeam extends Team {
 			moneyCount_plus += mcount_plus;
 		}
 
-		double reduced = (1.0 - totalCount * 0.05 - moneyCount * 0.01 - moneyCount_plus * 0.025);
+		double reduced = (1.0 - totalCount * 0.07 - moneyCount * 0.01 - moneyCount_plus * 0.025);
 		if (reduced < 0.0) {
 			reduced = 0.0;
 		}

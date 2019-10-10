@@ -1393,6 +1393,7 @@ public class ContinueDropGameScene extends BaseMenuScene implements
 		
 		attach(attachList);
 
+        mStack.push(gameBoard);
 		changeState(GameState.GAME_RUN);
 	}
 
@@ -1936,13 +1937,21 @@ public class ContinueDropGameScene extends BaseMenuScene implements
 
 			break;
 		case MENU_PREVIOUS:
+//		    LogUtil.e("Vincent", "MENU_PREVIOUS clicked");
+
 			if (!isSkipState) {
-				setGameBoard(mStack.pop());
+                setGameBoard(mStack.pop());
+//                LogUtil.e("Vincent", "MENU_PREVIOUS pop");
+
 			} else {
+//                LogUtil.e("Vincent", "MENU_PREVIOUS force");
 				mForceReset.set(true);
 			}
 			break;
 		case MENU_EDIT:
+		    if (GameState.GAME_ANIMATION == mCurrentState) {
+		        break;
+            }
 			if (GameState.GAME_END != mCurrentState) {
 				mStack.push(gameBoard);
 			}
@@ -2052,7 +2061,6 @@ public class ContinueDropGameScene extends BaseMenuScene implements
 			// already dropped
 			setGameBoardWOAnimation(mStack.pop());
 		}
-		changeState(GameState.GAME_MODIFY_BOARD);
 		List<IEntity> attachList = new ArrayList<IEntity>();
 		for (Sprite s : mSetByHandSprite) {
 			registerTouchArea(s);
@@ -2073,6 +2081,16 @@ public class ContinueDropGameScene extends BaseMenuScene implements
 		detachList.add(mTimerText);
 		detachList.add(mAvgComboText);
 		detach(detachList);
+
+		registerUpdateHandler(new TimerHandler(Constants.SECOND_REFRESH + 0.1f,
+				new ITimerCallback() {
+
+					@Override
+					public void onTimePassed(TimerHandler pTimerHandler) {
+						unregisterUpdateHandler(pTimerHandler);
+						changeState(GameState.GAME_MODIFY_BOARD);
+					}
+				}));
 	}
 
 	private synchronized void changeState(GameState state) {
@@ -2290,7 +2308,8 @@ public class ContinueDropGameScene extends BaseMenuScene implements
 	}
 
 	private void setGameBoard(int[][] board, final IAnimationCallback callback) {
-		PadBoardAI.copy_board(board, gameBoard);
+        changeState(GameState.GAME_ANIMATION);
+        //PadBoardAI.copy_board(board, gameBoard);
 
 		resetCombo();
 		List<IEntity> attachList = new ArrayList<IEntity>();
@@ -2301,6 +2320,8 @@ public class ContinueDropGameScene extends BaseMenuScene implements
 
 				Sprite s = sprites[i][j];
 				addToDetachList(s);
+
+                gameBoard[i][j] = board[i][j];
 
 				s = new Sprite(0, 0, textureOrbs[gameBoard[i][j]], vbom);
 				sprites[i][j] = s;

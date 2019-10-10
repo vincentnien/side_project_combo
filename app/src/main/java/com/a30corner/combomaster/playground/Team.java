@@ -21,6 +21,8 @@ public class Team {
 	private int mCurrentHp = 1000;
 	private boolean[] mBindStatus = new boolean[6];
 	private boolean isCopMode = false;
+
+	private int mChangedHp = -1;
 	
 	public Team() {
 		ComboMasterApplication instance = ComboMasterApplication.getsInstance();
@@ -45,8 +47,26 @@ public class Team {
 		team.refresh(new boolean[]{false, false, false, false, false, false});
 	}
 
-	public int getHp() {
+	public int getRealHp() {
 		return team.getHp();
+	}
+
+	public int getHp() {
+		if (mChangedHp == -1) {
+			return team.getHp();
+		} else {
+			return mChangedHp;
+		}
+	}
+
+	public void setMaxHp(int hp) {
+		mChangedHp = hp;
+		if (hp != -1 && (team.getHp() == mCurrentHp || mCurrentHp > hp)) {
+			mCurrentHp = hp;
+		}
+		if (hp == -1 && mCurrentHp > team.getHp()) {
+			mCurrentHp = team.getHp();
+		}
 	}
 
 	public int getCurrentHp() {
@@ -267,7 +287,7 @@ public class Team {
 			moneyCount_plus += mcount_plus;
 		}
 
-		double reduced = (1.0 - totalCount * 0.05 - moneyCount * 0.01 - moneyCount_plus * 0.025);
+		double reduced = (1.0 - totalCount * 0.07 - moneyCount * 0.01 - moneyCount_plus * 0.025);
 		if (reduced < 0.0) {
 			reduced = 0.0;
 		}

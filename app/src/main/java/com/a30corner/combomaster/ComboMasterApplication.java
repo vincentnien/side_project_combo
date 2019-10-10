@@ -20,6 +20,7 @@ import com.a30corner.combomaster.pad.monster.TeamInfo;
 import com.a30corner.combomaster.utils.BitmapUtil;
 import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -117,7 +118,6 @@ public class ComboMasterApplication extends Application {
 	private void initImageLoader() {
 	    ImageLoader imageLoader = ImageLoader.getInstance();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-//            .diskCache(new UnlimitedDiscCache(getFilesDir()))
             .tasksProcessingOrder(QueueProcessingType.LIFO)
             .build();
         imageLoader.init(config);
@@ -126,6 +126,9 @@ public class ComboMasterApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		Fresco.initialize(this);
+
 		LogUtil.d("Application.onCreate()");
 		sInstance = this;
 		mPref = new SharedPreferenceUtil(this);

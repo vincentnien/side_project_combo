@@ -31,6 +31,7 @@
     <string name="menu_calculate_mode">[伤害计算机]</string>
     <string name="menu_calculate_7x6_mode">[7x6模式]</string>
     <string name="menu_calculate_5x4_mode">[5x4模式]</string>
+    <string name="menu_egg_machine">[抽蛋模拟器]</string>
     <string name="menu_simulator_mode">[模拟器]</string>
     <string name="menu_cop_mode">[协力模式]</string>
     <string name="menu_settings_mode">[任务设定]</string>
@@ -218,7 +219,7 @@
     <string name="str_backup">备份</string>
     <string name="str_restore">还原</string>
     <string name="null_awoken_mode">觉醒无效</string>
-    <string name="current_version">新增6月任务 » 挑战Lv10（觉醒无效)\n用户目前版本为: </string>
+    <string name="current_version">新增里异形の存在(部分技能及究毒の魔学者・ガスロ未实装)用户目前版本为: </string>
     
     <string name="str_continue_drop">天降模式</string>
     <string name="str_fullscreen">全屏</string>
@@ -333,4 +334,26 @@
     <string name="need_read_storage">转珠大师需要存取储存权限才可以读取图片及储存队伍资料。</string>
 
     <string name="orb_any">任意</string>
+
+    <string name="as_format_l" formatted="false">生成一组L型%s宝珠。</string>
+    <string name="as_format_cross" formatted="false">生成一组十字型%s宝珠。</string>
+    <string name="as_format_square" formatted="false">生成一组3x3 %s宝珠(7x6时为3x4)</string>
+    <string name="as_drop_only" formatted="false">%d回合间, 只会掉落%s宝珠。</string>
+    <string name="as_void_void_shield" formatted="false">%d回合间, 可贯穿伤害无效盾。</string>
+
+    <string name="lst_l_format" formatted="false">以L字形消除5个%s宝珠时, </string>
+    <string name="lst_attr_0" formatted="false">受到的伤害减少 %d%%, </string>
+    <string name="lst_attr_1" formatted="false">攻击力变为%.2f倍, </string>
+    <string name="lst_attr_2" formatted="false">回復力变为%.2f倍, </string>
+    <string name="lst_attr_3" formatted="false">结算时增加%d COMBO </string>
+
+    <string name="lst_orb_combo_attack" formatted="false">同时消除%d个%s宝珠时, %s</string>
+    <string name="pull_again">继续抽</string>
+    <string name="download_data">是否要下载资料?</string>
+
+    <string name="lst_no_poison">消除毒/猛毒宝珠时不会受到毒伤害.</string>
+    <string name="lst_heart" formatted="false">另外以回复宝珠回复%dHP或以上时，</string>
+    <string name="ls_color_direct_attack" formatted="false">%s中,其中%d种同时攻击时, 追加%d点固定伤害。 </string>
+    <string name="ls_multi_direct_attack" formatted="false">当消除%d粒%s宝珠或以上时(需连着）, 追加%d点固定伤害。 </string>
+    <string name="as_reduce_eliminate_status" formatted="false">无法消除宝珠状态减少%d回合。 </string>
 </resources>

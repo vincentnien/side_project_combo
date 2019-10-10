@@ -204,7 +204,7 @@ public class QuickSetupFragment extends CMBaseFragment {
 						 }
 						 
 					 } catch(Exception e) {
-						 Log.e("Vincent", e.toString());
+						 Log.e("ComboMaster", e.toString());
 					 }
 				 }
 			 }

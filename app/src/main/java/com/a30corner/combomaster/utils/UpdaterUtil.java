@@ -26,7 +26,7 @@ public class UpdaterUtil {
     private static final boolean TEST = false;
 
     //private static final String HTTP_URL = "http://52.68.127.4";
-    
+
     private static final String NEW_HTTP_URL = "http://188.166.227.62/";
 
     private static class NetworkErrorHandler implements ErrorHandler {
@@ -50,12 +50,12 @@ public class UpdaterUtil {
             return connection;
         }
     }
-    
+
 	public static boolean checkUpdate(Context context) {
 		if (NetworkUtils.isNetworkAvailable(context)) {
 			SharedPreferences pref = context.getSharedPreferences("update",
 					Context.MODE_PRIVATE);
-			
+
 			String lastVersion = pref.getString("version", "");
 			String version = context.getString(R.string.support_version);
 			if (!lastVersion.equals(version)) {
@@ -71,11 +71,11 @@ public class UpdaterUtil {
 		}
 		return false;
 	}
-    
+
     public class HttpResponse {
     	public long result;
     }
-    
+
     public static long getPetsCount(String version, String lastUpdate) {
     	try {
 	    	RestAdapter adapter = new RestAdapter.Builder().setEndpoint(NEW_HTTP_URL)
@@ -92,7 +92,7 @@ public class UpdaterUtil {
     		return 0;
     	}
     }
-    
+
     public static long getModifiedTime() {
     	try {
 	    	RestAdapter adapter = new RestAdapter.Builder().setEndpoint(NEW_HTTP_URL)
@@ -103,7 +103,7 @@ public class UpdaterUtil {
     		return 0L;
     	}
     }
-    
+
     public static List<MonsterVO> getPetsList(String version, String lastUpdate) {
     	RestAdapter adapter = new RestAdapter.Builder().setEndpoint(NEW_HTTP_URL)
     					.setErrorHandler(new NetworkErrorHandler()).setClient(new QuickUrlConnectionClient()).build();

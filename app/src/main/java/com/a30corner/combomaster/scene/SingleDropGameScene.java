@@ -1052,7 +1052,7 @@ public class SingleDropGameScene extends BaseMenuScene implements
 
 		IFont font = res.getFont();
 
-		Log.e("Vincent", "ok 1");
+		//Log.e("Vincent", "ok 1");
 		mComboText = new Text(0, 0, font, String.valueOf(mCombo.get())
 				+ " Combo", vbom);
 		float offset = GameActivity.SCREEN_WIDTH - Constants.OFFSET_X
@@ -1070,7 +1070,7 @@ public class SingleDropGameScene extends BaseMenuScene implements
 				- mUserDefOffset);
 		mStepCountText.setZIndex(3);
 		mStepCountText.setColor(Color.WHITE);
-		Log.e("Vincent", "ok 2");
+//		Log.e("Vincent", "ok 2");
 		mSecondText = activity.getString(R.string.second);
 		String sec = "00.00 " + mSecondText;
 		mTimerText = new Text(0, 0, font, sec, vbom);
@@ -1085,7 +1085,7 @@ public class SingleDropGameScene extends BaseMenuScene implements
 
 		mComboText.setText("0 Combo");
 		mStepCountText.setText(0 + mStepText);
-		Log.e("Vincent", "ok 3");
+//		Log.e("Vincent", "ok 3");
         // special menu ...
 //        mHelpMenu = new ColorMenuItemDecorator(new SpriteMenuItem(
 //                MENU_HELP, res.getTextureRegion(GameUIAssets.class, GameUIAssets.IC_HELP_ID), vbom),
@@ -1479,7 +1479,7 @@ public class SingleDropGameScene extends BaseMenuScene implements
 		attach(attachList);
 		
 //		mHelpMenu.setVisible(true);
-
+		mStack.push(gameBoard);
 		changeState(GameState.GAME_RUN);
 	}
 
@@ -1915,6 +1915,9 @@ public class SingleDropGameScene extends BaseMenuScene implements
 			}
 			break;
 		case MENU_EDIT:
+            if (GameState.GAME_ANIMATION == mCurrentState) {
+                break;
+            }
 			if (GameState.GAME_END != mCurrentState) {
 				mStack.push(gameBoard);
 			}
@@ -2018,7 +2021,7 @@ public class SingleDropGameScene extends BaseMenuScene implements
 			// already dropped
 			setGameBoardWOAnimation(mStack.pop());
 		}
-		changeState(GameState.GAME_MODIFY_BOARD);
+		//changeState(GameState.GAME_MODIFY_BOARD);
 		List<IEntity> attachList = new ArrayList<IEntity>();
 		for (Sprite s : mSetByHandSprite) {
 			registerTouchArea(s);
@@ -2045,6 +2048,15 @@ public class SingleDropGameScene extends BaseMenuScene implements
 		detachList.add(mTimerText);
 		
 		detach(detachList);
+		registerUpdateHandler(new TimerHandler(Constants.SECOND_REFRESH + 0.1f,
+				new ITimerCallback() {
+
+					@Override
+					public void onTimePassed(TimerHandler pTimerHandler) {
+						unregisterUpdateHandler(pTimerHandler);
+						changeState(GameState.GAME_MODIFY_BOARD);
+					}
+				}));
 	}
 
 	private synchronized void changeState(GameState state) {

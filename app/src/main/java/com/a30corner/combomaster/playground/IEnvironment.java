@@ -56,6 +56,8 @@ public interface IEnvironment {
 
 	boolean hasSkill(String skill);
 
+	void removeSkill(String sk);
+
 	boolean isMultiMode();
 	boolean is7x6();
 

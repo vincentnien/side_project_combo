@@ -137,6 +137,10 @@ public class SkillEntity extends Entity {
 			ActiveSkill s = (ActiveSkill)skill;
 			List<Integer> data = s.getData();
 			switch(s.getType()) {
+				case ST_HP_CHANGE:
+					turns = data.get(0);
+					id = SimulateAssets.S_HEART_ID;
+					break;
 				case ST_NO_DROP:
 					turns = data.get(0);
 					id = SimulateAssets.NO_DROP_ID;
@@ -160,6 +164,11 @@ public class SkillEntity extends Entity {
 			case ST_VOID:{
 				turns = data.get(0);
 				id = SimulateAssets.DAMAGE_ABSORB_ID;
+				break;
+			}
+			case ST_VOID_0:{
+				turns = data.get(0);
+				id = SimulateAssets.DAMAGE_ZERO_ID;
 				break;
 			}
 			case ST_ADD_COMBO:
@@ -223,6 +232,16 @@ public class SkillEntity extends Entity {
 			case ST_DIRECT_ATTACK:
 				break;
 			case ST_DROP_RATE: {
+				final int[] mapping = {SimulateAssets.DARK_DROP_ID, SimulateAssets.FIRE_DROP_ID,
+						SimulateAssets.HEART_DROP_ID, SimulateAssets.LIGHT_DROP_ID, SimulateAssets.WATER_DROP_ID,
+						SimulateAssets.WOOD_DROP_ID, SimulateAssets.S_POISON_ID, SimulateAssets.S_JARMA_ID,
+						SimulateAssets.S_E_POISON_ID};
+				turns = data.get(0);
+				int color = data.get(1);
+				id = mapping[color];
+				break;
+			}
+			case ST_DROP_ONLY: {
 				final int[] mapping = {SimulateAssets.DARK_DROP_ID, SimulateAssets.FIRE_DROP_ID,
 						SimulateAssets.HEART_DROP_ID, SimulateAssets.LIGHT_DROP_ID, SimulateAssets.WATER_DROP_ID,
 						SimulateAssets.WOOD_DROP_ID, SimulateAssets.S_POISON_ID, SimulateAssets.S_JARMA_ID,

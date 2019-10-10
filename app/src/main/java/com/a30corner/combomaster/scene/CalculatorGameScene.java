@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 import android.widget.Toast;
@@ -139,7 +140,8 @@ public class CalculatorGameScene extends BaseMenuScene implements
     // move mode
     private Sprite orbInHand = null;
     private Sprite[] mCache = new Sprite[10];
-    
+
+    private Text mLeaderSkillCombo = null;
     private List<Text> mComboList = new ArrayList<Text>();
     private List<Text> mFactorText = new ArrayList<Text>();
     
@@ -646,14 +648,14 @@ public class CalculatorGameScene extends BaseMenuScene implements
     }
 
     private void doRemoval(final MatchBoard board, final int current) {
-            if (mForceReset.get()) {
-                clearCombo();
-                changeState(GameState.GAME_RUN);
-                return;
-            }
-            LogUtil.d("doRemoval");
+        if (mForceReset.get()) {
+            clearCombo();
+            changeState(GameState.GAME_RUN);
+            return;
+        }
+        LogUtil.d("doRemoval");
 
-            if (board.matches.size() == current) {
+        if (board.matches.size() == current) {
                 // end
             // calculating.set(false);
             // remove empty orbs and make new orbs
@@ -839,75 +841,144 @@ public class CalculatorGameScene extends BaseMenuScene implements
             }, (long) (1000 * (Constants.SECOND_DROP + 0.05f)));
 
         } else {
-            int step = mReplay.size();
-            if (step > 999) {
-                step = 999;
-            }
-            
-            mStepCountText.setText(step + mStepText);
-            
-            clearCombo();
-            matches.clear();
-            factors.clear();
-            Collections.sort(mScoreBoard, mScoreComparator);
-            
 
-            if(mAddComboSkill != null && mAddComboSkill.countDown()) {
-            	mAddComboSkill = null;
-            }
-            
-            if (mPowerUpTimes != 0) {
-                mPreviousSkill = mPowerUpSkill;
-                activity.getEngine().runOnUpdateThread(new Runnable() {
+            addAdditionCombos(new Runnable(){
 
-                    @Override
-                    public void run() {
-                        if (--mPowerUpTimes == 0) {
-                            removeActiveSkill();
-                        } else if (mPowerUpSkill != null) {
-                            setPowerUpText(mPowerUpSkill.getData().get(1));
-                        }
+                @Override
+                public void run() {
+                    finishCombo();
+                }
+            });
+
+        }
+    }
+
+    private void addAdditionCombos(final Runnable runnable) {
+        int additionCombos = 0;
+
+        MonsterInfo m0 = mTeam.getMember(0);
+        MonsterInfo f0 = mTeam.getMember(5);
+        additionCombos += getAdditionCombos(m0) + getAdditionCombos(f0);
+
+        if(additionCombos > 0) {
+            Text text = mComboList.get(mCombo.get()-1);
+            mLeaderSkillCombo = new Text(text.getX(), text.getY() - 20, ResourceManager.getInstance().getFontStroke(), String.format("Combo %d", mCombo.get() + additionCombos), vbom);
+            mLeaderSkillCombo.setColor(Color.YELLOW);
+            mLeaderSkillCombo.setZIndex(6);
+            mLeaderSkillCombo.setScale(1.3f);
+
+            List<Match> match = addCombos(additionCombos);
+            mScoreBoard.addAll(match);
+
+            mLeaderSkillCombo.registerEntityModifier(new ScaleModifier(0.4f, 2f, 1.0f){
+                @Override
+                protected void onModifierFinished(IEntity pItem) {
+                    runnable.run();
+                }
+            });
+            attachChild(mLeaderSkillCombo);
+        } else {
+            runnable.run();
+        }
+    }
+
+    private int getAdditionCombos(MonsterInfo m) {
+        if(m == null) {
+            return 0;
+        }
+        int combos = 0;
+        List<LeaderSkill> ls = m.getLeaderSkill();
+        LeaderSkill colorSkill = null;
+        for(LeaderSkill s : ls) {
+            if(s.getType() == LeaderSkillType.LST_COLOR_FACTOR) {
+                colorSkill = s;
+            }
+            if(s.getType() == LeaderSkillType.LST_COMBO_ATTACK) {
+                //double f = DamageCalculator.getLeaderFactor(mTeam,s,m,mScoreBoard,null,true);
+                if(DamageCalculator.isLSMatched(mTeam, s, m, mScoreBoard, null, true)) {
+                    return DamageCalculator.getLSCombo(s);
+                }
+            } else if (s.getType() == LeaderSkillType.LST_COLOR_COMBO) {
+                if(colorSkill != null) {
+                    double f = DamageCalculator.getLeaderFactor(mTeam,colorSkill,m,mScoreBoard,null,true, false);
+                    if(f>1.0) {
+                        return DamageCalculator.getLSCombo(s);
                     }
-                });
-
+                }
             }
+        }
+        return combos;
+    }
 
-            if (mDropRateTimes != 0) {
-                activity.getEngine().runOnUpdateThread(new Runnable() {
+    private void finishCombo() {
+        int step = mReplay.size();
+        if (step > 999) {
+            step = 999;
+        }
 
-                    @Override
-                    public void run() {
-                        if (--mDropRateTimes == 0) {
-                            removeDropRateSkill();
-                        } else if (mDropRateSkill != null) {
-                            setDropRateText();
-                            // setPowerUpText(mPowerUpSkill.getData().get(1));
-                        }
+        mStepCountText.setText(step + mStepText);
+
+        clearCombo();
+        matches.clear();
+        factors.clear();
+        Collections.sort(mScoreBoard, mScoreComparator);
+
+
+        if(mAddComboSkill != null && mAddComboSkill.countDown()) {
+            mAddComboSkill = null;
+        }
+
+        if (mPowerUpTimes != 0) {
+            mPreviousSkill = mPowerUpSkill;
+            activity.getEngine().runOnUpdateThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (--mPowerUpTimes == 0) {
+                        removeActiveSkill();
+                    } else if (mPowerUpSkill != null) {
+                        setPowerUpText(mPowerUpSkill.getData().get(1));
                     }
-                });
-            }
+                }
+            });
 
-            if (mTimeExtendTimes != 0) {
-                activity.getEngine().runOnUpdateThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (--mTimeExtendTimes == 0) {
-                            updateDropTime();
-                            removeTimeExtendSkill();
-                        } else {
-                            setTimeExtendText(mTimeExtendSkill.getData().get(1));
-                        }
+        }
+
+        if (mDropRateTimes != 0) {
+            activity.getEngine().runOnUpdateThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (--mDropRateTimes == 0) {
+                        removeDropRateSkill();
+                    } else if (mDropRateSkill != null) {
+                        setDropRateText();
+                        // setPowerUpText(mPowerUpSkill.getData().get(1));
                     }
-                });
-            }
+                }
+            });
+        }
 
-            showScore();
-            toggleSkillFired(false);
-            if (mContinueDrop.get()) {
-                changeState(GameState.GAME_RUN);
-            } else {
-                changeState(GameState.GAME_END);
-            }
+        if (mTimeExtendTimes != 0) {
+            activity.getEngine().runOnUpdateThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (--mTimeExtendTimes == 0) {
+                        updateDropTime();
+                        removeTimeExtendSkill();
+                    } else {
+                        setTimeExtendText(mTimeExtendSkill.getData().get(1));
+                    }
+                }
+            });
+        }
+
+        showScore();
+        toggleSkillFired(false);
+        if (mContinueDrop.get()) {
+            changeState(GameState.GAME_RUN);
+        } else {
+            changeState(GameState.GAME_END);
         }
     }
 
@@ -930,6 +1001,15 @@ public class CalculatorGameScene extends BaseMenuScene implements
                 	pItem.setVisible(false);
                 }
             });
+        }
+        if(mLeaderSkillCombo != null) {
+            mLeaderSkillCombo.registerEntityModifier(new AlphaModifier(0.3f, 1.0f, 0.0f) {
+                @Override
+                protected void onModifierFinished(IEntity pItem) {
+                    detach(pItem);
+                }
+            });
+            mLeaderSkillCombo = null;
         }
     }
     
@@ -1399,6 +1479,143 @@ public class CalculatorGameScene extends BaseMenuScene implements
             }
             setGameBoard(newboard);
             break;
+            case ST_L_FORMAT: {
+                int[][] nb = PadBoardAI.copy_board(gameBoard);
+                int size = skill.getData().size();
+                List<Integer> data = skill.getData();
+                for(int i=0; i<size; i+=2) {
+                    int color = data.get(i);
+                    int pos = data.get(i + 1);
+
+                    int r, c;
+                    if(pos == 0) {
+                        r = 0;
+                        c = 0;
+                    } else if (pos == 1) {
+                        r = PadBoardAI.ROWS-1;
+                        c = 0;
+                    } else if (pos == 2) {
+                        r = 0;
+                        c = PadBoardAI.COLS-1;
+                    } else {
+                        r = PadBoardAI.ROWS-1;
+                        c = PadBoardAI.COLS-1;
+                    }
+                    nb[r][c] = (nb[r][c] - (nb[r][c] % 10)) + color;
+                    if (r + 2 < PadBoardAI.ROWS && c - 2 >= 0) {
+                        // |
+                        // |____
+                        nb[r + 1][c] = (nb[r + 1][c] - (nb[r + 1][c] % 10)) + color;
+                        nb[r + 2][c] = (nb[r + 2][c] - (nb[r + 2][c] % 10)) + color;
+                        nb[r][c - 1] = (nb[r][c - 1] - (nb[r][c - 1] % 10)) + color;
+                        nb[r][c - 2] = (nb[r][c - 2] - (nb[r][c - 2] % 10)) + color;
+                    } else if (r + 2 < PadBoardAI.ROWS && c + 2 < PadBoardAI.COLS) {
+                        // ____
+                        // |
+                        // |
+                        nb[r + 1][c] = (nb[r + 1][c] - (nb[r + 1][c] % 10)) + color;
+                        nb[r + 2][c] = (nb[r + 2][c] - (nb[r + 2][c] % 10)) + color;
+                        nb[r][c + 1] = (nb[r][c + 1] - (nb[r][c + 1] % 10)) + color;
+                        nb[r][c + 2] = (nb[r][c + 2] - (nb[r][c + 2] % 10)) + color;
+                    } else if (r - 2 >= 0 && c - 2 >= 0) {
+                        //     |
+                        // ____|
+
+                        nb[r - 1][c] = (nb[r - 1][c] - (nb[r - 1][c] % 10)) + color;
+                        nb[r - 2][c] = (nb[r - 2][c] - (nb[r - 2][c] % 10)) + color;
+                        nb[r][c - 1] = (nb[r][c - 1] - (nb[r][c - 1] % 10)) + color;
+                        nb[r][c - 2] = (nb[r][c - 2] - (nb[r][c - 2] % 10)) + color;
+                    } else {
+                        // ____
+                        //     |
+                        //     |
+
+                        nb[r - 1][c] = (nb[r - 1][c] - (nb[r - 1][c] % 10)) + color;
+                        nb[r - 2][c] = (nb[r - 2][c] - (nb[r - 2][c] % 10)) + color;
+                        nb[r][c + 1] = (nb[r][c + 1] - (nb[r][c + 1] % 10)) + color;
+                        nb[r][c + 2] = (nb[r][c + 2] - (nb[r][c + 2] % 10)) + color;
+                    }
+                }
+                setGameBoard(nb);
+                break;
+            }
+            case ST_SQUARE_FORMAT: {
+                int[][] nb = PadBoardAI.copy_board(gameBoard);
+
+                List<Integer> data = skill.getData();
+                int size = data.size();
+
+                for(int i=0; i<size; i+=2) {
+                    int color = data.get(i);
+                    int pos = data.get(i + 1);
+
+                    int r, c;
+                    if (pos == 0) {
+                        r = 1;
+                        c = 1;
+                    } else if (pos == 1) {
+                        r = PadBoardAI.ROWS - 2;
+                        c = 1;
+                    } else if (pos == 2) {
+                        r = 1;
+                        c = PadBoardAI.COLS - 2;
+                    } else if (pos == 3) {
+                        r = PadBoardAI.ROWS - 2;
+                        c = PadBoardAI.COLS - 2;
+                    } else {
+                        r = 1;
+                        c = 2;
+                    }
+
+                    nb[r][c] = nb[r][c] - (nb[r][c] % 10) + color;
+                    nb[r + 1][c] = nb[r + 1][c] - (nb[r + 1][c] % 10) + color;
+                    nb[r + 1][c - 1] = nb[r + 1][c - 1] - (nb[r + 1][c - 1] % 10) + color;
+                    nb[r - 1][c] = nb[r - 1][c] - (nb[r - 1][c] % 10) + color;
+                    nb[r - 1][c + 1] = nb[r - 1][c + 1] - (nb[r - 1][c + 1] % 10) + color;
+                    nb[r][c + 1] = nb[r][c + 1] - (nb[r][c + 1] % 10) + color;
+                    nb[r + 1][c + 1] = nb[r + 1][c + 1] - (nb[r + 1][c + 1] % 10) + color;
+                    nb[r][c - 1] = nb[r][c - 1] - (nb[r][c - 1] % 10) + color;
+                    nb[r - 1][c - 1] = nb[r - 1][c - 1] - (nb[r - 1][c - 1] % 10) + color;
+                }
+
+                setGameBoard(nb);
+                break;
+            }
+            case ST_CROSS_FORMAT: {
+                int[][] nb = PadBoardAI.copy_board(gameBoard);
+
+                List<Integer> data = skill.getData();
+                int size = data.size();
+
+                for(int i=0; i<size; i+=2) {
+                    int color = data.get(i);
+                    int pos = data.get(i + 1);
+
+                    int r, c;
+                    if (pos == 0) {
+                        r = 1;
+                        c = 1;
+                    } else if (pos == 1) {
+                        r = PadBoardAI.ROWS - 2;
+                        c = 1;
+                    } else if (pos == 2) {
+                        r = 1;
+                        c = PadBoardAI.COLS - 2;
+                    } else {
+                        r = PadBoardAI.ROWS - 2;
+                        c = PadBoardAI.COLS - 2;
+                    }
+
+                    nb[r][c] = nb[r][c] - (nb[r][c] % 10) + color;
+                    nb[r + 1][c] = nb[r + 1][c] - (nb[r + 1][c] % 10) + color;
+                    nb[r - 1][c] = nb[r - 1][c] - (nb[r - 1][c] % 10) + color;
+                    nb[r][c + 1] = nb[r][c + 1] - (nb[r][c + 1] % 10) + color;
+                    nb[r][c - 1] = nb[r][c - 1] - (nb[r][c - 1] % 10) + color;
+                }
+
+                setGameBoard(nb);
+                break;
+            }
         case ST_ONE_LINE_TRANSFORM:
             if (mCurrentState == GameState.GAME_END) {
                 setGameBoard(PadBoardAI.generateBoardWithPlus(mDropType, false,
@@ -3162,6 +3379,18 @@ public class CalculatorGameScene extends BaseMenuScene implements
         findMatches();
     }
 
+    private List<Match> addCombos(int addition) {
+        ArrayList<RowCol> list = new ArrayList<RowCol>();
+        list.add(RowCol.make(0, 0));
+        list.add(RowCol.make(0, 1));
+        list.add(RowCol.make(0, 2));
+
+        List<Match> match = new ArrayList<Match>();
+        for(int i=0; i<addition; ++i) {
+            match.add(Match.make(9, 3, 0, list));
+        }
+        return match;
+    }
     List<Match> matches = new ArrayList<Match>();
     List<Double> factors;
     List<Double> heals;
@@ -3174,15 +3403,18 @@ public class CalculatorGameScene extends BaseMenuScene implements
 
                 final MatchBoard matchBoard = PadBoardAI.findMatches(gameBoard, removeN, null);
                 if(matches.size() == 0 && mAddComboSkill != null) {
-                	ArrayList<RowCol> list = new ArrayList<RowCol>();
-                	list.add(RowCol.make(0, 0));
-                	list.add(RowCol.make(0, 1));
-                	list.add(RowCol.make(0, 2));
-                	
-                	int addition = mAddComboSkill.getData().get(1);
-                	for(int i=0; i<addition; ++i) {
-                		matches.add(Match.make(9, 3, 0, list));
-                	}
+//                	ArrayList<RowCol> list = new ArrayList<RowCol>();
+//                	list.add(RowCol.make(0, 0));
+//                	list.add(RowCol.make(0, 1));
+//                	list.add(RowCol.make(0, 2));
+//
+//                	int addition = mAddComboSkill.getData().get(1);
+//                	for(int i=0; i<addition; ++i) {
+//                		matches.add(Match.make(9, 3, 0, list));
+//                	}
+                    int addition = mAddComboSkill.getData().get(1);
+                    List<Match> match = addCombos(addition);
+                    matches.addAll(match);
                 	mCombo.set(addition);
                 	mScoreBoard.addAll(matches);
                 }
@@ -3359,6 +3591,9 @@ public class CalculatorGameScene extends BaseMenuScene implements
             }
             break;
         case MENU_EDIT:
+            if (GameState.GAME_ANIMATION == mCurrentState) {
+                break;
+            }
             if (GameState.GAME_END != mCurrentState) {
                 mStack.push(gameBoard);
             }
@@ -3651,7 +3886,6 @@ public class CalculatorGameScene extends BaseMenuScene implements
             // already dropped
             setGameBoardWOAnimation(mStack.peek());
         }
-        changeState(GameState.GAME_MODIFY_BOARD);
         List<IEntity> attachList = new ArrayList<IEntity>();
         for (Sprite s : mSetByHandSprite) {
             registerTouchArea(s);
@@ -3687,8 +3921,17 @@ public class CalculatorGameScene extends BaseMenuScene implements
         detachList.add(mStepCountText);
         detachList.add(mContinueDropText);
         detachList.add(mTimerText);
-        
+
         detach(detachList);
+        registerUpdateHandler(new TimerHandler(Constants.SECOND_REFRESH + 0.1f,
+                new ITimerCallback() {
+
+                    @Override
+                    public void onTimePassed(TimerHandler pTimerHandler) {
+                        unregisterUpdateHandler(pTimerHandler);
+                        changeState(GameState.GAME_MODIFY_BOARD);
+                    }
+                }));
     }
 
     private synchronized void changeState(GameState state) {
@@ -4223,6 +4466,9 @@ public class CalculatorGameScene extends BaseMenuScene implements
         List<IEntity> attachList = new ArrayList<IEntity>();
         for (int i = 0; i < PadBoardAI.ROWS; ++i) {
             for (int j = 0; j < PadBoardAI.COLS; ++j) {
+                if(!force && gameBoard[i][j] == board[i][j]) {
+                    continue;
+                }
                 int x = Constants.ORB_SIZE * i;
                 int y = Constants.ORB_SIZE * j;
 
@@ -4258,6 +4504,7 @@ public class CalculatorGameScene extends BaseMenuScene implements
                 sprites[i][j] = s;
                 setPosition(i, j, x, y);
                 s.setZIndex(1);
+                s.setVisible(true);
                 attachList.add(s);
 
             }

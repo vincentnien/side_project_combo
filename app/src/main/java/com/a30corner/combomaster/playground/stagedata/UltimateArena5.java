@@ -52,6 +52,7 @@ import com.a30corner.combomaster.playground.enemy.conditions.ConditionFindOrb;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionFirstStrike;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionHasBuff;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionHp;
+import com.a30corner.combomaster.playground.enemy.conditions.ConditionIf;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionModeSelection;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionNTurns;
 import com.a30corner.combomaster.playground.enemy.conditions.ConditionPercentage;
@@ -74,10 +75,10 @@ public class UltimateArena5 extends IStage {
         SequenceAttack seq;
         mStageEnemies.clear();
 
-        SparseArray<List<StageGenerator.SkillText>> list = loadSkillTextNew(env, mStage, new int[]{2551,3259,3208,3838,363,365,1108,2989,3017,3251,2896,3457,3327,2206,2524,1920,1921,2393,2395,3074,4417,1338,4358,908,1514,2560,3200,3903,4013,3638,3640,3642,4585,4742});
+        SparseArray<List<StageGenerator.SkillText>> list = loadSkillTextNew(env, mStage, new int[]{3318,2551,3259,3208,3838,363,365,1108,2989,3017,3251,2896,3457,3327,2206,2524,1920,1921,2393,2395,3074,4417,1338,4358,908,1514,2560,3200,3903,4013,3638,3640,3642,4585,4742});
         StageGenerator.SkillText[] text;// = new StageGenerator.SkillText[list.size()];
 
-        data = new ArrayList<Enemy>();
+        data = new ArrayList<Enemy>();// checked
         {
             int[] ids = {161, 162, 163, 164, 165};
             for (int i = 0; i < 4; ++i) {
@@ -103,7 +104,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 2551) {
+                if (choose == 2551) {// checked
                     data.add(Enemy.create(env, 2551, 10386900, 13830, 1840, 1, getMonsterAttrs(env, 2551), getMonsterTypes(env, 2551)));
                     zero = data.get(i);
 
@@ -123,17 +124,17 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     RandomAttack rndAtk = new RandomAttack();
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(240)).addPair(new ConditionAlways(), new BindPets(text[7].title, text[7].description, 3, 3, 3, 1)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(240)).addPair(new ConditionAlways(), new SkillDown(text[8].title, text[8].description, 0, 1, 1)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(240)).addPair(new ConditionAlways(), new LineChange(text[9].title, text[9].description, 8, 3, 9, 3)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[7].title, text[7].description,240)).addPair(new ConditionAlways(), new BindPets( 3, 3, 3, 1)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[8].title, text[8].description, 240)).addPair(new ConditionAlways(), new SkillDown(0, 1, 1)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 240)).addPair(new ConditionAlways(), new LineChange(8, 3, 9, 3)));
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Attack(text[10].title, text[10].description, 300)));
                     zero.attackMode.addAttack(new ConditionHp(1, 30), rndAtk);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(1000)).addPair(new ConditionAlways(), new LineChange(text[11].title, text[11].description, 3, 7, 5, 7, 8, 7, 9, 7)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[12].title, text[12].description,1000)).addPair(new ConditionAlways(), new LineChange( 3, 7, 4, 7, 7, 7, 10, 7)));
                     zero.attackMode.addAttack(new ConditionHp(2, 30), seq);
                 }
-                if (choose == 3259) {
+                if (choose == 3259) { // checked
                     data.add(Enemy.create(env, 3259, 16893000, 23460, 2280, 1, getMonsterAttrs(env, 3259), getMonsterTypes(env, 3259)));
                     zero = data.get(i);
 
@@ -144,19 +145,19 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(600)).addPair(new ConditionHp(2, 20), new LineChange(text[5].title, text[5].description, 3, 6, 8, 6, 10, 6, 7, 8, 9, 8, 11, 8)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description,600)).addPair(new ConditionHp(2, 20), new LineChange( 3, 6, 8, 6, 10, 6, 7, 8, 9, 8, 11, 8)));
 
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionUsed(), new RandomChange(text[6].title, text[6].description, 6, 6)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[6].title, text[6].description,100)).addPair(new ConditionUsed(), new RandomChange( 6, 6)));
                     seq.addAttack(new EnemyAttack().addAction(new Daze(text[8].title, text[8].description, 0)).addPair(new ConditionUsed(), new ComboShield(text[7].title, text[7].description, 2, 6)));
 
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(200)).addPair(new ConditionUsed(), new DarkScreen(text[9].title, text[9].description, 0)));
-                    seq.addAttack(new EnemyAttack().addAction(new ColorChange(text[11].title, text[11].description, -1, 9)).addPair(new ConditionUsed(), new ReduceTime(text[10].title, text[10].description, 10, -1000)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description,200)).addPair(new ConditionUsed(), new DarkScreen( 0)));
+                    seq.addAttack(new EnemyAttack().addAction(new ColorChange(text[11].title, text[11].description, -1, 8)).addPair(new ConditionUsed(), new ReduceTime(text[10].title, text[10].description, 10, -1000)));
 
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
 
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(140)).addPair(new ConditionAlways(), new LineChange(text[12].title, text[12].description, 3, 6)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[12].title, text[12].description, 140)).addPair(new ConditionAlways(), new LineChange(3, 6)));
 
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[13].title, text[13].description, 80, 2)));
                     zero.attackMode.addAttack(new ConditionHp(1, 0), seq);
@@ -175,7 +176,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 3208) {
+                if (choose == 3208) {// checked
                     data.add(Enemy.create(env, 3208, 7954722, 18122, 1800, 1, getMonsterAttrs(env, 3208), getMonsterTypes(env, 3208)));
                     zero = data.get(i);
 
@@ -203,8 +204,8 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(50)).addPair(new ConditionAlways(), new RandomChange(text[8].title, text[8].description, 8, 6)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionAlways(), new LineChange(text[9].title, text[9].description, 0, 5, 2, 5)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[8].title, text[8].description, 50)).addPair(new ConditionAlways(), new RandomChange(8, 6)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 100)).addPair(new ConditionAlways(), new LineChange(0, 4, 2, 4)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Gravity(text[10].title, text[10].description, 99)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[11].title, text[11].description, 50, 4)));
                     zero.attackMode.addAttack(new ConditionHp(1, 20), seq);
@@ -255,7 +256,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 363) {
+                if (choose == 363) { // checked
                     data.add(Enemy.create(env, 363, 12930855, 20405, 366666, 1, getMonsterAttrs(env, 363), getMonsterTypes(env, 363)));
                     zero = data.get(i);
 
@@ -266,6 +267,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
+                    seq.addAttack(new EnemyAttack().addAction(new ReduceTime(text[6].title, text[6].description, 7, -1000)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new Gravity(text[5].title, text[5].description, 99)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionHp(2, 15), new MultipleAttack(text[8].title, text[8].description, 100, 5)));
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
@@ -280,13 +282,12 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionHp(1, 50), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new ReduceTime(text[6].title, text[6].description, 7, -1000)).addPair(new ConditionUsed(), new Gravity(text[5].title, text[5].description, 99)));
                     seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[12].title, text[12].description, 60, 3)).addPair(new ConditionAlways(), new RecoverSelf(text[10].title, text[10].description, 10)));
-                    seq.addAttack(new EnemyAttack().addAction(new RandomLineChange(text[14].title, text[14].description, 2, 5, 6, 1, 2)).addPair(new ConditionAlways(), new Attack(150)));
+                    seq.addAttack(new EnemyAttack().addAction(new RandomLineChange(text[14].title, text[14].description, 2, 5, 6, 1,2)).addPair(new ConditionAlways(), new Attack(150)));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                 }
-                if (choose == 365) {
+                if (choose == 365) { // checked
                     data.add(Enemy.create(env, 365, 16827557, 17727, 366666, 1, getMonsterAttrs(env, 365), getMonsterTypes(env, 365)));
                     zero = data.get(i);
 
@@ -296,7 +297,9 @@ public class UltimateArena5 extends IStage {
                     seq.addAttack(new EnemyAttack().addAction(new AbsorbShieldAction(text[2].title, text[2].description, 5, 4)).addAction(new LockOrb(text[4].title, text[4].description, 0, 0, 4)).addPair(new ConditionAlways(), new Attack(120)));
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
-                    zero.attackMode.createEmptyMustAction();
+                    seq = new SequenceAttack();
+                    seq.addAttack(new EnemyAttack().addAction(new Gravity(text[6].title, text[6].description, 99)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new DropRateAttack(text[5].title, text[5].description, 1, 8, 15)));
+                    zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[7].title, text[7].description, 100, 5)));
@@ -304,17 +307,16 @@ public class UltimateArena5 extends IStage {
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[8].title, text[8].description, 80, 2)).addPair(new ConditionAlways(), new SkillDown(text[9].title, text[9].description, 0, 1, 1)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(120)).addPair(new ConditionAlways(), new LineChange(text[10].title, text[10].description, 1, 4)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[10].title, text[10].description,120)).addPair(new ConditionAlways(), new LineChange( 1, 4)));
                     zero.attackMode.addAttack(new ConditionHp(1, 50), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Gravity(text[6].title, text[6].description, 99)).addPair(new ConditionUsed(), new DropRateAttack(text[5].title, text[5].description, 1, 8, 15)));
                     seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[11].title, text[11].description, 60, 3)).addPair(new ConditionAlways(), new SkillDown(text[12].title, text[12].description, 0, 1, 1)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(150)).addPair(new ConditionAlways(), new RandomLineChange(text[13].title, text[13].description, 2, 4, 6, 1, 2)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[13].title, text[13].description, 150)).addPair(new ConditionAlways(), new RandomLineChange(2, 4, 6, 1, 2)));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                 }
-                if (choose == 1108) {
+                if (choose == 1108) { // checked
                     data.add(Enemy.create(env, 1108, 10886907, 23216, 366666, 1, getMonsterAttrs(env, 1108), getMonsterTypes(env, 1108)));
                     zero = data.get(i);
 
@@ -324,22 +326,22 @@ public class UltimateArena5 extends IStage {
                     seq.addAttack(new EnemyAttack().addAction(new AbsorbShieldAction(text[2].title, text[2].description, 5, 1)).addAction(new DropRateAttack(text[4].title, text[4].description, 1, 8, 15)).addPair(new ConditionAlways(), new Attack(120)));
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
-                    zero.attackMode.createEmptyMustAction();
+                    seq = new SequenceAttack();
+                    seq.addAttack(new EnemyAttack().addAction(new LockOrb(text[5].title, text[5].description, 0, 0, 1)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new Gravity(text[6].title, text[6].description, 99)));
+                    zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[7].title, text[7].description, 100, 5)));
                     zero.attackMode.addAttack(new ConditionHp(2, 15), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new LockOrb(text[5].title, text[5].description, 0, 0, 1)).addPair(new ConditionUsed(), new Gravity(text[6].title, text[6].description, 99)));
-
-                    seq.addAttack(new EnemyAttack().addAction(new BindPets(text[12].title, text[12].description, 4, 1, 1, 1)).addPair(new ConditionAlways(), new MultipleAttack(text[11].title, text[11].description, 60, 3)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(150)).addPair(new ConditionAlways(), new RandomLineChange(text[13].title, text[13].description, 2, 1, 6, 1, 2)));
+                    seq.addAttack(new EnemyAttack().addAction(new BindPets(text[12].title, text[12].description, 5, 1, 1, 1, 1)).addPair(new ConditionAlways(), new MultipleAttack(text[11].title, text[11].description, 60, 3)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[13].title, text[13].description,150)).addPair(new ConditionAlways(), new RandomLineChange( 2, 1, 6, 1, 2)));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new BindPets(text[9].title, text[9].description, 4, 1, 1, 1)).addPair(new ConditionAlways(), new MultipleAttack(text[8].title, text[8].description, 80, 2)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(120)).addPair(new ConditionAlways(), new LineChange(text[10].title, text[10].description, 1, 1)));
+                    seq.addAttack(new EnemyAttack().addAction(new BindPets(text[9].title, text[9].description, 5, 1, 1, 1, 1)).addPair(new ConditionAlways(), new MultipleAttack(text[8].title, text[8].description, 80, 2)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[10].title, text[10].description, 120)).addPair(new ConditionAlways(), new LineChange(1, 1)));
                     zero.attackMode.addAttack(new ConditionHp(1, 50), seq);
 
                 }
@@ -352,6 +354,7 @@ public class UltimateArena5 extends IStage {
         data = new ArrayList<Enemy>();
         {
             int[] ids = {3318, 3319, 3320, 3321, 3322, 3323, 3324, 3325};
+            text = loadSubText(list, 3318);
             for (int i = 0; i < 1; ++i) {
 
                 int rnd = RandomUtil.getInt(ids.length);
@@ -362,11 +365,11 @@ public class UltimateArena5 extends IStage {
 
                 zero.attackMode = new EnemyAttackMode();
                 seq = new SequenceAttack();
-                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new SkillDown("キラキラ光るたまぁ~☆", "當前所有技能的冷卻時間增加 3 回合", 0, 3, 3)));
+                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new SkillDown(text[0].title, text[0].description, 0, 3, 3)));
                 zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                 seq = new SequenceAttack();
-                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Attack("たまぁ~☆","重擊，造成1000%傷害", 1000)));
+                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Attack(text[1].title, text[1].description, 1000)));
                 zero.attackMode.addAttack(new ConditionAlways(), seq);
             }
 
@@ -381,7 +384,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 2989) {
+                if (choose == 2989) { // checked
                     data.add(Enemy.create(env, 2989, 13933417, 21147, 2744, 1, getMonsterAttrs(env, 2989), getMonsterTypes(env, 2989)));
                     zero = data.get(i);
 
@@ -402,17 +405,17 @@ public class UltimateArena5 extends IStage {
                     seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new ShieldAction(text[8].title, text[8].description, 3, -1, 75)));
                     zero.attackMode.addAttack(new ConditionHp(2, 70), seq);
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(120)).addPair(new ConditionUsed(), new DropRateAttack(text[9].title, text[9].description, 5, 4, 15, 6, 15, 7, 15)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 120)).addPair(new ConditionUsed(), new DropRateAttack(5, 4, 15, 6, 15, 7, 15)));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionAlways(), new RandomLineChange(text[11].title, text[11].description, 2,4,6,1,2)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[11].title, text[11].description, 100)).addPair(new ConditionAlways(), new RandomLineChange(2,4,6,1,1)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Gravity(text[13].title, text[13].description, 99)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[15].title, text[15].description, 35, 4)));
 
                     zero.attackMode.addAttack(new ConditionHp(1, 0), seq);
                 }
-                if (choose == 3017) {
+                if (choose == 3017) {// checked, some error but dont mind
                     data.add(Enemy.create(env, 3017, 12470535, 16877, 2744, 1, getMonsterAttrs(env, 3017), getMonsterTypes(env, 3017)));
                     zero = data.get(i);
 
@@ -434,7 +437,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionAtTurn(1), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(1000)).addPair(new ConditionUsed(), new LockOrb(text[9].title, text[9].description, 0, 1, 4, 5, 3, 0, 2, 6, 7, 8)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 1000)).addPair(new ConditionUsed(), new LockOrb(0, 1, 4, 5, 3, 0, 2, 6, 7, 8)));
                     zero.attackMode.addAttack(new ConditionHp(2, 15), seq);
 
                     seq = new SequenceAttack();
@@ -452,8 +455,8 @@ public class UltimateArena5 extends IStage {
 
                     RandomAttack rndAtk = new RandomAttack();
                     rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[13].title, text[13].description,130)).addPair(new ConditionHp(2, 30), new RandomChange( 6, 4, 7, 4)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(130)).addPair(new ConditionAlways(), new ColorChange(-1, 6)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(130)).addPair(new ConditionAlways(), new ColorChange(-1, 7)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[14].title, text[14].description,130)).addPair(new ConditionAlways(), new ColorChange(-1, 6)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[15].title, text[15].description,130)).addPair(new ConditionAlways(), new ColorChange(-1, 7)));
                     zero.attackMode.addAttack(new ConditionModeSelection(3, 0, 1), rndAtk);
 
                     rndAtk = new RandomAttack();
@@ -481,10 +484,9 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 3251) {
+                if (choose == 3251) {// checked
                     data.add(Enemy.create(env, 3251, 12761302, 17751, 2744, 1, getMonsterAttrs(env, 3251), getMonsterTypes(env, 3251)));
                     zero = data.get(i);
-                    //FIXME:
                     zero.attackMode = new EnemyAttackMode();
 
                     seq = new SequenceAttack();
@@ -498,25 +500,25 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     RandomAttack rndAtk = new RandomAttack();
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description,100)).addPair(new ConditionAlways(), new SuperDark( 1, 2, 0, 0)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description,100)).addPair(new ConditionAlways(), new SuperDark( 1, 3, 0, 0)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description,90)).addPair(new ConditionAlways(), new SuperDark(1, 0, 0, 0)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description,90)).addPair(new ConditionAlways(), new SuperDark(1, 1, 0, 0)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[4].title, text[4].description,100)).addPair(new ConditionAlways(), new SuperDark( 1, 3, 0, 0)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description,100)).addPair(new ConditionAlways(), new SuperDark( 1, 2, 0, 0)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[6].title, text[6].description,90)).addPair(new ConditionAlways(), new SuperDark(1, 0, 0, 0)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[7].title, text[7].description,90)).addPair(new ConditionAlways(), new SuperDark(1, 1, 0, 0)));
 
-                    zero.attackMode.addAttack(new ConditionModeSelection(3, 0, 1), rndAtk);
+                    zero.attackMode.addAttack(new ConditionModeSelection(3, 0), rndAtk);
 
                     rndAtk = new RandomAttack();
                     rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[8].title, text[8].description, 120)).addPair(new ConditionAlways(), new RandomLineChange(2, 1, 6, 1, 2)));
                     rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 120)).addPair(new ConditionAlways(), new BindPets(3, 1, 1, 2)));
 
-                    zero.attackMode.addAttack(new ConditionModeSelection(3, 1, 2), rndAtk);
+                    zero.attackMode.addAttack(new ConditionModeSelection(3, 1), rndAtk);
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[10].title, text[10].description, 60, 3)));
 
-                    zero.attackMode.addAttack(new ConditionModeSelection(3, 2, 0), seq);
+                    zero.attackMode.addAttack(new ConditionModeSelection(3, 2), seq);
                 }
-                if (choose == 2896) {
+                if (choose == 2896) { // checked
                     data.add(Enemy.create(env, 2896, 14614583, 18544, 2744, 1, getMonsterAttrs(env, 2896), getMonsterTypes(env, 2896)));
                     zero = data.get(i);
 
@@ -537,7 +539,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionHp(1, 35), seq);
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new SkillDown(text[8].title, text[8].description, 0, 2, 4)));
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[7].title, text[7].description, 300, 6)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[9].title, text[9].description, 300, 6)));
                     zero.attackMode.addAttack(new ConditionHp(2, 35), seq);
                 }
             }
@@ -547,13 +549,13 @@ public class UltimateArena5 extends IStage {
 
         data = new ArrayList<Enemy>();
         {
-            int[] ids = {3457, 3327};
+            int[] ids = {3327, 3457};
             for (int i = 0; i < 1; ++i) {
 
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 3457) {
+                if (choose == 3457) { // checked , FIXME: "add bind move" action and check hp restore or not
                     data.add(Enemy.create(env, 3457, 16747882, 17384, 1824, 1, getMonsterAttrs(env, 3457), getMonsterTypes(env, 3457)));
                     zero = data.get(i);
 
@@ -589,7 +591,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionModeSelection(2, 1, 0), rndAtk);
 
                 }
-                if (choose == 3327) {
+                if (choose == 3327) { // checked
                     data.add(Enemy.create(env, 3327, 15264236, 17031, 1792, 1, getMonsterAttrs(env, 3327), getMonsterTypes(env, 3327)));
                     zero = data.get(i);
 
@@ -623,8 +625,8 @@ public class UltimateArena5 extends IStage {
 
 
                     RandomAttack rndAtk = new RandomAttack();
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description,140)).addPair(new ConditionUsed(), new CloudAttack( 1, 2, 2)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new SuperDark(text[10].title, text[10].description, 1, 2, 1, 4, 1, 2, 2, 4, 2, 2, 5, 2, 6, 4, 5, 4, 6)).addPair(new ConditionUsed(), new Attack(140)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description,140)).addPair(new ConditionAlways(), new CloudAttack( 1, 2, 2)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new SuperDark(text[10].title, text[10].description, 1, 2, 1, 4, 1, 2, 2, 4, 2, 2, 5, 2, 6, 4, 5, 4, 6)).addPair(new ConditionAlways(), new Attack(140)));
                     zero.attackMode.addAttack(new ConditionHp(1, 10), rndAtk);
                 }
 
@@ -641,7 +643,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 2206) {
+                if (choose == 2206) { // checked
                     data.add(Enemy.create(env, 2206, 15014550, 26340, 3880, 1, getMonsterAttrs(env, 2206), getMonsterTypes(env, 2206)));
                     zero = data.get(i);
 
@@ -652,45 +654,43 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Angry(text[11].title, text[11].description, 999, 200)).addPair(new ConditionUsed(), new BindPets(text[10].title, text[10].description, 1, 1, 1, 2)));
-                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[15].title, text[15].description, 60, 6)).addAction(new Attack(20)).addPair(new ConditionHp(2, 20), new Transform(text[14].title, text[14].description, 0, 1, 6, 7)));
+                    seq.addAttack(new EnemyAttack().addAction(new Angry(text[11].title, text[11].description, 999, 200)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new BindPets(text[10].title, text[10].description, 1, 1, 1, 2)));
+                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[15].title, text[15].description, 60, 6)).addAction(new Attack(text[14].title, text[14].description, 20)).addPair(new ConditionHp(2, 20), new Transform(0, 1, 6, 7)));
                     seq.addAttack(new EnemyAttack().addAction(new Attack(text[13].title, text[13].description, 100)).addPair(new ConditionHp(2, 50), new ShieldAction(text[12].title, text[12].description, 1, -1, 50)));
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description,150)).addPair(new ConditionAlways(), new ColorChange( 7, 1)));
-                    seq.addAttack(new EnemyAttack().addAction(new SkillDown(text[7].title, text[7].description, 0, 0, 2)).addAction(new Attack(100)).addPair(new ConditionAlways(), new RandomLineChange(3, 1, 0, 7, 3, 0, 2, 4)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description,150)).addPair(new ConditionIf(1, 1, 0, EnemyCondition.Type.FIND_ORB.ordinal(), 7), new ColorChange( 7, 1)));
+                    seq.addAttack(new EnemyAttack().addAction(new SkillDown(text[7].title, text[7].description, 0, 0, 2)).addAction(new Attack(100)).addPair(new ConditionHp(2,80), new RandomLineChange(3, 1, 0, 7, 3, 0, 2, 4)));
                     seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 100)).addPair(new ConditionAlways(), new RandomChange(text[8].title, text[8].description, 6, 5)));
                     zero.attackMode.addAttack(new ConditionHp(1, 50), seq);
                 }
-                if (choose == 2524) {
+                if (choose == 2524) { // checked
                     data.add(Enemy.create(env, 2524, 14440382, 31014, 2208, 1, getMonsterAttrs(env, 2524), getMonsterTypes(env, 2524)));
                     zero = data.get(i);
 
                     zero.attackMode = new EnemyAttackMode();
-                    // FIXME: text index
-
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addAction(new Attack(text[0].title, text[0].description,100)).addPair(new ConditionAlways(), new DarkScreen( 0)));
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 70), new BindPets(text[5].title, text[5].description, 3, 3, 3, 3)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 70), new BindPets(text[1].title, text[1].description, 3, 3, 3, 3)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionHasBuff(), new IntoVoid(text[2].title, text[2].description, 0)));
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description, 160)).addPair(new ConditionUsed(), new SkillDown(0, 2, 2)));
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[5].title, text[5].description, 100, 6)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[8].title, text[8].description, 160)).addPair(new ConditionUsed(), new SkillDown(0, 2, 2)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[9].title, text[9].description, 100, 6)));
                     zero.attackMode.addAttack(new ConditionHp(2, 20), seq);
 
                     RandomAttack rndAtk = new RandomAttack();
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description, 120)).addPair(new ConditionAlways(), new RandomChange(7, 5)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description, 130)).addPair(new ConditionAlways(), new RandomChange( 4, 3)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[3].title, text[3].description, 120)).addPair(new ConditionAlways(), new RandomChange(7, 5)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[4].title, text[4].description, 130)).addPair(new ConditionAlways(), new RandomChange( 4, 3)));
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Gravity(text[5].title, text[5].description, 80)));
-                    rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[5].title, text[5].description, 80, 2)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description, 140)).addPair(new ConditionAlways(), new LockOrb( 2, 5)));
+                    rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[6].title, text[6].description, 80, 2)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[7].title, text[7].description, 140)).addPair(new ConditionAlways(), new LockOrb( 2, 5)));
 
                     zero.attackMode.addAttack(new ConditionHp(1, 20), rndAtk);
 
@@ -709,7 +709,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 1920) {
+                if (choose == 1920) { // checked
                     data.add(Enemy.create(env, 1920, 15384450, 21690, 840, 1, getMonsterAttrs(env, 1920), getMonsterTypes(env, 1920)));
                     zero = data.get(i);
 
@@ -731,7 +731,7 @@ public class UltimateArena5 extends IStage {
 
 
                 }
-                if (choose == 1921) {
+                if (choose == 1921) { // checked
                     data.add(Enemy.create(env, 1921, 38260000, 27042, 1008, 1, getMonsterAttrs(env, 1921), getMonsterTypes(env, 1921)));
                     zero = data.get(i);
 
@@ -743,10 +743,13 @@ public class UltimateArena5 extends IStage {
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 20), new Angry(text[5].title, text[5].description, 999, 200)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[6].title, text[6].description, 90)).addPair(new ConditionAlways(), new RandomChange(7, 4)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[7].title, text[7].description,80)).addPair(new ConditionAlways(), new ColorChange( 2, 7)));
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[8].title, text[8].description, 35, 3)));
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
+
+                    RandomAttack rndAtk = new RandomAttack();
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[6].title, text[6].description, 90)).addPair(new ConditionAlways(), new RandomChange(7, 4)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[7].title, text[7].description,80)).addPair(new ConditionAlways(), new ColorChange( 2, 7)));
+                    rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[8].title, text[8].description, 35, 3)));
+                    zero.attackMode.addAttack(new ConditionHp(1,0), rndAtk);
                 }
 
             }
@@ -770,37 +773,37 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode = new EnemyAttackMode();
                     seq = new SequenceAttack();
                     // FIXME: heart bomb
-                    seq.addAttack(new EnemyAttack().addAction(new ResistanceShieldAction(text[2].title, text[2].description, 999)).addPair(new ConditionAlways(), new RandomChange(text[6].title, text[6].description, 9, 12)));
+                    seq.addAttack(new EnemyAttack().addAction(new ResistanceShieldAction(text[2].title, text[2].description, 999)).addPair(new ConditionAlways(), new RandomChange(text[4].title, text[4].description, 9, 12)));
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new DarkScreen(text[13].title, text[13].description, 0)).addPair(new ConditionNTurns(5, 1), new RandomChange(text[14].title, text[14].description, 9, 12)));
+                    seq.addAttack(new EnemyAttack().addAction(new DarkScreen(text[14].title, text[14].description, 0)).addPair(new ConditionNTurns(5, 1), new RandomChange(text[4].title, text[4].description, 9, 12)));
 
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new RecoverSelf(text[4].title, text[4].description, 50)).addPair(new ConditionUsed(), new LockAwoken(text[5].title, text[5].description, 1)));
-                    seq.addAttack(new EnemyAttack().addAction(new RecoverSelf(text[4].title, text[4].description, 50)).addPair(new ConditionUsed(), new Transform(text[7].title, text[7].description, 8)));
+                    seq.addAttack(new EnemyAttack().addAction(new RecoverSelf(text[5].title, text[5].description, 50)).addPair(new ConditionUsed(), new LockAwoken(text[6].title, text[6].description, 1)));
+                    seq.addAttack(new EnemyAttack().addAction(new RecoverSelf(text[5].title, text[5].description, 50)).addPair(new ConditionUsed(), new Transform(text[8].title, text[8].description, 8)));
                     zero.attackMode.addAttack(new ConditionHp(2, 1), seq);
 
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new Attack(text[8].title, text[8].description, 150)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new Attack(text[9].title, text[9].description, 150)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new Attack(text[9].title, text[9].description, 150)));
                     zero.attackMode.addAttack(new ConditionHp(2, 15), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new RecoverPlayer(text[10].title, text[10].description, 100)).addAction(new Daze(text[11].title, text[11].description, 0)).addPair(new ConditionUsed(), new Transform(text[12].title, text[12].description, 6)));
+                    seq.addAttack(new EnemyAttack().addAction(new RecoverPlayer(text[11].title, text[11].description, 100)).addAction(new Daze(text[12].title, text[12].description, 0)).addPair(new ConditionUsed(), new Transform(text[13].title, text[13].description, 6)));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[16].title, text[16].description, 50, 2)).addPair(new ConditionAlways(), new RandomChange(text[15].title, text[15].description, 0, 3, 4, 3)));
-                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[16].title, text[16].description, 50, 2)).addPair(new ConditionAlways(), new LineChange(text[17].title, text[17].description, 3, 4, 4, 0)));
-                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[16].title, text[16].description, 50, 2)).addPair(new ConditionAlways(), new ShieldAction(text[19].title, text[19].description, 1, -1, 50)));
+                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[17].title, text[17].description, 50, 2)).addPair(new ConditionAlways(), new RandomChange(text[16].title, text[16].description, 0, 3, 4, 3)));
+                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[17].title, text[17].description, 50, 2)).addPair(new ConditionAlways(), new LineChange(text[18].title, text[18].description, 3, 4, 4, 0)));
+                    seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[17].title, text[17].description, 50, 2)).addPair(new ConditionAlways(), new ShieldAction(text[20].title, text[20].description, 1, -1, 50)));
 
                     zero.attackMode.addAttack(new ConditionHp(1, 0), seq);
                 }
-                if (choose == 2395) {
+                if (choose == 2395) { // checked
                     data.add(Enemy.create(env, 2395, 53600000, 27554, 1692, 1, getMonsterAttrs(env, 2395), getMonsterTypes(env, 2395)));
                     zero = data.get(i);
 
@@ -885,7 +888,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionHp(1, 20), ra);
 
                 }
-                if (choose == 4417) {
+                if (choose == 4417) { // checked
                     data.add(Enemy.create(env, 4417, 77800000, 25636, 1472, 1, getMonsterAttrs(env, 4417), getMonsterTypes(env, 4417)));
                     zero = data.get(i);
 
@@ -943,7 +946,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 1338) {
+                if (choose == 1338) { // checked
                     data.add(Enemy.create(env, 1338, 39800000, 22260, 640, 2, getMonsterAttrs(env, 1338), getMonsterTypes(env, 1338)));
                     zero = data.get(i);
 
@@ -956,7 +959,6 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
-                    // FIXME: check action first or pair first
                     seq.addAttack(new EnemyAttack().addAction(new LockAwoken(text[8].title, text[8].description, 2)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 1), new BindPets(text[9].title, text[9].description, 3, 2, 2, 6)));
 
                     seq.addAttack(new EnemyAttack().addPair(new ConditionHp(2, 10), new MultipleAttack(text[10].title, text[10].description, 100, 3)));
@@ -965,12 +967,12 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionHp(2, 50), new ColorChange(text[17].title, text[17].description, 7, 8)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[17].title, text[17].description,100)).addPair(new ConditionHp(2, 50), new ColorChange( 7, 8)));
                     zero.attackMode.addAttack(new ConditionFindOrb(7), seq);
 
                     RandomAttack rndAtk = new RandomAttack();
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(100)).addAction(new ColorChange(text[16].title, text[16].description, 0, 7)).addPair(new ConditionUsed(), new ShieldAction(text[15].title, text[15].description, 999, -1, 50)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionAlways(), new ColorChange(text[18].title, text[18].description, 0, 7)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[16].title, text[16].description, 100)).addAction(new ColorChange(0, 7)).addPair(new ConditionUsed(), new ShieldAction(text[15].title, text[15].description, 999, -1, 50)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[18].title, text[18].description,100)).addPair(new ConditionAlways(), new ColorChange( 0, 7)));
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Gravity(text[19].title, text[19].description, 99)));
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[20].title, text[20].description, 60, 2)));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), rndAtk);
@@ -978,7 +980,7 @@ public class UltimateArena5 extends IStage {
                     seq = new SequenceAttack();
 
                     seq.addAttack(new EnemyAttack().addAction(new Gravity(text[13].title, text[13].description, 99)).addPair(new ConditionUsed(), new LockSkill(text[12].title, text[12].description, 5)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(150)).addPair(new ConditionAlways(), new RandomChange(text[14].title, text[14].description, 7, 3)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[14].title, text[14].description,150)).addPair(new ConditionAlways(), new RandomChange( 7, 3)));
 
                     zero.attackMode.addAttack(new ConditionHp(1, 50), seq);
                 }
@@ -997,23 +999,21 @@ public class UltimateArena5 extends IStage {
 
 
                     seq = new SequenceAttack();
+                    seq.addAttack(new EnemyAttack().addAction(new Angry(text[11].title, text[11].description, 99, 120)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 1), new RecoverSelf(text[10].title, text[10].description, 50)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[11].title, text[11].description, 100)).addPair(new ConditionHp(2,1), new RecoverSelf(text[10].title, text[10].description, 50)));
                     seq.addAttack(new EnemyAttack().addAction(new DamageVoidShield(text[13].title, text[13].description, 10, 5000000)).addPair(new ConditionAtTurn(4), new SwitchLeader(text[12].title, text[12].description, 10)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(120)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new CloudAttack(text[16].title, text[16].description, 4, 2, 3)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[15].title, text[15].description, 210)).addAction(new DarkScreen(0)).addPair(new ConditionUsed(), new ResistanceShieldAction(text[14].title, text[14].description, 4)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[16].title, text[16].description, 120)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new CloudAttack(4, 2, 3)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 20), new Daze(text[17].title, text[17].description, 0)));
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
-                    seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Angry(text[11].title, text[11].description, 99, 120)).addPair(new ConditionUsed(), new RecoverSelf(text[10].title, text[10].description, 50)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[11].title, text[11].description, 100)).addPair(new ConditionUsed(), new RecoverSelf(text[10].title, text[10].description, 50)));
-                    zero.attackMode.addAttack(new ConditionHp(2,1), seq);
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[18].title, text[18].description, 120, 10)));
                     zero.attackMode.addAttack(new ConditionHp(2,20), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(210)).addAction(new DarkScreen(text[15].title, text[15].description, 0)).addPair(new ConditionUsed(), new ResistanceShieldAction(text[14].title, text[14].description, 4)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(220)).addPair(new ConditionAlways(), new RandomChangeExcept(text[19].title, text[19].description, 6, 3, 2)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[19].title, text[19].description,220)).addPair(new ConditionAlways(), new RandomChangeExcept( 6, 3, 2)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[20].title, text[20].description, 60, 4)));
                     zero.attackMode.addAttack(new ConditionHp(1, 0), seq);
 
@@ -1032,7 +1032,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 908) {
+                if (choose == 908) { // FIXME: add own ability for type reduce damage
                     data.add(Enemy.create(env, 908, 80000000, 14100, 300000, 1, getMonsterAttrs(env, 908), getMonsterTypes(env, 908)));
                     zero = data.get(i);
 
@@ -1056,7 +1056,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionHp(1, 0), seq);
 
                 }
-                if (choose == 1514) {
+                if (choose == 1514) { // FIXME: ConditionCombo
                     data.add(Enemy.create(env, 1514, 40500000, 25850, 1280, 1, getMonsterAttrs(env, 1514), getMonsterTypes(env, 1514)));
                     zero = data.get(i);
 
@@ -1074,7 +1074,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionModeSelection(4, 0), fh);
 
                     fh = new FromHeadAttack();
-                    fh.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionAlways(), new CloudAttack(text[5].title, text[5].description, 1, 4, 5)));
+                    fh.addAttack(new EnemyAttack().addAction(new Attack(text[5].title, text[5].description,100)).addPair(new ConditionAlways(), new CloudAttack( 1, 4, 5)));
                     zero.attackMode.addAttack(new ConditionModeSelection(4, 1), fh);
 
                     fh = new FromHeadAttack();
@@ -1083,8 +1083,8 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionModeSelection(4, 2), fh);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[3].title, text[3].description, 40, 5)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(120)).addPair(new ConditionAlways(), new CloudAttack(text[4].title, text[4].description, 1, 6, 3)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[8].title, text[8].description, 40, 5)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 120)).addPair(new ConditionAlways(), new CloudAttack(1, 6, 3)));
                     zero.attackMode.addAttack(new ConditionModeSelection(4, 3), seq);
                 }
 
@@ -1096,22 +1096,23 @@ public class UltimateArena5 extends IStage {
         data = new ArrayList<Enemy>();
         {
             int[] ids = {3318, 3319, 3320, 3321, 3322, 3323, 3324, 3325};
+            text = loadSubText(list, 3318);
             for (int i = 0; i < 1; ++i) {
 
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
-                //text = loadSubText(list, choose);
+                //
                 data.add(Enemy.create(env, choose, 50, 4500, 10000000, 1, getMonsterAttrs(env, choose), getMonsterTypes(env, choose)));
                 zero = data.get(i);
 
 
                 zero.attackMode = new EnemyAttackMode();
                 seq = new SequenceAttack();
-                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new SkillDown("キラキラ光るたまぁ~☆", "當前所有技能的冷卻時間增加 3 回合", 0, 3, 3)));
+                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new SkillDown(text[0].title, text[0].description, 0, 3, 3)));
                 zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                 seq = new SequenceAttack();
-                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Attack("たまぁ~☆","重擊，造成1000%傷害", 1000)));
+                seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Attack(text[1].title, text[1].description, 1000)));
                 zero.attackMode.addAttack(new ConditionAlways(), seq);
 
             }
@@ -1126,28 +1127,30 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 2560) {
+                if (choose == 2560) { // checked
                     data.add(Enemy.create(env, 2560, 37319800, 23508, 960, 1, getMonsterAttrs(env, 2560), getMonsterTypes(env, 2560)));
                     zero = data.get(i);
                     zero.attackMode = new EnemyAttackMode();
 
                     seq = new SequenceAttack();
-                    int[] color = {1, 4, 5, 3, 0};
+                    int[] color = {1, 4, 5, 3};
                     int attr = RandomUtil.chooseOne(color);
                     int[] inv = {3,4,0,0,5,1};
+                    int[] tid = {0,2,0,8,4,6};
+                    int[] aid = {0,10,0,16,12,14};
                     seq.addAttack(new EnemyAttack()
-                            .addAction(new ChangeAttribute(text[2].title, text[2].description, attr))
-                            .addAction(new AbsorbShieldAction(text[16].title, text[16].description, 3, inv[attr]))
+                            .addAction(new ChangeAttribute(text[tid[attr]].title, text[tid[attr]].description, attr))
+                            .addAction(new AbsorbShieldAction(text[aid[attr]].title, text[aid[attr]].description, 3, inv[attr]))
                             .addPair(new ConditionAlways(), new LockOrb(text[18].title, text[18].description, 0, 2)));
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(140)).addPair(new ConditionAtTurn(1), new Transform(text[19].title, text[19].description, 6)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[19].title, text[19].description, 140)).addPair(new ConditionAtTurn(1), new Transform(6)));
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(680)).addPair(new ConditionAlways(), new Transform(text[20].title, text[20].description, 6)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[20].title, text[20].description,680)).addPair(new ConditionAlways(), new Transform( 6)));
                     zero.attackMode.addAttack(new ConditionHp(2, 20), seq);
 
                     seq = new SequenceAttack();
@@ -1156,11 +1159,11 @@ public class UltimateArena5 extends IStage {
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[25].title, text[25].description, 50, 3)).addPair(new ConditionAlways(), new CloudAttack(text[24].title, text[24].description, 2, 2, 2)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(140)).addPair(new ConditionAlways(), new BindPets(text[26].title, text[26].description, 3, 1, 1, 1)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(140)).addPair(new ConditionAlways(), new BindPets(text[27].title, text[27].description, 3, 1, 1, 1)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[26].title, text[26].description, 140)).addPair(new ConditionAlways(), new BindPets(3, 1, 1, 1)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[27].title, text[27].description, 140)).addPair(new ConditionAlways(), new BindPets(3, 1, 1, 1)));
                     zero.attackMode.addAttack(new ConditionHp(1, 0), seq);
                 }
-                if (choose == 3200) {
+                if (choose == 3200) { // checked
                     data.add(Enemy.create(env, 3200, 120000000, 60833, 1440, 1, getMonsterAttrs(env, 3200), getMonsterTypes(env, 3200)));
                     zero = data.get(i);
 
@@ -1186,7 +1189,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 3903) {
+                if (choose == 3903) { // checked
                     data.add(Enemy.create(env, 3903, 110000000, 10400, 4360, 1, getMonsterAttrs(env, 3903), getMonsterTypes(env, 3903)));
                     zero = data.get(i);
 
@@ -1201,8 +1204,16 @@ public class UltimateArena5 extends IStage {
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addAction(new Angry(text[9].title, text[9].description, 999, 150)).addPair(new ConditionUsed(), new RecoverSelf(text[8].title, text[8].description, 100)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 100)).addPair(new ConditionAlways(), new RecoverSelf(text[8].title, text[8].description, 100)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionAlways(), new RecoverSelf(text[8].title, text[8].description, 100)));
                     zero.attackMode.addAttack(new ConditionHp(2, 1), seq);
+
+                    seq = new SequenceAttack();
+                    seq.addAttack(new EnemyAttack().addAction(new Daze(text[10].title, text[10].description, 0)).addAction(new Gravity(text[11].title, text[11].description, 99)).addAction(new DarkScreen(0)).addPair(new ConditionUsed(), new Attack(text[12].title, text[12].description, 100)));
+                    seq.addAttack(new EnemyAttack().addAction(new ReduceTime(text[14].title, text[14].description, 10, -1000)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new ComboShield(text[13].title, text[13].description, 999, 7)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[15].title, text[15].description,350)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new SuperDark( 2, -1, 6, 6)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new MultipleAttack(text[16].title, text[16].description, 80, 6)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new Attack(text[17].title, text[17].description, 700)));
+                    zero.attackMode.addAttack(new ConditionHp(1,10), seq);
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[23].title, text[23].description, 6000, 10)).addPair(new ConditionUsed(), new ChangeAttribute(text[22].title, text[22].description, 1, 4, 5, 3, 0)));
@@ -1210,18 +1221,13 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionHp(2, 10), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addAction(new DarkScreen(text[12].title, text[12].description, 0)).addAction(new Gravity(text[11].title, text[11].description, 99)).addPair(new ConditionUsed(), new Daze(text[10].title, text[10].description, 0)));
-                    seq.addAttack(new EnemyAttack().addAction(new ReduceTime(text[14].title, text[14].description, 10, -1000)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new ComboShield(text[13].title, text[13].description, 999, 7)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(350)).addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new SuperDark(text[15].title, text[15].description, 2, -1, 6, 6)));
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new MultipleAttack(text[16].title, text[16].description, 80, 6)));
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsedIf(1, 1, 0, EnemyCondition.Type.HP.ordinal(), 2, 50), new Attack(text[17].title, text[17].description, 700)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[18].title, text[18].description, 110, 3)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(280)).addPair(new ConditionAlways(), new SkillDown(text[19].title, text[19].description, 0, 0, 3)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[19].title, text[19].description, 280)).addPair(new ConditionAlways(), new SkillDown(0, 0, 3)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[20].title, text[20].description, 80, 5)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(300)).addPair(new ConditionAlways(), new Daze(text[21].title, text[21].description, 0)));
-                    zero.attackMode.addAttack(new ConditionHp(1, 10), seq);
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[21].title, text[21].description, 300)).addPair(new ConditionAlways(), new Daze(0)));
+                    zero.attackMode.addAttack(new ConditionHp(1, 9), seq);
                 }
-                if (choose == 4013) {
+                if (choose == 4013) { // checked
                     data.add(Enemy.create(env, 4013, 712000000, 27809, 3924, 1, getMonsterAttrs(env, 4013), getMonsterTypes(env, 4013)));
                     zero = data.get(i);
 
@@ -1261,8 +1267,8 @@ public class UltimateArena5 extends IStage {
                     seq.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[12].title, text[12].description, 16, 6, 10)));
                     zero.attackMode.addAttack(new ConditionModeSelection(6, 4, 5), seq);
                     RandomAttack rndAtk = new RandomAttack();
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(140)).addPair(new ConditionAlways(), new SuperDark(text[13].title, text[13].description, 3, -1, 5, 5)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(140)).addPair(new ConditionAlways(), new RandomChange(text[14].title, text[14].description, 6, 3)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[13].title, text[13].description, 140)).addPair(new ConditionAlways(), new SuperDark(3, -1, 5, 5)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[14].title, text[14].description, 140)).addPair(new ConditionAlways(), new RandomChange(8, 3)));
                     zero.attackMode.addAttack(new ConditionModeSelection(6, 5, 0), rndAtk);
 
                 }
@@ -1280,7 +1286,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 3638) {
+                if (choose == 3638) { // checked
                     data.add(Enemy.create(env, 3638, 173333333, 10728, 5056, 1, getMonsterAttrs(env, 3638), getMonsterTypes(env, 3638)));
                     zero = data.get(i);
 
@@ -1290,27 +1296,27 @@ public class UltimateArena5 extends IStage {
 
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new ResistanceShieldAction(text[4].title, text[4].description, 999)).addPair(new ConditionAlways(), new CloudAttack(text[6].title, text[6].description, 30, 2)));
+                    seq.addAttack(new EnemyAttack().addAction(new ResistanceShieldAction(text[4].title, text[4].description, 999)).addPair(new ConditionAlways(), new CloudAttack(text[6].title, text[6].description, 30, -1, 1, 0)));
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
+
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[10].title, text[10].description,550)).addPair(new ConditionUsed(), new DropRateAttack( 15, 8, 15)));
+                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new ComboShield(text[11].title, text[11].description, 999, 6)));
+                    zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addAction(new MultipleAttack(text[8].title, text[8].description, 3000, 10)).addPair(new ConditionHp(2,1), new RecoverSelf(text[7].title, text[7].description, 100)));
                     seq.addAttack(new EnemyAttack().addPair(new ConditionHp(2,10), new MultipleAttack(text[9].title, text[9].description, 3000, 10)));
 
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(550)).addPair(new ConditionUsed(), new DropRateAttack(text[10].title, text[10].description, 15, 8, 15)));
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new ComboShield(text[11].title, text[11].description, 999, 6)));
-                    zero.attackMode.addAttack(new ConditionAlways(), seq);
-
                     RandomAttack rndAtk = new RandomAttack();
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(340)).addPair(new ConditionAlways(), new RandomChange(text[12].title, text[12].description, 4, 9)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[12].title, text[12].description, 340)).addPair(new ConditionAlways(), new RandomChange(4, 9)));
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[13].title, text[13].description, 50, 8)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(360)).addPair(new ConditionAlways(), new ReduceTime(text[14].title, text[14].description, 1, 250, 0)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(380)).addPair(new ConditionAlways(), new LockOrb(text[15].title, text[15].description, 2, 15)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[14].title, text[14].description,360)).addPair(new ConditionAlways(), new ReduceTime( 1, 250, 0)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[15].title, text[15].description, 380)).addPair(new ConditionAlways(), new LockOrb(2, 15)));
                     zero.attackMode.addAttack(new ConditionHp(1,0), rndAtk);
 
 
                 }
-                if (choose == 3640) {
+                if (choose == 3640) { // checked
                     data.add(Enemy.create(env, 3640, 260000000, 10933, 5056, 1, getMonsterAttrs(env, 3640), getMonsterTypes(env, 3640)));
                     zero = data.get(i);
 
@@ -1327,10 +1333,10 @@ public class UltimateArena5 extends IStage {
 
                     RandomAttack rndAtk = new RandomAttack();
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Gravity(text[7].title, text[7].description, 99)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(320)).addPair(new ConditionAlways(), new ChangeAttribute(text[8].title, text[8].description, 1, 4, 5, 3, 0)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(310)).addPair(new ConditionAlways(), new BindPets(text[9].title, text[9].description, 3, 10, 10, 3)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(60)).addPair(new ConditionAlways(), new LockRemoveAttack(text[10].title, text[10].description, 2, 2)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(380)).addPair(new ConditionAlways(), new AbsorbShieldAction(text[11].title, text[11].description, 5, 1)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[8].title, text[8].description,320)).addPair(new ConditionAlways(), new ChangeAttribute( 1, 4, 5, 3, 0)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 310)).addPair(new ConditionAlways(), new BindPets(3, 10, 10, 3)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[10].title, text[10].description,60)).addPair(new ConditionAlways(), new LockRemoveAttack( 2, 2)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[11].title, text[11].description,380)).addPair(new ConditionAlways(), new AbsorbShieldAction( 5, 1)));
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[12].title, text[12].description, 150, 3)));
 
                     zero.attackMode.addAttack(new ConditionHp(1, 0), rndAtk);
@@ -1349,7 +1355,7 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionFirstStrike(), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionHp(1,70), new Daze(text[8].title, text[8].description, 0)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[8].title, text[8].description,100)).addPair(new ConditionHp(1,70), new Daze( 0)));
                     zero.attackMode.addAttack(new ConditionAlways(), seq);
 
                     seq = new SequenceAttack();
@@ -1358,10 +1364,10 @@ public class UltimateArena5 extends IStage {
 
                     seq = new SequenceAttack();
                     seq.addAttack(new EnemyAttack().addAction(new LockSkill(text[10].title, text[10].description, 10)).addPair(new ConditionUsed(), new ResistanceShieldAction(text[9].title, text[9].description, 999)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(120)).addPair(new ConditionAlways(), new DropRateAttack(text[12].title, text[12].description, 1, 7, 30)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(110)).addPair(new ConditionAlways(), new LockAwoken(text[13].title, text[13].description, 1)));
-                    seq.addAttack(new EnemyAttack().addAction(new SuperDark(text[14].title, text[14].description, 1,0,0,0,1,0,2,0,3,0,4,0,5,1,0,2,0,3,0,4,0,1,5,2,5,3,5,4,5,4,4,4,3,4,2,4,1,2,2,2,3)).addPair(new ConditionAlways(), new Attack(90)));
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(100)).addPair(new ConditionAlways(), new Daze(text[15].title, text[15].description, 0)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[12].title, text[12].description,120)).addPair(new ConditionAlways(), new DropRateAttack( 1, 7, 30)));
+                    seq.addAttack(new EnemyAttack().addAction(new LockAwoken(text[13].title, text[13].description,1)).addPair(new ConditionAlways(), new Attack( 110)));
+                    seq.addAttack(new EnemyAttack().addAction(new SuperDark(text[14].title, text[14].description, 1, 0, 0, 0, 2, 1, 0, 0)).addPair(new ConditionAlways(), new Attack(90)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[15].title, text[15].description,100)).addPair(new ConditionAlways(), new Daze( 0)));
 
                     zero.attackMode.addAttack(new ConditionHp(2, 70), seq);
                 }
@@ -1379,7 +1385,7 @@ public class UltimateArena5 extends IStage {
                 int rnd = RandomUtil.getInt(ids.length);
                 int choose = ids[rnd];
                 text = loadSubText(list, choose);
-                if (choose == 4585) {
+                if (choose == 4585) { // checked
                     data.add(Enemy.create(env, 4585, 1000000000, 80410, 3120, 2, getMonsterAttrs(env, 4585), getMonsterTypes(env, 4585)));
                     zero = data.get(i);
 
@@ -1400,7 +1406,7 @@ public class UltimateArena5 extends IStage {
                     int x = RandomUtil.getInt(5);
                     int[] attr1 = {1, 5, 4, 3, 1};
                     int[] attr2 = {4, 0, 3, 0, 5};
-                    seq.addAttack(new EnemyAttack().addPair(new ConditionUsed(), new AbsorbShieldAction(text[6 + x].title, text[6 + x].description, 5, attr1[x], attr2[x])));
+                    seq.addAttack(new EnemyAttack().addAction(new AbsorbShieldAction(text[6 + x].title, text[6 + x].description, 5, attr2[x])).addPair(new ConditionUsed(), new AbsorbShieldAction(5, attr1[x])));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                     seq = new SequenceAttack();
@@ -1413,13 +1419,13 @@ public class UltimateArena5 extends IStage {
 
                     RandomAttack rndAtk = new RandomAttack();
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[14].title, text[14].description, 50, 2)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(90)).addPair(new ConditionAlways(), new Transform(text[15].title, text[15].description, 3, 2, 6, 7)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(90)).addPair(new ConditionAlways(), new Daze(text[16].title, text[16].description, 0)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(95)).addPair(new ConditionAlways(), new SuperDark(text[17].title, text[17].description, 2, -1, 5, 5)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[15].title, text[15].description, 90)).addPair(new ConditionAlways(), new Transform(3, 2, 6, 7)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[16].title, text[16].description,90)).addPair(new ConditionAlways(), new Daze( 0)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[17].title, text[17].description, 95)).addPair(new ConditionAlways(), new SuperDark(2, -1, 5, 5)));
                     zero.attackMode.addAttack(new ConditionHp(1, 0), rndAtk);
 
                 }
-                if (choose == 4742) {
+                if (choose == 4742) { // checked
                     data.add(Enemy.create(env, 4742, 400000000, 59500, 2280, 1, getMonsterAttrs(env, 4742), getMonsterTypes(env, 4742)));
                     zero = data.get(i);
 
@@ -1441,12 +1447,12 @@ public class UltimateArena5 extends IStage {
                     zero.attackMode.addAttack(new ConditionHp(2, 10), seq);
 
                     seq = new SequenceAttack();
-                    seq.addAttack(new EnemyAttack().addAction(new Attack(140)).addPair(new ConditionUsed(), new Transform(text[9].title, text[9].description, 1)));
+                    seq.addAttack(new EnemyAttack().addAction(new Attack(text[9].title, text[9].description, 140)).addPair(new ConditionUsed(), new Transform(1)));
                     zero.attackMode.addAttack(new ConditionHp(2, 50), seq);
 
                     RandomAttack rndAtk = new RandomAttack();
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new Gravity(text[11].title, text[11].description, 99)));
-                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(70)).addPair(new ConditionAlways(), new SuperDark(text[12].title, text[12].description, 4, -1, 1, 3)));
+                    rndAtk.addAttack(new EnemyAttack().addAction(new Attack(text[12].title, text[12].description,70)).addPair(new ConditionAlways(), new SuperDark( 4, -1, 1, 3)));
                     rndAtk.addAttack(new EnemyAttack().addPair(new ConditionAlways(), new MultipleAttack(text[13].title, text[13].description, 15, 5)));
                     zero.attackMode.addAttack(new ConditionHp(1, 0), rndAtk);
                 }
@@ -1458,7 +1464,7 @@ public class UltimateArena5 extends IStage {
 
         data = new ArrayList<Enemy>();
         {
-            int[] ids = {1547, 1548, 1549, 1550, 1551};
+            int[] ids = {1547, 1548, 1549, 1550, 1551}; // checked
             for (int i = 0; i < 3; ++i) {
 
                 int rnd = RandomUtil.getInt(ids.length);

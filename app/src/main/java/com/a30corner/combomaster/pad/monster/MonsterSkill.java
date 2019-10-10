@@ -1,7 +1,9 @@
 package com.a30corner.combomaster.pad.monster;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -52,7 +54,8 @@ public class MonsterSkill {
 		EVO_MATRIAL_KILLER(21), ENHANCE_MATRIAL_KILLER(22), KILLER_3(23),
 		ENHANCE_HP_PLUS(24), ENHANCE_ATK_PLUS(25), ENHANCE_RCV_PLUS(26),
 		ENHANCE_EXTEND_TIME_PLUS(27), REDUCE_FIRE_PLUS(28), REDUCE_WATER_PLUS(29),
-		REDUCE_WOOD_PLUS(30), REDUCE_LIGHT_PLUS(31), REDUCE_DARK_PLUS(32);
+		REDUCE_WOOD_PLUS(30), REDUCE_LIGHT_PLUS(31), REDUCE_DARK_PLUS(32),
+		SELL_KILLER(33);
 		
 		private final int value;
 		
@@ -86,7 +89,9 @@ public class MonsterSkill {
 		SQUARE_ATTACK(47), ASSISTANT(48),HEART_SQUARE(49),SKILL_CHARGE(50),
 		RESISTANCE_BIND_PLUS(51), EXTEND_TIME_PLUS(52), RESISTANCE_KUMO(53), RESISTANCE_BIND_MOVE(54), SKILL_BOOST_PLUS(55), ATK_UP_80(56),
 		ATK_UP_50(57),L_SHIELD(58),L_ATTACK(59), SELL_KILLER(60), COMBO_10(61), SKILL_VOICE(62), COMBO_DROP(63),
-		DUNGEON_BONUS(64);
+		DUNGEON_BONUS(64),HP_DOWN(65),ATK_DOWN(66),RCV_DOWN(67),
+		RESISTANCE_DARK_PLUS(68), RESISTANCE_JAMMER_PLUS(69), RESISTANCE_POISON_PLUS(69),
+		BLESSING_OF_JAMMER_DROP(70), BLESSING_OF_POISON_DROP(71);
 
 		private final int value;
 
@@ -194,6 +199,28 @@ public class MonsterSkill {
 					int percent = data.get(2);
 					return res.getString(R.string.as_turn_recover, turn, percent);
 				}
+				case ST_L_FORMAT: {
+					return context.getString(R.string.as_format_l, orbType[data.get(0)]);
+				}
+				case ST_CROSS_FORMAT: {
+					String second = "";
+					if (data.size() > 2) {
+						second = "\n" + context.getString(R.string.as_format_cross, orbType[data.get(2)]);
+					}
+					return context.getString(R.string.as_format_cross, orbType[data.get(0)]) + second;
+				}
+				case ST_SQUARE_FORMAT: {
+					return context.getString(R.string.as_format_square, orbType[data.get(0)]);
+				}
+				case ST_DROP_ONLY:{
+					int turn = data.get(0);
+					int size = data.size();
+					String display = orbType[data.get(1)];
+					for (int i = 2; i < size; ++i) {
+						display += "," + orbType[data.get(i)];
+					}
+					return context.getString(R.string.as_drop_only, turn, display);
+				}
 			case ST_VOID_ATTR: {
 				int turn = data.get(0);
 				return context.getString(R.string.as_void_attr_absorb, turn);
@@ -201,6 +228,14 @@ public class MonsterSkill {
 			case ST_VOID: {
 				int turn = data.get(0);
 				return context.getString(R.string.as_void_absorb, turn);
+			}
+			case ST_VOID_0: {
+				int turn = data.get(0);
+				return context.getString(R.string.as_void_void_shield, turn);
+			}
+			case ST_RECOVER_LOCK_REMOVE: {
+				int turn = data.get(0);
+				return context.getString(R.string.as_reduce_eliminate_status, turn);
 			}
 			case ST_UNLOCK: {
 				return context.getString(R.string.as_unlock);
@@ -244,6 +279,7 @@ public class MonsterSkill {
 			case ST_CLEAR_BOARD: {
 				return context.getString(R.string.as_clear_board);
 			}
+
 			case ST_DIRECT_ATTACK: {
 				int damage = data.get(1);
 				boolean all = data.get(0) == 1;
@@ -458,18 +494,43 @@ public class MonsterSkill {
 				int turn = data.get(0);
 				return context.getString(R.string.as_delay, turn);
 			}
+			case ST_RANDOM_CHANGE_RESTRICT_MORE: {
+			    int size = data.size();
+
+			    StringBuilder sb = new StringBuilder();
+                int a;
+                for (a = 0; a < size; a += 4) {
+                    int color = data.get(a);
+                    int count = data.get(a+1);
+                    String except = orbType[data.get(a+2)];
+                    if(data.get(a+2) != data.get(a+3)) {
+                        except += "," + orbType[data.get(a+3)];
+                    }
+
+                    sb.append(context.getString(R.string.as_random_change_restrict, count,
+                            except,
+                            orbType[color]));
+                    sb.append("\n");
+                }
+
+				return sb.toString();
+			}
 			case ST_RANDOM_CHANGE_RESTRICT: {
                 int color = data.get(0);
                 int count = data.get(1);
                 int except = data.get(2);
                 int size = data.size();
-                if (size <= 2) {
+                if (size <= 3) {
                     return context.getString(R.string.as_random_change_restrict, count,
                             orbType[except],
                             orbType[color]);
                 } else {
+                	String exceptStr = orbType[except];
+                	if ((data.size()%3) > 0) {
+                		exceptStr += "," + orbType[data.get(data.size()-1)];
+					}
                     String combind = context.getString(
-                            R.string.as_random_change_restrict, count, orbType[except], orbType[color]);
+                            R.string.as_random_change_restrict, count, exceptStr, orbType[color]);
                     for (int i = 3; i < size; i += 3) {
                         int c = data.get(i);
                         int cnt = data.get(i + 1);
@@ -581,6 +642,70 @@ public class MonsterSkill {
 				}
 				return context.getString(R.string.lst_more_remove, n, TextUtils.join(",", up), factor);
 			}
+			case LST_L_ATTACK: {
+				int[] typeString = {R.string.lst_attr_0, R.string.lst_attr_1, R.string.lst_attr_2, R.string.lst_attr_3};
+				int colorcnt = data.get(0);
+				int orb = data.get(1);
+				StringBuilder color;
+				if(orb == -1) {
+					color = new StringBuilder(context.getString(R.string.orb_any));
+				} else {
+					color = new StringBuilder(arrProps[data.get(1)]);
+				}
+				for(int i=1; i<colorcnt; ++i) {
+					color.append(",").append(arrProps[data.get(1+i)]);
+				}
+				int offset = colorcnt + 1;
+				int count = data.get(offset);
+				StringBuilder sb = new StringBuilder(context.getString(R.string.lst_l_format, color.toString()));
+				for(int i=0; i<count; ++i) {
+					int type = data.get(offset+1+i*2);
+					int factor = data.get(offset+1+i*2+1);
+					if(type == 1 || type == 2) {
+						sb.append(context.getString(typeString[type], factor/100f));
+					} else {
+						sb.append(context.getString(typeString[type], factor));
+					}
+				}
+				return sb.toString();
+			}
+			case LST_COMBO_ATTACK: {
+				int[] typeString = {R.string.lst_attr_0, R.string.lst_attr_1, R.string.lst_attr_2, R.string.lst_attr_3};
+				int colorcnt = data.get(0);
+				String colors = arrProps[data.get(1)];
+				for(int i=1; i<colorcnt; ++i) {
+					colors += "," + arrProps[data.get(1+i*2)];
+				}
+				int needcount = data.get(2);
+				int factorcount = data.get(1+colorcnt*2);
+				StringBuilder factor = new StringBuilder();
+				for(int i=0; i<factorcount; ++i) {
+					int type = data.get(2+colorcnt*2+i*2);
+					int f = data.get(2+colorcnt*2+i*2+1);
+					if(type == 1 || type == 2) {
+						factor.append(context.getString(typeString[type], f/100f));
+					} else {
+						factor.append(context.getString(typeString[type], f));
+					}
+				}
+				return context.getString(R.string.lst_orb_combo_attack, needcount, colors, factor.toString());
+			}
+			case LST_COLOR_COMBO: {
+				int colorcnt = data.get(0);
+				int factor = data.get(2 + colorcnt);
+
+				return context.getString(R.string.lst_attr_3, factor);
+			}
+			case LST_COUNTER_STRIKE: {
+				int percent = data.get(0);
+				int x = data.get(1);
+				int orb = data.get(2);
+				return context.getString(R.string.lst_counter_strike, percent, arrProps[orb], x);
+			}
+			case LST_NO_POISON: {
+				return context.getString(R.string.lst_no_poison);
+			}
+
 			case LST_CROSS_ATTACK: {
 				float x = data.get(0) / 100f;
 				int colorcnt = data.get(1);
@@ -845,6 +970,25 @@ public class MonsterSkill {
 
 				return display;
 			}
+				case LST_COLOR_DIRECT_ATTACK: {
+					// 6,1,4,5,3,0,2,3,30,6,4,35,5,40,6,45
+					// 3,4,3,0,2,30,2,3,35
+					int colorcnt = data.get(0);
+					List<Integer> colors = data.subList(1, 1 + colorcnt);
+					StringBuilder sb = new StringBuilder();
+					int sizem1 = colors.size() - 1;
+					for (int i = 0; i < sizem1; ++i) {
+						sb.append(arrProps[colors.get(i)]).append(",");
+					}
+					sb.append(arrProps[colors.get(sizem1)]);
+
+					int removeN = data.get(1 + colorcnt);
+					int factor = data.get(2 + colorcnt);
+
+					return context.getString(R.string.ls_color_direct_attack,
+							sb.toString(), removeN, factor);
+
+				}
 			case LST_MULTI_ORB_COMBO_MULTI: {
 				// [4,3,25,4]
 				int removeN = data.get(0);
@@ -930,6 +1074,19 @@ public class MonsterSkill {
 				}
 
 			}
+				case LST_MULTI_ORB_DIRECT_ATTACK: {
+					// [4,3,25,4]
+					int removeN = data.get(0);
+					String orb;
+					if (data.get(1) != -1) {
+						orb = arrProps[data.get(1)];
+					} else {
+						orb = context.getString(R.string.orb_any);
+					}
+					return context.getString(R.string.ls_multi_direct_attack,
+							removeN, orb, data.get(2));
+
+				}
 			case LST_USED_SKILL: {
 			    int typecnt = data.get(0);
                 Integer[] types = new Integer[typecnt];
@@ -1021,7 +1178,39 @@ public class MonsterSkill {
 			case LST_NO_DROP: {
 				return context.getString(R.string.lst_no_drop);
 			}
+			case LST_HEART_FACTOR: {
+				int hp = data.get(1);
+				String display = context.getString(R.string.lst_heart, hp);
+				int powerupcnt = data.get(2);
+				int[] powerup = new int[powerupcnt * 2];
+				for (int i = 0; i < powerupcnt; ++i) {
+					int index = i * 2;
+					powerup[index] = data.get(3 + index);
+					powerup[index + 1] = data.get(3 + index + 1);
+				}
+				Resources res = context.getResources();
+				String[] arrUp = res.getStringArray(R.array.power_up);
+				String[] leaderPower = res.getStringArray(R.array.leader_power);
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < powerupcnt; ++i) {
+					int index = i * 2;
 
+					String factor;
+					if (powerup[index] <= 2) {
+						factor = getNoZeroFactor(powerup[index + 1]);
+						sb.append(context.getString(R.string.ls_become_x,
+								arrUp[powerup[index]], factor));
+					} else {
+						String str = String.format(leaderPower[powerup[index]-3], powerup[index + 1]);
+						sb.append(context.getString(R.string.ls_reduce_x, str));
+					}
+
+					if (i != powerupcnt - 1) {
+						sb.append(",");
+					}
+				}
+				return display + sb.toString();
+			}
 			case LST_FACTOR: {
 				// [1,1,2,0,20,2,20]
 				int typecnt = data.get(0);

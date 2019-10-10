@@ -87,7 +87,7 @@ public class EnemyAttackMode {
 				if(condition instanceof ConditionUsed) {
 					enemyMode.get(condition).removeAll();
 				}
-				if (attack.isModeSelection()) {
+				if (condition instanceof ConditionModeSelection) { //attack.isModeSelection()) {
 					enemy.gotoMode(attack.nextMode());
 				}
 				return attack;

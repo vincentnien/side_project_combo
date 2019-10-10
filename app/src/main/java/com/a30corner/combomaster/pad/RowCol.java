@@ -20,8 +20,9 @@ public class RowCol {
 		this.col = col;
 	}
 
-	public boolean equals(RowCol rc) {
-		return row == rc.row && col == rc.col;
+	@Override
+	public boolean equals(Object rc) {
+		return row == ((RowCol)rc).row && col == ((RowCol)rc).col;
 	}
 
 	public RowCol clone() {

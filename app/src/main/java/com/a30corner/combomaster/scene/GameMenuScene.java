@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.a30corner.combomaster.ComboMasterApplication;
 import com.a30corner.combomaster.R;
 import com.a30corner.combomaster.activity.GameActivity;
+import com.a30corner.combomaster.activity.MachineListActivity;
 import com.a30corner.combomaster.activity.MonsterBoxActivity;
 import com.a30corner.combomaster.activity.SettingsFragmentActivity;
 import com.a30corner.combomaster.activity.StageSelectActivity;
@@ -50,7 +51,7 @@ public class GameMenuScene extends BaseMenuScene
 	private static final int MENU_SIMULATOR = 7;
 	private static final int MENU_REPORT = 8;
 	private static final int MENU_CALCULATOR_7x6_MODE = 9;
-	private static final int MENU_CALCULATOR_5x4_MODE = 10;
+	private static final int MENU_EGG_MACHINE = 10;
 	private static final int MENU_STAGE = 11;
 	private static final int MENU_COP = 12;
 
@@ -87,8 +88,8 @@ public class GameMenuScene extends BaseMenuScene
 				activity.getString(R.string.menu_calculate_7x6_mode), vbom), 1.2f,
 				1.0f);
 		IMenuItem calc5x4 = new ScaleMenuItemDecorator(new TextMenuItem(
-				MENU_CALCULATOR_5x4_MODE, font,
-				activity.getString(R.string.menu_calculate_5x4_mode), vbom), 1.2f,
+				MENU_EGG_MACHINE, font,
+				activity.getString(R.string.menu_egg_machine), vbom), 1.2f,
 				1.0f);
 		IMenuItem simulator = new ScaleMenuItemDecorator(new
 		TextMenuItem(MENU_SIMULATOR, font,
@@ -283,41 +284,9 @@ public class GameMenuScene extends BaseMenuScene
 				}
 			});
 			break;
-		case MENU_CALCULATOR_5x4_MODE:
-			activity.runOnUiThread(new Runnable() {
-
-				@Override
-				public void run() {
-					DialogUtil.getTeamSelectDialog(activity,
-							new ITeamSelectCallback() {
-
-								@Override
-								public void onSelect(int index, Map<String, Object> data) {
-									ComboMasterApplication instance = ComboMasterApplication.getsInstance();
-									int mode = (Integer)data.get("gameMode");
-									boolean nullAwoken = (Boolean) data.get("nullAwoken");
-									boolean[] powerUp = (boolean[]) data.get("monsterUp");
-									// FIXME: this is not good design... 
-									// getTargetTeam will check game mode... 
-									// so the order cannot be changed, need to refactor...
-									boolean cop = (Boolean) data.get("copMode");
-									instance.setCopMode(cop);
-									instance.setGameMode(mode);
-									instance.setTargetTeam(index);
-									instance.setNullAwokenSkill(nullAwoken);
-									instance.setPowerUp(powerUp);
-									
-									SceneManager.getInstance().setScene(
-											LoadingScene.class,
-											CalculatorGame5x4Scene.class);
-								}
-
-								@Override
-								public void onCancel() {
-								}
-							}).show();
-				}
-			});
+		case MENU_EGG_MACHINE:
+			activity.startActivity(new Intent(activity,
+					MachineListActivity.class));
 			break;
 		case MENU_CALCULATOR_7x6_MODE:
 			activity.runOnUiThread(new Runnable() {

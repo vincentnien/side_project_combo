@@ -138,7 +138,8 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 	private Sprite mSwapSprite;
 	// move mode
 	private Sprite orbInHand = null;
-    
+
+	private Text mLeaderSkillCombo = null;
     private List<Text> mComboList = new ArrayList<Text>();
     private List<Text> mFactorText = new ArrayList<Text>();
     
@@ -647,6 +648,7 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 
 	private void doRemoval(final MatchBoard7x6 board, final int current) {
 		if (mForceReset.get()) {
+			clearCombo();
 			changeState(GameState.GAME_RUN);
 			return;
 		}
@@ -755,6 +757,15 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
                 }
             });
         }
+		if(mLeaderSkillCombo != null) {
+			mLeaderSkillCombo.registerEntityModifier(new AlphaModifier(0.3f, 1.0f, 0.0f) {
+				@Override
+				protected void onModifierFinished(IEntity pItem) {
+					detach(pItem);
+				}
+			});
+			mLeaderSkillCombo = null;
+		}
     }
 	
 	private void adjustGameBoard(MatchBoard7x6 board) {
@@ -787,33 +798,33 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 				} else if (target != null) {
 					// only drop once in this mode
 					// create 1~5 orbs and add to drop list...
-				    
-				    // adjust drop rate by active skill
-				    List<Pair<Integer, Integer>> dropData = null;
-				    if ( mDropRateSkill != null ) {
-				        List<Integer> data = mDropRateSkill.getData();
-				        int size = data.size();
-				        dropData = new ArrayList<Pair<Integer,Integer>>((size-1)/2);
-				        for(int index=1; index<size; index+=2) {
-				            dropData.add(new Pair<Integer, Integer>(data.get(index), data.get(index+1)));
-				        }
-				    }
-				    
-				    if ( mContinueDrop.get() ) {
-                        int emptyLen = target.col + 1;
-                        for (int k = target.col; k >= 0; --k) {
-                            int neworb = PadBoardAI7x6.getNewOrbRestrictChances(mDropType, dropData);   
-                            if (neworb <= 5 && RandomUtil.getLuck(mPlusOrbCount[neworb]*20)) {
-                                neworb += 10;
-                            }
-                            
-                            gameBoard[target.row][k] = neworb;
-                            dropList.add(new Pair<RowCol, RowCol>(RowCol.make(
-                                    target.row, k), RowCol.make(target.row, k
-                                    - emptyLen)));
-                        }
-                        hasChanged = true;
-				    }
+
+					// adjust drop rate by active skill
+					List<Pair<Integer, Integer>> dropData = null;
+					if (mDropRateSkill != null) {
+						List<Integer> data = mDropRateSkill.getData();
+						int size = data.size();
+						dropData = new ArrayList<Pair<Integer, Integer>>((size - 1) / 2);
+						for (int index = 1; index < size; index += 2) {
+							dropData.add(new Pair<Integer, Integer>(data.get(index), data.get(index + 1)));
+						}
+					}
+
+					if (mContinueDrop.get()) {
+						int emptyLen = target.col + 1;
+						for (int k = target.col; k >= 0; --k) {
+							int neworb = PadBoardAI7x6.getNewOrbRestrictChances(mDropType, dropData);
+							if (neworb <= 5 && RandomUtil.getLuck(mPlusOrbCount[neworb] * 20)) {
+								neworb += 10;
+							}
+
+							gameBoard[target.row][k] = neworb;
+							dropList.add(new Pair<RowCol, RowCol>(RowCol.make(
+									target.row, k), RowCol.make(target.row, k
+									- emptyLen)));
+						}
+						hasChanged = true;
+					}
 				}
 			}
 		}
@@ -830,7 +841,7 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 					sprites[orb.row][orb.col] = sprites[target.row][target.col];
 					sprites[target.row][target.col] = temp;
 				} else { // drop from sky
-                    Sprite newSprite = getSprite(gameBoard[target.row][target.col]);
+					Sprite newSprite = getSprite(gameBoard[target.row][target.col]);
 					newSprite.setPosition(target.row * Constants.ORB_SIZE_7x6
 							+ Constants.OFFSET_X, fromY);
 					newSprite.setZIndex(0);
@@ -853,74 +864,143 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 			}, (long) (1000 * (Constants.SECOND_DROP_7x6 + 0.05f)));
 
 		} else {
-			int step = mReplay.size();
-			if (step > 999) {
-				step = 999;
+
+			addAdditionCombos(new Runnable(){
+
+				@Override
+				public void run() {
+					finishCombo();
+				}
+			});
+
+		}
+	}
+
+	private void addAdditionCombos(final Runnable runnable) {
+		int additionCombos = 0;
+
+		MonsterInfo m0 = mTeam.getMember(0);
+		MonsterInfo f0 = mTeam.getMember(5);
+		additionCombos += getAdditionCombos(m0) + getAdditionCombos(f0);
+
+		if(additionCombos > 0) {
+			Text text = mComboList.get(mCombo.get()-1);
+			mLeaderSkillCombo = new Text(text.getX(), text.getY() - 20, ResourceManager.getInstance().getFontStroke(), String.format("Combo %d", mCombo.get() + additionCombos), vbom);
+			mLeaderSkillCombo.setColor(Color.YELLOW);
+			mLeaderSkillCombo.setZIndex(6);
+			mLeaderSkillCombo.setScale(1.3f);
+
+			List<Match7x6> match = addCombos(additionCombos);
+			mScoreBoard.addAll(match);
+
+			mLeaderSkillCombo.registerEntityModifier(new ScaleModifier(0.4f, 2f, 1.0f){
+				@Override
+				protected void onModifierFinished(IEntity pItem) {
+					runnable.run();
+				}
+			});
+			attachChild(mLeaderSkillCombo);
+		} else {
+			runnable.run();
+		}
+	}
+
+	private int getAdditionCombos(MonsterInfo m) {
+		if(m == null) {
+			return 0;
+		}
+		int combos = 0;
+		List<LeaderSkill> ls = m.getLeaderSkill();
+		LeaderSkill colorSkill = null;
+		for(LeaderSkill s : ls) {
+			if(s.getType() == LeaderSkillType.LST_COLOR_FACTOR) {
+				colorSkill = s;
 			}
-			mStepCountText.setText(step + mStepText);
-			Collections.sort(mScoreBoard, mScoreComparator);
-
-
-			clearCombo();
-            matches.clear();
-            factors.clear();
-            
-            if(mAddComboSkill != null && mAddComboSkill.countDown()) {
-            	mAddComboSkill = null;
-            }
-            
-			if (mPowerUpTimes != 0) {
-				mPreviousSkill = mPowerUpSkill;
-				activity.getEngine().runOnUpdateThread(new Runnable() {
-
-					@Override
-					public void run() {
-						if (--mPowerUpTimes == 0) {
-							removeActiveSkill();
-						} else if (mPowerUpSkill != null) {
-							setPowerUpText(mPowerUpSkill.getData().get(1));
-						}
+			if(s.getType() == LeaderSkillType.LST_COMBO_ATTACK) {
+				//double f = DamageCalculator7x6.getLeaderFactor(mTeam,s,m,mScoreBoard,null);
+				if(DamageCalculator7x6.isLSMatched(mTeam,s,m,mScoreBoard,null,true)) {
+					return DamageCalculator.getLSCombo(s);
+				}
+			} else if (s.getType() == LeaderSkillType.LST_COLOR_COMBO) {
+				if(colorSkill != null) {
+					double f = DamageCalculator7x6.getLeaderFactor(mTeam,colorSkill,m,mScoreBoard,null);
+					if(f>1.0) {
+						return DamageCalculator.getLSCombo(s);
 					}
-				});
-
+				}
 			}
-			
-			if (mDropRateTimes != 0) {
-                activity.getEngine().runOnUpdateThread(new Runnable() {
+		}
+		return combos;
+	}
 
-                    @Override
-                    public void run() {
-                        if (--mDropRateTimes == 0) {
-                            removeDropRateSkill();
-                        } else if (mDropRateSkill != null) {
-                            setDropRateText();
-                            //setPowerUpText(mPowerUpSkill.getData().get(1));
-                        }
-                    }
-                });
-			}
-			
-			if (mTimeExtendTimes != 0) {
-				activity.getEngine().runOnUpdateThread(new Runnable() {
-					@Override
-					public void run() {
-						if (--mTimeExtendTimes == 0) {
-							updateDropTime();
-							removeTimeExtendSkill();
-						} else {
-							setTimeExtendText(mTimeExtendSkill.getData().get(1));
-						}
+	private void finishCombo() {
+		int step = mReplay.size();
+		if (step > 999) {
+			step = 999;
+		}
+		mStepCountText.setText(step + mStepText);
+		Collections.sort(mScoreBoard, mScoreComparator);
+
+
+		clearCombo();
+		matches.clear();
+		factors.clear();
+
+		if(mAddComboSkill != null && mAddComboSkill.countDown()) {
+			mAddComboSkill = null;
+		}
+
+		if (mPowerUpTimes != 0) {
+			mPreviousSkill = mPowerUpSkill;
+			activity.getEngine().runOnUpdateThread(new Runnable() {
+
+				@Override
+				public void run() {
+					if (--mPowerUpTimes == 0) {
+						removeActiveSkill();
+					} else if (mPowerUpSkill != null) {
+						setPowerUpText(mPowerUpSkill.getData().get(1));
 					}
-				});
-			}
+				}
+			});
 
-			showScore();
-			toggleSkillFired(false);
-			if ( mContinueDrop.get() ) {
-			    changeState(GameState.GAME_RUN);
-			} else {
-			    changeState(GameState.GAME_END);
-			}
+		}
+
+		if (mDropRateTimes != 0) {
+			activity.getEngine().runOnUpdateThread(new Runnable() {
+
+				@Override
+				public void run() {
+					if (--mDropRateTimes == 0) {
+						removeDropRateSkill();
+					} else if (mDropRateSkill != null) {
+						setDropRateText();
+						//setPowerUpText(mPowerUpSkill.getData().get(1));
+					}
+				}
+			});
+		}
+
+		if (mTimeExtendTimes != 0) {
+			activity.getEngine().runOnUpdateThread(new Runnable() {
+				@Override
+				public void run() {
+					if (--mTimeExtendTimes == 0) {
+						updateDropTime();
+						removeTimeExtendSkill();
+					} else {
+						setTimeExtendText(mTimeExtendSkill.getData().get(1));
+					}
+				}
+			});
+		}
+
+		showScore();
+		toggleSkillFired(false);
+		if ( mContinueDrop.get() ) {
+			changeState(GameState.GAME_RUN);
+		} else {
+			changeState(GameState.GAME_END);
 		}
 	}
 	
@@ -989,7 +1069,7 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
             		
 
             		if(fired) {
-            			percent = crossSkill[0]>0 && crossSkill[1]>0 ? 75f:50f;
+            			percent = crossSkill[0]>0 && crossSkill[1]>0 ? 0.75f:0.50f;
             			if(crossSkill[0]>0) {
             				atk *= crossSkill[0];
             			}
@@ -1383,6 +1463,195 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 			}
 			setGameBoard(newboard);
 			break;
+			case ST_L_FORMAT: {
+				int[][] nb = PadBoardAI7x6.copy_board(gameBoard);
+//				List<Pair<Integer, Integer>> valid = new ArrayList<Pair<Integer, Integer>>();
+//				for(int i=0; i<PadBoardAI7x6.ROWS; ++i) {
+//					for(int j=0; j<PadBoardAI7x6.COLS; ++j) {
+//						if ((nb[i][j]%10) != color) {
+//							valid.add(new Pair<Integer, Integer>(i, j));
+//						}
+//					}
+//				}
+//				if (valid.size() <= 0) {
+//					break;
+//				}
+//				int rnd = RandomUtil.getInt(valid.size());
+//				Pair<Integer, Integer> one = valid.get(rnd);
+
+				int size = skill.getData().size();
+
+				List<Integer> data = skill.getData();
+				for(int i=0; i<size; i+=2) {
+					int color = data.get(i);
+					int pos = data.get(i+1);
+
+					int r, c;
+					if(pos == 0) {
+						r = 0;
+						c = 0;
+					} else if (pos == 1) {
+						r = PadBoardAI7x6.ROWS-1;
+						c = 0;
+					} else if (pos == 2) {
+						r = 0;
+						c = PadBoardAI7x6.COLS-1;
+					} else {
+						r = PadBoardAI7x6.ROWS-1;
+						c = PadBoardAI7x6.COLS-1;
+					}
+
+					nb[r][c] = (nb[r][c] - (nb[r][c] % 10)) + color;
+					if (r + 2 < PadBoardAI7x6.ROWS && c - 2 >= 0) {
+						// |
+						// |____
+						nb[r + 1][c] = (nb[r + 1][c] - (nb[r + 1][c] % 10)) + color;
+						nb[r + 2][c] = (nb[r + 2][c] - (nb[r + 2][c] % 10)) + color;
+						nb[r][c - 1] = (nb[r][c - 1] - (nb[r][c - 1] % 10)) + color;
+						nb[r][c - 2] = (nb[r][c - 2] - (nb[r][c - 2] % 10)) + color;
+					} else if (r + 2 < PadBoardAI7x6.ROWS && c + 2 < PadBoardAI7x6.COLS) {
+						// ____
+						// |
+						// |
+						nb[r + 1][c] = (nb[r + 1][c] - (nb[r + 1][c] % 10)) + color;
+						nb[r + 2][c] = (nb[r + 2][c] - (nb[r + 2][c] % 10)) + color;
+						nb[r][c + 1] = (nb[r][c + 1] - (nb[r][c + 1] % 10)) + color;
+						nb[r][c + 2] = (nb[r][c + 2] - (nb[r][c + 2] % 10)) + color;
+					} else if (r - 2 >= 0 && c - 2 >= 0) {
+						//     |
+						// ____|
+
+						nb[r - 1][c] = (nb[r - 1][c] - (nb[r - 1][c] % 10)) + color;
+						nb[r - 2][c] = (nb[r - 2][c] - (nb[r - 2][c] % 10)) + color;
+						nb[r][c - 1] = (nb[r][c - 1] - (nb[r][c - 1] % 10)) + color;
+						nb[r][c - 2] = (nb[r][c - 2] - (nb[r][c - 2] % 10)) + color;
+					} else {
+						// ____
+						//     |
+						//     |
+
+						nb[r - 1][c] = (nb[r - 1][c] - (nb[r - 1][c] % 10)) + color;
+						nb[r - 2][c] = (nb[r - 2][c] - (nb[r - 2][c] % 10)) + color;
+						nb[r][c + 1] = (nb[r][c + 1] - (nb[r][c + 1] % 10)) + color;
+						nb[r][c + 2] = (nb[r][c + 2] - (nb[r][c + 2] % 10)) + color;
+					}
+				}
+				setGameBoard(nb);
+				break;
+			}
+			case ST_SQUARE_FORMAT: {
+//				int color = skill.getData().get(0);
+				int[][] nb = PadBoardAI7x6.copy_board(gameBoard);
+//				List<Pair<Integer, Integer>> valid = new ArrayList<Pair<Integer, Integer>>();
+//				for(int i=1; i<PadBoardAI7x6.ROWS-1; ++i) {
+//					for(int j=1; j<PadBoardAI7x6.COLS-2; ++j) {
+//						if ((nb[i][j]%10) != color) {
+//							valid.add(new Pair<Integer, Integer>(i, j));
+//						}
+//					}
+//				}
+//				if (valid.size() <= 0) {
+//					break;
+//				}
+//				int rnd = RandomUtil.getInt(valid.size());
+//				Pair<Integer, Integer> one = valid.get(rnd);
+
+				List<Integer> data = skill.getData();
+				int size = data.size();
+
+				for(int i=0; i<size; i+=2) {
+					int color = data.get(i);
+					int pos = data.get(i + 1);
+
+					int r, c;
+					if (pos == 0) {
+						r = 1;
+						c = 1;
+					} else if (pos == 1) {
+						r = PadBoardAI7x6.ROWS - 2;
+						c = 1;
+					} else if (pos == 2) {
+						r = 1;
+						c = PadBoardAI7x6.COLS - 3;
+					} else if (pos == 3){
+						r = PadBoardAI7x6.ROWS - 2;
+						c = PadBoardAI7x6.COLS - 3;
+					} else {
+						r = 1;
+						c = 2;
+					}
+
+					nb[r][c] = nb[r][c] - (nb[r][c] % 10) + color;
+					nb[r + 1][c] = nb[r + 1][c] - (nb[r + 1][c] % 10) + color;
+					nb[r + 1][c - 1] = nb[r + 1][c - 1] - (nb[r + 1][c - 1] % 10) + color;
+					nb[r - 1][c] = nb[r - 1][c] - (nb[r - 1][c] % 10) + color;
+					nb[r - 1][c + 1] = nb[r - 1][c + 1] - (nb[r - 1][c + 1] % 10) + color;
+					nb[r][c + 1] = nb[r][c + 1] - (nb[r][c + 1] % 10) + color;
+					nb[r + 1][c + 1] = nb[r + 1][c + 1] - (nb[r + 1][c + 1] % 10) + color;
+					nb[r][c - 1] = nb[r][c - 1] - (nb[r][c - 1] % 10) + color;
+					nb[r - 1][c - 1] = nb[r - 1][c - 1] - (nb[r - 1][c - 1] % 10) + color;
+					nb[r][c + 2] = nb[r][c + 2] - (nb[r][c + 2] % 10) + color;
+					nb[r + 1][c + 2] = nb[r + 1][c + 2] - (nb[r + 1][c + 2] % 10) + color;
+					nb[r - 1][c + 2] = nb[r - 1][c + 2] - (nb[r - 1][c + 2] % 10) + color;
+				}
+
+				setGameBoard(nb);
+				break;
+			}
+			case ST_CROSS_FORMAT: {
+				int[][] nb = PadBoardAI7x6.copy_board(gameBoard);
+//				List<Pair<Integer, Integer>> valid = new ArrayList<Pair<Integer, Integer>>();
+//				for(int i=1; i<PadBoardAI7x6.ROWS-1; ++i) {
+//					for(int j=1; j<PadBoardAI7x6.COLS-1; ++j) {
+//						if ((nb[i][j]%10) != color) {
+//							valid.add(new Pair<Integer, Integer>(i, j));
+//						}
+//					}
+//				}
+//				if (valid.size() <= 0) {
+//					break;
+//				}
+//				int rnd = RandomUtil.getInt(valid.size());
+//				Pair<Integer, Integer> one = valid.get(rnd);
+
+				List<Integer> data = skill.getData();
+				int size = data.size();
+
+				for(int i=0; i<size; i+=2) {
+					int color = data.get(i);
+					int pos = data.get(i + 1);
+
+					int r, c;
+					if (pos == 0) {
+						r = 1;
+						c = 1;
+						nb[r][c+2] = nb[r][c+2] - (nb[r][c+2] % 10) + color;
+					} else if (pos == 1) {
+						r = PadBoardAI7x6.ROWS - 2;
+						c = 1;
+						nb[r-2][c] = nb[r-2][c] - (nb[r-2][c] % 10) + color;
+						nb[r][c+2] = nb[r][c+2] - (nb[r][c+2] % 10) + color;
+					} else if (pos == 2) {
+						r = 1;
+						c = PadBoardAI7x6.COLS - 2;
+						nb[r][c-2] = nb[r][c-2] - (nb[r][c-2] % 10) + color;
+					} else {
+						r = PadBoardAI7x6.ROWS - 2;
+						c = PadBoardAI7x6.COLS - 2;
+						nb[r][c-2] = nb[r][c-2] - (nb[r][c-2] % 10) + color;
+						nb[r-2][c] = nb[r-2][c] - (nb[r-2][c] % 10) + color;
+					}
+
+					nb[r][c] = nb[r][c] - (nb[r][c] % 10) + color;
+					nb[r + 1][c] = nb[r + 1][c] - (nb[r + 1][c] % 10) + color;
+					nb[r - 1][c] = nb[r - 1][c] - (nb[r - 1][c] % 10) + color;
+					nb[r][c + 1] = nb[r][c + 1] - (nb[r][c + 1] % 10) + color;
+					nb[r][c - 1] = nb[r][c - 1] - (nb[r][c - 1] % 10) + color;
+				}
+
+				setGameBoard(nb);
+				break;
+			}
 		case ST_ONE_LINE_TRANSFORM:
 			if (mCurrentState == GameState.GAME_END) {
 				setGameBoard(PadBoardAI7x6.generateBoardWithPlus(mDropType, false, mPlusOrbCount),
@@ -3097,6 +3366,19 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 		findMatches();
 	}
 
+	private List<Match7x6> addCombos(int addition) {
+		ArrayList<RowCol> list = new ArrayList<RowCol>();
+		list.add(RowCol.make(0, 0));
+		list.add(RowCol.make(0, 1));
+		list.add(RowCol.make(0, 2));
+
+		List<Match7x6> match76 = new ArrayList<Match7x6>();
+		for(int i=0; i<addition; ++i) {
+			match76.add(Match7x6.make(9, 3, 0, list));
+		}
+		return match76;
+	}
+
     List<Match> matches = new ArrayList<Match>();
     List<Double> factors;
     List<Double> heals;
@@ -3109,16 +3391,18 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 
 				final MatchBoard7x6 matchBoard = PadBoardAI7x6.findMatches(gameBoard, removeN, null);
                 if(matches.size() == 0 && mAddComboSkill != null) {
-                	ArrayList<RowCol> list = new ArrayList<RowCol>();
-                	list.add(RowCol.make(0, 0));
-                	list.add(RowCol.make(0, 1));
-                	list.add(RowCol.make(0, 2));
-                	
-                	int addition = mAddComboSkill.getData().get(1);
-                	List<Match7x6> match76 = new ArrayList<Match7x6>();
-                	for(int i=0; i<addition; ++i) {
-                		match76.add(Match7x6.make(9, 3, 0, list));
-                	}
+//                	ArrayList<RowCol> list = new ArrayList<RowCol>();
+//                	list.add(RowCol.make(0, 0));
+//                	list.add(RowCol.make(0, 1));
+//                	list.add(RowCol.make(0, 2));
+//
+//                	int addition = mAddComboSkill.getData().get(1);
+//                	List<Match7x6> match76 = new ArrayList<Match7x6>();
+//                	for(int i=0; i<addition; ++i) {
+//                		match76.add(Match7x6.make(9, 3, 0, list));
+//                	}
+					int addition = mAddComboSkill.getData().get(1);
+					List<Match7x6> match76 = addCombos(addition);
                 	mCombo.set(addition);
                 	mScoreBoard.addAll(match76);
                 	matches.addAll(match76);
@@ -3293,6 +3577,9 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 			}
 			break;
 		case MENU_EDIT:
+			if (GameState.GAME_ANIMATION == mCurrentState) {
+				break;
+			}
 			if (GameState.GAME_END != mCurrentState) {
 				mStack.push(gameBoard);
 			}
@@ -3571,7 +3858,7 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 			setGameBoardWOAnimation(mStack.peek());
 		}
 		List<IEntity> attachList = new ArrayList<IEntity>();
-		changeState(GameState.GAME_MODIFY_BOARD);
+		//changeState(GameState.GAME_MODIFY_BOARD);
 		for (Sprite s : mSetByHandSprite) {
 			registerTouchArea(s);
 			attachList.add(s);
@@ -3610,6 +3897,15 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 		detachList.add(mTimerText);
 		
 		detach(detachList);
+		registerUpdateHandler(new TimerHandler(Constants.SECOND_REFRESH + 0.1f,
+				new ITimerCallback() {
+
+					@Override
+					public void onTimePassed(TimerHandler pTimerHandler) {
+						unregisterUpdateHandler(pTimerHandler);
+						changeState(GameState.GAME_MODIFY_BOARD);
+					}
+				}));
 	}
 
 	private synchronized void changeState(GameState state) {
@@ -4170,6 +4466,9 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 		List<IEntity> attachList = new ArrayList<IEntity>();
 		for (int i = 0; i < PadBoardAI7x6.ROWS; ++i) {
 			for (int j = 0; j < PadBoardAI7x6.COLS; ++j) {
+				if(!force && gameBoard[i][j] == board[i][j]) {
+					continue;
+				}
 				int x = Constants.ORB_SIZE_7x6 * i;
 				int y = Constants.ORB_SIZE_7x6 * j;
 				
@@ -4204,6 +4503,7 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
                 sprites[i][j] = s;
                 setPosition(i, j, x, y);
                 s.setZIndex(1);
+                s.setVisible(true);
                 attachList.add(s);
 
 			}

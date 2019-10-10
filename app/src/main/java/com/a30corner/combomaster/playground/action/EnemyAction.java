@@ -34,6 +34,7 @@ public abstract class EnemyAction extends Action {
         ADD_SKILL_TURN,
         DARK_SCREEN,
         RANDOM_CHANGE,
+        RANDOM_CHANGE_MULTIPLE,
         ABSORB_SHIELD,
         DAMAGE_ABSORB_SHIELD,
         DAMAGE_VOID_SHIELD,
@@ -47,7 +48,9 @@ public abstract class EnemyAction extends Action {
         RECOVERY_UP,
         POSITION_CHANGE,
         CLOUD,
-        LOCK_REMOVE
+        LOCK_REMOVE,
+        NO_DROP,
+        HP_CHANGE
     }
     
     public String title = "";

@@ -1,18 +1,10 @@
 package com.a30corner.combomaster.pad;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 
 import com.a30corner.combomaster.ComboMasterApplication;
-import com.a30corner.combomaster.R;
 import com.a30corner.combomaster.pad.monster.ActiveSkill;
 import com.a30corner.combomaster.pad.monster.ActiveSkill.SkillType;
 import com.a30corner.combomaster.pad.monster.LeaderSkill;
@@ -23,15 +15,17 @@ import com.a30corner.combomaster.pad.monster.MonsterSkill.AwokenSkill;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.MonsterType;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.SinglePowerUp;
 import com.a30corner.combomaster.pad.monster.TeamInfo;
-import com.a30corner.combomaster.playground.action.impl.Attack;
+import com.a30corner.combomaster.playground.entity.SkillEntity;
 import com.a30corner.combomaster.utils.Constants;
 import com.a30corner.combomaster.utils.LogUtil;
 
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import static com.a30corner.combomaster.pad.monster.LeaderSkill.LeaderSkillType.*;
+import static com.a30corner.combomaster.pad.monster.LeaderSkill.LeaderSkillType.LST_FIVE_ORB;
 
 public class DamageCalculator {
 
@@ -371,17 +365,16 @@ public class DamageCalculator {
 						}
 					}
 					if(factor > 1.0) {
-						if(factor > 1.0) {
-							float x = 1.0f;
-							if(data.size()>7) {
-								x = data.get(7)/100.0f;
-							} else if(data.size()>4) {
-								x = data.get(4)/100.0f;
-							}
-							if(x>1.0f) {
-								total *= x;
-							}
-						}
+						total *= factor;
+//						float x = (float)factor;
+//						if(data.size()>7) {
+//							x = data.get(7)/100.0f;
+//						} else if(data.size()>4) {
+//							x = data.get(4)/100.0f;
+//						}
+//						if(x>1.0f) {
+//							total *= x;
+//						}
 					}
 				}
 				break;
@@ -753,8 +746,17 @@ public class DamageCalculator {
 	}
 
 	// for multiple mode
-    public static double calculatePoison(int totalHp,
+    public static double calculatePoison(TeamInfo team, int totalHp,
             List<Match> mScoreBoard, ActiveSkill active) {
+		MonsterInfo leader = team.getMember(0);
+		if (isLeaderSkill(leader, LeaderSkillType.LST_NO_POISON)) {
+			return 0.0;
+		}
+		MonsterInfo friend = team.getMember(5);
+		if (isLeaderSkill(friend, LeaderSkillType.LST_NO_POISON)) {
+			return 0.0;
+		}
+
         int hp = totalHp;
         int totalPercent = 0;
         double totalEnhancedPercent = 0;
@@ -769,9 +771,30 @@ public class DamageCalculator {
         }
         return Math.ceil(hp * totalPercent / 100.0) + Math.ceil(hp * totalEnhancedPercent / 100.0);
     }
+
+    public static boolean isLeaderSkill(MonsterInfo info, LeaderSkillType type) {
+		if(info == null) {
+			return false;
+		}
+		for (LeaderSkill skill : info.getLeaderSkill()) {
+			if(skill.getType() == type) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
     public static double calculatePoison(TeamInfo mTeam,
             List<Match> mScoreBoard, ActiveSkill active) {
+		MonsterInfo leader = mTeam.getMember(0);
+		if (isLeaderSkill(leader, LeaderSkillType.LST_NO_POISON)) {
+			return 0.0;
+		}
+		MonsterInfo friend = mTeam.getMember(5);
+		if (isLeaderSkill(friend, LeaderSkillType.LST_NO_POISON)) {
+			return 0.0;
+		}
+
         int hp = mTeam.getHp();
         int totalPercent = 0;
         double totalEnhancedPercent = 0;
@@ -990,17 +1013,26 @@ public class DamageCalculator {
                 int atk = minfo.getAtk(isCopMode);
                 List<Pair<Double, Double>> memberBasicAtk = new ArrayList<Pair<Double, Double>>();
 				int square = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.SQUARE_ATTACK, isCopMode);
-				boolean hasHeartSquare = false;
+				int blessingPoison = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.BLESSING_OF_POISON_DROP, isCopMode);
+				int blessingJammer = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.BLESSING_OF_JAMMER_DROP, isCopMode);
+				boolean hasHeartSquare = false, hasPoisonBlessing = false, hasJammerBlessing = false;
 
                 for (Match m : combos) {
                     if (props.first != m.type && props.second != m.type) {
+						if(m.type == 2 && heartSquare > 0 && m.isSquare()) {
+							hasHeartSquare = true;
+						} else if (blessingPoison > 0 && (m.type == 6 || m.type == 8)) {
+							hasPoisonBlessing = true;
+						} else if (blessingJammer > 0 && (m.type == 7)) {
+							hasJammerBlessing = true;
+						}
                         continue;
                     }
 
                     double damage = (1.0 + (.25 * (m.count - 3)));
                     if (m.pcount > 0) {
                         damage *= (1.0 + 0.06 * m.pcount)
-                                * (1.0 + 0.05 * plusOSkill[m.type]);
+                                * (1.0 + Constants.PLUS_ENHANCE * plusOSkill[m.type]);
                     }
 //                  if (m.isOneRow() && rowSkill[m.type] > 0) {
 //                      damage *= (1.0 + 0.1 * rowSkill[m.type] * rowcount[m.type]);
@@ -1022,15 +1054,14 @@ public class DamageCalculator {
 
                         atk2 = Math.ceil(calc);
                     }
-					if (!nullAwoken && square > 0 && m.isSquare()) {
-						if (props.first == m.type) {
-							atk1 = Math.round(atk1 * Math.pow(2.5, square));
-						}
-						if (props.second == m.type) {
-							atk2 = Math.round(atk2 * Math.pow(2.5, square));
-						}
-						if(m.type == 2 && heartSquare > 0) {
-							hasHeartSquare = true;
+					if (!nullAwoken && m.isSquare()) {
+						if(square>0) {
+							if (props.first == m.type) {
+								atk1 = Math.round(atk1 * Math.pow(2.5, square));
+							}
+							if (props.second == m.type) {
+								atk2 = Math.round(atk2 * Math.pow(2.5, square));
+							}
 						}
 					}
 
@@ -1087,10 +1118,20 @@ public class DamageCalculator {
 
                     memberBasicAtk.add(new Pair<Double, Double>(atk1, atk2));
                 }
-                if(hasHeartSquare) {
-                	double atkUp = Math.pow(2.0, heartSquare);
+
+				double atkUp = 1.0;
+				if(hasHeartSquare) {
+					atkUp *= Math.pow(2.0, heartSquare);
+				}
+				if(hasPoisonBlessing) {
+					atkUp *= Math.pow(2.0, blessingPoison);
+				}
+				if(hasJammerBlessing) {
+					atkUp *= Math.pow(2.0, blessingJammer);
+				}
+				if(hasHeartSquare || hasPoisonBlessing || hasJammerBlessing) {
 					List<Pair<Double, Double>> powerUpAtk = new ArrayList<Pair<Double, Double>>();
-					for(Pair<Double, Double> pair : powerUpAtk) {
+					for(Pair<Double, Double> pair : memberBasicAtk) {
 						powerUpAtk.add(new Pair<Double, Double>(pair.first*atkUp, pair.second*atkUp));
 					}
 					normalAtk.add(powerUpAtk);
@@ -1150,6 +1191,8 @@ public class DamageCalculator {
 								total += minfo.getTargetAwokenCount(AwokenSkill.SKILL_BOOST_PLUS, isCopMode) * 2;
 							} else if(skill == AwokenSkill.EXTEND_TIME) {
 								total += minfo.getTargetAwokenCount(AwokenSkill.EXTEND_TIME_PLUS, isCopMode) * 2;
+							} else if(skill == AwokenSkill.RESISTANCE_DARK) {
+								total += minfo.getTargetAwokenCount(AwokenSkill.RESISTANCE_DARK_PLUS, isCopMode) * 5;
 							}
 						}
 					}
@@ -1204,10 +1247,10 @@ public class DamageCalculator {
                 double rowPower1 = 1.0;
                 double rowPower2 = 1.0;
                 if ( rowSkill[props.first] > 0 ) {
-                    rowPower1 = (1.0 + 0.1 * rowSkill[props.first] * rowcount[props.first]);
+                    rowPower1 = (1.0 + Constants.ROW_ENHANCE * rowSkill[props.first] * rowcount[props.first]);
                 }
                 if ( props.second != -1 && rowSkill[props.second] > 0 ) {
-                    rowPower2 = (1.0 + 0.1 * rowSkill[props.second] * rowcount[props.second]);
+                    rowPower2 = (1.0 + Constants.ROW_ENHANCE * rowSkill[props.second] * rowcount[props.second]);
                 }
                 
                 // * prop factor
@@ -1450,22 +1493,30 @@ public class DamageCalculator {
                 int hp80 = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.ATK_UP_80, copMode);
                 int hp50 = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.ATK_UP_50, copMode);
                 int heartSquare = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.HEART_SQUARE, copMode);
-				boolean hasHeartSquare = false;
+				int blessingPoison = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.BLESSING_OF_POISON_DROP, copMode);
+				int blessingJammer = nullAwoken? 0:minfo.getTargetAwokenCount(AwokenSkill.BLESSING_OF_JAMMER_DROP, copMode);
+				boolean hasHeartSquare = false, hasPoisonBlessing = false, hasJammerBlessing = false;
 
-				//Log.e("Vincent", "twoway c=" + twoway);
 				Pair<Integer, Integer> props = minfo.getProps();
 				int atk = minfo.getAtk(copMode); //gameMode==Constants.MODE_MULTIPLE
 				List<Pair<Double, Double>> memberBasicAtk = new ArrayList<Pair<Double, Double>>();
 
 				for (Match m : combos) {
 					if (props.first != m.type && props.second != m.type) {
+						if(m.type == 2 && heartSquare > 0  && m.isSquare()) {
+							hasHeartSquare = true;
+						} else if (blessingPoison > 0 && (m.type == 6 || m.type == 8)) {
+							hasPoisonBlessing = true;
+						} else if (blessingJammer > 0 && (m.type == 7)) {
+							hasJammerBlessing = true;
+						}
 						continue;
 					}
 
 					double damage = (1.0 + (.25 * (m.count - 3)));
 					if (m.pcount > 0) {
 						damage *= (1.0 + 0.06 * m.pcount)
-								* (1.0 + 0.05 * plusOSkill[m.type]);
+								* (1.0 + Constants.PLUS_ENHANCE * plusOSkill[m.type]);
 					}
 //					if (m.isOneRow() && rowSkill[m.type] > 0) {
 //						damage *= (1.0 + 0.1 * rowSkill[m.type] * rowcount[m.type]);
@@ -1488,15 +1539,14 @@ public class DamageCalculator {
 						atk2 = Math.ceil(calc);
 					}
 					// not only major prop will be enhanced
-					if (!nullAwoken && square > 0 && m.isSquare()) {
-						if (props.first == m.type) {
-							atk1 = Math.round(atk1 * Math.pow(2.5, square));
-						}
-						if (props.second == m.type) {
-							atk2 = Math.round(atk2 * Math.pow(2.5, square));
-						}
-						if(m.type == 2 && heartSquare > 0) {
-							hasHeartSquare = true;
+					if (!nullAwoken && m.isSquare()) {
+						if(square>0) {
+							if (props.first == m.type) {
+								atk1 = Math.round(atk1 * Math.pow(2.5, square));
+							}
+							if (props.second == m.type) {
+								atk2 = Math.round(atk2 * Math.pow(2.5, square));
+							}
 						}
 					}
 					if (!nullAwoken && twoway > 0 && m.isTwoWay()) {
@@ -1552,10 +1602,20 @@ public class DamageCalculator {
 
 					memberBasicAtk.add(new Pair<Double, Double>(atk1, atk2));
 				}
+
+				double atkUp = 1.0;
 				if(hasHeartSquare) {
-					double atkUp = Math.pow(2.0, heartSquare);
+					atkUp *= Math.pow(2.0, heartSquare);
+				}
+				if(hasPoisonBlessing) {
+					atkUp *= Math.pow(2.0, blessingPoison);
+				}
+				if(hasJammerBlessing) {
+					atkUp *= Math.pow(2.0, blessingJammer);
+				}
+				if(hasHeartSquare || hasPoisonBlessing || hasJammerBlessing) {
 					List<Pair<Double, Double>> powerUpAtk = new ArrayList<Pair<Double, Double>>();
-					for(Pair<Double, Double> pair : powerUpAtk) {
+					for(Pair<Double, Double> pair : memberBasicAtk) {
 						powerUpAtk.add(new Pair<Double, Double>(pair.first*atkUp, pair.second*atkUp));
 					}
 					normalAtk.add(powerUpAtk);
@@ -1603,7 +1663,7 @@ public class DamageCalculator {
 				for (int i = 0; i < size; ++i) {
 					MonsterInfo minfo = info.getMember(i);
 					if (minfo == null || bindStatus.get(i)) {
-						LogUtil.d("monster(", i, ") is null");
+//						LogUtil.d("monster(", i, ") is null");
 						monsterAtk.add(new Pair<Double, Double>(.0, .0));
 						continue;
 					}
@@ -1636,10 +1696,10 @@ public class DamageCalculator {
 				double rowPower1 = 1.0;
 				double rowPower2 = 1.0;
 				if ( rowSkill[props.first] > 0 ) {
-					rowPower1 = (1.0 + 0.1 * rowSkill[props.first] * rowcount[props.first]);
+					rowPower1 = (1.0 + Constants.ROW_ENHANCE * rowSkill[props.first] * rowcount[props.first]);
 				}
 				if ( props.second != -1 && rowSkill[props.second] > 0 ) {
-					rowPower2 = (1.0 + 0.1 * rowSkill[props.second] * rowcount[props.second]);
+					rowPower2 = (1.0 + Constants.ROW_ENHANCE * rowSkill[props.second] * rowcount[props.second]);
 				}
 				
 				// * prop factor
@@ -2008,6 +2068,60 @@ public class DamageCalculator {
 		return 0;
 	}
 
+	public static int getHeartFactor(TeamInfo team, LeaderSkill lskill, List<Match> combos,Map<String, Object> settings, ActiveSkill skill, int target) {
+		List<Integer> data = lskill.getData();
+
+		int count = data.get(2);
+		int factor = 0;
+		for(int i=0; i<count; ++i) {
+			int index = 3 + i * 2;
+			int type = data.get(index);
+			if(type == target) {
+				factor = data.get(index+1);
+			}
+		}
+		if(factor > 0) {
+			int healBasic = data.get(1);
+			double recover = calculateRecovery(team, combos, skill, settings);
+			if(recover >= healBasic) {
+				return factor;
+			}
+		}
+
+		return 0;
+	}
+	public static int getLFormatShield(TeamInfo team, LeaderSkill lskill, List<Match> combos,Map<String, Object> settings) {
+		List<Integer> data = lskill.getData();
+		int colorcnt = data.get(0);
+		boolean[] orbs = {false, false, false, false, false, false, false, false, false, false};
+		int orb = data.get(1);
+		if(orb == -1) {
+			for (int i = 0; i < orbs.length; ++i) {
+				orbs[i] = true;
+			}
+		} else {
+			for (int i = 0; i < colorcnt; ++i) {
+				orbs[data.get(1 + i)] = true;
+			}
+		}
+		int factor = 1;
+		int factorcnt = data.get(colorcnt+1);
+		for(int i=0; i<factorcnt; ++i) {
+			if(data.get(colorcnt+2+i*2) == 0) {
+				factor = (data.get(colorcnt+2+i*2+1));
+				break;
+			}
+		}
+		for(Match match : combos) {
+			if(match.isLFormat()) {
+				if(match.type <= 8 && orbs[match.type]) {
+					return factor;
+				}
+			}
+		}
+		return 0;
+	}
+
 	public static int getShieldPercent(TeamInfo team, LeaderSkill lskill, List<Match> combos,Map<String, Object> settings) {
 		List<Integer> data = lskill.getData();
 		boolean[] orbset = { false, false, false, false, false, false, false, false, false };
@@ -2113,9 +2227,58 @@ public class DamageCalculator {
 		return 1.0;
 	}
 
-	private static double getLeaderFactor(TeamInfo team, LeaderSkill lskill,
+	public static boolean isLSMatched(TeamInfo team, LeaderSkill lskill,
+										 MonsterInfo monster, List<Match> combos, Map<String, Object> settings,
+										 boolean factorOnly) {
+		List<Integer> data = lskill.getData();
+		switch (lskill.getType()) {
+			case LST_COLOR_COMBO: {
+				int colorcnt = data.get(0);
+				boolean[] success = new boolean[10];
+				for(int i=0; i<10; ++i) {
+					success[i] = true;
+				}
+				for(int i=0; i<colorcnt; ++i) {
+					success[data.get(1+i)] = false;
+				}
+				int needcount = data.get(colorcnt+1);
+				int totalCnt = 0;
+				for(Match match : combos) {
+					if(!success[match.type]) {
+						success[match.type] = true;
+						++totalCnt;
+					}
+				}
+				return (totalCnt==needcount);
+			}
+			case LST_COMBO_ATTACK: {
+				int colorcnt = data.get(0);
+				int needcount = data.get(2);
+
+				boolean[] success = new boolean[10];
+				for(int i=0; i<10; ++i) {
+					success[i] = true;
+				}
+				for(int i=0; i<colorcnt; ++i) {
+					success[data.get(1+i*2)] = false;
+				}
+				int totalCnt = 0;
+				for(Match match : combos) {
+					if(!success[match.type] && match.count >= needcount) {
+						success[match.type] = true;
+						++totalCnt;
+					}
+				}
+
+				return (totalCnt==colorcnt);
+			}
+		}
+		return false;
+	}
+
+	public static double getLeaderFactor(TeamInfo team, LeaderSkill lskill,
 			MonsterInfo monster, List<Match> combos, Map<String, Object> settings,
-			boolean factorOnly) {
+			boolean factorOnly, boolean daOnly) {
 		List<Integer> data = lskill.getData();
 		switch (lskill.getType()) {
 			case LST_DROP_NO_MORE:
@@ -2170,6 +2333,196 @@ public class DamageCalculator {
             	return factor;
             }
 			return 1.0;
+		}
+			case LST_L_ATTACK: {
+				int colorcnt = data.get(0);
+				boolean[] orbs = {false, false, false, false, false, false, false, false, false, false};
+				if(data.get(1) == -1) {
+					for (int i = 0; i < orbs.length; ++i) {
+						orbs[i] = true;
+					}
+				} else {
+					for (int i = 1; i <= colorcnt; ++i) {
+						orbs[data.get(i)] = true;
+					}
+				}
+				float factor = 1.0f;
+				int factorcnt = data.get(colorcnt+1);
+				for(int i=0; i<factorcnt; ++i) {
+					if(data.get(colorcnt+2+i*2) == 1) {
+						factor = (data.get(colorcnt+2+i*2+1) / 100.0f);
+						break;
+					}
+				}
+
+				for(Match match : combos) {
+					if(match.isLFormat() && match.type <= 8 && orbs[match.type]) {
+						return factor;
+					}
+				}
+				return 1.0;
+			}
+			case LST_COLOR_COMBO: {
+				return 1.0;
+			}
+			case LST_MULTI_ORB_DIRECT_ATTACK: {
+				if(daOnly) {
+					int removeN = data.get(0);
+					int orbType = data.get(1);
+
+					int maxRemove = 0;
+					for (Match m : combos) {
+						if ((orbType == -1 || m.type == orbType) && m.count > maxRemove) {
+							maxRemove = m.count;
+						}
+					}
+					if (maxRemove >= removeN) {
+
+						double factor = data.get(2);
+						int maxN = data.get(3);
+						if (maxN != removeN) {
+							if (maxRemove >= maxN) {
+								return data.get(6);
+							}
+
+							double addfactor = data.get(5);
+							int diff = maxN - removeN;
+							for (int i = 0; i <= diff; ++i) {
+								if (maxRemove == removeN + i) {
+									return factor + addfactor * i;
+								}
+							}
+						} else {
+							return factor;
+						}
+					}
+				}
+				return 1.0;
+			}
+			case LST_COLOR_DIRECT_ATTACK: {
+				if(daOnly) {
+					boolean[] orbset = { false, false, false, false, false, false, false, false, false };
+					boolean[] matchColor = { false, false, false, false, false, false,false, false, false };
+					boolean[] memberColor = { false, false, false, false, false, false };
+					int many = data.get(0);
+					List<Boolean> bindStatus = null;
+					if (settings != null && settings.containsKey("bindStatus")) {
+						bindStatus = (List<Boolean>)settings.get("bindStatus");
+					} else {
+						bindStatus = new ArrayList<Boolean>();
+						for(int i=0; i<6; ++i) {
+							bindStatus.add(false);
+						}
+					}
+
+					for (int i = 1; i <= many; ++i) {
+						orbset[data.get(i)] = true;
+					}
+					int removeMany = data.get(many + 1);
+					double factor = data.get(many + 2);
+
+					for (Match m : combos) {
+						if (m.type >= matchColor.length) {
+							// we don't count the poison or jamar orbs
+							continue;
+						}
+						matchColor[m.type] = true;
+					}
+					// 6,1,4,5,3,0,2,3,30,6,4,35,5,40,6,45
+					for (int i = 0; i < 6; ++i) {
+						MonsterInfo mi = team.getMember(i);
+						if (mi == null || bindStatus.get(i)) {
+							continue;
+						}
+						Pair<Integer, Integer> props = mi.getProps();
+						memberColor[props.first] = true;
+						if (props.second != -1) {
+							memberColor[props.second] = true;
+						}
+					}
+					memberColor[2] = true;
+					double[] factorArray = new double[7];
+					for (int i = 0; i < removeMany; ++i) {
+						factorArray[i] = 1.0;
+					}
+
+					int maxN = removeMany;
+					int addition = data.get(many + 3);
+					if (addition > 0) {
+						factorArray[removeMany] = factor;
+						int index = 4 + many;
+						for (int i = 0; i < addition; i += 2) {
+							int remove = data.get(index + i);
+							double f = data.get(index + i + 1);
+							factorArray[remove] = f;
+							if(i==addition-2) {
+								maxN = remove;
+							}
+						}
+					} else {
+						for (int i = removeMany; i < 7; ++i) {
+							factorArray[i] = factor;
+						}
+					}
+
+					int conditionCount = 0;
+					for (int i = 0; i < 6; ++i) {
+						if (orbset[i] && matchColor[i] && memberColor[i]) {
+							++conditionCount;
+						}
+					}
+					for (int i = 6; i <=8;  ++i) {
+						if (orbset[i] && matchColor[i]) {
+							++conditionCount;
+						}
+					}
+					if(conditionCount>maxN) {
+						conditionCount = maxN;
+					}
+
+					return factorArray[conditionCount];
+				}
+				return 1.0;
+			}
+			case LST_COMBO_ATTACK: {
+				int colorcnt = data.get(0);
+				int needcount = data.get(2);
+				int factorcount = data.get(1+colorcnt*2);
+				float factor = 1.0f;
+				for(int i=0; i<factorcount; ++i) {
+					int type = data.get(2+colorcnt*2+i*2);
+					int f = data.get(2+colorcnt*2+i*2+1);
+					if(type == 1) {
+						factor = f/100.0f;
+					}
+				}
+				boolean[] success = new boolean[10];
+				for(int i=0; i<10; ++i) {
+					success[i] = true;
+				}
+				for(int i=0; i<colorcnt; ++i) {
+					success[data.get(1+i*2)] = false;
+				}
+				int totalCnt = 0;
+				for(Match match : combos) {
+					if(!success[match.type] && match.count >= needcount) {
+						success[match.type] = true;
+						++totalCnt;
+					}
+				}
+
+				return (totalCnt==colorcnt)? factor:1.0f;
+			}
+		case LST_HEART_FACTOR: {
+			ActiveSkill skill = null;
+			if (settings != null && settings.containsKey("rcvUp")) {
+				skill = (ActiveSkill)((SkillEntity)settings.get("rcvUp")).skill;
+			}
+			int factor = getHeartFactor(team, lskill, combos, settings, skill, 1);
+			if(factor > 0) {
+				return factor / 100.0f;
+			}
+			return 1.0f;
 		}
 		case LST_CROSS_ATTACK: {
 			float x = data.get(0) / 100f;
@@ -2707,6 +3060,19 @@ public class DamageCalculator {
         return 1.0;
     }
 
+    public static int getLSCombo(LeaderSkill ls) {
+		if (ls == null) {
+			return 0;
+		}
+		List<Integer> data = ls.getData();
+		if(ls.getType() == LeaderSkillType.LST_COLOR_COMBO) {
+			return data.get(data.size()-2); // FIXME:
+		} else if(ls.getType() == LeaderSkillType.LST_COMBO_ATTACK) {
+			return data.get(data.size()-1);
+		}
+		return 0;
+	}
+
 	public static double getLeaderFactor(TeamInfo team, MonsterInfo leader,
 			MonsterInfo monster, List<Match> combos, Map<String, Object> settings) {
 		return getLeaderFactor(team, leader, monster, combos, settings, false);
@@ -2720,7 +3086,7 @@ public class DamageCalculator {
 		List<LeaderSkill> list = leader.getLeaderSkill();
 		double factor = 1.0;
 		for (LeaderSkill ls : list) {
-			double newfactor = getLeaderFactor(team, ls, monster, combos, settings, factorOnly);
+			double newfactor = getLeaderFactor(team, ls, monster, combos, settings, factorOnly, false);
 			factor *= newfactor;
 		}
 		return factor;

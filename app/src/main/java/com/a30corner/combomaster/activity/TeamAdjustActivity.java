@@ -52,7 +52,6 @@ public class TeamAdjustActivity extends Activity {
 	private EditText[] mRcv = new EditText[6];
 	
 	private int[] mSelect;
-	public static int TEAM_SIZE = 20;
 	
 	private Handler mHandler;
 	
@@ -177,7 +176,7 @@ public class TeamAdjustActivity extends Activity {
 			}
 		});
 		
-		mTeamSpinner = (Spinner) findViewById(R.id.team);
+		mTeamSpinner = findViewById(R.id.team);
 		mAdapter = new ArrayAdapter<String>(this, R.layout.cm_spinner);
 
 		mTeamSpinner.setAdapter(mAdapter);
@@ -188,12 +187,12 @@ public class TeamAdjustActivity extends Activity {
 		};
 		for(int i=0; i<6; ++i) {
 			View view = findViewById(id[i]);
-			Spinner lv = (Spinner) view.findViewById(R.id.monster_lv);
-			Spinner awoken = (Spinner) view.findViewById(R.id.monster_awoken);
+			Spinner lv = view.findViewById(R.id.monster_lv);
+			Spinner awoken = view.findViewById(R.id.monster_awoken);
 			mLvSpinner[i] = lv;
 			mAwokenSpinner[i] = awoken;
 			
-			TextView name = (TextView) view.findViewById(R.id.name);
+			TextView name = view.findViewById(R.id.name);
 			if (i==0) {
 				name.setText(R.string.str_leader);
 			} else if (i==5) {
@@ -201,7 +200,7 @@ public class TeamAdjustActivity extends Activity {
 			} else {
 				name.setText(R.string.str_member);
 			}
-			ImageView image = (ImageView) view.findViewById(R.id.monster);
+			ImageView image = view.findViewById(R.id.monster);
 			if(mSelect[i]>0) {
 				File file = new File(getFilesDir(), String.format("%di.png", mSelect[i]));
 				if ( file.exists() ) {
@@ -233,9 +232,9 @@ public class TeamAdjustActivity extends Activity {
 				}
 			}
 			
-			final EditText hp = (EditText) view.findViewById(R.id.monster_hp);
-			final EditText atk = (EditText) view.findViewById(R.id.monster_atk);
-			final EditText rcv = (EditText) view.findViewById(R.id.monster_rcv);
+			final EditText hp = view.findViewById(R.id.monster_hp);
+			final EditText atk = view.findViewById(R.id.monster_atk);
+			final EditText rcv = view.findViewById(R.id.monster_rcv);
 			
 			mHp[i] = hp;
 			mAtk[i] = atk;
@@ -250,7 +249,7 @@ public class TeamAdjustActivity extends Activity {
 				total = mTargetHp[i] + mTargetAtk[i] + mTargetRcv[i];
 			}
 			
-			Button p297 = (Button) view.findViewById(R.id.monster_297);
+			Button p297 = view.findViewById(R.id.monster_297);
 			if(total == 0) {
 				p297.setText(R.string.str_297);
 			}
@@ -324,24 +323,31 @@ public class TeamAdjustActivity extends Activity {
 							mSelect[i] = -1;
 							continue;
 						}
-						int lv = vo.getMaxLv();
-						int awokenCount = vo.getAwokenList().size();
-						
-						ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(TeamAdjustActivity.this,R.layout.cm_spinner);
-						for(int max=lv; max>0; --max) {
-							adapter.add(max);
-						}
-						mLvSpinner[i].setAdapter(adapter);
-						ArrayAdapter<Integer> adapter1 = new ArrayAdapter<Integer>(TeamAdjustActivity.this,R.layout.cm_spinner);
-						for(int max=awokenCount; max>=0; --max) {
-							adapter1.add(max);
-						}
-						mAwokenSpinner[i].setAdapter(adapter1);
-						
-						if(mTargetLv!=null) {
-							mLvSpinner[i].setSelection(lv-mTargetLv[i]);
-							mAwokenSpinner[i].setSelection(awokenCount-mTargetAwoken[i]);
-						}
+						final int index = i;
+						final int lv = vo.getMaxLv();
+						final int awokenCount = vo.getAwokenList().size();
+
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(TeamAdjustActivity.this,R.layout.cm_spinner);
+								for(int max=lv; max>0; --max) {
+									adapter.add(max);
+								}
+								mLvSpinner[index].setAdapter(adapter);
+								ArrayAdapter<Integer> adapter1 = new ArrayAdapter<Integer>(TeamAdjustActivity.this,R.layout.cm_spinner);
+								for(int max=awokenCount; max>=0; --max) {
+									adapter1.add(max);
+								}
+								mAwokenSpinner[index].setAdapter(adapter1);
+
+								if(mTargetLv!=null) {
+									mLvSpinner[index].setSelection(lv-mTargetLv[index]);
+									mAwokenSpinner[index].setSelection(awokenCount-mTargetAwoken[index]);
+								}
+							}
+						});
+
 					}
 				}
 				
@@ -368,7 +374,7 @@ public class TeamAdjustActivity extends Activity {
 		SharedPreferences sp = getSharedPreferences("team",
 				Context.MODE_PRIVATE);
 		String[] teams = new String[TeamFragment.TEAM_SIZE];
-		for (int i = 0; i < TEAM_SIZE; ++i) {
+		for (int i = 0; i < TeamFragment.TEAM_SIZE; ++i) {
 			String name = sp.getString("Team" + i + "_name", "Team " + (i + 1));
 			teams[i] = name;
 		}

@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author vincent
  */
-public class Match {
+public class Match implements IMatch {
 	public final int type;
 	public final int count;
 	public final int pcount;
@@ -29,6 +29,17 @@ public class Match {
 		this.pcount = pcount;
 	}
 
+	@Override
+	public int type() {
+		return type;
+	}
+
+	@Override
+	public int count() {
+		return count;
+	}
+
+	@Override
 	public boolean isHeartColumn() {
 		// check two way attack or one-row attack
 		if (type == 2 && count >= 5) {
@@ -45,10 +56,11 @@ public class Match {
 		return false;
 	}
 
+	@Override
 	public boolean isLFormat() {
 		if (count == 5) {
-			int[] rows = {0, 0, 0, 0, 0, 0};
-			int[] cols = {0, 0, 0, 0, 0};
+			int[] rows = {0, 0, 0, 0, 0, 0, 0};
+			int[] cols = {0, 0, 0, 0, 0, 0};
 			boolean isRow3 = false, isCol3 = false;
 			int maxc = 0, minc = 99;
 			int maxr = 0, minr = 99;
@@ -90,6 +102,7 @@ public class Match {
 		return false;
 	}
 
+	@Override
 	public boolean isOneRow() {
 		// check two way attack or one-row attack
 		if (count >= 6) {
@@ -106,6 +119,7 @@ public class Match {
 		return false;
 	}
 
+	@Override
 	public boolean isTwoWay() {
 		return count == 4;
 	}
@@ -123,6 +137,7 @@ public class Match {
 		return new Match(current, count2, pcount, matchList);
 	}
 
+	@Override
 	public boolean isCross() {
 		if(count == 5) {
 			List<Integer> data = new ArrayList<Integer>(5);
@@ -138,6 +153,7 @@ public class Match {
 		return false;
 	}
 
+	@Override
 	public boolean isSquare() {
 		if(count == 9) {
 			List<Integer> data = new ArrayList<Integer>(9);

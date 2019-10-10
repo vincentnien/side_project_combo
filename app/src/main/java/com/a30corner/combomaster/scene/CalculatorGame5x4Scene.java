@@ -1309,7 +1309,7 @@ public class CalculatorGame5x4Scene extends BaseMenuScene implements
         int index = 0;
         mDropRateSprite = new Sprite[(size-1)/2];
 	    for(int i=1; i<size; i+=2, ++index) {
-            ITextureRegion pTextureRegion = null;
+            ITextureRegion pTextureRegion;
             int type = data.get(i);
             pTextureRegion = mResMgr
                     .getTextureRegion(SimulateAssets.class,colorupTexture[type]);

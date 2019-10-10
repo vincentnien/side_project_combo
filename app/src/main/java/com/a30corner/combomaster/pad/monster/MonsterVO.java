@@ -388,7 +388,8 @@ public class MonsterVO {
 		values.put(TableMonsterData.Columns.MAX_RCV, mRcvMax);
 		int maxAwoken = (mAwokenList!=null)? mAwokenList.size():0;
 		values.put(TableMonsterData.Columns.MAX_AWOKEN, maxAwoken);
-		LogUtil.e("id = " + mNo);
+		//LogUtil.e("id = " + mNo);
+
 		for(int i=1; i<=maxAwoken; ++i) {
 			values.put(TableMonsterData.Columns.AWOKEN+i, mAwokenList.get(i-1).ordinal());
 		}

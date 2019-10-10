@@ -174,6 +174,8 @@ public class MonsterInfo {
 				total *= Math.pow(1.5, matchCount);
 			}
 		}
+		int rcvDown = getTargetAwokenCount(AwokenSkill.RCV_DOWN, isMultiMode);
+		total = total - 2000 * rcvDown;
 		return total;
 	}
 
@@ -195,7 +197,9 @@ public class MonsterInfo {
 				total *= Math.pow(1.5, matchCount);
 			}
 		}
-		return total;
+		int hpDown = getTargetAwokenCount(AwokenSkill.HP_DOWN, isMultiMode);
+		total = total - 5000 * hpDown;
+		return total>0 ? total:1;
 	}
 
 	public int getAtk() {
@@ -220,7 +224,9 @@ public class MonsterInfo {
 			}
 			
 		}
-		return total;
+		int atkDown = getTargetAwokenCount(AwokenSkill.ATK_DOWN, isMultiMode);
+		total = total - 1000 * atkDown;
+		return total>0 ? total:1;
 	}
 	
 	public int getCost() {

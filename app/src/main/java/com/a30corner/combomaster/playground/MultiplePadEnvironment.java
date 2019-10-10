@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -67,6 +68,7 @@ import com.a30corner.combomaster.pad.DamageCalculator;
 import com.a30corner.combomaster.pad.DamageCalculator.AttackValue;
 import com.a30corner.combomaster.pad.Match;
 import com.a30corner.combomaster.pad.enemy.EnemySkill;
+import com.a30corner.combomaster.pad.mode7x6.DamageCalculator7x6;
 import com.a30corner.combomaster.pad.monster.ActiveSkill;
 import com.a30corner.combomaster.pad.monster.LeaderSkill;
 import com.a30corner.combomaster.pad.monster.LeaderSkill.LeaderSkillType;
@@ -459,51 +461,84 @@ public class MultiplePadEnvironment implements IEnvironment {
             	break;
             }
             case MSG_ADDITION_ATTACK: {
-                int total = 0;
-                for (int i = 0; i < 6; i += 5) {
-                    MonsterInfo info = getMember(i).info;
-                    for (LeaderSkill s : info.getLeaderSkill()) {
-                        if (s.getType() == LeaderSkillType.LST_ATTACK) {
-                            total += s.getData().get(0) * info.getAtk(false);
+                int arg = msg.arg1;
+                if(arg == 0) {
+                    int total = 0;
+                    for (int i = 0; i < 6; i += 5) {
+                        MonsterInfo info = getMember(i).info;
+                        for (LeaderSkill s : info.getLeaderSkill()) {
+                            if (s.getType() == LeaderSkillType.LST_ATTACK) {
+                                total += s.getData().get(0) * info.getAtk(false);
+                            }
                         }
                     }
-                }
-                int heartArrow = 0;
-                List<Match> matches = getScene().getMatches();
-                boolean hasArrow = hasHeartArrow(matches), hasSquare = hasHeartSquare(matches);
-                for (int i = 0; i < 6; ++i) {
-                    Member m = getMember(i);
-                    if (m == null) {
-                        continue;
-                    }
-                    int c = getTargetAwokenCount(m.info, AwokenSkill.HEART_ARROW);
-                    if (hasArrow && c > 0) {
-                        ++heartArrow;
-                    }
-                    int s = getTargetAwokenCount(m.info, AwokenSkill.HEART_SQUARE);
-                    if (hasSquare && s > 0) {
-                        heartArrow += 2;
-                    }
-                }
-                if (total > 0) {
-                    final int damage = total + heartArrow;
-                    postDelayed(new Runnable() {
+                    if (total > 0) {
+                        final int damage = total;
+                        postDelayed(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            fireAdditionAttack(AttackValue.create(damage, 2, AttackValue.ATTACK_MULTIPLE), mStageEnemies.get(currentStage));
-                            sendMessageDelayed(Message.obtain(ExecutorHandler.this, MSG_END_OF_ATTACK), 300);
-                        }
-                    }, 500L);
+                            @Override
+                            public void run() {
+                                fireAdditionAttack(AttackValue.create(damage, 2, AttackValue.ATTACK_MULTIPLE), mStageEnemies.get(currentStage));
+                                sendMessageDelayed(Message.obtain(ExecutorHandler.this, MSG_ADDITION_ATTACK, 1, 0), 300);
+                            }
+                        }, 500L);
 
+                    } else {
+                        sendMessage(Message.obtain(ExecutorHandler.this, MSG_ADDITION_ATTACK, 1, 0));
+                    }
                 } else {
+                    int heartArrow = 0;
+                    List<Match> matches = getScene().getMatches();
+                    boolean hasArrow = hasHeartArrow(matches), hasSquare = hasHeartSquare(matches);
+                    for (int i = 0; i < 6; ++i) {
+                        Member m = getMember(i);
+                        if (m == null) {
+                            continue;
+                        }
+                        int c = getTargetAwokenCount(m.info, AwokenSkill.HEART_ARROW);
+                        if (hasArrow && c > 0) {
+                            heartArrow += c;
+                        }
+                        int s = getTargetAwokenCount(m.info, AwokenSkill.HEART_SQUARE);
+                        if (hasSquare && s > 0) {
+                            heartArrow += 99;
+                        }
+                    }
+                    // check direct attack or not
+                    Team team = getTeam();
+                    MonsterInfo leader = team.getMember(0);
+                    MonsterInfo friend = team.getMember(5);
+                    if(leader != null && !getMember(0).isBinded()) {
+                        for(LeaderSkill s : leader.getLeaderSkill()) {
+                            if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
+                                s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, leader, getScene().getMatches(), null, false, true);
+                                if(factor > 1.0) {
+                                    heartArrow += factor;
+                                }
+                            }
+                        }
+                    }
+                    if(friend != null && !getMember(5).isBinded()) {
+                        for(LeaderSkill s : friend.getLeaderSkill()) {
+                            if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
+                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, friend, getScene().getMatches(), null, false, true);
+                                if(factor > 1.0) {
+                                    heartArrow += factor;
+                                }
+                            }
+                        }
+                    }
+
                     if (heartArrow > 0) {
-                        boolean alldead = true;
                         List<Enemy> enemies = getEnemies();
                         final AtomicInteger counter = new AtomicInteger(enemies.size());
                         for (Enemy enemy : enemies) {
-                            if (!enemy.dead()) {
-                                alldead = false;
+                            if (enemy.dead()) {
+                                if (counter.decrementAndGet() == 0) {
+                                    sendEmptyMessage(MSG_END_OF_ATTACK);
+                                }
                             }
                             enemy.dealtDamageDirect(AttackValue.create(heartArrow, -1, AttackValue.ATTACK_SINGLE), 0.6f,
                                     new AnimationCallback() {
@@ -515,9 +550,6 @@ public class MultiplePadEnvironment implements IEnvironment {
                                             }
                                         }
                                     });
-                        }
-                        if (alldead) {
-                            sendEmptyMessage(MSG_END_OF_ATTACK);
                         }
                     } else {
                         sendEmptyMessage(MSG_END_OF_ATTACK);
@@ -564,6 +596,7 @@ public class MultiplePadEnvironment implements IEnvironment {
                     for(String key : mSkillList.keySet()) {
                     	if(Constants.SK_TIME_CHANGE.equals(key) ||
                     			Constants.SK_TIME_CHANGE_X.equals(key) ||
+                                Constants.SK_DROP_ONLY.equals(key) ||
                     			Constants.SK_DROP_RATE.equals(key) ||
                     			Constants.SK_DROP_RATE_NEG.equals(key) ||
                     			Constants.SK_SKILL_LOCK.equals(key) ||
@@ -576,6 +609,7 @@ public class MultiplePadEnvironment implements IEnvironment {
                                 Constants.SK_RCV_UP.equals(key) ||
                                 Constants.SK_NO_DROP.equals(key) ||
                                 Constants.SK_CLOUD.equals(key) ||
+                                Constants.SK_HP_CHANGE.equals(key) ||
                                 Constants.SK_LOCK_REMOVE.equals(key)) {
                     		if(mSkillList.get(key).countDown()) {
                     			removeList.add(key);
@@ -612,6 +646,10 @@ public class MultiplePadEnvironment implements IEnvironment {
                             getScene().removeSkill(key);
                         } else if(Constants.SK_LOCK_REMOVE.equals(key)) {
                     	    getScene().removeSkill(key);
+                        } else if (Constants.SK_DROP_ONLY.equals(key)) {
+                            getScene().removeSkill(key);
+                        } else if (Constants.SK_HP_CHANGE.equals(key)) {
+                    	    mTeamData.setMaxHp(-1);
                         }
                     }
                     if(getScene().getMatches().size()>0) {
@@ -662,7 +700,7 @@ public class MultiplePadEnvironment implements IEnvironment {
                 }
 
                 double recovery = DamageCalculator.calculateRecovery(mTeamData.team(), matches, sk, settings);
-                double poison = DamageCalculator.calculatePoison(mTeamData.getHp(), matches, null) +
+                double poison = DamageCalculator.calculatePoison(mTeamData.team(), mTeamData.getHp(), matches, null) +
                         DamageCalculator.calculateBomb(mTeamData.getHp(), bombCount);
                 
                 // bind recover
@@ -1269,11 +1307,18 @@ public class MultiplePadEnvironment implements IEnvironment {
         mTeamData = new MultipleTeam();
         
         mStoneUsed = 0;
-        if (stage.equals("201806_10")) {
+        if (stage.equals("201806_10")|| stage.equals("quest_201901_lv10")) {
             nullAwoken = true;
             ComboMasterApplication.getsInstance().setNullAwokenSkill(nullAwoken);
         }
 
+        if (stage.equals("quest_201901_lv9")) {
+            getScene().setDefaultTime(4000);
+        }
+
+        if (stage.equals("quest_201903_lv10")) {
+            getScene().setNormalDrop(false);
+        }
 //        int visible = View.INVISIBLE;
 //        if(ComboMasterApplication.getsInstance().getAdSceneType()==1) {
 //        	visible = View.VISIBLE;
@@ -1688,7 +1733,7 @@ public class MultiplePadEnvironment implements IEnvironment {
 				mStageEnemies.put((floor+1), enemies);
 			}
 		} catch (Exception e) {
-			LogUtil.e("Vincent", e.toString());
+			LogUtil.e("ComboMaster", e.toString());
 			e.printStackTrace();
 		}
     }
@@ -1927,10 +1972,10 @@ public class MultiplePadEnvironment implements IEnvironment {
 			changePlayerTurn(scene);
 		}
     }
-    
+
     private void attackPhase(PadContext context) {
         unregisterPlayerTouchEvent();
-        
+
         PlaygroundGameScene scene = mSceneRef.get();
         Map<String, Object> settings = new HashMap<String, Object>();
         List<Boolean> bindStatus = new ArrayList<Boolean>();
@@ -1941,14 +1986,27 @@ public class MultiplePadEnvironment implements IEnvironment {
         		bindStatus.add(false);
         	}
         }
+        boolean awokenLocked = mSkillList.containsKey(Constants.SK_AWOKEN_LOCK);
+
         settings.put("bindStatus", bindStatus);
         settings.put("isHpChecked", true);
         settings.put("hp", 100 * mTeamData.getCurrentHp() / (float)mTeamData.getHp());
         settings.put("skillFired", firedThisTurn);
-        settings.put("nullAwoken", mSkillList.containsKey(Constants.SK_AWOKEN_LOCK) || nullAwoken);
+        settings.put("nullAwoken", awokenLocked || nullAwoken);
         settings.put("copMode", mTeamData.team().isCopMode());
+        if (mSkillList.containsKey(Constants.SK_RCV_UP)) {
+            settings.put("rcvUp", mSkillList.get(Constants.SK_RCV_UP));
+        }
         
         List<Match> matches = scene.getMatches();
+
+        // check recover awoken first
+        if (awokenLocked && executeRecoverAwokenByLeaderSkill(getTeam(), matches, settings)) {
+            settings.put("bindStatus", bindStatus);
+            settings.put("hp", 100 * mTeamData.getCurrentHp() / (float)mTeamData.getHp());
+            settings.put("nullAwoken", mSkillList.containsKey(Constants.SK_AWOKEN_LOCK) || nullAwoken);
+        }
+
         if(mCrossShield != null) {
 			settings.put("cross", mCrossShield.first);
 			settings.put("crossAtk", mCrossShield.second);
@@ -1967,6 +2025,7 @@ public class MultiplePadEnvironment implements IEnvironment {
 
             	MonsterInfo leader = getTeam().getMember(0);
             	MonsterInfo friend = getTeam().getMember(5);
+            	float reduced_total = 1f;
             	if(!mMemberList[currentTeam][0].isBinded() && leader != null) {
             		for(LeaderSkill skill : leader.getLeaderSkill()) {
             			LeaderSkillType type = skill.getType();
@@ -1991,10 +2050,27 @@ public class MultiplePadEnvironment implements IEnvironment {
                         } else if(type == LeaderSkillType.LST_MULTI_ORB_SHIELD_MULTI) {
                             crossSkill[0] = 1;
                             reduced[0] = DamageCalculator.getMultiShieldMulti(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_L_ATTACK) {
+                            crossSkill[0] = 1;
+                            reduced[0] = DamageCalculator.getLFormatShield(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_HEART_FACTOR) {
+            			    ActiveSkill sk = null;
+                            if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                                sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                            }
+                            int heartReduced = DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk, 3);
+                            if(heartReduced > 0) {
+                                crossSkill[0] = 1;
+                                reduced[0] = heartReduced;
+                            }
+                        }
+                        if(reduced[0] > 0) {
+                            reduced_total = reduced_total * (100-reduced[0])/100;
                         }
             		}
             	}
             	if(!mMemberList[currentTeam][5].isBinded() && friend != null) {
+            	    // FIXME: multiple reduce shields
             		for(LeaderSkill skill : friend.getLeaderSkill()) {
             			LeaderSkillType type = skill.getType();
             			if(fired[1] && (type == LeaderSkillType.LST_CROSS||
@@ -2013,28 +2089,38 @@ public class MultiplePadEnvironment implements IEnvironment {
                             crossSkill[1] = 1;
                             reduced[1] = DamageCalculator.getComboShieldPercent(mTeamData.team(), skill, matches, settings);
                         } else if (type == LeaderSkillType.LST_TARGET_ORB_SHIELD) {
-                            crossSkill[0] = 1;
-                            reduced[0] = DamageCalculator.getTargetOrbShield(mTeamData.team(), skill, matches, settings);
+                            crossSkill[1] = 1;
+                            reduced[1] = DamageCalculator.getTargetOrbShield(mTeamData.team(), skill, matches, settings);
                         } else if(type == LeaderSkillType.LST_MULTI_ORB_SHIELD) {
-                            crossSkill[0] = 1;
-                            reduced[0] = DamageCalculator.getMultiShield(mTeamData.team(), skill, matches, settings);
+                            crossSkill[1] = 1;
+                            reduced[1] = DamageCalculator.getMultiShield(mTeamData.team(), skill, matches, settings);
                         } else if(type == LeaderSkillType.LST_MULTI_ORB_SHIELD_MULTI) {
-                            crossSkill[0] = 1;
-                            reduced[0] = DamageCalculator.getMultiShieldMulti(mTeamData.team(), skill, matches, settings);
+                            crossSkill[1] = 1;
+                            reduced[1] = DamageCalculator.getMultiShieldMulti(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_L_ATTACK) {
+                            crossSkill[1] = 1;
+                            reduced[1] = DamageCalculator.getLFormatShield(mTeamData.team(), skill, matches, settings);
+                        } else if(type == LeaderSkillType.LST_HEART_FACTOR) {
+                            ActiveSkill sk = null;
+                            if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                                sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                            }
+                            int heartReduced = DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk, 3);
+                            if(heartReduced > 0) {
+                                crossSkill[1] = 1;
+                                reduced[1] = heartReduced;
+                            }
+                        }
+                        if(reduced[1] > 0) {
+                            reduced_total = reduced_total * (100-reduced[1])/100;
                         }
             		}
             	}
-
-	            float percent = 0;
+	            float percent = 0f;
 	    		float atk = 1f;
 	        	if(crossSkill[0]>0 || crossSkill[1]>0) {
-                    if(reduced[0]>0 && reduced[1]>0) {
-                        percent = 100-((100-reduced[0])*(100-reduced[1])/100f);
-                    } else if(reduced[0]>0) {
-                        percent = reduced[0];
-                    } else if(reduced[1]>0) {
-                        percent = reduced[1];
-                    }
+	        	    percent = reduced_total;
+
                     if(crossSkill[0]>0) {
                         atk *= crossSkill[0];
                     }
@@ -2064,6 +2150,39 @@ public class MultiplePadEnvironment implements IEnvironment {
             }
 //            Message.obtain(handler, ExecutorHandler.MSG_START_ATTACK, damage).sendToTarget();
         }
+    }
+
+    private boolean executeRecoverAwokenByLeaderSkill(Team team, List<Match> matches, Map<String, Object> settings) {
+        MonsterInfo leader = team.getMember(0);
+        MonsterInfo friend = team.getMember(5);
+        int totalReduced = 0;
+        if(leader != null && !mMemberList[currentTeam][0].isBinded()) {
+            for (LeaderSkill skill : leader.getLeaderSkill()) {
+                if(skill.getType() == LeaderSkillType.LST_HEART_FACTOR) {
+                    ActiveSkill sk = null;
+                    if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                        sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                    }
+                    totalReduced += DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk, 4);
+                }
+            }
+        }
+        if(friend != null && !mMemberList[currentTeam][5].isBinded()) {
+            for (LeaderSkill skill : friend.getLeaderSkill()) {
+                if(skill.getType() == LeaderSkillType.LST_HEART_FACTOR) {
+                    ActiveSkill sk = null;
+                    if(mSkillList.containsKey(Constants.SK_RCV_UP)) {
+                        sk = (ActiveSkill)mSkillList.get(Constants.SK_RCV_UP).skill;
+                    }
+                    totalReduced += DamageCalculator.getHeartFactor(mTeamData.team(), skill, matches, settings, sk, 4);
+                }
+            }
+        }
+        if(totalReduced>0) {
+            awokenRecover(totalReduced);
+            return true;
+        }
+        return false;
     }
 
     private boolean skillCharger(TeamInfo info, List<Match> combos, Map<String, Object> settings, final List<Pair<AttackValue, AttackValue>> damage) {
@@ -2150,6 +2269,7 @@ public class MultiplePadEnvironment implements IEnvironment {
                 for(String key : mSkillList.keySet()) {
                 	if(Constants.SK_TIME_CHANGE.equals(key) ||
                 			Constants.SK_TIME_CHANGE_X.equals(key) ||
+                            Constants.SK_DROP_ONLY.equals(key) ||
                 			Constants.SK_DROP_RATE.equals(key) ||
                 			Constants.SK_DROP_RATE_NEG.equals(key) ||
                 			Constants.SK_DROP_LOCK.equals(key) ||
@@ -2161,6 +2281,7 @@ public class MultiplePadEnvironment implements IEnvironment {
                             Constants.SK_ENHANCE_ORB.equals(key) ||
                             Constants.SK_RCV_UP.equals(key) ||
                             Constants.SK_CLOUD.equals(key) ||
+                            Constants.SK_HP_CHANGE.equals(key) ||
                             Constants.SK_LOCK_REMOVE.equals(key)) {
                 		continue;
                 	}
@@ -2284,6 +2405,11 @@ public class MultiplePadEnvironment implements IEnvironment {
     			SkillEntity skill = mSkillList.get(key);
     			skill.detach();
     			removeList.add(key);
+            } else if (key.equals(Constants.SK_HP_CHANGE)) {
+                SkillEntity skill = mSkillList.get(key);
+                skill.detach();
+                removeList.add(key);
+                mTeamData.setMaxHp(-1);
             }
 		
     	}
@@ -2399,6 +2525,7 @@ public class MultiplePadEnvironment implements IEnvironment {
         flow.whenEnter(States.ATTACK_PHASE, new ContextHandler<PadContext>() {
             @Override
             public void call(PadContext context) throws Exception {
+
                 attackPhase(context);
                 if(mDarkSkill != null) {
                     mDarkSkill.countDown();
@@ -2506,6 +2633,8 @@ public class MultiplePadEnvironment implements IEnvironment {
             getScene().skillFired((ActiveSkill)skill, null, true);
         } else if(Constants.SK_LOCK_REMOVE.equals(key)) {
             getScene().skillFired((ActiveSkill)skill, null, true);
+        } else if(Constants.SK_HP_CHANGE.equals(key)) {
+    	    fireSkill(null, (ActiveSkill)skill, null);
         }
     	
     	int offsetX = 0;
@@ -2688,12 +2817,31 @@ public class MultiplePadEnvironment implements IEnvironment {
                 mDarkSkill = skill;
                 mDarkSkill.setTurn(0, true);
                 return ;
+            } else if (skill.getType() == ActiveSkill.SkillType.ST_RECOVER_LOCK_REMOVE) {
+                if (mSkillList.containsKey(Constants.SK_LOCK_REMOVE)) {
+                    SkillEntity entity = mSkillList.get(Constants.SK_LOCK_REMOVE);
+                    int turns = entity.decreaseAndGet(skill.getData().get(0));
+                    if(turns <= 0) {
+                        removeSkill(Constants.SK_LOCK_REMOVE);
+                    }
+                }
+            } else if (skill.getType() == ActiveSkill.SkillType.ST_HP_CHANGE) {
+                List<Integer> data = skill.getData();
+                int type = data.get(1);
+                if (type == 1) { // FIX HP
+                    mTeamData.setMaxHp(data.get(2));
+                } else if (type == 3) { // % HP
+                    int hp = mTeamData.getRealHp() * data.get(2) / 100;
+                    mTeamData.setMaxHp(hp);
+                }
             }
             SkillDispatcher.fire(this, caster, skill, new ICastCallback() {
                 
                 @Override
                 public void onCastFinish(boolean casted) {
-                    callback.onCastFinish(true);
+                    if(callback != null) {
+                        callback.onCastFinish(true);
+                    }
                     // check all enemies dead or not
                     checkEnemyState();
                 }
@@ -2743,6 +2891,19 @@ public class MultiplePadEnvironment implements IEnvironment {
     }
     
     public boolean resistBadEffect(AwokenSkill awoken) {
+        if (awoken == AwokenSkill.RESISTANCE_DARK) {
+            if(resistBadEffect(AwokenSkill.RESISTANCE_DARK_PLUS)) {
+                return true;
+            }
+        } else if (awoken == AwokenSkill.RESISTANCE_JAMMER) {
+            if(resistBadEffect(AwokenSkill.RESISTANCE_JAMMER_PLUS)) {
+                return true;
+            }
+        } else if (awoken == AwokenSkill.RESISTANCE_POISON) {
+            if(resistBadEffect(AwokenSkill.RESISTANCE_POISON_PLUS)) {
+                return true;
+            }
+        }
 		int resistant = 0;
 		
 		boolean awokenLocked = mSkillList.containsKey(Constants.SK_AWOKEN_LOCK);
@@ -2756,10 +2917,13 @@ public class MultiplePadEnvironment implements IEnvironment {
 			}
 		}
 		int x = 20;
-		if (awoken == AwokenSkill.RESISTANCE_KUMO) {
+		if (awoken == AwokenSkill.RESISTANCE_KUMO ||
+                awoken == AwokenSkill.RESISTANCE_DARK_PLUS ||
+                awoken == AwokenSkill.RESISTANCE_JAMMER_PLUS ||
+                awoken == AwokenSkill.RESISTANCE_POISON_PLUS) {
 		    x = 100;
         }
-		return RandomUtil.getLuck(resistant*x);
+        return RandomUtil.getLuck(resistant*x);
     }
     
     @Override
@@ -2967,6 +3131,8 @@ public class MultiplePadEnvironment implements IEnvironment {
 					    			
 					    		});
 					    	}
+                            counterStrike(mMemberList[0][0], enemy, damageReduced);
+                            counterStrike(mMemberList[0][5], enemy, damageReduced);
 					    	
 					    	//mHp.getDamage(damage, mTeamData.getCurrentHp(), mTeamData.getHp());
 					    	if(callback != null && last) {
@@ -2997,7 +3163,30 @@ public class MultiplePadEnvironment implements IEnvironment {
             }
         });
     }
-    
+
+    private void counterStrike(Member member, Enemy enemy, int damageReduced) {
+        if(member != null) {
+            for(LeaderSkill ls : member.info.getLeaderSkill()) {
+                if(ls.getType() == LeaderSkillType.LST_COUNTER_STRIKE) {
+                    List<Integer> data = ls.getData();
+                    if(RandomUtil.getLuck(data.get(0))) {
+                        int x = data.get(1);
+                        int prop = data.get(2);
+
+                        enemy.dealtDamage(AttackValue.create(damageReduced*x, prop, 0), 0.1f, new AnimationCallback() {
+
+                            @Override
+                            public void animationDone() {
+                            }
+
+                        });
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     private int reducedByShield(Enemy enemy, int damage) {
     	int recalcDamage = damage;
 		if(mSkillList.containsKey(Constants.SK_SHIELD)) {
@@ -3016,7 +3205,7 @@ public class MultiplePadEnvironment implements IEnvironment {
 			}
 		}
 		if(mCrossShield != null) {
-			recalcDamage = (int)(recalcDamage * (100 - getCrossReduceShield()) / 100f);
+			recalcDamage = (int)(recalcDamage * getCrossReduceShield());
 		}
 		return recalcDamage;
     }
@@ -3072,6 +3261,8 @@ public class MultiplePadEnvironment implements IEnvironment {
 				    			
 				    		});
 				    	}
+                        counterStrike(mMemberList[0][0], enemy, damageReduced);
+                        counterStrike(mMemberList[0][5], enemy, damageReduced);
 				    	
 				    	//mHp.getDamage(damage, mTeamData.getCurrentHp(), mTeamData.getHp());
 				    	if(callback != null) {
@@ -3210,7 +3401,20 @@ public class MultiplePadEnvironment implements IEnvironment {
         return mSkillList.containsKey(skill);
     }
 
-	@Override
+    @Override
+    public void removeSkill(String key) {
+        if (mSkillList.containsKey(key)) {
+            mSkillList.get(key).detach();
+            mSkillList.remove(key);
+            if(key.equals(Constants.SK_DROP_LOCK)) {
+                getScene().removeDropLock();
+            } else if (key.equals(Constants.SK_LOCK_REMOVE)) {
+                getScene().removeSkill(Constants.SK_LOCK_REMOVE);
+            }
+        }
+    }
+
+    @Override
 	public Member getMember(int index) {
 		return mMemberList[currentTeam][index];
 	}
@@ -3425,9 +3629,20 @@ public class MultiplePadEnvironment implements IEnvironment {
 				return true;
 			}
 		}
-		
+        boolean has_positive = false;
+        if(mSkillList.containsKey(Constants.SK_DROP_RATE)) {
+            SkillEntity entity = mSkillList.get(Constants.SK_DROP_RATE);
+            List<Integer> data = entity.skill.getData();
+            has_positive = true;
+            for(int i=1; i<data.size(); i += 2) {
+                if(data.get(i) >= 6) {
+                    has_positive = false;
+                    break;
+                }
+            }
+        }
 		return mSkillList.containsKey(Constants.SK_COUNTER_ATTACK) ||
-				mSkillList.containsKey(Constants.SK_DROP_RATE) ||
+                has_positive ||
 				mSkillList.containsKey(Constants.SK_POWER_UP) ||
 				mSkillList.containsKey(Constants.SK_SHIELD);
 	}

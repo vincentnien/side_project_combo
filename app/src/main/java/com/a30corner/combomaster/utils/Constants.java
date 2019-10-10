@@ -11,7 +11,7 @@ public class Constants {
 
 	public static final float SECOND_DROP = 0.55f;
 	public static final float SECOND_REMOVE = 0.45f;
-	public static final float SECOND_SWAP = 0.08f;
+	public static final float SECOND_SWAP = 0.05f;
 	public static final float SECOND_COMBO = SECOND_REMOVE / 2f;
 
 	public static final float SECOND_DROP_7x6 = 0.55f;
@@ -29,6 +29,8 @@ public class Constants {
 	public static int OFFSET_Y = 500;
 	
 	public static final String PREF_NAME = "comboMaster";
+
+	public static final int POISON_DROP_RATE = 15;
 
 	public static final int HALF_ORB_SIZE = ORB_SIZE / 2;
 	public static final int HALF_ORB_SIZE_7x6 = ORB_SIZE_7x6 / 2;
@@ -60,13 +62,20 @@ public class Constants {
 	public static final String SK_RCV_UP = "recoveryUp";
 	public static final String SK_TURN_RECOVER = "turnRecover";
 
+	public static final String SK_DROP_ONLY = "dropOnly";
 	public static final String SK_ENHANCE_ORB = "enhanceOrb";
 	public static final String SK_NO_DROP = "noDrop";
 
 	public static final String SK_VOID = "void";
 	public static final String SK_VOID_ATTR = "voidAttr";
+	public static final String SK_VOID_0 = "void0";
 
 	public static final String SK_PERIOD_CHANGE = "periodChange";
 
 	public static final String SK_LOCK_REMOVE = "lockRemove";
+
+	public static final String SK_HP_CHANGE = "hpChange";
+
+	public static final float ROW_ENHANCE = 0.15f;
+	public static final float PLUS_ENHANCE = 0.07f;
 }

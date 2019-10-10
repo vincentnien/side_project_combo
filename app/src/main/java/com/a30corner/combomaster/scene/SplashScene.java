@@ -110,10 +110,9 @@ public class SplashScene extends BaseMenuScene {
 				try {
 					mDialog.incrementProgressBy(1);
 					String line = getJsonData(f);
+//					Log.e("Vincent",  line);
 					MonsterVO vo = gson.fromJson(line, type);
-					//Log.e("Vincent", "no=" + vo.mNo);
-
-					//Log.e("Vincent", "no=" + vo.getNo() + " : " + vo.overpower);
+//					Log.e("Vincent", "no=" + vo.getNo());
 					push.add(vo);
 
 					if ( push.size() >= 500 ) { //100
@@ -124,7 +123,7 @@ public class SplashScene extends BaseMenuScene {
 					}
 
 				} catch (IOException e) {
-					Log.e("Vincent", e.toString(), e);
+					Log.e("ComboMaster", e.toString(), e);
 				}
 			}
 			// last part
@@ -193,7 +192,7 @@ public class SplashScene extends BaseMenuScene {
 				// reload team info from db
 				ComboMasterApplication.getsInstance().init();
 			} catch(Throwable e) {
-				Log.e("Vincent", e.toString(), e);
+				Log.e("ComboMaster", e.toString(), e);
 			} finally {
 				onCompleted();
 				EasyUtil.close(is);

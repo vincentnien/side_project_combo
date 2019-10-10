@@ -24,8 +24,13 @@ public abstract class Entity {
     
     public Sprite sprite;
     
-    public void setVisible(boolean visible) {
-    	sprite.setVisible(visible);
+    public void setVisible(final boolean visible) {
+    	envRef.get().getScene().engine.runOnUpdateThread(new Runnable() {
+            @Override
+            public void run() {
+                sprite.setVisible(visible);
+            }
+        });
     }
     
     public void setZIndex(int index) {

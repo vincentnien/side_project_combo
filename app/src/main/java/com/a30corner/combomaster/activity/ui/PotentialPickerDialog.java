@@ -12,7 +12,7 @@ import com.a30corner.combomaster.pad.monster.MonsterSkill.MoneyAwokenSkill;
 
 public class PotentialPickerDialog extends Dialog {
 
-	private int MAX_POTENTIAL = R.drawable.mawoken32-R.drawable.mawoken01 + 1;
+	private int MAX_POTENTIAL = R.drawable.mawoken33-R.drawable.mawoken01 + 1;
 
 	int counter = 0;
 	private MoneyAwokenSkill[] mSelection = new MoneyAwokenSkill[6];

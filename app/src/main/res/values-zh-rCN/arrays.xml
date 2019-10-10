@@ -97,6 +97,32 @@
         <item></item>
         <item></item>
         <item>Combo強化</item>
+        <item>Guard Break</item>
+        <item>Heart Arrow</item>
+        <item>Team Hp Up</item>
+        <item>Team Rcv Up</item>
+        <item>Square attack</item>
+        <item></item>
+        <item>Heart Square</item>
+        <item>Skill Charge</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>HP80％以上強化</item>
+        <item></item>
+        <item></item>
+        <item>L字攻撃</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Atk 1.5x if HP >= 80%</item>
+        <item></item>
+        <item></item>
+        <item>L Attack</item>
     </string-array>
     
     <array name="skills">
@@ -121,7 +147,10 @@
         <item>攻击力</item>
         <item>回復力</item>
     </string-array>
-    
+    <string-array name="leader_power">
+        <item>受到的伤害减少%d%%</item>
+        <item>解除觉醒无效状态%d回合。</item>
+    </string-array>
     <string-array name="monster_type">
         <item>龙</item>
         <item>恶魔</item>
@@ -172,9 +201,16 @@
         <item>特殊地城</item>
     </string-array>
     <string-array name="stage_list">
+        <item>裏・極限の闘技場 » 異形の存在</item>
+        <item>極練の闘技場-風華の悪戯</item>
         <item>極限の闘技場-異形の存在</item>
         <item>裏・極限の闘技場 » 裏双極の女神</item>
-        <item>6月任务 » 挑战Lv10（觉醒无效)</item>
+        <item>練磨の闘技場 » 魔法の極才</item>
+        <item>2019 3月任务 » 挑战Lv10【落ちコンなし】</item>
+        <!--<item>7周年！アニバーサリークエスト2 » Lv30</item>-->
+        <!--<item>2019 1月任务 » 挑战Lv10【覚醒無効】</item>-->
+        <!--<item>2019 1月任务 » 挑战Lv9【操作時間4秒固定】</item>-->
+        <!--<item>6月任务 » 挑战Lv10（觉醒无效)</item>-->
         <item>极限の闘技场-双极の女神3</item>
         <item>ソティス（闘技場1, 2, 3）</item>
         <item>宙斯龙降临</item>
