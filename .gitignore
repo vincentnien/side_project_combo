@@ -7,3 +7,5 @@
 /build
 /captures
 /.git/
+/andEngine/build/
+/app/release/
