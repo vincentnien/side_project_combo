@@ -1,12 +1,7 @@
 package com.a30corner.combomaster.playground;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.a30corner.combomaster.ComboMasterApplication;
 import com.a30corner.combomaster.pad.DamageCalculator;
-import com.a30corner.combomaster.pad.enemy.EnemySkill;
-import com.a30corner.combomaster.pad.enemy.EnemySkill.TYPE;
 import com.a30corner.combomaster.pad.monster.LeaderSkill;
 import com.a30corner.combomaster.pad.monster.MonsterInfo;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.AwokenSkill;
@@ -14,8 +9,10 @@ import com.a30corner.combomaster.pad.monster.MonsterSkill.MoneyAwokenSkill;
 import com.a30corner.combomaster.pad.monster.TeamInfo;
 import com.a30corner.combomaster.playground.entity.Enemy;
 import com.a30corner.combomaster.utils.Constants;
-import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.RandomUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MultipleTeam extends Team {
 
@@ -36,13 +33,18 @@ public class MultipleTeam extends Team {
 				mBindStatus[j][i] = false;
 			}
 		}
+		initMultipleTeam();
+
+		mCurrentHp = getHp();
+	}
+
+	private void initMultipleTeam() {
 		team[0].setFriend(team[1].getMember(0));
 		team[1].setFriend(team[0].getMember(0));
-		
+
 		team[0].init(Constants.MODE_MULTIPLE, null, true);
 		team[1].init(Constants.MODE_MULTIPLE, null, true);
 		initHp();
-		mCurrentHp = getHp();
 	}
 
 	public void setCurrentTeam(int current) {
@@ -69,10 +71,23 @@ public class MultipleTeam extends Team {
 	public TeamInfo team() {
 		return team[currentTeam];
 	}
+
+	public TeamInfo[] teams() {
+		return team;
+	}
 	
 	public void switchMember(int index) {
 		team[currentTeam].switchMember(index);
 		team[currentTeam].refresh(new boolean[]{false, false, false, false, false, false});
+	}
+
+	public void henshin(int i, int index) {
+		team[currentTeam].henshin(i, index, mBindStatus[currentTeam]);
+		if(i==0||i==5) {
+			team[0].setFriend(team[1].getMember(0));
+			team[1].setFriend(team[0].getMember(0));
+		}
+		initHp();
 	}
 
 	private void initHp() {

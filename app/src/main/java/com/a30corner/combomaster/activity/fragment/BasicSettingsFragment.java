@@ -1,17 +1,12 @@
 package com.a30corner.combomaster.activity.fragment;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -19,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,6 +40,13 @@ import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil;
 import com.a30corner.combomaster.utils.StorageUtil;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 public class BasicSettingsFragment extends CMBaseFragment {
 
 	private SharedPreferenceUtil sp = null;
@@ -65,7 +66,7 @@ public class BasicSettingsFragment extends CMBaseFragment {
 		
 		View view = inflater.inflate(R.layout.basic_settings, null);
 
-		Spinner dropTime = (Spinner) view.findViewById(R.id.drop_time);
+		Spinner dropTime = view.findViewById(R.id.drop_time);
 		dropTime.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -120,10 +121,10 @@ public class BasicSettingsFragment extends CMBaseFragment {
 			}
 		});
 
-		mAnalysisRect = (TextView) view.findViewById(R.id.analysis_rect);
+		mAnalysisRect = view.findViewById(R.id.analysis_rect);
 		mAnalysisRect.setText("[][]");
 		
-		Button setupAnalysis = (Button) view.findViewById(R.id.setup_analysis);
+		Button setupAnalysis = view.findViewById(R.id.setup_analysis);
 		setupAnalysis.setOnClickListener(new OnClickListener() {
             
             @Override
@@ -131,7 +132,7 @@ public class BasicSettingsFragment extends CMBaseFragment {
                 gotoAnalysisPage(v);
             }
         });
-		Button resetAnalysis = (Button) view.findViewById(R.id.reset_analysis);
+		Button resetAnalysis = view.findViewById(R.id.reset_analysis);
 		resetAnalysis.setOnClickListener(new OnClickListener() {
             
             @Override
@@ -140,7 +141,7 @@ public class BasicSettingsFragment extends CMBaseFragment {
             }
         });
 		
-		CheckBox fullscreen = (CheckBox) view.findViewById(R.id.cb_fullscreen);
+		CheckBox fullscreen = view.findViewById(R.id.cb_fullscreen);
 		boolean checked = sp.getBoolean(SharedPreferenceUtil.PREF_FULLSCREEN, true);
 		fullscreen.setChecked(checked);
 		
@@ -152,7 +153,23 @@ public class BasicSettingsFragment extends CMBaseFragment {
                         isChecked);
             }
         });
-		CheckBox keepRatio = (CheckBox) view.findViewById(R.id.cb_keep_ratio);
+		CheckBox original = view.findViewById(R.id.original_style);
+		try {
+            final SharedPreferences pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+            boolean orig = pref.getBoolean("viewpager", false);
+            original.setChecked(orig);
+            original.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    pref.edit().putBoolean("viewpager", isChecked).apply();
+                    ComboMasterApplication.getsInstance().putGaAction("viewpager", "set", ""+isChecked);
+                }
+            });
+        } catch(Exception e) {
+		    e.printStackTrace();
+        }
+
+		CheckBox keepRatio = view.findViewById(R.id.cb_keep_ratio);
 		boolean keepIt = sp.getBoolean(SharedPreferenceUtil.PREF_KEEP_RATIO, true);
 		keepRatio.setChecked(keepIt);
 		keepRatio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -163,7 +180,7 @@ public class BasicSettingsFragment extends CMBaseFragment {
 			}
 		});
 		
-		backup = (TextView) view.findViewById(R.id.backup_path);
+		backup = view.findViewById(R.id.backup_path);
 		backup.setText(getString(R.string.str_backup_path, StorageUtil.getCustomDirectory(getActivity())));
 		Button backupBtn = (Button) view.findViewById(R.id.btn_backup);
 		backupBtn.setOnClickListener(new OnClickListener() {

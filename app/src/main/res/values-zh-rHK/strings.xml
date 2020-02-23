@@ -182,6 +182,7 @@
     <string name="as_time_extend" formatted="false">%d回合內,寶珠移動時間延長%.1f秒.</string>
     <string name="as_move_time_x" formatted="false">%d回合內,寶珠移動時間延長%.1f倍.</string>
     <string name="as_drop_rate" formatted="false">%d回合內，%s寶珠掉落率提高%d%%</string>
+    <string name="as_drop_lock" formatted="false">%d回合內，%s寶珠將以鎖定狀態掉落</string>
    <string name="as_target_random" formatted="false">%s隨機變成%s</string>
    <string name="as_power_up_by_awoken" formatted="false">%d回合內,所有寵物攻擊力根據隊伍內的覺醒技能[%s]而有所提升,每一個提升%d%%。</string>
 	<string name="as_bind_recover" formatted="false">綁定狀態解除%d回合.</string>
@@ -385,4 +386,8 @@
     <string name="ls_color_direct_attack" formatted="false">%s中,其中%d種同時攻擊時, 追加%d點固定傷害。</string>
     <string name="ls_multi_direct_attack" formatted="false">當消除%d粒%s寶珠或以上時(需連著）, 追加%d點固定傷害。</string>
     <string name="as_reduce_eliminate_status" formatted="false">無法消除寶珠狀態減少%d回合。</string>
+    <string name="use_original_tab_style">使用舊樣式（需要重新啟動應用程序）</string>
+    <string name="use_original_tab_style2">使用舊樣式</string>
+
+    <string name="as_hen_shin" formatted="false">變身成為No.%d</string>
 </resources>

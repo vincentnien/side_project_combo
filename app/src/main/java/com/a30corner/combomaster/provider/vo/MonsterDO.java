@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.a30corner.combomaster.activity.ui.PotentialPickerDialog;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.MoneyAwokenSkill;
 import com.a30corner.combomaster.provider.table.TableMonster;
 
@@ -98,7 +99,7 @@ public class MonsterDO {
 		int cd2 = cursor.getInt(idx_cd2);
 		
 		List<MoneyAwokenSkill> list = new ArrayList<MoneyAwokenSkill>();
-		for(int i=1; i<7; ++i) {
+		for(int i = 1; i< PotentialPickerDialog.MAX_ARRAY_SIZE; ++i) {
 			int idx = cursor.getColumnIndexOrThrow(TableMonster.Columns.MAWOKEN+i);
 			int potentialId = cursor.getInt(idx);
 			if ( potentialId != -1 ) {

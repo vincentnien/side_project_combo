@@ -13,6 +13,7 @@ import com.a30corner.combomaster.pad.DamageCalculator;
 import com.a30corner.combomaster.provider.LocalDBHelper;
 import com.a30corner.combomaster.provider.vo.MonsterDO;
 import com.a30corner.combomaster.utils.Constants;
+import com.a30corner.combomaster.utils.LogUtil;
 
 public class TeamInfo {
 
@@ -104,6 +105,11 @@ public class TeamInfo {
 			}
 		}
 		return false;
+	}
+
+	public void henshin(int i, int index, boolean[] bind) {
+		mInfo[i].henshin(mContext, index);
+		refresh(bind);
 	}
 
 	public void load() {

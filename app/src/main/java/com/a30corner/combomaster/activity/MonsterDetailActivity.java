@@ -42,6 +42,7 @@ import com.a30corner.combomaster.ComboMasterApplication;
 import com.a30corner.combomaster.R;
 import com.a30corner.combomaster.activity.ui.ArrayAdapterWithIcon;
 import com.a30corner.combomaster.activity.ui.DialogUtil;
+import com.a30corner.combomaster.activity.ui.PotentialPickerDialog;
 import com.a30corner.combomaster.pad.monster.MonsterSkill;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.AwokenSkill;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.MoneyAwokenSkill;
@@ -114,7 +115,7 @@ public class MonsterDetailActivity extends Activity {
 	int sawoken_id = -1;
 	private MonsterVO data;
 	private MonsterVO data2;
-	MoneyAwokenSkill[] mMAws = new MoneyAwokenSkill[6];
+	MoneyAwokenSkill[] mMAws = new MoneyAwokenSkill[PotentialPickerDialog.MAX_ARRAY_SIZE];
 
 	private boolean initMonsterID(int value) {
 		try {
@@ -598,7 +599,8 @@ public class MonsterDetailActivity extends Activity {
 		}
 
 		final int[] pids = {R.id.p_awoken_skill1, R.id.p_awoken_skill2, R.id.p_awoken_skill3,
-				R.id.p_awoken_skill4, R.id.p_awoken_skill5, R.id.p_awoken_skill6};
+				R.id.p_awoken_skill4, R.id.p_awoken_skill5, R.id.p_awoken_skill6,
+				R.id.p_awoken_skill7, R.id.p_awoken_skill8};
 		for(int i=0; i<pids.length; ++i) {
 			ImageView image = (ImageView) findViewById(pids[i]);
 			mPotentialAwokens.add(image);
@@ -645,7 +647,7 @@ public class MonsterDetailActivity extends Activity {
 			public void onClick(View v) {
 				int awsSize = data.getAwokenList().size();
 				List<MoneyAwokenSkill> list = new ArrayList<MoneyAwokenSkill>();
-				for(int i=0; i<6; ++i) {
+				for(int i=0; i< PotentialPickerDialog.MAX_ARRAY_SIZE; ++i) {
 					if ( mMAws[i] != null && mMAws[i] != MoneyAwokenSkill.SKILL_NONE ) {
 						list.add(mMAws[i]);
 					}
@@ -739,7 +741,7 @@ public class MonsterDetailActivity extends Activity {
 		});
 		mDialog.show();
 		
-		for(int i=0; i<5; ++i) {
+		for(int i=0; i< PotentialPickerDialog.MAX_ARRAY_SIZE; ++i) {
 			mMAws[i] = MoneyAwokenSkill.SKILL_NONE;
 		}
 
@@ -764,7 +766,7 @@ public class MonsterDetailActivity extends Activity {
 							AddMonsterActivity.MONSTER_REC, 99);
 					awoken = mIntentExtra.getIntExtra(
 							AddMonsterActivity.MONSTER_AWOKEN, 10);
-					for(int i=0; i<5; ++i) {
+					for(int i=0; i<PotentialPickerDialog.MAX_ARRAY_SIZE; ++i) {
 						mMAws[i] = null;
 					}
 					active2 = -1;
@@ -814,7 +816,7 @@ public class MonsterDetailActivity extends Activity {
 			cd2 = mdo.skill2_cd;
 			List<MoneyAwokenSkill> list = mdo.potentialList;
 			int size = list.size();
-			for(int i=0; i<6; ++i) {
+			for(int i=0; i< PotentialPickerDialog.MAX_ARRAY_SIZE; ++i) {
 				if ( i < size ) {
 					mMAws[i] = list.get(i);
 				} else {
@@ -1060,13 +1062,13 @@ public class MonsterDetailActivity extends Activity {
 
 				List<MoneyAwokenSkill> pAwokens = new ArrayList<MonsterSkill.MoneyAwokenSkill>();//data.getPotentialAwokenList();
 
-				for(int i=0; i<6; ++i) {
+				for(int i=0; i< PotentialPickerDialog.MAX_ARRAY_SIZE; ++i) {
 					if ( mMAws[i] != null && mMAws[i] != MoneyAwokenSkill.SKILL_NONE ) {
 						pAwokens.add(mMAws[i]);
 					}
 				}
 				int size = pAwokens.size();
-				for(int i=0; i<6; ++i) {
+				for(int i=0; i<PotentialPickerDialog.MAX_ARRAY_SIZE; ++i) {
 					ImageView image = mPotentialAwokens.get(i);
 					if ( i >= size ) {
 						image.setVisibility(View.GONE);

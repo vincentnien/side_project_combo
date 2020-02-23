@@ -282,6 +282,7 @@ public class SkillEntity extends Entity {
 				id = SimulateAssets.ALL_UP_ID;
 				break;
 			}
+			case ST_RANDOM_CHANGE_FIX:
 			case ST_RANDOM_CHANGE:
 				break;
 			case ST_RANDOM_CHANGE_RESTRICT:

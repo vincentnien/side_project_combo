@@ -1,18 +1,11 @@
 package com.a30corner.combomaster;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.SparseArray;
 
-import com.a30corner.combomaster.activity.SettingsFragmentActivity;
 import com.a30corner.combomaster.activity.fragment.TeamFragment;
 import com.a30corner.combomaster.pad.PadBoardAI;
 import com.a30corner.combomaster.pad.monster.MonsterInfo;
@@ -21,12 +14,14 @@ import com.a30corner.combomaster.utils.BitmapUtil;
 import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ComboMasterApplication extends Application {
 
@@ -86,27 +81,27 @@ public class ComboMasterApplication extends Application {
 							// company.
 	}
 
-	HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+//	HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
 
-	synchronized Tracker getTracker(TrackerName trackerId) {
-		try {
-			if (!mTrackers.containsKey(trackerId)) {
-	
-				GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-				Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics
-						.newTracker(PROPERTY_ID) : analytics
-						.newTracker(R.xml.global_tracker);
-				// (trackerId == TrackerName.GLOBAL_TRACKER) ?
-				// : analytics.newTracker(R.xml.ecommerce_tracker);
-				mTrackers.put(trackerId, t);
-	
-			}
-			return mTrackers.get(trackerId);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	synchronized Tracker getTracker(TrackerName trackerId) {
+//		try {
+//			if (!mTrackers.containsKey(trackerId)) {
+//
+//				GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+//				Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics
+//						.newTracker(PROPERTY_ID) : analytics
+//						.newTracker(R.xml.global_tracker);
+//				// (trackerId == TrackerName.GLOBAL_TRACKER) ?
+//				// : analytics.newTracker(R.xml.ecommerce_tracker);
+//				mTrackers.put(trackerId, t);
+//
+//			}
+//			return mTrackers.get(trackerId);
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 	public static ComboMasterApplication getsInstance() {
 		if (sInstance == null) {
@@ -158,13 +153,13 @@ public class ComboMasterApplication extends Application {
 	}
 
 	public void onEnterScene(String screen) {
-		Tracker t = getTracker(TrackerName.APP_TRACKER);
-		if ( t != null ) {
-			t.setScreenName(screen);
-			t.send(new HitBuilders.AppViewBuilder().build());
-	
-			t.setScreenName(null);
-		}
+//		Tracker t = getTracker(TrackerName.APP_TRACKER);
+//		if ( t != null ) {
+//			t.setScreenName(screen);
+//			t.send(new HitBuilders.AppViewBuilder().build());
+//
+//			t.setScreenName(null);
+//		}
 	}
 	
 	public void putGaAction(String category, String action) {
@@ -172,34 +167,34 @@ public class ComboMasterApplication extends Application {
 	}
 	
 	public void putGaAction(String category, String action, String label) {
-		Tracker t = getTracker(TrackerName.APP_TRACKER);
-		if (t != null) {
-			t.setScreenName(ComboMasterApplication.class.getSimpleName());
-			t.send(new HitBuilders.EventBuilder()
-			.setCategory(category)
-			.setAction(action)
-			.setLabel(label)
-			.build()
-			);
-		}
+//		Tracker t = getTracker(TrackerName.APP_TRACKER);
+//		if (t != null) {
+//			t.setScreenName(ComboMasterApplication.class.getSimpleName());
+//			t.send(new HitBuilders.EventBuilder()
+//			.setCategory(category)
+//			.setAction(action)
+//			.setLabel(label)
+//			.build()
+//			);
+//		}
 	}
 	
 	public void setHasMusic(boolean music, boolean wav) {
-		Tracker t = getTracker(TrackerName.APP_TRACKER);
-		if (t != null) {
-			t.setScreenName(SettingsFragmentActivity.class.getSimpleName());
-			t.send(new HitBuilders.EventBuilder()
-			.setCategory("UX")
-			.setAction("Music:"+(music? 1:0))
-			.build()
-			);
-
-			t.send(new HitBuilders.EventBuilder()
-			.setCategory("UX")
-			.setAction("Sound:"+(wav? 1:0))
-			.build()
-			);
-		}
+//		Tracker t = getTracker(TrackerName.APP_TRACKER);
+//		if (t != null) {
+//			t.setScreenName(SettingsFragmentActivity.class.getSimpleName());
+//			t.send(new HitBuilders.EventBuilder()
+//			.setCategory("UX")
+//			.setAction("Music:"+(music? 1:0))
+//			.build()
+//			);
+//
+//			t.send(new HitBuilders.EventBuilder()
+//			.setCategory("UX")
+//			.setAction("Sound:"+(wav? 1:0))
+//			.build()
+//			);
+//		}
 	}
 
 	private void initBitmapCache() {
@@ -376,7 +371,7 @@ public class ComboMasterApplication extends Application {
 	            }
 	        }
 	        SharedPreferences sp = getSharedPreferences("boardCache", Context.MODE_PRIVATE);
-	        sp.edit().putString("cache", sb.toString()).commit();
+	        sp.edit().putString("cache", sb.toString()).apply();
 	    }
 	}
 
@@ -477,13 +472,15 @@ public class ComboMasterApplication extends Application {
 			return null;
 		}
 		
-	    TeamInfo info = null;
-        if (mTeamList.get(no, null) == null) {
-            info = new TeamInfo(this, no);
-            info.load();
-        } else {
-            info = mTeamList.get(no);
-        }
+	    TeamInfo info = new TeamInfo(this, no);
+		info.load();
+		// we need every object is isolated, otherwise hen-shin will also change other instance
+//        if (mTeamList.get(no, null) == null) {
+//            info = new TeamInfo(this, no);
+//            info.load();
+//        } else {
+//            info = mTeamList.get(no);
+//        }
         info.init(mode, mPetsUp, copMode);
         return info;
 	}

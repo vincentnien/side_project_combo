@@ -1,51 +1,12 @@
 package com.a30corner.combomaster.scene;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.andengine.engine.handler.timer.ITimerCallback;
-import org.andengine.engine.handler.timer.TimerHandler;
-import org.andengine.entity.IEntity;
-import org.andengine.entity.modifier.AlphaModifier;
-import org.andengine.entity.modifier.ColorModifier;
-import org.andengine.entity.modifier.IEntityModifier;
-import org.andengine.entity.modifier.LoopEntityModifier;
-import org.andengine.entity.modifier.MoveYModifier;
-import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.PathModifier.Path;
-import org.andengine.entity.modifier.ScaleModifier;
-import org.andengine.entity.modifier.SequenceEntityModifier;
-import org.andengine.entity.primitive.Rectangle;
-import org.andengine.entity.scene.Scene;
-import org.andengine.entity.scene.menu.MenuScene;
-import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
-import org.andengine.entity.scene.menu.item.IMenuItem;
-import org.andengine.entity.sprite.Sprite;
-import org.andengine.entity.text.Text;
-import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.util.color.Color;
-
-import rx.Observable;
-import rx.schedulers.Schedulers;
-import rx.functions.Action1;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import com.a30corner.combomaster.ComboMasterApplication;
 import com.a30corner.combomaster.activity.GameActivity;
@@ -87,6 +48,46 @@ import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.RandomUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil;
 import com.a30corner.combomaster.utils.SimulatorConstants;
+
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.modifier.ColorModifier;
+import org.andengine.entity.modifier.IEntityModifier;
+import org.andengine.entity.modifier.LoopEntityModifier;
+import org.andengine.entity.modifier.MoveYModifier;
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.Path;
+import org.andengine.entity.modifier.ScaleModifier;
+import org.andengine.entity.modifier.SequenceEntityModifier;
+import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.Scene;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
+import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.util.color.Color;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
+import static com.a30corner.combomaster.pad.monster.ActiveSkill.SkillType.ST_RANDOM_CHANGE_FIX;
 
 public class MultiplePadGameScene extends PlaygroundGameScene implements
 		IOnMenuItemClickListener {
@@ -1281,7 +1282,7 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 			}
 			return true;
 		}
-
+		case ST_RANDOM_CHANGE_FIX:
 		case ST_RANDOM_CHANGE: {
 			int[][] board = new int[PadBoardAI.ROWS][PadBoardAI.COLS];
 			PadBoardAI.copy_board(gameBoard, board);
@@ -1301,11 +1302,13 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 			for (int i = 0; i < PadBoardAI.ROWS; ++i) {
 				for (int j = 0; j < PadBoardAI.COLS; ++j) {
 					boolean find = false;
-					for (int k = 0; k < colorList.size(); ++k) {
-						int color = colorList.get(k);
-						if ((board[i][j] % 10) == color) {
-							find = true;
-							break;
+					if(type != ST_RANDOM_CHANGE_FIX) {
+						for (int k = 0; k < colorList.size(); ++k) {
+							int color = colorList.get(k);
+							if ((board[i][j] % 10) == color) {
+								find = true;
+								break;
+							}
 						}
 					}
 					if (!find) {
@@ -1778,11 +1781,14 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 		registerUpdateHandler(mCTWTimer);
 	}
 
-	public void calcNullAwoken(boolean nullAwoken) {
-		initMonsterData(nullAwoken);
+	public void calcNullAwoken(boolean nullAwoken, TeamInfo[] team) {
+		initMonsterData(nullAwoken, team);
 	}
 
-	private void initMonsterData(boolean nullAwoken) {
+	private void initMonsterData(boolean nullAwoken, TeamInfo[] team) {
+		if(team != null) {
+			mTeam = team;
+		}
 		poisonDropCount = jammerDropCount = 0;
 		for (int j = 0; j < 2; ++j) {
 			if (mDropTime[j] != 0) {
@@ -1840,6 +1846,8 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 			mDropTime[0] = mTimeFixed;
 			mDropTime[1] = mTimeFixed;
 		}
+
+		LogUtil.e("Recalc drop time = ", mDropTime[0]);
 	}
 
 	@Override
@@ -1875,7 +1883,7 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 		init();
 
 		// check monster's skill with hand ( +0.5s )
-		initMonsterData(mNullAwoken);
+		initMonsterData(mNullAwoken, null);
 
 		HandlerThread ht = new HandlerThread("ht");
 		ht.start();
@@ -2322,6 +2330,7 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 					} else {
 						mTimeRemain = mDropTime[currentTeam];
 					}
+					LogUtil.e("Move time = ", mTimeRemain);
 					// PadBoardAI.copy_board(gameBoard, previousBoard);
 					// mStack.push(gameBoard);
 

@@ -83,6 +83,7 @@ public class TeamSelectorActivity extends Activity {
 			TextView[] p297s = new TextView[5];
 			ImageView[] awokens = new ImageView[5];
 			ImageView[] mawokens = new ImageView[5];
+			ImageView[] assits = new ImageView[5];
 		}
 		
 		public MonsterAdapter(Context context) {
@@ -143,13 +144,16 @@ public class TeamSelectorActivity extends Activity {
 					R.id.aws_count_03, R.id.aws_count_04, R.id.aws_count_05 };
 			final int[] maws = {R.id.maws_count_01, R.id.maws_count_02,
 					R.id.maws_count_03, R.id.maws_count_04, R.id.maws_count_05};
+			final int[] assit = {R.id.assit_01, R.id.assit_02, R.id.assit_03,
+					R.id.assit_04, R.id.assit_05};
 			ViewHolder holder = new ViewHolder();
             for(int i=0; i<5; ++i) {
-            	holder.images[i] = (ImageView) view.findViewById(images[i]);
-            	holder.lvs[i] = (TextView) view.findViewById(texts[i]);
-            	holder.p297s[i] = (TextView) view.findViewById(p297[i]);
-            	holder.awokens[i] = (ImageView) view.findViewById(aws[i]);
-            	holder.mawokens[i] = (ImageView) view.findViewById(maws[i]);
+            	holder.images[i] = view.findViewById(images[i]);
+            	holder.lvs[i] = view.findViewById(texts[i]);
+            	holder.p297s[i] = view.findViewById(p297[i]);
+            	holder.awokens[i] = view.findViewById(aws[i]);
+            	holder.mawokens[i] = view.findViewById(maws[i]);
+				holder.assits[i] = view.findViewById(assit[i]);
             }
             view.setTag(holder);
 			return view;
@@ -164,6 +168,7 @@ public class TeamSelectorActivity extends Activity {
 				TextView p297 = holder.p297s[i];
 				ImageView awk = holder.awokens[i];
 				ImageView mawk = holder.mawokens[i];
+				ImageView assit = holder.assits[i];
 				
 				if ( data == null ) {
 					image.setVisibility(View.INVISIBLE);
@@ -172,6 +177,7 @@ public class TeamSelectorActivity extends Activity {
 					p297.setText("");
 					awk.setVisibility(View.INVISIBLE);
 					mawk.setVisibility(View.INVISIBLE);
+					assit.setVisibility(View.INVISIBLE);
 				} else {
 					if ( data.getNo() > 0 ) {
 						File file = new File(mCtx.getFilesDir(), String.format("%di.png", data.getNo()));
@@ -200,6 +206,15 @@ public class TeamSelectorActivity extends Activity {
 								awk.setVisibility(View.VISIBLE);
 							}
 						}
+						if(data.getAssistantNo() > 0) {
+							File f2 = new File(mCtx.getFilesDir(), String.format("%di.png", data.getAssistantNo()));
+							if ( f2.exists() ) {
+								assit.setImageURI(Uri.fromFile(f2));
+							} else {
+								assit.setImageResource(R.drawable.i000);
+							}
+							assit.setVisibility(View.VISIBLE);
+						}
 						List<MoneyAwokenSkill> list = data.getPotentialAwokenList();
 						int size = list.size();
 						if ( size > 0 ) {
@@ -220,6 +235,7 @@ public class TeamSelectorActivity extends Activity {
 						p297.setText("");
 						awk.setVisibility(View.INVISIBLE);
 						mawk.setVisibility(View.INVISIBLE);
+						assit.setVisibility(View.INVISIBLE);
 					}
 					image.setOnClickListener(new OnClickListener() {
                         

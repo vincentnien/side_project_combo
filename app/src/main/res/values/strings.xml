@@ -8,9 +8,9 @@
     <string name="action_settings">Settings</string>
     <string name="time_limit">Time Limit:</string>
 
-    <string name="version" translatable="false">4.7.7</string>
+    <string name="version" translatable="false">5.2.0</string>
     <string name="modified_time" translatable="false">1473638400</string>
-    <string name="support_version" translatable="false">223</string>
+    <string name="support_version" translatable="false">247</string>
 
     <string name="settings">Settings</string>
     <string name="orb_type">Orbs type:</string>
@@ -176,6 +176,7 @@
     <string name="ls_multi_orb_combo" formatted="false">When matching a connected group of %d or more %s Orbs ATK becomes %1.2fx.</string>
     <string name="ls_multi_orb_shield" formatted="false">Reduce damage taken by %d%%.</string>
     <string name="ls_target_orb_combo" formatted="false">When matching %d sets of %s orbs, ATK becomes %1.1fx.</string>
+    <string name="ls_target_orb_combo_direct_damage" formatted="false">When matching %d sets of %s orbs, deal %d damage to all enemies.</string>
     <string name="ls_target_orb_shield" formatted="false">When matching %d sets of %s orbs, Reduces all damage received by %d%%.</string>
     <string name="lst_reduce_by_hp_full" formatted="false">When HP is full, reduces all damage received by %d%%</string>
     <string name="lst_reduce_by_hp_50" formatted="false">When HP is less than %d%%, reduce damage taken by %d%%</string>
@@ -229,7 +230,8 @@
 	<string name="as_random_change_restrict" formatted="false">%d random orbs(except %s) become %s.</string>
 	<string name="as_time_extend" formatted="false">For %d turns, orb time extended by %.1f secs.</string>
 	<string name="as_drop_rate" formatted="false">For %d turns, drop rate of %s orbs is increased by %d%%.</string>
-	<string name="as_target_random" formatted="false">%s become %s.</string>
+    <string name="as_drop_lock" formatted="false">For %d turns, drop locked %s orbs.</string>
+    <string name="as_target_random" formatted="false">%s become %s.</string>
 	<string name="as_power_up_by_awoken" formatted="false">For %d turns, increases attack power base on the number of awakening skills [%s], increases %d%% for each one.</string>
     <string name="as_def_up_by_awoken" formatted="false">For %d turns, reduce damage base on the number of awakening skills [%s], reduces %d%% for each one.</string>
 	<string name="as_bind_recover" formatted="false">Reduce all binds by %d rounds.</string>
@@ -460,4 +462,8 @@
     <string name="ls_reduce_x" formatted="false">%s</string>
 
     <string name="as_reduce_eliminate_status" formatted="false">Reduce unable to eliminate orbs status by %d rounds.</string>
+    <string name="use_original_tab_style">Use original tab style(need restart application)</string>
+    <string name="use_original_tab_style2">Use original tab style</string>
+
+    <string name="as_hen_shin" formatted="false">Turn in to No.%d</string>
 </resources>

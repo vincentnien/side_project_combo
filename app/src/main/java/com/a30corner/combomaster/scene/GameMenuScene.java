@@ -13,7 +13,9 @@ import org.andengine.opengl.font.IFont;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
@@ -26,8 +28,11 @@ import com.a30corner.combomaster.R;
 import com.a30corner.combomaster.activity.GameActivity;
 import com.a30corner.combomaster.activity.MachineListActivity;
 import com.a30corner.combomaster.activity.MonsterBoxActivity;
+import com.a30corner.combomaster.activity.MonsterBoxList;
+import com.a30corner.combomaster.activity.NewMonsterBoxActivity;
 import com.a30corner.combomaster.activity.SettingsFragmentActivity;
 import com.a30corner.combomaster.activity.StageSelectActivity;
+import com.a30corner.combomaster.activity.TeamActivity;
 import com.a30corner.combomaster.activity.ui.DialogUtil;
 import com.a30corner.combomaster.activity.ui.DialogUtil.ITeamSelectCallback;
 import com.a30corner.combomaster.manager.ResourceManager;
@@ -339,8 +344,11 @@ public class GameMenuScene extends BaseMenuScene
 			break;
 		}
 		case MENU_TEAM:
+			SharedPreferences pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+			boolean viewpager = pref.getBoolean("viewpager", false);
+
 			activity.startActivity(new Intent(activity,
-					MonsterBoxActivity.class));
+					(viewpager)? MonsterBoxActivity.class:MonsterBoxList.class));
 			break;
 		case MENU_SETTINGS:
 			activity.startActivity(new Intent(activity,

@@ -17,6 +17,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.SparseArray;
 
+import com.a30corner.combomaster.pad.monster.MonsterSkill;
 import com.a30corner.combomaster.provider.table.TableMonster;
 import com.a30corner.combomaster.provider.table.TableMonsterData;
 import com.a30corner.combomaster.provider.vo.MonsterDO;
@@ -144,6 +145,17 @@ public abstract class AbstractProvider extends ContentProvider {
 			}
 		}
 
+		private void version10Added(SQLiteDatabase sqlitedb) {
+			try {
+				for(int i=7; i<10; ++i) {
+					String sql = "ALTER TABLE " + TableMonster.TABLE + " ADD COLUMN " + TableMonster.Columns.MAWOKEN + i;
+					sqlitedb.execSQL(sql + " INTEGER DEFAULT(-1)");
+				}
+			} catch(Throwable e) {
+				LogUtil.e(e);
+			}
+		}
+
 		@Override
 		public void onUpgrade(SQLiteDatabase sqlitedb, int oldver, int newver) {
 			LogUtil.d("onUpgrade");
@@ -151,29 +163,52 @@ public abstract class AbstractProvider extends ContentProvider {
 				version2Added(sqlitedb);
 				version3Added(sqlitedb);
 				version4Added(sqlitedb);
+				version5Added(sqlitedb);
+				version9Added(sqlitedb);
+				version10Added(sqlitedb);
 				return ;
 			}
 			
 			if (oldver == 3) {
 				version3Added(sqlitedb);
 				version4Added(sqlitedb);
+				version5Added(sqlitedb);
+				version9Added(sqlitedb);
+				version10Added(sqlitedb);
 				return ;
 			}
 			
 			if(oldver == 4) {
 				version4Added(sqlitedb);
+				version5Added(sqlitedb);
+				version9Added(sqlitedb);
+				version10Added(sqlitedb);
 				return ;
 			}
 			
 			if(oldver==5 || oldver ==6) {
 				version5Added(sqlitedb);
+				version9Added(sqlitedb);
+				version10Added(sqlitedb);
 				return ;
 			}
 
 			if(oldver<9) {
 				version9Added(sqlitedb);
+				version10Added(sqlitedb);
 				return;
 			}
+
+			if(oldver==9) {
+				version10Added(sqlitedb);
+				return;
+			}
+
+			if(oldver==10) {
+				version10Added(sqlitedb);
+				return ;
+			}
+
 			
 			List<MonsterDO> oldData = new ArrayList<MonsterDO>();
 			if ( oldver == 1 ) {

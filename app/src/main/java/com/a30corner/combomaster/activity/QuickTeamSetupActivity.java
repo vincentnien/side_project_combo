@@ -194,14 +194,14 @@ public class QuickTeamSetupActivity extends Activity {
 		ht.start();
 		mNonUi = new Handler(ht.getLooper());
 
-		mListView = (ListView) findViewById(android.R.id.list);
+		mListView = findViewById(android.R.id.list);
 		mAdapter = new MonsterAdapter(QuickTeamSetupActivity.this);
 		mListView.setAdapter(mAdapter);
 
 		final int[] IMAGE_ID = { R.id.leader1, R.id.member1, R.id.member2,
 				R.id.member3, R.id.member4, R.id.leader2 };
 		for (int i = 0; i < IMAGE_ID.length; ++i) {
-			ImageView imageView = (ImageView) findViewById(IMAGE_ID[i]);
+			ImageView imageView = findViewById(IMAGE_ID[i]);
 			mImage.add(imageView);
 			final int index = i;
 			imageView.setOnClickListener(new OnClickListener() {
@@ -236,7 +236,7 @@ public class QuickTeamSetupActivity extends Activity {
 			}
 		});
 
-		Button done = (Button) findViewById(R.id.btn_team_edit);
+		Button done = findViewById(R.id.btn_team_edit);
 		done.setOnClickListener(new OnClickListener() {
 
 			@Override

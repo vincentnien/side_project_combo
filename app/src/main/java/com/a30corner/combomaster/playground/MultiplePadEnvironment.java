@@ -1,36 +1,5 @@
 package com.a30corner.combomaster.playground;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.microedition.khronos.opengles.GL10;
-
-import org.andengine.entity.IEntity;
-import org.andengine.entity.modifier.AlphaModifier;
-import org.andengine.entity.modifier.MoveModifier;
-import org.andengine.entity.modifier.MoveXModifier;
-import org.andengine.entity.modifier.MoveYModifier;
-import org.andengine.entity.scene.Scene;
-import org.andengine.entity.sprite.Sprite;
-import org.andengine.entity.text.Text;
-import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.color.Color;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
-import rx.functions.Func1;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -41,7 +10,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
 import android.view.Gravity;
@@ -49,13 +17,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import au.com.ds.ef.EasyFlow;
-import au.com.ds.ef.EventEnum;
-import au.com.ds.ef.FlowBuilder;
-import au.com.ds.ef.StateEnum;
-import au.com.ds.ef.StatefulContext;
-import au.com.ds.ef.call.ContextHandler;
-import au.com.ds.ef.err.LogicViolationError;
 
 import com.a30corner.combomaster.ComboMasterApplication;
 import com.a30corner.combomaster.R;
@@ -68,7 +29,6 @@ import com.a30corner.combomaster.pad.DamageCalculator;
 import com.a30corner.combomaster.pad.DamageCalculator.AttackValue;
 import com.a30corner.combomaster.pad.Match;
 import com.a30corner.combomaster.pad.enemy.EnemySkill;
-import com.a30corner.combomaster.pad.mode7x6.DamageCalculator7x6;
 import com.a30corner.combomaster.pad.monster.ActiveSkill;
 import com.a30corner.combomaster.pad.monster.LeaderSkill;
 import com.a30corner.combomaster.pad.monster.LeaderSkill.LeaderSkillType;
@@ -79,7 +39,6 @@ import com.a30corner.combomaster.pad.monster.MonsterVO;
 import com.a30corner.combomaster.pad.monster.Skill;
 import com.a30corner.combomaster.pad.monster.TeamInfo;
 import com.a30corner.combomaster.playground.BuffOnEnemySkill.Type;
-import com.a30corner.combomaster.playground.PadEnvironment.ExecutorHandler;
 import com.a30corner.combomaster.playground.PadEnvironment.ICastCallback;
 import com.a30corner.combomaster.playground.Team.IDamageCallback;
 import com.a30corner.combomaster.playground.action.EnemyAction;
@@ -106,6 +65,44 @@ import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.RandomUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.AlphaModifier;
+import org.andengine.entity.modifier.MoveModifier;
+import org.andengine.entity.modifier.MoveXModifier;
+import org.andengine.entity.modifier.MoveYModifier;
+import org.andengine.entity.scene.Scene;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
+import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.util.color.Color;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.microedition.khronos.opengles.GL10;
+
+import au.com.ds.ef.EasyFlow;
+import au.com.ds.ef.EventEnum;
+import au.com.ds.ef.FlowBuilder;
+import au.com.ds.ef.StateEnum;
+import au.com.ds.ef.StatefulContext;
+import au.com.ds.ef.call.ContextHandler;
+import au.com.ds.ef.err.LogicViolationError;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class MultiplePadEnvironment implements IEnvironment {
     private WeakReference<PlaygroundGameScene> mSceneRef;
@@ -511,7 +508,8 @@ public class MultiplePadEnvironment implements IEnvironment {
                     if(leader != null && !getMember(0).isBinded()) {
                         for(LeaderSkill s : leader.getLeaderSkill()) {
                             if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
-                                s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK ||
+                                    s.getType() == LeaderSkillType.LST_TARGET_ORB_DIRECT_ATTACK) {
                                 double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, leader, getScene().getMatches(), null, false, true);
                                 if(factor > 1.0) {
                                     heartArrow += factor;
@@ -522,7 +520,8 @@ public class MultiplePadEnvironment implements IEnvironment {
                     if(friend != null && !getMember(5).isBinded()) {
                         for(LeaderSkill s : friend.getLeaderSkill()) {
                             if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
-                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK ||
+                                    s.getType() == LeaderSkillType.LST_TARGET_ORB_DIRECT_ATTACK) {
                                 double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, friend, getScene().getMatches(), null, false, true);
                                 if(factor > 1.0) {
                                     heartArrow += factor;
@@ -1363,15 +1362,13 @@ public class MultiplePadEnvironment implements IEnvironment {
 	                Member member = null;
 	                
 	                ITextureRegion region = null;
-	                if (info != null) {
-	                    LogUtil.d("load data", info.getNo());
-	                    try {
-	                        region = res.loadTextureFile(info.getNo() + "i.png");
-	                    } catch (Throwable e) {
-	                        LogUtil.e(e);
-	                        region = null;
-	                    }
-	                }
+                    LogUtil.d("load data", info.getNo());
+                    try {
+                        region = res.loadTextureFile(info.getNo() + "i.png");
+                    } catch (Throwable e) {
+                        LogUtil.e(e);
+                        region = null;
+                    }
 	                if (region != null) {
 	                    member = new Member(this, info);
 	                    member.init(Constants.OFFSET_X + i * (88 + 1) + offset,
@@ -2689,9 +2686,9 @@ public class MultiplePadEnvironment implements IEnvironment {
     	boolean nullAwoken = mSkillList.containsKey(Constants.SK_AWOKEN_LOCK);
     	PlaygroundGameScene scene = mSceneRef.get();
         if(scene instanceof  MultiplePadGameScene) {
-            ((MultiplePadGameScene)scene).calcNullAwoken(nullAwoken);
+            ((MultiplePadGameScene)scene).calcNullAwoken(nullAwoken, mTeamData.teams());
         } else if(scene instanceof  MultiplePadGameScene7x6) {
-            ((MultiplePadGameScene7x6)scene).calcNullAwoken(nullAwoken);
+            ((MultiplePadGameScene7x6)scene).calcNullAwoken(nullAwoken, mTeamData.teams());
         }
 
     }
@@ -2809,7 +2806,7 @@ public class MultiplePadEnvironment implements IEnvironment {
     }
     
     @Override
-    public void fireSkill(Member caster, ActiveSkill skill, final ICastCallback callback) {
+    public void fireSkill(final Member caster, final ActiveSkill skill, final ICastCallback callback) {
         boolean casted = getScene().skillFired(skill, callback, false);
         if (!casted) { // damage skill will not cast, handle here
             if(caster == null && skill.getType() == ActiveSkill.SkillType.ST_SUPER_DARK) {
@@ -2834,6 +2831,66 @@ public class MultiplePadEnvironment implements IEnvironment {
                     int hp = mTeamData.getRealHp() * data.get(2) / 100;
                     mTeamData.setMaxHp(hp);
                 }
+            } else if (skill.getType() == ActiveSkill.SkillType.ST_HEN_SHIN) {
+
+                SkillDispatcher.fire(this, caster, skill, new ICastCallback() {
+
+                    @Override
+                    public void onCastFinish(boolean casted) {
+                        if(callback != null) {
+                            callback.onCastFinish(true);
+                        }
+                        // check all enemies dead or not
+                        checkEnemyState();
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        for(int i=0; i<6; ++i) {
+                            if (caster != null && mMemberList[currentTeam][i] == caster) {
+                                ResourceManager res = ResourceManager.getInstance();
+                                VertexBufferObjectManager vbom = getScene().vbom;
+
+                                int no = skill.getData().get(0);
+                                mTeamData.henshin(i, no);
+                                ITextureRegion region = null;
+                                MonsterInfo info = mTeamData.getMember(i);
+                                try {
+                                    region = res.loadTextureFile(no + "i.png");
+                                } catch (Throwable e) {
+                                    LogUtil.e(e);
+                                }
+                                if (region != null) {
+                                    Sprite oldSprite = mMemberList[currentTeam][i].sprite;
+                                    float mx = oldSprite.getX();
+                                    float my = oldSprite.getY();
+                                    PlaygroundGameScene scene = getScene();
+
+                                    Member member = new Member(MultiplePadEnvironment.this, info);
+                                    member.init(mx, my, region, vbom);
+                                    scene.unregisterTouchArea(oldSprite);
+                                    scene.detach(oldSprite);
+                                    scene.attach(member.sprite);
+
+                                    mMemberList[currentTeam][i] = member;
+                                    if ( i == 0 ) {
+                                        mMemberList[currentTeam == 0? 1:0][5] = member;
+                                    } else if (i == 5) {
+                                        mMemberList[currentTeam == 0? 1:0][0] = member;
+                                    }
+                                    scene.registerTouchArea(member.sprite);
+                                }
+                                break;
+                            }
+                        }
+                        calcNullAwoken();
+                        setCurrentHp(mTeamData.getCurrentHp(), false);
+                    }
+                });
+                return ;
             }
             SkillDispatcher.fire(this, caster, skill, new ICastCallback() {
                 

@@ -91,6 +91,8 @@ import rx.Observable;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
+import static com.a30corner.combomaster.pad.monster.ActiveSkill.SkillType.ST_RANDOM_CHANGE_FIX;
+
 public class PadGameScene7x6 extends PlaygroundGameScene implements
         IOnMenuItemClickListener {
 
@@ -1235,6 +1237,7 @@ public class PadGameScene7x6 extends PlaygroundGameScene implements
             }
             return true;
         }
+        case ST_RANDOM_CHANGE_FIX:
         case ST_RANDOM_CHANGE: {
             int[][] board = new int[PadBoardAI7x6.ROWS][PadBoardAI7x6.COLS];
             PadBoardAI7x6.copy_board(gameBoard, board);
@@ -1254,11 +1257,13 @@ public class PadGameScene7x6 extends PlaygroundGameScene implements
             for (int i = 0; i < PadBoardAI7x6.ROWS; ++i) {
                 for (int j = 0; j < PadBoardAI7x6.COLS; ++j) {
                     boolean find = false;
-                    for (int k = 0; k < colorList.size(); ++k) {
-                        int color = colorList.get(k);
-                        if ((board[i][j]%10) == color) {
-                            find = true;
-                            break;
+                    if(type != ST_RANDOM_CHANGE_FIX) {
+                        for (int k = 0; k < colorList.size(); ++k) {
+                            int color = colorList.get(k);
+                            if ((board[i][j] % 10) == color) {
+                                find = true;
+                                break;
+                            }
                         }
                     }
                     if (!find) {
@@ -1782,11 +1787,14 @@ public class PadGameScene7x6 extends PlaygroundGameScene implements
         registerUpdateHandler(mCTWTimer);
     }
 
-    public void calcNullAwoken(boolean nullAwoken) {
-    	initMonsterData(nullAwoken);
+    public void calcNullAwoken(boolean nullAwoken, TeamInfo team) {
+    	initMonsterData(nullAwoken, team);
     }
 
-    private void initMonsterData(boolean nullAwoken) {
+    private void initMonsterData(boolean nullAwoken, TeamInfo team) {
+        if(team != null) {
+            mTeam = team;
+        }
         jammerDropCount = poisonDropCount = 0;
         if (mDropTime != 0) {
         	mDropTime = Constants.DEFAULT_SECOND;
@@ -1888,7 +1896,7 @@ public class PadGameScene7x6 extends PlaygroundGameScene implements
         init();
 
         // check monster's skill with hand ( +0.5s )
-        initMonsterData(mNullAwoken);
+        initMonsterData(mNullAwoken, null);
 
         HandlerThread ht = new HandlerThread("ht");
         ht.start();

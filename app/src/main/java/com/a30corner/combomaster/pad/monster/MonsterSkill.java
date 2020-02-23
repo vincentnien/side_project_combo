@@ -106,7 +106,7 @@ public class MonsterSkill {
 			}
 			return values[value];
 		}
-	};
+	}
 
 	public static enum SinglePowerUp {
 		COST(0), MOVE(1), ATTACK_ALL(2),
@@ -233,6 +233,10 @@ public class MonsterSkill {
 				int turn = data.get(0);
 				return context.getString(R.string.as_void_void_shield, turn);
 			}
+			case ST_HEN_SHIN: {
+				int id = data.get(0);
+				return context.getString(R.string.as_hen_shin, id);
+			}
 			case ST_RECOVER_LOCK_REMOVE: {
 				int turn = data.get(0);
 				return context.getString(R.string.as_reduce_eliminate_status, turn);
@@ -297,6 +301,19 @@ public class MonsterSkill {
 				int turn = data.get(0);
 				int add = data.get(1);
 				return context.getString(R.string.as_add_combo, turn, add);
+			}
+			case ST_DROP_LOCK: {
+				int size = data.size();
+				String orbs = "";
+				for(int i=1; i<size; i+=2) {
+					int up = data.get(i);
+					orbs += orbType[up];
+					if (i < size - 2) {
+						orbs += ",";
+					}
+				}
+				int turn = data.get(0);
+				return context.getString(R.string.as_drop_lock, turn, orbs);
 			}
 			case ST_GRAVITY_100: {
 				return context.getString(R.string.as_gravity_100, data.get(0));
@@ -542,6 +559,7 @@ public class MonsterSkill {
                     return combind;
                 }
 			}
+			case ST_RANDOM_CHANGE_FIX:
 			case ST_RANDOM_CHANGE: {
 				int color = data.get(0);
 				int count = data.get(1);
@@ -864,6 +882,25 @@ public class MonsterSkill {
 						int factor = data.get(pos + colorcnt + 1);
 
 						sb.append(context.getString(R.string.ls_target_orb_shield,
+								colorcnt, TextUtils.join(",", orbs), factor));
+						pos += colorcnt + 2;
+					}
+					return sb.toString();
+				}
+				case LST_TARGET_ORB_DIRECT_ATTACK:{
+					StringBuilder sb = new StringBuilder();
+					int count = data.get(0);
+					int pos = 1;
+					for (int i = 0; i < count; ++i) {
+						int colorcnt = data.get(pos);
+						String[] orbs = new String[colorcnt];
+						for (int j = 0; j < colorcnt; ++j) {
+							int color = data.get(pos + j + 1);
+							orbs[j] = arrProps[color];
+						}
+						int factor = data.get(pos + colorcnt + 1);
+
+						sb.append(context.getString(R.string.ls_target_orb_combo_direct_damage,
 								colorcnt, TextUtils.join(",", orbs), factor));
 						pos += colorcnt + 2;
 					}

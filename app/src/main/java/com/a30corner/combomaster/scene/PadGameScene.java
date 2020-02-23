@@ -90,6 +90,8 @@ import com.a30corner.combomaster.utils.RandomUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil;
 import com.a30corner.combomaster.utils.SimulatorConstants;
 
+import static com.a30corner.combomaster.pad.monster.ActiveSkill.SkillType.ST_RANDOM_CHANGE_FIX;
+
 public class PadGameScene extends PlaygroundGameScene implements
         IOnMenuItemClickListener {
 
@@ -1243,6 +1245,7 @@ public class PadGameScene extends PlaygroundGameScene implements
             }
             return true;
         }
+        case ST_RANDOM_CHANGE_FIX:
         case ST_RANDOM_CHANGE: {
             int[][] board = new int[PadBoardAI.ROWS][PadBoardAI.COLS];
             PadBoardAI.copy_board(gameBoard, board);
@@ -1262,11 +1265,13 @@ public class PadGameScene extends PlaygroundGameScene implements
             for (int i = 0; i < PadBoardAI.ROWS; ++i) {
                 for (int j = 0; j < PadBoardAI.COLS; ++j) {
                     boolean find = false;
-                    for (int k = 0; k < colorList.size(); ++k) {
-                        int color = colorList.get(k);
-                        if ((board[i][j]%10) == color) {
-                            find = true;
-                            break;
+                    if(type != ST_RANDOM_CHANGE_FIX) {
+                        for (int k = 0; k < colorList.size(); ++k) {
+                            int color = colorList.get(k);
+                            if ((board[i][j] % 10) == color) {
+                                find = true;
+                                break;
+                            }
                         }
                     }
                     if (!find) {
@@ -1712,11 +1717,14 @@ public class PadGameScene extends PlaygroundGameScene implements
         registerUpdateHandler(mCTWTimer);
     }
 
-    public void calcNullAwoken(boolean nullAwoken) {
-    	initMonsterData(nullAwoken);
+    public void calcNullAwoken(boolean nullAwoken, TeamInfo team) {
+    	initMonsterData(nullAwoken, team);
     }
     
-    private void initMonsterData(boolean nullAwoken) {
+    private void initMonsterData(boolean nullAwoken, TeamInfo team) {
+        if(team != null) {
+            mTeam = team;
+        }
         jammerDropCount = poisonDropCount = 0;
         if (mDropTime != 0) {
         	mDropTime = Constants.DEFAULT_SECOND;
@@ -1818,7 +1826,7 @@ public class PadGameScene extends PlaygroundGameScene implements
         init();
 
         // check monster's skill with hand ( +0.5s )
-        initMonsterData(mNullAwoken);
+        initMonsterData(mNullAwoken, null);
 
         HandlerThread ht = new HandlerThread("ht");
         ht.start();
@@ -2160,7 +2168,7 @@ public class PadGameScene extends PlaygroundGameScene implements
 			} else if(indexY>=PadBoardAI.COLS) {
 				indexY = PadBoardAI.COLS-1;
 				specialCase = true;
-			} 
+			}
 			if (x<0) {
 				indexX = 0;
 				specialCase = true;
@@ -2208,7 +2216,7 @@ public class PadGameScene extends PlaygroundGameScene implements
 				 if (Math.abs(indexX - currentX) >= 2 || Math.abs(indexY - currentY) >= 2) {
 	                	// find closest and swap it
 	                	int oriX = indexX, oriY = indexY;
-	                	
+
 	                	int tempX = indexX - currentX;
 	                	int tempY = indexY - currentY;
 	                	if(tempX != 0) {
@@ -2217,7 +2225,7 @@ public class PadGameScene extends PlaygroundGameScene implements
 	                	if(tempY != 0) {
 	                		oriY = currentY + (tempY / Math.abs(tempY));
 	                	}
-	                	
+
 	                	if(PadBoardAI.isValid(oriX, oriY)) {
 	                		indexX = oriX;
 	                		indexY = oriY;

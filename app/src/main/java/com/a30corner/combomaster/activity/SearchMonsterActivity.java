@@ -149,14 +149,14 @@ public class SearchMonsterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.layout_search_monster);
-		mListView = (ListView) findViewById(android.R.id.list);
+		mListView = findViewById(android.R.id.list);
 		mAdapter = new MonsterAdapter(SearchMonsterActivity.this);
 		mListView.setAdapter(mAdapter);
 		
 		rare = getIntent().getIntExtra("rare", 1);
 		needLv = getIntent().getBooleanExtra("needLv", false);
 		
-		Button filter = (Button) findViewById(R.id.filter);
+		Button filter = findViewById(R.id.filter);
 		filter.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -262,11 +262,11 @@ public class SearchMonsterActivity extends Activity {
             View view = inflater.inflate(
                     R.layout.list_item_monster_list, parent, false);
             ViewHolder holder = new ViewHolder();
-            holder.images[0] = (ImageView) view.findViewById(R.id.monster01);
-            holder.images[1] = (ImageView) view.findViewById(R.id.monster02);
-            holder.images[2] = (ImageView) view.findViewById(R.id.monster03);
-            holder.images[3] = (ImageView) view.findViewById(R.id.monster04);
-            holder.images[4] = (ImageView) view.findViewById(R.id.monster05);
+            holder.images[0] = view.findViewById(R.id.monster01);
+            holder.images[1] = view.findViewById(R.id.monster02);
+            holder.images[2] = view.findViewById(R.id.monster03);
+            holder.images[3] = view.findViewById(R.id.monster04);
+            holder.images[4] = view.findViewById(R.id.monster05);
             view.setTag(holder);
 			return view;
 		}

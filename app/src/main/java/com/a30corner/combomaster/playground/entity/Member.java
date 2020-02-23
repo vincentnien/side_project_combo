@@ -1,18 +1,5 @@
 package com.a30corner.combomaster.playground.entity;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.andengine.entity.modifier.MoveYModifier;
-import org.andengine.entity.sprite.Sprite;
-import org.andengine.entity.text.Text;
-import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import android.widget.Toast;
 
 import com.a30corner.combomaster.manager.ResourceManager;
@@ -24,9 +11,21 @@ import com.a30corner.combomaster.playground.IEnvironment;
 import com.a30corner.combomaster.playground.ISkillCallback;
 import com.a30corner.combomaster.playground.effect.Jump;
 import com.a30corner.combomaster.texturepacker.SimulateAssets;
-import com.a30corner.combomaster.utils.Constants;
-import com.a30corner.combomaster.utils.LogUtil;
 import com.a30corner.combomaster.utils.RandomUtil;
+
+import org.andengine.entity.modifier.MoveYModifier;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
+import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class Member extends Entity {
 

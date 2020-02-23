@@ -99,6 +99,10 @@
             android:configChanges="orientation|keyboard|keyboardHidden"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.MonsterBoxList" />
+        <activity android:name=".activity.NewMonsterBoxActivity" />
+        <activity android:name=".activity.TeamActivity" />
+        <activity android:name=".activity.QuickSetupActivity" />
 
         <provider
             android:name=".provider.ComboMasterProvider"

@@ -51,9 +51,9 @@ public class SettingsFragmentActivity extends FragmentActivity {
 
 		final FragmentPagerAdapter adapter = new SettingsAdapter(
 				SettingsFragmentActivity.this, getSupportFragmentManager());
-		pager = (ViewPager) findViewById(R.id.pager);
+		pager = findViewById(R.id.pager);
 		pager.setAdapter(adapter);
-		indicator = (TabPageIndicator) findViewById(R.id.indicator);
+		indicator = findViewById(R.id.indicator);
 		indicator.setViewPager(pager);
 		indicator.setOnPageChangeListener(new OnPageChangeListener() {
 

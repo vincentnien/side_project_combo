@@ -157,6 +157,7 @@
     <string name="as_random_change_restrict" formatted="false">随机%d颗珠子（除了%s珠）变为%s.</string>
     <string name="as_time_extend" formatted="false">%d回合内,宝珠移动时间延长%.1f秒.</string>
     <string name="as_drop_rate" formatted="false">%d回合内，%s宝珠掉落率提高%d%%</string>
+    <string name="as_drop_lock" formatted="false">%d回合內，%s宝珠将以锁定状态掉落</string>
     <string name="as_target_random" formatted="false">%s随机变成%s</string>
 	<string name="as_power_up_by_awoken" formatted="false">%d回合内,所有宠物攻击力根据队伍内的觉醒技能[%s]而有所提升,每一个提升%d%%。</string>
     <string name="as_bind_recover" formatted="false">绑定状态解除%d回合.</string>
@@ -356,4 +357,8 @@
     <string name="ls_color_direct_attack" formatted="false">%s中,其中%d种同时攻击时, 追加%d点固定伤害。 </string>
     <string name="ls_multi_direct_attack" formatted="false">当消除%d粒%s宝珠或以上时(需连着）, 追加%d点固定伤害。 </string>
     <string name="as_reduce_eliminate_status" formatted="false">无法消除宝珠状态减少%d回合。 </string>
+    <string name="use_original_tab_style">使用原始Tab样式（需要重新启动应用程序）</string>
+    <string name="use_original_tab_style2">使用原始Tab样式</string>
+
+    <string name="as_hen_shin" formatted="false">变身成为No.%d</string>
 </resources>

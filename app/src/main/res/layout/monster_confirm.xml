@@ -443,6 +443,16 @@
 				android:layout_width="@dimen/awoken_size"
 				android:layout_height="@dimen/awoken_size"
 				/>
+			<ImageView
+				android:id="@+id/p_awoken_skill7"
+				android:layout_width="@dimen/awoken_size"
+				android:layout_height="@dimen/awoken_size"
+				/>
+			<ImageView
+				android:id="@+id/p_awoken_skill8"
+				android:layout_width="@dimen/awoken_size"
+				android:layout_height="@dimen/awoken_size"
+				/>
 	   </LinearLayout>
 
 		<LinearLayout

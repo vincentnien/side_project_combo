@@ -117,6 +117,8 @@ import com.a30corner.combomaster.utils.RealPathUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil;
 import com.a30corner.combomaster.utils.SharedPreferenceUtil.Skill;
 
+import static com.a30corner.combomaster.pad.monster.ActiveSkill.SkillType.ST_RANDOM_CHANGE_FIX;
+
 public class CalculatorGame7x6Scene extends BaseMenuScene implements
 		IOnMenuItemClickListener {
 
@@ -1325,6 +1327,7 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
             }
 		    break;
 		}
+		case ST_RANDOM_CHANGE_FIX:
 		case ST_RANDOM_CHANGE: {
 			if (mCurrentState == GameState.GAME_END) {
 				setGameBoard(PadBoardAI7x6.generateBoardWithPlus(mDropType, false, mPlusOrbCount),
@@ -1354,11 +1357,13 @@ public class CalculatorGame7x6Scene extends BaseMenuScene implements
 			for (int i = 0; i < PadBoardAI7x6.ROWS; ++i) {
 				for (int j = 0; j < PadBoardAI7x6.COLS; ++j) {
 					boolean find = false;
-					for (int k = 0; k < colorList.size(); ++k) {
-						int color = colorList.get(k);
-						if (board[i][j] == color || board[i][j] == (color + 10)) {
-							find = true;
-							break;
+					if(type != ST_RANDOM_CHANGE_FIX) {
+						for (int k = 0; k < colorList.size(); ++k) {
+							int color = colorList.get(k);
+							if (board[i][j] == color || board[i][j] == (color + 10)) {
+								find = true;
+								break;
+							}
 						}
 					}
 					if (!find) {

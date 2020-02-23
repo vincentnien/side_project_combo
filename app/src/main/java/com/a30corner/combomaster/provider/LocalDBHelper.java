@@ -312,7 +312,7 @@ public class LocalDBHelper {
 					MonsterVO mvo = MonsterVO.fromCursor(cursor);
 					
 					MonsterInfo info = MonsterInfo.create(mdo.index, mdo.no, 
-					        mdo.lv, mdo.egg1, mdo.egg2, mdo.egg3, mdo.awoken, mdo.potentialList, mdo.super_awoken, mvo);
+					        mdo.lv, mdo.egg1, mdo.egg2, mdo.egg3, mdo.awoken, mdo.potentialList, mdo.super_awoken, mvo, mdo.active2);
 					data.add(info);
 				}
 			} finally {
@@ -340,7 +340,7 @@ public class LocalDBHelper {
 	                MonsterVO mvo = MonsterVO.fromCursor(cursor);
 
                     MonsterInfo info = MonsterInfo.create(mdo.index, mdo.no,
-                            mdo.lv, mdo.egg1, mdo.egg2, mdo.egg3, mdo.awoken, mdo.potentialList, mdo.super_awoken, mvo);
+                            mdo.lv, mdo.egg1, mdo.egg2, mdo.egg3, mdo.awoken, mdo.potentialList, mdo.super_awoken, mvo, mdo.active2);
                     data.set(mdo.index, info);
 				}
 			} finally {

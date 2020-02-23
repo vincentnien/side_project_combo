@@ -199,7 +199,8 @@ public class PadEnvironment implements IEnvironment {
     		    LeaderSkillType type = s.getType();
     			if(type == LeaderSkillType.LST_ATTACK ||
                     type == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK ||
-                        type == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ) {
+                        type == LeaderSkillType.LST_COLOR_DIRECT_ATTACK  ||
+                        type == LeaderSkillType.LST_TARGET_ORB_DIRECT_ATTACK) {
     				return true;
     			}
     		}
@@ -507,7 +508,8 @@ public class PadEnvironment implements IEnvironment {
                     if(leader != null && !getMember(0).isBinded()) {
                         for(LeaderSkill s : leader.getLeaderSkill()) {
                             if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
-                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK ||
+                            s.getType() == LeaderSkillType.LST_TARGET_ORB_DIRECT_ATTACK) {
                                 double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, leader, getScene().getMatches(), null, false, true);
                                 if(factor > 1.0) {
                                     heartArrow += factor;
@@ -518,7 +520,8 @@ public class PadEnvironment implements IEnvironment {
                     if(friend != null && !getMember(5).isBinded()) {
                         for(LeaderSkill s : friend.getLeaderSkill()) {
                             if (s.getType() == LeaderSkillType.LST_COLOR_DIRECT_ATTACK ||
-                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK) {
+                                    s.getType() == LeaderSkillType.LST_MULTI_ORB_DIRECT_ATTACK ||
+                                    s.getType() == LeaderSkillType.LST_TARGET_ORB_DIRECT_ATTACK) {
                                 double factor = DamageCalculator.getLeaderFactor(mTeamData.team(), s, friend, getScene().getMatches(), null, false, true);
                                 if(factor > 1.0) {
                                     heartArrow += factor;
@@ -2647,9 +2650,9 @@ public class PadEnvironment implements IEnvironment {
         PlaygroundGameScene scene = mSceneRef.get();
 
         if(scene instanceof PadGameScene) {
-            ((PadGameScene)scene).calcNullAwoken(nilAwoken);
+            ((PadGameScene)scene).calcNullAwoken(nilAwoken, mTeamData.team());
         } else {
-            ((PadGameScene7x6)scene).calcNullAwoken(nilAwoken);
+            ((PadGameScene7x6)scene).calcNullAwoken(nilAwoken, mTeamData.team());
         }
     }
     
@@ -2732,7 +2735,7 @@ public class PadEnvironment implements IEnvironment {
     }
     
     @Override
-    public void fireSkill(Member caster, ActiveSkill skill, final ICastCallback callback) {
+    public void fireSkill(final Member caster, final ActiveSkill skill, final ICastCallback callback) {
         boolean casted = getScene().skillFired(skill, callback, caster == null);
         if (!casted) { // damage skill will not cast, handle here
             if(caster == null && skill.getType() == ActiveSkill.SkillType.ST_SUPER_DARK) {
@@ -2757,6 +2760,64 @@ public class PadEnvironment implements IEnvironment {
                     int hp = mTeamData.getRealHp() * data.get(2) / 100;
                     mTeamData.setMaxHp(hp);
                 }
+            } else if (skill.getType() == ActiveSkill.SkillType.ST_HEN_SHIN) {
+
+                SkillDispatcher.fire(this, caster, skill, new ICastCallback() {
+
+                    @Override
+                    public void onCastFinish(boolean casted) {
+                        callback.onCastFinish(true);
+                        // check all enemies dead or not
+
+                        mSceneRef.get().engine.runOnUpdateThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                checkEnemyState();
+                            }
+                        });
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        for(int i=0; i<6; ++i) {
+                            if (caster != null && mMemberList[i] == caster) {
+                                mTeamData.henshin(i, skill.getData().get(0));
+
+                                ResourceManager res = ResourceManager.getInstance();
+                                VertexBufferObjectManager vbom = getScene().vbom;
+                                ITextureRegion region = null;
+                                MonsterInfo info = mTeamData.getMember(i);
+                                LogUtil.d("load data", info.getNo());
+                                try {
+                                    region = res.loadTextureFile(info.getNo() + "i.png");
+                                } catch (Throwable e) {
+                                    LogUtil.e(e);
+                                }
+                                if (region != null) {
+                                    float mx = mMemberList[i].sprite.getX();
+                                    float my = mMemberList[i].sprite.getY();
+                                    Member member = new Member(PadEnvironment.this, info);
+                                    member.init(mx, my, region, vbom);
+                                    PlaygroundGameScene scene = getScene();
+                                    scene.unregisterTouchArea(mMemberList[i].sprite);
+                                    scene.detachChild(mMemberList[i].sprite);
+                                    scene.attachChild(member.sprite);
+                                    scene.registerTouchArea(member.sprite);
+
+                                    mMemberList[i] = member;
+                                }
+                                break;
+                            }
+                        }
+                        calcNullAwoken();
+                        setCurrentHp(mTeamData.getCurrentHp(), false);
+                    }
+                });
+
+                return ;
             }
             SkillDispatcher.fire(this, caster, skill, new ICastCallback() {
 

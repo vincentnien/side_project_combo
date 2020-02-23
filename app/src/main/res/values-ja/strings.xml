@@ -188,6 +188,7 @@
     <string name="as_time_extend" formatted="false">%dターンの間、ドロップ移動可能時間が延びる(%.1f秒).</string>
     <string name="as_move_time_x" formatted="false">%dターンの間、ドロップ移動可能時間が延びる(%.1f倍).</string>
     <string name="as_drop_rate" formatted="false">%dターンの間、%sドロップが少し落ちやすくなる(約%d％増)</string>
+    <string name="as_drop_lock" formatted="false">%dターンの間、%sドロップがロック状態で落ちてくる。</string>
     <string name="as_target_random" formatted="false">%sランダムで%sドロップに変化</string>
 	<string name="as_power_up_by_awoken" formatted="false">%dターンの間、チーム内の[%s]の覚醒数に応じて攻撃力が上昇。(倍率は覚醒数×%d%%)</string>
 	<string name="as_add_combo" formatted="false">%dターンの間、%dコンボ加算される。</string>
@@ -392,4 +393,8 @@
     <string name="ls_color_direct_attack" formatted="false">%sドロップの中から、%d種類を消した同時攻撃で、固定%dダメージ。</string>
     <string name="ls_multi_direct_attack" formatted="false">%d個%sドロップをつなげて消すと固定%dダメージ。</string>
     <string name="as_reduce_eliminate_status" formatted="false">消せないドロップ状態を%dターン回復。</string>
+    <string name="use_original_tab_style">元のタブスタイルを使用（アプリを再起動する必要があります）</string>
+    <string name="use_original_tab_style2">元のタブスタイルを使用</string>
+
+    <string name="as_hen_shin" formatted="false">No.%dに変換</string>
 </resources>

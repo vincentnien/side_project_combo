@@ -13,7 +13,7 @@ public class ComboMasterProvider extends AbstractProvider {
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
 	public static final String DB_NAME = "cm.db";
-	protected static final int DB_VERSION = 9;
+	protected static final int DB_VERSION = 11;
 
 
 	@Override

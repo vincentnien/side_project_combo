@@ -26,7 +26,7 @@ public class TableMonster extends AbstractTable {
 		addColumn(Columns.RCV, "INTEGER");
 		addColumn(Columns.AWOKEN, "INTEGER");
 		addColumn(Columns.MAX_AWOKEN, "INTEGER");
-		for(int i=1; i<7; ++i) {
+		for(int i=1; i<10; ++i) {
 			addColumn(Columns.MAWOKEN +i, "INTEGER DEFAULT(-1)");
 		}
 		addColumn(Columns.SKILL2, "INTEGER DEFAULT(-1)");

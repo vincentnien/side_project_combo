@@ -52,6 +52,16 @@
             android:layout_height="wrap_content"
             android:src="@drawable/mawoken_bg"
             />
+        <ImageButton android:id="@+id/maws_07"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
+        <ImageButton android:id="@+id/maws_08"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mawoken_bg"
+            />
     </LinearLayout>
 
     <LinearLayout

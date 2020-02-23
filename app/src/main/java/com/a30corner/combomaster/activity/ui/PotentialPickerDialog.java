@@ -13,10 +13,11 @@ import com.a30corner.combomaster.pad.monster.MonsterSkill.MoneyAwokenSkill;
 public class PotentialPickerDialog extends Dialog {
 
 	private int MAX_POTENTIAL = R.drawable.mawoken33-R.drawable.mawoken01 + 1;
+	public static int MAX_ARRAY_SIZE = 8;
 
 	int counter = 0;
-	private MoneyAwokenSkill[] mSelection = new MoneyAwokenSkill[6];
-	private ImageButton[] mMAws = new ImageButton[6];
+	private MoneyAwokenSkill[] mSelection = new MoneyAwokenSkill[MAX_ARRAY_SIZE];
+	private ImageButton[] mMAws = new ImageButton[MAX_ARRAY_SIZE];
 	private DialogUtil.IPotentialCallback callback = null;
 	
 	public PotentialPickerDialog(Context context) {
@@ -24,7 +25,7 @@ public class PotentialPickerDialog extends Dialog {
 	}
 
 	public void setSkills(MoneyAwokenSkill[] list) {
-		for(int i=0; i<6; ++i) {
+		for(int i=0; i<MAX_ARRAY_SIZE; ++i) {
 			if ( list[i] != null  && list[i] != MoneyAwokenSkill.SKILL_NONE ) {
 				mSelection[i] = list[i];
 			} else {
@@ -46,11 +47,11 @@ public class PotentialPickerDialog extends Dialog {
 		public void onClick(View v) {
 			int id = v.getId() - R.id.skill_01;
 			if ( id >= 0 && id < MAX_POTENTIAL ) {
-				for(int i=0; i<6; ++i) {
+				for(int i=0; i<MAX_ARRAY_SIZE; ++i) {
 					if ( mSelection[i] == null ) {
 						MoneyAwokenSkill skill = MoneyAwokenSkill.get(id+1);
 						int add = (skill.ordinal()>=12)? 2:1;
-						if(add+counter<=6) {
+						if(add+counter<=MAX_ARRAY_SIZE) {
 							counter += add;
 							mSelection[i] = skill;
 							mMAws[i].setImageResource(R.drawable.mawoken01 + id);
@@ -67,7 +68,7 @@ public class PotentialPickerDialog extends Dialog {
 		@Override
 		public void onClick(View v) {
 			int id = v.getId() - R.id.maws_01;
-			if ( id>= 0 && id < 6 ) {
+			if ( id>= 0 && id < MAX_ARRAY_SIZE ) {
 				if ( mSelection[id] != null ) {
 					int sub = (mSelection[id].ordinal()>=12)? 2:1;
 					counter -= sub;
@@ -80,7 +81,7 @@ public class PotentialPickerDialog extends Dialog {
 	
 	private void initViews() {
 		counter = 0;
-		for(int i=0; i<6; ++i) {
+		for(int i=0; i<MAX_ARRAY_SIZE; ++i) {
 			ImageButton btn = (ImageButton) findViewById(R.id.maws_01+i);
 			btn.setOnClickListener(removeListener);
 			

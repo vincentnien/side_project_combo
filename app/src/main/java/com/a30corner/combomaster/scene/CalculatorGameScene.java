@@ -117,6 +117,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
+import static com.a30corner.combomaster.pad.monster.ActiveSkill.SkillType.ST_RANDOM_CHANGE_FIX;
+
 public class CalculatorGameScene extends BaseMenuScene implements
         IOnMenuItemClickListener {
 
@@ -1340,6 +1342,7 @@ public class CalculatorGameScene extends BaseMenuScene implements
             }
             break;
         }
+        case ST_RANDOM_CHANGE_FIX:
         case ST_RANDOM_CHANGE: {
             if (mCurrentState == GameState.GAME_END) {
                 setGameBoard(PadBoardAI.generateBoardWithPlus(mDropType, false,
@@ -1369,11 +1372,13 @@ public class CalculatorGameScene extends BaseMenuScene implements
             for (int i = 0; i < PadBoardAI.ROWS; ++i) {
                 for (int j = 0; j < PadBoardAI.COLS; ++j) {
                     boolean find = false;
-                    for (int k = 0; k < colorList.size(); ++k) {
-                        int color = colorList.get(k);
-                        if ((board[i][j]%10) == color) { //board[i][j] == color || 
-                            find = true;
-                            break;
+                    if(type != ST_RANDOM_CHANGE_FIX) {
+                        for (int k = 0; k < colorList.size(); ++k) {
+                            int color = colorList.get(k);
+                            if ((board[i][j] % 10) == color) { //board[i][j] == color ||
+                                find = true;
+                                break;
+                            }
                         }
                     }
                     if (!find) {

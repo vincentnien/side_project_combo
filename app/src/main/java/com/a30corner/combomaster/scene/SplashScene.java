@@ -110,7 +110,7 @@ public class SplashScene extends BaseMenuScene {
 				try {
 					mDialog.incrementProgressBy(1);
 					String line = getJsonData(f);
-//					Log.e("Vincent",  line);
+//					Log.e("ComboMaster",  line);
 					MonsterVO vo = gson.fromJson(line, type);
 //					Log.e("Vincent", "no=" + vo.getNo());
 					push.add(vo);

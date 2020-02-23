@@ -59,11 +59,26 @@
                     android:text="@string/str_leader"
                     android:textColor="@android:color/black" />
 
-                <ImageView
-                    android:id="@+id/leader1"
+                <RelativeLayout
                     android:layout_width="@dimen/image_size"
                     android:layout_height="@dimen/image_size"
-                    android:src="@drawable/i000" />
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/leader1"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:padding="1dp"
+                        android:src="@drawable/i000" />
+                    <ImageView
+                        android:id="@+id/assit1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/i000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
                 <TextView android:id="@+id/leader1_plus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,11 +100,27 @@
                     android:text="@string/str_friend_leader"
                     android:textColor="@android:color/black" />
 
-                <ImageView
-                    android:id="@+id/leader2"
+                <RelativeLayout
                     android:layout_width="@dimen/image_size"
                     android:layout_height="@dimen/image_size"
-                    android:src="@drawable/i000" />
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/leader2"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:padding="1dp"
+                        android:src="@drawable/i000" />
+                    <ImageView
+                        android:id="@+id/assit6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/i000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
                 <TextView android:id="@+id/leader2_plus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,12 +147,28 @@
 	            android:layout_height="wrap_content"
 	            android:gravity="center"
                 android:orientation="vertical" >
-            <ImageView
-                android:id="@+id/member1"
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
-                android:padding="3dp"
-                android:src="@drawable/i000" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/image_size"
+                    android:layout_height="@dimen/image_size"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/member1"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:padding="3dp"
+                        android:src="@drawable/i000" />
+                    <ImageView
+                        android:id="@+id/assit2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/i000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
             <TextView android:id="@+id/member1_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -132,12 +179,27 @@
             	android:layout_height="wrap_content"
             	android:gravity="center"
                 android:orientation="vertical" >
-            <ImageView
-                android:id="@+id/member2"
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
-                android:padding="3dp"
-                android:src="@drawable/i000" />
+                <RelativeLayout
+                    android:layout_width="@dimen/image_size"
+                    android:layout_height="@dimen/image_size"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/member2"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:padding="3dp"
+                        android:src="@drawable/i000" />
+                    <ImageView
+                        android:id="@+id/assit3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/i000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
             <TextView android:id="@+id/member2_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,12 +210,27 @@
 	            android:layout_height="wrap_content"
 	            android:gravity="center"
                 android:orientation="vertical" >
-            <ImageView
-                android:id="@+id/member3"
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
-                android:padding="3dp"
-                android:src="@drawable/i000" />
+                <RelativeLayout
+                    android:layout_width="@dimen/image_size"
+                    android:layout_height="@dimen/image_size"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/member3"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:padding="3dp"
+                        android:src="@drawable/i000" />
+                    <ImageView
+                        android:id="@+id/assit4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/i000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
             <TextView android:id="@+id/member3_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -164,12 +241,27 @@
 	            android:layout_height="wrap_content"
 	            android:gravity="center"
                 android:orientation="vertical" >
-            <ImageView
-                android:id="@+id/member4"
-                android:layout_width="@dimen/image_size"
-                android:layout_height="@dimen/image_size"
-                android:padding="3dp"
-                android:src="@drawable/i000" />
+                <RelativeLayout
+                    android:layout_width="@dimen/image_size"
+                    android:layout_height="@dimen/image_size"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:id="@+id/member4"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:padding="3dp"
+                        android:src="@drawable/i000" />
+                    <ImageView
+                        android:id="@+id/assit5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/i000"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
             <TextView android:id="@+id/member4_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

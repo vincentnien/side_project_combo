@@ -11,8 +11,8 @@ public class Constants {
 
 	public static final float SECOND_DROP = 0.55f;
 	public static final float SECOND_REMOVE = 0.45f;
-	public static final float SECOND_SWAP = 0.05f;
-	public static final float SECOND_COMBO = SECOND_REMOVE / 2f;
+	public static final float SECOND_SWAP = 0.04f;
+	//public static final float SECOND_COMBO = SECOND_REMOVE / 2f;
 
 	public static final float SECOND_DROP_7x6 = 0.55f;
 	public static final float SECOND_DROP_5x4 = 0.55f;
@@ -41,7 +41,7 @@ public class Constants {
 	public static final int MODE_CHALLENGE = 1;
 	public static final int MODE_SPECIAL = 2;
 	
-	public static final String REPORT_URL = "https://www.facebook.com/pages/%E8%BD%89%E7%8F%A0%E5%A4%A7%E5%B8%AB%E7%A4%BE%E7%BE%A4/835302989824803";
+	//public static final String REPORT_URL = "https://www.facebook.com/pages/%E8%BD%89%E7%8F%A0%E5%A4%A7%E5%B8%AB%E7%A4%BE%E7%BE%A4/835302989824803";
 	public static final String TUTORIAL_URL = "https://slides.com/vincentsh/team_tutorial#/";
 
 	public static final String SK_SKILL_LOCK = "skillLocked";
@@ -50,7 +50,7 @@ public class Constants {
 	public static final String SK_TIME_CHANGE = "timeChange";
 	public static final String SK_TIME_CHANGE_X = "timeChangeX";
 	public static final String SK_POWER_UP = "powerUp";
-	public static final String SK_LEADER_SWITCH = "leaderSwith";
+	//public static final String SK_LEADER_SWITCH = "leaderSwith";
 	public static final String SK_SHIELD = "shield";
 	public static final String SK_REDUCE_DEF = "reduceDef";
 	public static final String SK_COUNTER_ATTACK = "counterAttack";

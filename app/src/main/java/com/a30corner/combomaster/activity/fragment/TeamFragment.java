@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Pair;
 import android.util.SparseArray;
@@ -57,6 +58,7 @@ public class TeamFragment extends CMBaseFragment {
 	private List<ImageView> mAwokenImage = new ArrayList<ImageView>();
 	private List<TextView> mPotentialCnt = new ArrayList<TextView>();
 	private List<ImageView> mPotentialImage = new ArrayList<ImageView>();
+	private List<ImageView> mAssits = new ArrayList<ImageView>();
 	private List<View> mAwokenLine = new ArrayList<View>();
 	private List<View> mPotentialLine = new ArrayList<View>();
 	private TextView mTvHP;
@@ -192,6 +194,9 @@ public class TeamFragment extends CMBaseFragment {
 			TextView tv = view.findViewById(TEXT_ID[i]);
 			m297.add(tv);
 		}
+		for(int i=0; i<6; ++i) {
+			mAssits.add((ImageView) view.findViewById(R.id.assit1+i));
+		}
 		
 		for (int i = 0; i < TV_POWERID.length; ++i) {
 			TextView tv = view.findViewById(TV_POWERID[i]);
@@ -294,8 +299,12 @@ public class TeamFragment extends CMBaseFragment {
 
 	private void loadTeamInfo() {
 		LogUtil.d("load Team info");
-		mTeam = ComboMasterApplication.getsInstance().getTeam(mCurrentTeam, Constants.MODE_NORMAL);
-		updateTeam();
+		try {
+			mTeam = ComboMasterApplication.getsInstance().getTeam(mCurrentTeam, Constants.MODE_NORMAL);
+			updateTeam();
+		} catch (Throwable t) {
+			LogUtil.e(t.toString());
+		}
 	}
 
 	private void updateTeam() {
@@ -341,7 +350,16 @@ public class TeamFragment extends CMBaseFragment {
 						return false;
 					}
 				});
-				
+				ImageView img = mAssits.get(i);
+				if(info.getAssistantNo() != 0) {
+					File file = new File(ctx.getFilesDir(), info.getAssistantNo() + "i.png");
+					if(file.exists()) {
+						img.setImageURI(Uri.fromFile(file));
+						img.setVisibility(View.VISIBLE);
+					}
+				} else {
+					img.setVisibility(View.GONE);
+				}
 				TextView tv297 = m297.get(i);
 				int data = info.get297();
 				if ( data != 0 ) {

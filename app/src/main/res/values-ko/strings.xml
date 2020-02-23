@@ -365,4 +365,6 @@ pad.skyozora.com을 지원하고 있습니다. 다른 시뮬레이터 웹사이�
     <string name="use_skill">"Use"</string>
     <string name="wiki">http://www.pad.wikia.com/wiki/</string>
     <string name="yes">Yes</string>
+    <string name="use_original_tab_style">Use original tab style(need restart application)</string>
+    <string name="use_original_tab_style2">Use original tab style</string>
 </resources>

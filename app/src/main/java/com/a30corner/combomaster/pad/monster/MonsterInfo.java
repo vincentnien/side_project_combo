@@ -1,11 +1,6 @@
 package com.a30corner.combomaster.pad.monster;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 
 import com.a30corner.combomaster.ComboMasterApplication;
@@ -13,6 +8,10 @@ import com.a30corner.combomaster.pad.monster.MonsterSkill.AwokenSkill;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.MoneyAwokenSkill;
 import com.a30corner.combomaster.pad.monster.MonsterSkill.MonsterType;
 import com.a30corner.combomaster.provider.LocalDBHelper;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MonsterInfo {
 
@@ -26,6 +25,7 @@ public class MonsterInfo {
 	private int mAwoken;
 	private int mCd = 5;
 	private int mCd2 = 5;
+	private int mNo2 = 0;
 
 	private int mHpAdd, mAtkAdd, mRcvAdd;
 	private List<MoneyAwokenSkill> mPotentialList;
@@ -55,6 +55,13 @@ public class MonsterInfo {
 		info.mSuperAwoken = superAwoken;
 		return info;
 	}
+
+	public void henshin(Context context, int no) {
+		mMonsterVo = LocalDBHelper.getMonsterData(context, no);
+		mNo = no;
+		setAwoken(9);
+		mCd = mMonsterVo.slvmax;
+	}
 	
 	public List<ActiveSkill> getActiveSkill2() {
 		if(mMonsterVo2 != null) {
@@ -62,9 +69,16 @@ public class MonsterInfo {
 		}
 		return null;
 	}
+
+	public int getAssistantNo() {
+		if(mMonsterVo2 != null) {
+			return mMonsterVo2.getNo();
+		}
+		return mNo2;
+	}
 	
 	public static MonsterInfo create(int index, int no, int lv, int egg1,
-            int egg2, int egg3, int awoken, List<MoneyAwokenSkill> list, int super_awoken, MonsterVO vo) {
+            int egg2, int egg3, int awoken, List<MoneyAwokenSkill> list, int super_awoken, MonsterVO vo, int no2) {
 	    MonsterInfo info = new MonsterInfo(no, vo);
         info.setHpEgg(egg1);
         info.setAtkEgg(egg2);
@@ -74,11 +88,12 @@ public class MonsterInfo {
         info.setPotentialAwokenList(list);
         info.index = index;
 		info.mSuperAwoken = AwokenSkill.get(super_awoken);
+		info.mNo2 = no2;
         return info;
 	}
 	
 	public static MonsterInfo empty(int index) {
-	    return create(index, -1, 0, 0, 0, 0, 0, new ArrayList<MonsterSkill.MoneyAwokenSkill>(0), -1, MonsterVO.empty());
+	    return create(index, -1, 0, 0, 0, 0, 0, new ArrayList<MonsterSkill.MoneyAwokenSkill>(0), -1, MonsterVO.empty(), 0);
 	}
 
 	private void setHpEgg(int egg) {
@@ -299,20 +314,20 @@ public class MonsterInfo {
 		}
 		return count;
 	}
-	
-	public int getTargetAwokenCount(AwokenSkill skill, boolean isMultiMode) {
-		if (skill == null || ComboMasterApplication.getsInstance().isAwokenNulled()) {
-			return 0;
-		}
-		int count = 0;
-		List<AwokenSkill> list = getAwokenSkills(isMultiMode);//mMonsterVo.getAwokenList();
 
-		int size = list.size();
-		for (int i = 0; i < size; ++i) {
-			if (skill == list.get(i)) {
-				++count;
+		public int getTargetAwokenCount(AwokenSkill skill, boolean isMultiMode) {
+			if (skill == null || ComboMasterApplication.getsInstance().isAwokenNulled()) {
+				return 0;
 			}
-		}
+			int count = 0;
+			List<AwokenSkill> list = getAwokenSkills(isMultiMode);//mMonsterVo.getAwokenList();
+
+			int size = list.size();
+			for (int i = 0; i < size; ++i) {
+				if (skill == list.get(i)) {
+					++count;
+				}
+			}
 
 		return count;
 	}

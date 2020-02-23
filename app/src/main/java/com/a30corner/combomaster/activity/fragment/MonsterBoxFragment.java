@@ -80,6 +80,7 @@ public class MonsterBoxFragment extends CMBaseFragment {
 			TextView[] p297s = new TextView[5];
 			ImageView[] awokens = new ImageView[5];
 			ImageView[] mawokens = new ImageView[5];
+            ImageView[] assits = new ImageView[5];
 		}
 		
 		public MonsterAdapter(Context context) {
@@ -140,6 +141,8 @@ public class MonsterBoxFragment extends CMBaseFragment {
 			R.id.aws_count_03, R.id.aws_count_04, R.id.aws_count_05 };
 			final int[] maws = {R.id.maws_count_01, R.id.maws_count_02,
 					R.id.maws_count_03, R.id.maws_count_04, R.id.maws_count_05};
+            final int[] assit = {R.id.assit_01, R.id.assit_02, R.id.assit_03,
+                    R.id.assit_04, R.id.assit_05};
             ViewHolder holder = new ViewHolder();
             for(int i=0; i<5; ++i) {
             	holder.images[i] = view.findViewById(images[i]);
@@ -147,6 +150,7 @@ public class MonsterBoxFragment extends CMBaseFragment {
             	holder.p297s[i] = view.findViewById(p297[i]);
             	holder.awokens[i] = view.findViewById(aws[i]);
             	holder.mawokens[i] = view.findViewById(maws[i]);
+                holder.assits[i] = view.findViewById(assit[i]);
             }
             view.setTag(holder);
 			return view;
@@ -161,6 +165,7 @@ public class MonsterBoxFragment extends CMBaseFragment {
 				TextView p297 = holder.p297s[i];
 				ImageView awk = holder.awokens[i];
 				ImageView mawk = holder.mawokens[i];
+                ImageView assit = holder.assits[i];
 				
 				if ( data == null ) {
 					image.setVisibility(View.INVISIBLE);
@@ -169,6 +174,7 @@ public class MonsterBoxFragment extends CMBaseFragment {
 					p297.setText("");
 					awk.setVisibility(View.INVISIBLE);
 					mawk.setVisibility(View.INVISIBLE);
+                    assit.setVisibility(View.INVISIBLE);
 				} else {
 					if ( data.getNo() > 0 ) {
 						File file = new File(mCtx.getFilesDir(), String.format("%di.png", data.getNo()));
@@ -229,7 +235,15 @@ public class MonsterBoxFragment extends CMBaseFragment {
 						} else {
 							mawk.setVisibility(View.INVISIBLE);
 						}
-						
+                        if(data.getAssistantNo() > 0) {
+                            File f2 = new File(mCtx.getFilesDir(), String.format("%di.png", data.getAssistantNo()));
+                            if ( f2.exists() ) {
+                                assit.setImageURI(Uri.fromFile(f2));
+                            } else {
+                                assit.setImageResource(R.drawable.i000);
+                            }
+                            assit.setVisibility(View.VISIBLE);
+                        }
 						image.setOnLongClickListener(new OnLongClickListener() {
 							
 							@Override
@@ -253,6 +267,7 @@ public class MonsterBoxFragment extends CMBaseFragment {
 						p297.setText("");
 						awk.setVisibility(View.INVISIBLE);
 						mawk.setVisibility(View.INVISIBLE);
+                        assit.setVisibility(View.INVISIBLE);
 					}
 					image.setOnClickListener(new OnClickListener() {
                         
@@ -509,7 +524,7 @@ public class MonsterBoxFragment extends CMBaseFragment {
 			}
 		});
 		
-		Button btnSort = (Button) view.findViewById(R.id.btn_sort);
+		Button btnSort = view.findViewById(R.id.btn_sort);
 		btnSort.setOnClickListener(new OnClickListener() {
             
             @Override

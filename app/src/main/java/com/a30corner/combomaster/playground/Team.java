@@ -47,6 +47,10 @@ public class Team {
 		team.refresh(new boolean[]{false, false, false, false, false, false});
 	}
 
+	public void henshin(int i, int index) {
+		team.henshin(i, index, mBindStatus);
+	}
+
 	public int getRealHp() {
 		return team.getHp();
 	}
