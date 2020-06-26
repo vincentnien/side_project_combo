@@ -907,6 +907,10 @@ public class CalculatorGameScene extends BaseMenuScene implements
                         return DamageCalculator.getLSCombo(s);
                     }
                 }
+            } else if (s.getType() == LeaderSkillType.LST_TARGET_ORB_ADD_COMBO) {
+                if(DamageCalculator.isLSMatched(mTeam,s,m,mScoreBoard,null,true)) {
+                    return DamageCalculator.getLSCombo(s);
+                }
             }
         }
         return combos;

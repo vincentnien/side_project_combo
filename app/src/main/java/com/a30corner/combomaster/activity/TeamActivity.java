@@ -72,7 +72,7 @@ public class TeamActivity extends Activity {
         final int[] TV_POWERID = { R.id.tv_dark, R.id.tv_fire,
                 R.id.tv_recovery, R.id.tv_light, R.id.tv_water, R.id.tv_wood };
         final int[] AWOKEN_LINE = { R.id.aws_line_01, R.id.aws_line_02,
-                R.id.aws_line_03, R.id.aws_line_04 };
+                R.id.aws_line_03, R.id.aws_line_04, R.id.aws_line_05, R.id.aws_line_06 };
         final int[] POTENTIAL_LINE = {R.id.potential_line_01, R.id.potential_line_02};
 
         mTeamSpinner = findViewById(R.id.spinner_team);
@@ -215,7 +215,7 @@ public class TeamActivity extends Activity {
             }
         });
 
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < AWOKEN_LINE.length; ++i) {
             View line = findViewById(AWOKEN_LINE[i]);
             mAwokenLine.add(line);
             for (int j = 0; j < 7; ++j) {
@@ -464,7 +464,8 @@ public class TeamActivity extends Activity {
             mAwokenCnt.get(i).setVisibility(View.INVISIBLE);
             mAwokenImage.get(i).setVisibility(View.INVISIBLE);
         }
-        for (int i = 0; i < 4; ++i) {
+        int max = mAwokenLine.size();
+        for (int i = 0; i < max; ++i) {
             if (i < div) {
                 mAwokenLine.get(i).setVisibility(View.VISIBLE);
             } else {

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ComboMaster4_broken.iml" filepath="$PROJECT_DIR$/ComboMaster4_broken.iml" />
-      <module fileurl="file://$PROJECT_DIR$/andEngine/andEngine.iml" filepath="$PROJECT_DIR$/andEngine/andEngine.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ComboMaster4_broken.iml" filepath="$PROJECT_DIR$/ComboMaster4_broken.iml" group="ComboMaster4_broken" />
+      <module fileurl="file://$PROJECT_DIR$/andEngine/andEngine.iml" filepath="$PROJECT_DIR$/andEngine/andEngine.iml" group="ComboMaster4_broken/andEngine" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ComboMaster4_broken/app" />
     </modules>
   </component>
 </project>

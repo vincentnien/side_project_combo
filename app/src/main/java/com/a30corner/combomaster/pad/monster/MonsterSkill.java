@@ -307,9 +307,13 @@ public class MonsterSkill {
 				String orbs = "";
 				for(int i=1; i<size; i+=2) {
 					int up = data.get(i);
-					orbs += orbType[up];
-					if (i < size - 2) {
-						orbs += ",";
+					if(up == -1) {
+						orbs = context.getString(R.string.orb_any);
+					} else {
+						orbs += orbType[up];
+						if (i < size - 2) {
+							orbs += ",";
+						}
 					}
 				}
 				int turn = data.get(0);
@@ -714,6 +718,11 @@ public class MonsterSkill {
 
 				return context.getString(R.string.lst_attr_3, factor);
 			}
+				case LST_TARGET_ORB_ADD_COMBO: {
+					int factor = data.get(data.size()-1);
+
+					return context.getString(R.string.lst_attr_3, factor);
+				}
 			case LST_COUNTER_STRIKE: {
 				int percent = data.get(0);
 				int x = data.get(1);

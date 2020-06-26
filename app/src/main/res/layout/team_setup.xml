@@ -516,6 +516,14 @@
             layout="@layout/awoken_line" />
 
         <include
+            android:id="@+id/aws_line_05"
+            layout="@layout/awoken_line" />
+
+        <include
+            android:id="@+id/aws_line_06"
+            layout="@layout/awoken_line" />
+
+        <include
             android:id="@+id/potential_line_01"
             layout="@layout/awoken_line" />
         <include

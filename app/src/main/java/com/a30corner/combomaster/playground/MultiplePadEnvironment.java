@@ -382,7 +382,7 @@ public class MultiplePadEnvironment implements IEnvironment {
                 @SuppressWarnings("unchecked")
                 final Member caster = (Member) msg.obj;
                 final int skill = msg.arg2;
-                List<ActiveSkill> data = (skill==1)? caster.getActiveSkill():caster.getActiveSkill2();
+                final List<ActiveSkill> data = (skill==1)? caster.getActiveSkill():caster.getActiveSkill2();
                 final int index = msg.arg1;
 
                 if(data != null && index < data.size()) {
@@ -390,8 +390,10 @@ public class MultiplePadEnvironment implements IEnvironment {
                         
                         @Override
                         public void onCastFinish(boolean casted) {
-                            Message msg = Message.obtain(handler, MSG_FIRE_SKILL, index+1, skill, caster);
-                            sendMessageDelayed(msg, 300);
+                            if(index+1 < data.size()) {
+                                Message msg = Message.obtain(handler, MSG_FIRE_SKILL, index+1, skill, caster);
+                                sendMessageDelayed(msg, 300);
+                            }
                         }
                     });
                 } else {

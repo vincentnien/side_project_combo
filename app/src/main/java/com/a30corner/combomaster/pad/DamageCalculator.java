@@ -2272,6 +2272,50 @@ public class DamageCalculator {
 
 				return (totalCnt==colorcnt);
 			}
+			case LST_TARGET_ORB_ADD_COMBO:
+				int setCnt = data.get(0);
+				List<Pair<Integer, List<Integer>>> removeSet = new ArrayList<Pair<Integer, List<Integer>>>();
+				int pos = 1;
+				for (int i = 0; i < setCnt; ++i) {
+					List<Integer> set = new ArrayList<Integer>();
+					int orbCnt = data.get(pos);
+					for (int j = 1; j <= orbCnt; ++j) {
+						set.add(data.get(pos + j));
+					}
+					int factor = data.get(pos + orbCnt + 1);
+					removeSet.add(new Pair<Integer, List<Integer>>(factor, set));
+					pos += orbCnt + 2;
+				}
+				int maxFactor = 0;
+				for (Pair<Integer, List<Integer>> pair : removeSet) {
+					int[] counter = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+					for (Integer orb : pair.second) {
+						++counter[orb];
+					}
+
+					for (Match m : combos) {
+						if (m.type >= counter.length) { // should not happen, dead
+							// code..
+							continue;
+						}
+						--counter[m.type];
+					}
+					boolean leaderfired = true;
+					for (int i = 0; i < counter.length; ++i) {
+						if (counter[i] > 0) {
+							leaderfired = false;
+							break;
+						}
+					}
+					if (leaderfired) {
+						int factor = pair.first;
+						if (factor > maxFactor) {
+							maxFactor = factor;
+						}
+					}
+				}
+
+				return maxFactor > 0;
 		}
 		return false;
 	}
@@ -3114,7 +3158,9 @@ public class DamageCalculator {
 		List<Integer> data = ls.getData();
 		if(ls.getType() == LeaderSkillType.LST_COLOR_COMBO) {
 			return data.get(data.size()-2); // FIXME:
-		} else if(ls.getType() == LeaderSkillType.LST_COMBO_ATTACK) {
+		} else if(ls.getType() == LeaderSkillType.LST_COMBO_ATTACK && data.get(data.size()-2) == 3) { // is combo
+			return data.get(data.size()-1);
+		} else if(ls.getType() == LeaderSkillType.LST_TARGET_ORB_ADD_COMBO) {
 			return data.get(data.size()-1);
 		}
 		return 0;

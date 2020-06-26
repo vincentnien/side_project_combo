@@ -282,7 +282,7 @@ public class MonsterDetailActivity extends Activity {
 					} else {
 						break;
 					}
-				} while (++counter < 80);
+				} while (++counter < 200);
 				Toast.makeText(MonsterDetailActivity.this,
 						getString(R.string.no_such_id, no - counter),
 						Toast.LENGTH_SHORT).show();
@@ -299,7 +299,7 @@ public class MonsterDetailActivity extends Activity {
 					if (success) {
 						return;
 					}
-				} while (++counter < 80);
+				} while (++counter < 200);
 				Toast.makeText(MonsterDetailActivity.this,
 						getString(R.string.no_such_id, no + counter),
 						Toast.LENGTH_SHORT).show();

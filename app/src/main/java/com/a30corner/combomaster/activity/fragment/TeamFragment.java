@@ -85,7 +85,7 @@ public class TeamFragment extends CMBaseFragment {
 		final int[] TV_POWERID = { R.id.tv_dark, R.id.tv_fire,
 				R.id.tv_recovery, R.id.tv_light, R.id.tv_water, R.id.tv_wood };
 		final int[] AWOKEN_LINE = { R.id.aws_line_01, R.id.aws_line_02,
-				R.id.aws_line_03, R.id.aws_line_04 };
+				R.id.aws_line_03, R.id.aws_line_04, R.id.aws_line_05, R.id.aws_line_06 };
 		final int[] POTENTIAL_LINE = {R.id.potential_line_01, R.id.potential_line_02};
 
 		View view = inflater.inflate(R.layout.team_setup, null);
@@ -232,7 +232,7 @@ public class TeamFragment extends CMBaseFragment {
 			}
 		});
 
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < AWOKEN_LINE.length; ++i) {
 			View line = view.findViewById(AWOKEN_LINE[i]);
 			mAwokenLine.add(line);
 			for (int j = 0; j < 7; ++j) {
@@ -453,15 +453,17 @@ public class TeamFragment extends CMBaseFragment {
 		}
 		int count = 0;
 		for (Entry<AwokenSkill, Integer> entry : awokenMaps.entrySet()) {
-			TextView tv = mAwokenCnt.get(count);
-			ImageView iv = mAwokenImage.get(count);
+			if(mAwokenCnt.size() > count) {
+				TextView tv = mAwokenCnt.get(count);
+				ImageView iv = mAwokenImage.get(count);
 
-			tv.setText(entry.getValue() + "x");
-			tv.setVisibility(View.VISIBLE);
+				tv.setText(entry.getValue() + "x");
+				tv.setVisibility(View.VISIBLE);
 
-			iv.setImageResource(R.drawable.awokenskill01
-					+ entry.getKey().ordinal());
-			iv.setVisibility(View.VISIBLE);
+				iv.setImageResource(R.drawable.awokenskill01
+						+ entry.getKey().ordinal());
+				iv.setVisibility(View.VISIBLE);
+			}
 			++count;
 		}
 		
@@ -471,7 +473,8 @@ public class TeamFragment extends CMBaseFragment {
 			mAwokenCnt.get(i).setVisibility(View.INVISIBLE);
 			mAwokenImage.get(i).setVisibility(View.INVISIBLE);
 		}
-		for (int i = 0; i < 4; ++i) {
+		int max = mAwokenLine.size();
+		for (int i = 0; i < max; ++i) {
 			if (i < div) {
 				mAwokenLine.get(i).setVisibility(View.VISIBLE);
 			} else {
