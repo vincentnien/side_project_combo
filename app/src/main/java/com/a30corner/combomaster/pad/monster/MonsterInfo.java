@@ -213,7 +213,7 @@ public class MonsterInfo {
 			}
 		}
 		int hpDown = getTargetAwokenCount(AwokenSkill.HP_DOWN, isMultiMode);
-		total = total - 5000 * hpDown;
+		total = total - 2000 * hpDown;
 		return total>0 ? total:1;
 	}
 

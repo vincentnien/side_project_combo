@@ -110,12 +110,12 @@ public class SplashScene extends BaseMenuScene {
 				try {
 					mDialog.incrementProgressBy(1);
 					String line = getJsonData(f);
-//					Log.e("ComboMaster",  line);
+					Log.e("ComboMaster",  line);
 					MonsterVO vo = gson.fromJson(line, type);
-//					Log.e("Vincent", "no=" + vo.getNo());
+					Log.e("Vincent", "no=" + vo.getNo());
 					push.add(vo);
 
-					if ( push.size() >= 500 ) { //500
+					if ( push.size() >= 500 ) { //
 						// push data every 100s
 						LocalDBHelper.addMonsterData(activity, push);
 						LocalDBHelper.addMonsterSkill(activity, push);

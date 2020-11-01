@@ -398,4 +398,5 @@
     <string name="use_original_tab_style2">使用舊樣式</string>
 
     <string name="as_hen_shin" formatted="false">變身成為No.%d</string>
+    <string name="as_bind_skill" formatted="false">%d回合內，無法使用主動技能。</string>
 </resources>

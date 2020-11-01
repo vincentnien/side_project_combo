@@ -73,6 +73,10 @@ public class SkillDispatcher {
 			VoidVoidShield.onFire(env, owner, skill, callback);
 			return ;
 		}
+		case ST_BIND_SKILL: {
+			env.lockSkill(null, skill.getData().get(0), true, callback);
+			return ;
+		}
         case ST_LEADER_SWITCH:
         	LeaderSwitch.onFire(env, owner, skill, callback);
         	return ;

@@ -2986,8 +2986,8 @@ public class MultiplePadEnvironment implements IEnvironment {
     }
     
     @Override
-    public void lockSkill(Enemy enemy, final int turns, final ICastCallback callback) {
-    	Pair<Float, Float> center = enemy.center();
+    public void lockSkill(Enemy enemy, final int turns, final boolean skill, final ICastCallback callback) {
+    	Pair<Float, Float> center = (enemy != null)? enemy.center():new Pair<Float, Float>(0f, 0f);
         final IEntity bullet = mBulletPool.obtainPoolItem();
         
         bullet.setPosition(center.first, center.second);
@@ -3001,7 +3001,7 @@ public class MultiplePadEnvironment implements IEnvironment {
         	@Override
         	protected void onModifierFinished(IEntity pItem) {
         		boolean resisted = resistBadEffect(AwokenSkill.RESISTANCE_SKILL_LOCK);
-        		if(!resisted) { // mTeamData.isLockedSkill()
+        		if(skill || !resisted) { // mTeamData.isLockedSkill()
         			EnemySkill skill = EnemySkill.newSkill(EnemySkill.TYPE.BIND_SKILL, turns);
         			fireGlobalSkill(Constants.SK_SKILL_LOCK, skill, callback);
         			// TODO: show lock animation

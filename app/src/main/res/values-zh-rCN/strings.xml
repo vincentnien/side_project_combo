@@ -361,4 +361,5 @@
     <string name="use_original_tab_style2">使用原始Tab样式</string>
 
     <string name="as_hen_shin" formatted="false">变身成为No.%d</string>
+    <string name="as_bind_skill" formatted="false">%d回合内，无法使用主动技能。</string>
 </resources>

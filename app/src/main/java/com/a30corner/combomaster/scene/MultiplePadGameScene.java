@@ -659,8 +659,6 @@ public class MultiplePadGameScene extends PlaygroundGameScene implements
 							protected void onModifierFinished(IEntity pItem) {
 								pItem.setZIndex(0);
 							}
-
-							;
 						});
 			}
 

@@ -26,7 +26,7 @@ public class LockSkill extends EnemyAction {
 			
 			@Override
 			public void call() {
-				env.lockSkill(enemy, data.get(0), callback);
+				env.lockSkill(enemy, data.get(0), false, callback);
 			}
 		});
         

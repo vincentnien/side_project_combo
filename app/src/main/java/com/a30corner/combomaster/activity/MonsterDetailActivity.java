@@ -932,6 +932,7 @@ public class MonsterDetailActivity extends Activity {
 				loadImage();
 
 				List<AwokenSkill> awokens = data.getAwokenList();
+				int enhanceVoiceCount = 0;
 				int enhanceHpCount = 0;
 				int enhanceAtkCount = 0;
 				int enhanceHealCount = 0;
@@ -1025,6 +1026,8 @@ public class MonsterDetailActivity extends Activity {
 								++atkDownCount;
 							} else if (s == AwokenSkill.RCV_DOWN) {
 								++healDownCount;
+							} else if (s == AwokenSkill.SKILL_VOICE) {
+								++enhanceVoiceCount;
 							}
 						}
 					}
@@ -1105,9 +1108,9 @@ public class MonsterDetailActivity extends Activity {
 				int trcv = data.getRecovery(lv);
 				int thp = data.getHp(lv);
 
-				int patk = (int)(tatk * (enhanceAll * 0.02f + (enhancePotentialAtkCount) * 0.01f + epAtkCount * 0.03f));
-				int prcv = (int)(trcv * (enhanceAll * 0.2f + (enhancePotentialRcvCount) * 0.1f + epRcvCount * 0.3f));
-				int php = (int)(thp * (enhanceAll * 0.03f + (enhancePotentialHpCount) * 0.015f + epHpCount * 0.045f));
+				int patk = (int)(tatk * (enhanceVoiceCount * 0.1f + enhanceAll * 0.02f + (enhancePotentialAtkCount) * 0.01f + epAtkCount * 0.03f));
+				int prcv = (int)(trcv * (enhanceVoiceCount * 0.1f + enhanceAll * 0.2f + (enhancePotentialRcvCount) * 0.1f + epRcvCount * 0.3f));
+				int php = (int)(thp * (enhanceVoiceCount * 0.1f + enhanceAll * 0.03f + (enhancePotentialHpCount) * 0.015f + epHpCount * 0.045f));
 
 
 				atk = (tatk + (5 * atkp) + (enhanceAtkCount * 100)) + patk - atkDownCount * 1000;

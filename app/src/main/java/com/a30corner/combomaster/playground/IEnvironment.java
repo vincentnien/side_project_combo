@@ -22,7 +22,7 @@ public interface IEnvironment {
 
 	public void toastEnemyAction(EnemyAction action, Enemy enemy);
 	public void toastEnemyAction(EnemyAction action, Enemy enemy, Action0 todo);
-	public void lockSkill(Enemy enemy, int turns, ICastCallback callback);
+	public void lockSkill(Enemy enemy, int turns, boolean skill, ICastCallback callback);
 	public void bindPets(Enemy enemy, List<Pair<Integer, Integer>> bindList, ICastCallback callback);
 	public void executeLeaderSwitch(ActiveSkill skill, ICastCallback callback);
 	public Member getMember(int index);

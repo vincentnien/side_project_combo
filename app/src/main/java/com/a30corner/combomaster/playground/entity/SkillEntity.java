@@ -171,6 +171,11 @@ public class SkillEntity extends Entity {
 				id = SimulateAssets.DAMAGE_ZERO_ID;
 				break;
 			}
+//			case ST_BIND_SKILL:{
+//				turns = data.get(0);
+//				id = SimulateAssets.SKILL_LOCK_ID;
+//				break;
+//			}
 			case ST_ADD_COMBO:
 				turns = data.get(0);
 				int added = data.get(1);

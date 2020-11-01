@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -25,13 +26,13 @@ public class PadBoardStrategy implements IBoardStrategy {
 
 	private static final float[] HSV_DARK = { 300, 50, 75 };
 	private static final float[] HSV_JARMA = { 200, 41, 53 };
-	private static final float[] HSV_WATER = { 200, 78, 97 };
+	private static final float[] HSV_WATER = { 205, 65, 90 };
 	private static final float[] HSV_POISON = { 245, 25, 50 };
 
 	private static final float[] HSV_DARK_JPG = { 300, 45, 75 };
-	private static final float[] HSV_JARMA_JPG = { 200, 41, 53 };
-	private static final float[] HSV_WATER_JPG = { 200, 78, 97 };
-	private static final float[] HSV_POISON_JPG = { 250, 25, 40 };
+	private static final float[] HSV_JARMA_JPG = { 200, 43, 52 };
+	private static final float[] HSV_WATER_JPG = { 205, 65, 90 };
+	private static final float[] HSV_POISON_JPG = { 250, 25, 50 };
 
 	private int row = 6;
 	private int col = 5;
@@ -53,7 +54,7 @@ public class PadBoardStrategy implements IBoardStrategy {
                 endX = (int)(rect.right / ratio);
                 endY = (int)(rect.bottom / ratio);
                 boolean isPng = filename.toLowerCase().endsWith(".png");
-                return analysis(screen, isPng);
+                return analysis(context, screen, isPng);
             } finally {
                 screen.recycle();
             }
@@ -96,13 +97,15 @@ public class PadBoardStrategy implements IBoardStrategy {
         return new int[]{88, 56, 26};
     }
     
-    private int[][] analysis(Bitmap screen, boolean isPng) {
+    private int[][] analysis(Context context, Bitmap screen, boolean isPng) {
         int width = endX - startX;
-        int height = endY - startY;
+//        int height = endY - startY;
+        int height = width * col / row;
         Bitmap crop = Bitmap.createBitmap(screen, startX, startY,
                 width, height);
         Bitmap small = BitmapUtil.getResizedBitmap(crop, col, row);
-
+//		BitmapUtil.saveBitmap(context, crop, "big" + (int) (Math.random()*1000) + ".jpg");
+//        BitmapUtil.saveBitmap(context, small, "small" + (int) (Math.random()*1000) + ".jpg");
         int onecellw = width / row;
         int onecellh = height / col;
         
@@ -125,29 +128,26 @@ public class PadBoardStrategy implements IBoardStrategy {
                 Color.colorToHSV(small.getPixel(j, i), hsv);
                 hue[j][i] = (isPng) ? hsv2type(hsv[0])
                         : hsv2type_jpg(hsv[0]);
-                if (hue[j][i] == 4 || hue[j][i] == 0) {
+                if (hue[j][i] == 0) {
+					float poison = (isPng) ? compare(hsv,
+							HSV_POISON) : compare(hsv,
+							HSV_POISON_JPG);
+					float dark = (isPng) ? compare(hsv, HSV_DARK)
+							: compare(hsv, HSV_DARK_JPG);
+					if (poison < dark) {
+						hue[j][i] = 6;
+					}
+				}
+                if (hue[j][i] == 4) {
                     // maybe it is JAMAR orb, check it again
                     float jarma = (isPng) ? compare(hsv, HSV_JARMA)
                             : compare(hsv, HSV_JARMA_JPG);
                     float water = (isPng) ? compare(hsv, HSV_WATER)
                             : compare(hsv, HSV_WATER_JPG);
-                    float poison = (isPng) ? compare(hsv,
-                            HSV_POISON) : compare(hsv,
-                            HSV_POISON_JPG);
-                    float min = min(jarma, water, poison);
-
-                    float dark = (isPng) ? compare(hsv, HSV_DARK)
-                            : compare(hsv, HSV_DARK_JPG);
-                    if (min > dark) {
-                        min = dark;
-                    }
+                    float min = min(jarma, water, 255f);
 
                     if (min == jarma) {
                         hue[j][i] = 7;
-                    } else if (min == poison) {
-                        hue[j][i] = 6;
-                    } else if (min == dark) {
-                        hue[j][i] = 0;
                     } else {
                         hue[j][i] = 4;
                     }
@@ -205,7 +205,7 @@ public class PadBoardStrategy implements IBoardStrategy {
 				
     			if (findBoundary(screen, realVkHeight)) {
     			    boolean isPng = filename.toLowerCase().endsWith(".png");
-    			    return analysis(screen, isPng);
+    			    return analysis(context, screen, isPng);
     			}
 			} finally {
 			    screen.recycle();
@@ -221,14 +221,17 @@ public class PadBoardStrategy implements IBoardStrategy {
 	}
 
 	private float compare(float[] hsv, float[] compare) {
-		float total = 0f;
-		float d = Math.abs(hsv[0] - compare[0]);
-		total += Math.sqrt(d * d);
-		for (int i = 1; i < 3; ++i) {
-			float diff = Math.abs(hsv[i] * 100f - compare[i]);
-			total += Math.sqrt(diff * diff);
-		}
-		return total / 3f;
+//		float total = 0f;
+//		float d = Math.abs(hsv[0] - compare[0]);
+//		total += Math.sqrt(d * d);
+//		for (int i = 1; i < 3; i+=2) {
+//			float diff = Math.abs(hsv[i] * 100f - compare[i]);
+//			total += Math.sqrt(diff * diff);
+//		}
+//		float diff = Math.abs(hsv[2] * 100f - compare[2]);
+//		total += Math.sqrt(diff * diff);
+//		return total / 3f;
+		return (Math.abs(hsv[2] * 100f - compare[2]));
 	}
 
 	@Override

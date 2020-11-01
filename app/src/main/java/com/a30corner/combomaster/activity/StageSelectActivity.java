@@ -129,6 +129,7 @@ public class StageSelectActivity extends Activity {
 			});
 			dialog.show();
 		} catch(Exception e) {
+			Toast.makeText(StageSelectActivity.this, e.toString(), Toast.LENGTH_LONG).show();
 		}
 		
 		final AtomicInteger counter = new AtomicInteger(size);

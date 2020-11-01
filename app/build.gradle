@@ -11,8 +11,8 @@ android {
         applicationId "com.a30corner.combomaster"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 287
-        versionName "5.3.7"
+        versionCode 295
+        versionName "5.6.2"
         multiDexEnabled true
     }
     signingConfigs {

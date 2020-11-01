@@ -237,6 +237,10 @@ public class MonsterSkill {
 				int id = data.get(0);
 				return context.getString(R.string.as_hen_shin, id);
 			}
+			case ST_BIND_SKILL: {
+				int turn = data.get(0);
+				return context.getString(R.string.as_bind_skill, turn);
+			}
 			case ST_RECOVER_LOCK_REMOVE: {
 				int turn = data.get(0);
 				return context.getString(R.string.as_reduce_eliminate_status, turn);
